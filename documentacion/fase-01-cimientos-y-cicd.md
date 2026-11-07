@@ -107,6 +107,11 @@ TOTAL                       144     17    88%
 - **Flutter analyze --fatal-infos:** `No issues found! (ran in 10.0s)`
 - **Drift build_runner:** `Built with build_runner/aot; wrote 16 outputs.`
 
+### Estado Verificado en GitHub Actions (Pipelines en Verde)
+- **Backend CI (`ci-backend.yml`):** ✅ `Lint & Strict Type Check` y `Pytest & Coverage (pgvector)` pasando al 100% en Ubuntu sobre contenedor vivo `pgvector/pgvector:pg16`.
+- **Mobile CI (`ci-mobile.yml`):** ✅ `Flutter Analyze & Test` pasando al 100% con Drift SQLite y tests de accesibilidad.
+- **Security & OpenAPI Contract Verification (`security-and-contracts.yml`):** ✅ `OpenAPI Contract Drift Check` (0 deriva de contrato) y `Secret & PHI Leak Scan` (Gitleaks con 0 filtraciones).
+
 ---
 
 ## 5. Secuencia de Commits Realizados
@@ -119,7 +124,10 @@ TOTAL                       144     17    88%
 | `2910531` | `feat(mobile-core): initialize Flutter app with Riverpod, Drift sync outbox, and accessible themes` | Inicialización de app Flutter, Riverpod, Drift SQLite con outbox de sincronización y temas WCAG AAA. |
 | `7466514` | `ci: add backend, mobile, OpenAPI contract, security, and release CD workflows` | Creación de 4 flujos en GitHub Actions (`ci-backend`, `ci-mobile`, `security-and-contracts`, `cd-release-template`). |
 | `79ac9d5` | `docs(plan): mark phase 01 tasks completed` | Actualización de casillas de verificación en `phase-01-foundation-and-cicd.md` y roadmap general. |
-| *Actual* | `docs(documentacion): add phase-01 completion report in documentacion/` | Bitácora oficial de cierre de la Fase 01 en `documentacion/` y actualización del índice principal. |
+| `ea33e5e` | `docs(documentacion): add phase-01 completion report in documentacion/` | Bitácora oficial de cierre de la Fase 01 en `documentacion/` y actualización del índice principal. |
+| `7eb10ae` | `fix(ci): create isolated virtualenv with uv on GitHub Actions runners` | Corrección de entorno virtual aislado con `uv venv` para runners de Ubuntu (PEP 668). |
+| `34f6436` | `fix(backend): harmonize test environment literals and CI environment variables` | Armonización del tipo literal `environment` en `Settings` con variables de entorno de prueba. |
+| `b12fb5d` | `fix(ci): remove extraneous app name and environment overrides in pytest step` | Limpieza de variables superfluas en paso de `pytest` para evitar deriva en título OpenAPI. |
 
 ---
 
