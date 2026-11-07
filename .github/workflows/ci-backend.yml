@@ -94,7 +94,7 @@ jobs:
       - name: Run Pytest with Coverage
         env:
           DATABASE_URL: postgresql+asyncpg://cora_user:cora_password@localhost:5432/cora_test
-          ENVIRONMENT: testing
-          API_V1_STR: /api/v1
-          PROJECT_NAME: Cora Clinical Backend
+          ENVIRONMENT: test
+          API_V1_PREFIX: /api/v1
+          APP_NAME: Cora Clinical Backend
         run: pytest --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=80

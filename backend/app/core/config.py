@@ -7,7 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Application settings and environment configuration."""
 
-    environment: Literal["development", "test", "production"] = "test"
+    environment: Literal["development", "test", "testing", "production"] = "test"
     app_name: str = "Cora Backend"
     app_version: str = "0.1.0"
     api_v1_prefix: str = "/api/v1"
