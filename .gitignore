@@ -1,0 +1,84 @@
+# =============================================================================
+# Cora Platform — Git Ignore Rules (Public Repository Security Guardrails)
+# =============================================================================
+
+# --- Secrets, Credentials & Medical Environment Configs (NEVER COMMIT) ---
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*service_account*.json
+*firebase-adminsdk*.json
+google-services.json
+GoogleService-Info.plist
+firebase_options.dart
+
+# --- Python / FastAPI Backend ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.uv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# --- Flutter / Dart Mobile ---
+mobile/.dart_tool/
+mobile/.packages
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/build/
+mobile/coverage/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/ios/Flutter/Flutter.framework
+mobile/ios/Flutter/Flutter.podspec
+mobile/ios/Flutter/Generated.xcconfig
+mobile/android/.gradle/
+mobile/android/captures/
+mobile/android/gradlew
+mobile/android/gradlew.bat
+mobile/android/local.properties
+mobile/android/key.properties
+*.iml
+*.ipr
+*.iws
+
+# --- Local Databases & Generated Clinical Reports ---
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+tmp_reports/
+generated_pdfs/
+
+# --- OS & Editor Metadata ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
