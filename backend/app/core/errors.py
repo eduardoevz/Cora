@@ -62,6 +62,30 @@ class DomainError(Exception):
         )
 
 
+class EntityNotFoundError(DomainError):
+    """Raised when an expected domain entity cannot be found."""
+
+    def __init__(self, entity: str, identifier: str) -> None:
+        super().__init__(
+            code="entity_not_found",
+            title="Recurso No Encontrado",
+            detail=f"{entity} con identificador '{identifier}' no fue encontrado.",
+            status_code=404,
+        )
+
+
+class ConflictError(DomainError):
+    """Raised when an operation conflicts with existing domain state."""
+
+    def __init__(self, entity: str, detail: str) -> None:
+        super().__init__(
+            code="conflict_error",
+            title="Conflicto de Estado",
+            detail=detail,
+            status_code=409,
+        )
+
+
 async def domain_error_handler(request: Request, exc: DomainError) -> JSONResponse:
     """Handle domain errors and serialize as RFC 7807 problem details."""
     problem = exc.to_problem_details()
