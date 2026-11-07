@@ -7,6 +7,7 @@
 .env.*
 !.env.example
 secrets/
+credenciales/
 *.pem
 *.key
 *.p12
