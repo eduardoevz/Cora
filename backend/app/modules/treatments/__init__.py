@@ -1,0 +1,1 @@
+"""Treatments bounded context."""
