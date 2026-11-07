@@ -16,6 +16,7 @@ class CreateTreatmentRegimenDTO:
     break_days: int | None = None
     interval_days: int | None = None
     replacement_date: str | None = None
+    instructions: str | None = None
     reminder_enabled: bool = True
     discreet_notification: bool = True
 
@@ -28,6 +29,7 @@ class LogDoseIntakeDTO:
     taken_at: str | None = None
     status: str = "taken"
     notes: str | None = None
+    client_mutation_id: str | None = None
 
 
 @dataclass(frozen=True)

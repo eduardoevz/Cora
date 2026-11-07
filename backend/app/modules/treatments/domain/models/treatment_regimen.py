@@ -30,6 +30,7 @@ class TreatmentRegimen:
     schedule: DosageSchedule
     start_date: date
     end_date: date | None = None
+    instructions: str | None = None
     reminder_enabled: bool = True
     discreet_notification: bool = True
     is_active: bool = True
@@ -46,6 +47,7 @@ class TreatmentRegimen:
         schedule: DosageSchedule,
         start_date: date,
         end_date: date | None = None,
+        instructions: str | None = None,
         reminder_enabled: bool = True,
         discreet_notification: bool = True,
         regimen_id: str | None = None,
@@ -60,6 +62,7 @@ class TreatmentRegimen:
             schedule=schedule,
             start_date=start_date,
             end_date=end_date,
+            instructions=instructions,
             reminder_enabled=reminder_enabled,
             discreet_notification=discreet_notification,
             is_active=True,
@@ -74,24 +77,28 @@ class DoseIntakeLog:
 
     id: str
     regimen_id: str
-    user_id: str
     scheduled_for: datetime
     taken_at: datetime | None = None
     status: IntakeStatus = IntakeStatus.TAKEN
     notes: str | None = None
+    client_mutation_id: str | None = None
+    user_id: str | None = None
     created_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
     @classmethod
     def create(
         cls,
         regimen_id: str,
-        user_id: str,
-        scheduled_for: datetime,
+        user_id: str | None = None,
+        scheduled_for: datetime | None = None,
         taken_at: datetime | None = None,
         status: IntakeStatus = IntakeStatus.TAKEN,
         notes: str | None = None,
+        client_mutation_id: str | None = None,
         intake_id: str | None = None,
     ) -> "DoseIntakeLog":
+        if scheduled_for is None:
+            scheduled_for = datetime.now(UTC)
         return cls(
             id=intake_id or str(uuid4()),
             regimen_id=regimen_id,
@@ -100,5 +107,6 @@ class DoseIntakeLog:
             taken_at=taken_at,
             status=status,
             notes=notes,
+            client_mutation_id=client_mutation_id,
             created_at=datetime.now(UTC),
         )

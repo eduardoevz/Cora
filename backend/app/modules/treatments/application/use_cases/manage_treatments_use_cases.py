@@ -12,12 +12,12 @@ from app.modules.treatments.domain.exceptions.treatment_exceptions import (
 )
 from app.modules.treatments.domain.models.treatment_regimen import (
     DoseIntakeLog,
-    IntakeStatus,
     TreatmentRegimen,
 )
 from app.modules.treatments.domain.services.adherence_and_missed_dose_service import (
     AdherenceAndMissedDoseService,
     AdherenceSummary,
+    IntakeAssessment,
 )
 from app.modules.treatments.domain.value_objects.dosage_schedule import (
     DosageSchedule,
@@ -60,6 +60,7 @@ class CreateTreatmentRegimenUseCase:
             schedule=schedule,
             start_date=start_date,
             end_date=end_date,
+            instructions=dto.instructions,
             reminder_enabled=dto.reminder_enabled,
             discreet_notification=dto.discreet_notification,
         )
@@ -70,8 +71,13 @@ class CreateTreatmentRegimenUseCase:
 class LogDoseIntakeUseCase:
     """Use case to record an individual medication intake event."""
 
-    def __init__(self, repository: ITreatmentRepository) -> None:
+    def __init__(
+        self,
+        repository: ITreatmentRepository,
+        service: AdherenceAndMissedDoseService | None = None,
+    ) -> None:
         self._repository = repository
+        self._service = service or AdherenceAndMissedDoseService()
 
     async def execute(
         self,
@@ -79,14 +85,19 @@ class LogDoseIntakeUseCase:
         regimen_id: str,
         dto: LogDoseIntakeDTO,
         intake_id: str | None = None,
-    ) -> DoseIntakeLog:
+    ) -> tuple[DoseIntakeLog, IntakeAssessment]:
         regimen = await self._repository.get_regimen_by_id(regimen_id)
         if regimen is None or regimen.user_id != user_id:
-            raise TreatmentRegimenNotFoundError()
+            raise TreatmentRegimenNotFoundError(regimen_id=regimen_id)
 
         scheduled_for = datetime.fromisoformat(dto.scheduled_for)
         taken_at = datetime.fromisoformat(dto.taken_at) if dto.taken_at else None
-        status = IntakeStatus(dto.status)
+
+        assessment = self._service.evaluate_intake(
+            regimen=regimen,
+            scheduled_for=scheduled_for,
+            taken_at=taken_at,
+        )
 
         intake = DoseIntakeLog.create(
             intake_id=intake_id,
@@ -94,11 +105,13 @@ class LogDoseIntakeUseCase:
             user_id=user_id,
             scheduled_for=scheduled_for,
             taken_at=taken_at,
-            status=status,
+            status=assessment.status,
             notes=dto.notes,
+            client_mutation_id=dto.client_mutation_id,
         )
 
-        return await self._repository.log_intake(intake)
+        saved = await self._repository.log_intake(intake)
+        return saved, assessment
 
 
 class GetTreatmentAdherenceUseCase:

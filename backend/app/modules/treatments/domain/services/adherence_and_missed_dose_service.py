@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from enum import StrEnum
 
 from app.modules.treatments.domain.models.treatment_regimen import (
@@ -61,12 +61,13 @@ class AdherenceAndMissedDoseService:
         regimen: TreatmentRegimen,
         scheduled_for: datetime,
         taken_at: datetime | None,
-        current_time: datetime,
+        current_time: datetime | None = None,
     ) -> IntakeAssessment:
+        ref_time = current_time or taken_at or datetime.now(UTC)
         if taken_at is not None:
             delay_seconds = (taken_at - scheduled_for).total_seconds()
         else:
-            delay_seconds = (current_time - scheduled_for).total_seconds()
+            delay_seconds = (ref_time - scheduled_for).total_seconds()
 
         delay_hours = max(0.0, delay_seconds / 3600.0)
 

@@ -48,11 +48,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api_router = APIRouter(prefix=current_settings.api_v1_prefix)
 
     # Bounded Context Routers
+    from app.modules.clinical_tracking.infrastructure.entrypoints.wellness_router import (  # noqa: E501
+        router as wellness_router,
+    )
     from app.modules.identity.infrastructure.entrypoints.router import (
         router as identity_router,
     )
+    from app.modules.treatments.infrastructure.entrypoints.treatment_router import (
+        router as treatment_router,
+    )
 
     api_router.include_router(identity_router)
+    api_router.include_router(wellness_router)
+    api_router.include_router(treatment_router)
 
     @api_router.get(
         "/health",

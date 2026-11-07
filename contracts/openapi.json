@@ -1,6 +1,271 @@
 {
   "components": {
     "schemas": {
+      "AdherenceSummaryResponse": {
+        "properties": {
+          "adherence_percentage": {
+            "title": "Adherence Percentage",
+            "type": "number"
+          },
+          "delayed_doses": {
+            "title": "Delayed Doses",
+            "type": "integer"
+          },
+          "missed_doses": {
+            "title": "Missed Doses",
+            "type": "integer"
+          },
+          "regimen_id": {
+            "format": "uuid",
+            "title": "Regimen Id",
+            "type": "string"
+          },
+          "scheduled_doses": {
+            "title": "Scheduled Doses",
+            "type": "integer"
+          },
+          "taken_doses": {
+            "title": "Taken Doses",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "regimen_id",
+          "scheduled_doses",
+          "taken_doses",
+          "delayed_doses",
+          "missed_doses",
+          "adherence_percentage"
+        ],
+        "title": "AdherenceSummaryResponse",
+        "type": "object"
+      },
+      "CreateTreatmentRegimenRequest": {
+        "properties": {
+          "active_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Days"
+          },
+          "break_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Break Days"
+          },
+          "category": {
+            "description": "contraceptive_oral_combined, contraceptive_progestin_only, patch, injectable, larc_iud_implant, hrt, supplement, chronic_medication",
+            "title": "Category",
+            "type": "string"
+          },
+          "dosage": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Dosage",
+            "type": "string"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instructions"
+          },
+          "interval_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval Days"
+          },
+          "name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "replacement_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Replacement Date"
+          },
+          "schedule_type": {
+            "description": "daily_fixed, cyclic_active_break, interval_days, long_acting_replacement",
+            "title": "Schedule Type",
+            "type": "string"
+          },
+          "scheduled_time": {
+            "pattern": "^\\d{2}:\\d{2}$",
+            "title": "Scheduled Time",
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "category",
+          "dosage",
+          "schedule_type",
+          "scheduled_time",
+          "start_date"
+        ],
+        "title": "CreateTreatmentRegimenRequest",
+        "type": "object"
+      },
+      "DailyWellnessLogResponse": {
+        "description": "API representation of consolidated daily wellness.",
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "energy_level": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Level"
+          },
+          "exercise_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exercise Minutes"
+          },
+          "hydration_ml": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hydration Ml"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "log_date": {
+            "format": "date",
+            "title": "Log Date",
+            "type": "string"
+          },
+          "mood_tags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Mood Tags",
+            "type": "array"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "sleep_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sleep Hours"
+          },
+          "sleep_quality": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sleep Quality"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "log_date",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "DailyWellnessLogResponse",
+        "type": "object"
+      },
       "DiagnosedCondition": {
         "description": "Pre-existing clinical conditions that calibrate cycle and health algorithms.",
         "enum": [
@@ -12,6 +277,82 @@
         ],
         "title": "DiagnosedCondition",
         "type": "string"
+      },
+      "DoseIntakeLogResponse": {
+        "properties": {
+          "assessment": {
+            "$ref": "#/components/schemas/IntakeAssessmentResponse"
+          },
+          "client_mutation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Mutation Id"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "regimen_id": {
+            "format": "uuid",
+            "title": "Regimen Id",
+            "type": "string"
+          },
+          "scheduled_for": {
+            "format": "date-time",
+            "title": "Scheduled For",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "taken_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Taken At"
+          }
+        },
+        "required": [
+          "id",
+          "regimen_id",
+          "scheduled_for",
+          "status",
+          "assessment",
+          "created_at"
+        ],
+        "title": "DoseIntakeLogResponse",
+        "type": "object"
       },
       "HTTPValidationError": {
         "properties": {
@@ -84,6 +425,68 @@
         "title": "HormonalMethod",
         "type": "string"
       },
+      "IntakeAssessmentResponse": {
+        "properties": {
+          "delay_hours": {
+            "title": "Delay Hours",
+            "type": "number"
+          },
+          "guidance_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Guidance Message"
+          },
+          "is_critical_missed_dose": {
+            "title": "Is Critical Missed Dose",
+            "type": "boolean"
+          },
+          "requires_backup_contraception": {
+            "title": "Requires Backup Contraception",
+            "type": "boolean"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "delay_hours",
+          "is_critical_missed_dose",
+          "requires_backup_contraception"
+        ],
+        "title": "IntakeAssessmentResponse",
+        "type": "object"
+      },
+      "LarcAlertResponse": {
+        "properties": {
+          "alert_level": {
+            "title": "Alert Level",
+            "type": "string"
+          },
+          "days_remaining": {
+            "title": "Days Remaining",
+            "type": "integer"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "alert_level",
+          "days_remaining",
+          "message"
+        ],
+        "title": "LarcAlertResponse",
+        "type": "object"
+      },
       "LifeStage": {
         "description": "Canonical 7 biological life stages of women in Cora.",
         "enum": [
@@ -140,6 +543,66 @@
           "occurred_at"
         ],
         "title": "LifeStageTransitionResponse",
+        "type": "object"
+      },
+      "LogDoseIntakeRequest": {
+        "properties": {
+          "client_mutation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Mutation Id"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "regimen_id": {
+            "format": "uuid",
+            "title": "Regimen Id",
+            "type": "string"
+          },
+          "scheduled_for": {
+            "format": "date-time",
+            "title": "Scheduled For",
+            "type": "string"
+          },
+          "status": {
+            "default": "taken",
+            "title": "Status",
+            "type": "string"
+          },
+          "taken_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Taken At"
+          }
+        },
+        "required": [
+          "regimen_id",
+          "scheduled_for"
+        ],
+        "title": "LogDoseIntakeRequest",
         "type": "object"
       },
       "OnboardingContextResponse": {
@@ -337,6 +800,142 @@
         "title": "TransitionReason",
         "type": "string"
       },
+      "TreatmentRegimenResponse": {
+        "properties": {
+          "active_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Days"
+          },
+          "break_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Break Days"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "dosage": {
+            "title": "Dosage",
+            "type": "string"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instructions"
+          },
+          "interval_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval Days"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "replacement_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Replacement Date"
+          },
+          "schedule_type": {
+            "title": "Schedule Type",
+            "type": "string"
+          },
+          "scheduled_time": {
+            "title": "Scheduled Time",
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "name",
+          "category",
+          "dosage",
+          "schedule_type",
+          "scheduled_time",
+          "start_date",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "TreatmentRegimenResponse",
+        "type": "object"
+      },
       "UpdateModulePreferencesRequest": {
         "description": "Payload to update modularity preferences (Modularidad a la Carta).",
         "properties": {
@@ -360,6 +959,103 @@
           "enabled_modules"
         ],
         "title": "UpdateModulePreferencesRequest",
+        "type": "object"
+      },
+      "UpsertDailyWellnessRequest": {
+        "description": "Payload for partial or full daily wellness logging.",
+        "properties": {
+          "energy_level": {
+            "anyOf": [
+              {
+                "maximum": 5.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Level"
+          },
+          "exercise_minutes": {
+            "anyOf": [
+              {
+                "maximum": 1440.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exercise Minutes"
+          },
+          "hydration_ml": {
+            "anyOf": [
+              {
+                "maximum": 10000.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hydration Ml"
+          },
+          "mood_tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mood Tags"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "sleep_hours": {
+            "anyOf": [
+              {
+                "maximum": 24.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sleep Hours"
+          },
+          "sleep_quality": {
+            "anyOf": [
+              {
+                "maximum": 5.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sleep Quality"
+          }
+        },
+        "title": "UpsertDailyWellnessRequest",
         "type": "object"
       },
       "UserProfileResponse": {
@@ -675,6 +1371,524 @@
         "summary": "Complete 3-Layer Onboarding",
         "tags": [
           "Identity"
+        ]
+      }
+    },
+    "/api/v1/treatments/adherence-summary": {
+      "get": {
+        "description": "Calculates adherence stats considering cyclic breaks (21/7, 24/4).",
+        "operationId": "get_adherence_summary_api_v1_treatments_adherence_summary_get",
+        "parameters": [
+          {
+            "description": "Treatment regimen UUID",
+            "in": "query",
+            "name": "regimen_id",
+            "required": true,
+            "schema": {
+              "description": "Treatment regimen UUID",
+              "format": "uuid",
+              "title": "Regimen Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Start date (YYYY-MM-DD)",
+            "in": "query",
+            "name": "start_date",
+            "required": true,
+            "schema": {
+              "description": "Start date (YYYY-MM-DD)",
+              "format": "date",
+              "title": "Start Date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "End date (YYYY-MM-DD)",
+            "in": "query",
+            "name": "end_date",
+            "required": true,
+            "schema": {
+              "description": "End date (YYYY-MM-DD)",
+              "format": "date",
+              "title": "End Date",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdherenceSummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Treatment Adherence Summary",
+        "tags": [
+          "Treatments & Medications"
+        ]
+      }
+    },
+    "/api/v1/treatments/intakes": {
+      "post": {
+        "description": "Records dose intake status, evaluates delay / missed dose clinical safety, and deduplicates using client_mutation_id or X-Client-Mutation-Id.",
+        "operationId": "log_dose_intake_api_v1_treatments_intakes_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-client-mutation-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Client-Mutation-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogDoseIntakeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoseIntakeLogResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Log Dose Intake (Idempotent)",
+        "tags": [
+          "Treatments & Medications"
+        ]
+      }
+    },
+    "/api/v1/treatments/regimens": {
+      "get": {
+        "description": "Lists active and historical regimens for the authenticated user.",
+        "operationId": "list_treatment_regimens_api_v1_treatments_regimens_get",
+        "parameters": [
+          {
+            "description": "Filter by active status",
+            "in": "query",
+            "name": "is_active",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by active status",
+              "title": "Is Active"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TreatmentRegimenResponse"
+                  },
+                  "title": "Response List Treatment Regimens Api V1 Treatments Regimens Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Treatment Regimens",
+        "tags": [
+          "Treatments & Medications"
+        ]
+      },
+      "post": {
+        "description": "Registers a new medication or contraceptive regimen (e.g. 21/7 cyclic, minipill, LARC, supplement, chronic treatment).",
+        "operationId": "create_treatment_regimen_api_v1_treatments_regimens_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTreatmentRegimenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TreatmentRegimenResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create Treatment Regimen",
+        "tags": [
+          "Treatments & Medications"
+        ]
+      }
+    },
+    "/api/v1/treatments/regimens/{regimen_id}": {
+      "get": {
+        "description": "Retrieves details of a specific treatment regimen.",
+        "operationId": "get_treatment_regimen_api_v1_treatments_regimens__regimen_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "regimen_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Regimen Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TreatmentRegimenResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Treatment Regimen",
+        "tags": [
+          "Treatments & Medications"
+        ]
+      }
+    },
+    "/api/v1/treatments/regimens/{regimen_id}/larc-alert": {
+      "get": {
+        "description": "Evaluates remaining days and alert level for IUD/implant replacement.",
+        "operationId": "get_larc_replacement_alert_api_v1_treatments_regimens__regimen_id__larc_alert_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "regimen_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Regimen Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LarcAlertResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get LARC Replacement Alert",
+        "tags": [
+          "Treatments & Medications"
+        ]
+      }
+    },
+    "/api/v1/wellness/logs": {
+      "get": {
+        "description": "Retrieves a list of wellness logs for a given date range.",
+        "operationId": "get_wellness_history_api_v1_wellness_logs_get",
+        "parameters": [
+          {
+            "description": "Start date (YYYY-MM-DD)",
+            "in": "query",
+            "name": "start_date",
+            "required": true,
+            "schema": {
+              "description": "Start date (YYYY-MM-DD)",
+              "format": "date",
+              "title": "Start Date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "End date (YYYY-MM-DD)",
+            "in": "query",
+            "name": "end_date",
+            "required": true,
+            "schema": {
+              "description": "End date (YYYY-MM-DD)",
+              "format": "date",
+              "title": "End Date",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DailyWellnessLogResponse"
+                  },
+                  "title": "Response Get Wellness History Api V1 Wellness Logs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Daily Wellness History",
+        "tags": [
+          "Wellness & Habits"
+        ]
+      }
+    },
+    "/api/v1/wellness/logs/{log_date}": {
+      "get": {
+        "description": "Retrieves consolidated daily wellness log for the specified date.",
+        "operationId": "get_daily_wellness_by_date_api_v1_wellness_logs__log_date__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "log_date",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "Log Date",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyWellnessLogResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Daily Wellness Log for a Date",
+        "tags": [
+          "Wellness & Habits"
+        ]
+      },
+      "put": {
+        "description": "Records or partially merges daily wellness metrics (sleep, energy, hydration, exercise, mood) without erasing previous fields.",
+        "operationId": "upsert_daily_wellness_api_v1_wellness_logs__log_date__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "log_date",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "Log Date",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertDailyWellnessRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyWellnessLogResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Upsert Daily Wellness Check-in",
+        "tags": [
+          "Wellness & Habits"
         ]
       }
     }
