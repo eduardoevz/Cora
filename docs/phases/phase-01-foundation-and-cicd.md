@@ -47,16 +47,16 @@
   - `DomainError(code: str, title: str, detail: str, status_code: int = 400)` y `ProblemDetails` en `backend/app/core/errors.py`
   - `create_app() -> FastAPI` y `GET /api/v1/health` en `backend/app/main.py`
 
-- [ ] **Step 1: Escribir tests unitarios fallidos para `/api/v1/health`, carga de `Settings` en modo `test` y serialización RFC 7807**
+- [x] **Step 1: Escribir tests unitarios fallidos para `/api/v1/health`, carga de `Settings` en modo `test` y serialización RFC 7807**
   - Incluir test que dispare `DomainError("invalid_vital_range", ...)` y verifique `Content-Type: application/problem+json` con campos `type`, `title`, `status`, `detail`, `code`.
-- [ ] **Step 2: Ejecutar pytest para confirmar el fallo inicial**
+- [x] **Step 2: Ejecutar pytest para confirmar el fallo inicial**
   - Run: `pytest backend/tests/unit/core/test_errors_and_health.py -v`
   - Expected: FAIL (`ModuleNotFoundError: No module named 'app'`)
-- [ ] **Step 3: Implementar `pyproject.toml` (FastAPI, Pydantic Settings, SQLAlchemy Async, Ruff, Mypy, Pytest), `config.py`, `errors.py` y `main.py`**
-- [ ] **Step 4: Verificar tests, linter y tipado estricto**
+- [x] **Step 3: Implementar `pyproject.toml` (FastAPI, Pydantic Settings, SQLAlchemy Async, Ruff, Mypy, Pytest), `config.py`, `errors.py` y `main.py`**
+- [x] **Step 4: Verificar tests, linter y tipado estricto**
   - Run: `ruff check backend && mypy --strict backend/app && pytest backend/tests/unit/core/test_errors_and_health.py -v`
   - Expected: PASS (`0` errores)
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/pyproject.toml backend/.env.example backend/app backend/tests/unit/core/test_errors_and_health.py`
   - `git commit -m "feat(core): bootstrap FastAPI app with strict typing and RFC 7807 error handling"`
 
@@ -80,15 +80,15 @@
   - `Base`, `get_async_session() -> AsyncIterator[AsyncSession]` en `backend/app/core/database.py`
   - `IdempotencyService.check_or_record(session, user_id: UUID, client_mutation_id: UUID, ...) -> CachedMutationResponse | None` en `backend/app/core/idempotency.py`
 
-- [ ] **Step 1: Escribir tests de integración fallidos verificando extensión `vector` activa y deduplicación por `(user_id, client_mutation_id)`**
-- [ ] **Step 2: Ejecutar test de integración para verificar fallo**
+- [x] **Step 1: Escribir tests de integración fallidos verificando extensión `vector` activa y deduplicación por `(user_id, client_mutation_id)`**
+- [x] **Step 2: Ejecutar test de integración para verificar fallo**
   - Run: `pytest backend/tests/integration/core/test_db_and_idempotency.py -v`
   - Expected: FAIL (`ImportError` / tabla inexistente)
-- [ ] **Step 3: Implementar `docker-compose.yml` (`pgvector/pgvector:pg16`), `Dockerfile` multi-stage (incluyendo librerías Pango/Cairo listas para WeasyPrint), `database.py`, `idempotency.py` y migración Alembic `0001` reversible (`upgrade` y `downgrade`)**
-- [ ] **Step 4: Levantar Postgres con `pgvector`, correr migración y verificar tests**
+- [x] **Step 3: Implementar `docker-compose.yml` (`pgvector/pgvector:pg16`), `Dockerfile` multi-stage (incluyendo librerías Pango/Cairo listas para WeasyPrint), `database.py`, `idempotency.py` y migración Alembic `0001` reversible (`upgrade` y `downgrade`)**
+- [x] **Step 4: Levantar Postgres con `pgvector`, correr migración y verificar tests**
   - Run: `alembic -c backend/alembic.ini upgrade head && pytest backend/tests/integration/core/test_db_and_idempotency.py -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add docker-compose.yml backend/Dockerfile backend/alembic.ini backend/alembic backend/app/core/database.py backend/app/core/idempotency.py backend/tests/integration/core/test_db_and_idempotency.py`
   - `git commit -m "db(core): configure async SQLAlchemy, pgvector migration, Docker, and idempotency store"`
 
@@ -105,15 +105,15 @@
 - Consumes: `create_app()` de `backend/app/main.py`
 - Produces: `contracts/openapi.json` determinista (keys ordenadas) consumido por `mobile/` y validado en CI
 
-- [ ] **Step 1: Escribir `test_openapi_drift.py` comparando `create_app().openapi()` con `contracts/openapi.json`**
-- [ ] **Step 2: Ejecutar test y confirmar que falla porque `contracts/openapi.json` aún no existe**
+- [x] **Step 1: Escribir `test_openapi_drift.py` comparando `create_app().openapi()` con `contracts/openapi.json`**
+- [x] **Step 2: Ejecutar test y confirmar que falla porque `contracts/openapi.json` aún no existe**
   - Run: `pytest backend/tests/contract/test_openapi_drift.py -v`
   - Expected: FAIL (`FileNotFoundError`)
-- [ ] **Step 3: Implementar `export_openapi.py`, generar `contracts/openapi.json` y re-ejecutar el test**
-- [ ] **Step 4: Verificar pase del test de contrato**
+- [x] **Step 3: Implementar `export_openapi.py`, generar `contracts/openapi.json` y re-ejecutar el test**
+- [x] **Step 4: Verificar pase del test de contrato**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests/contract/test_openapi_drift.py -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/scripts/export_openapi.py contracts/openapi.json backend/tests/contract/test_openapi_drift.py`
   - `git commit -m "feat(core): add OpenAPI contract exporter and schema drift contract test"`
 
@@ -139,15 +139,15 @@
   - `SyncCoordinator` (`enqueueMutation(...)`, `flushPendingMutations()`)
   - `CoraTheme.standard()` y `CoraTheme.highLegibility()` (contraste WCAG AAA >= 7:1)
 
-- [ ] **Step 1: Crear `pubspec.yaml` y escribir tests fallidos en `sync_outbox_test.dart` (encolado FIFO en memoria, reintento con backoff y marcado `synced`) y `theme_accessibility_test.dart` (renderizado con `TextScaler.linear(2.0)` sin overflow)**
-- [ ] **Step 2: Ejecutar `flutter test` y verificar fallo inicial**
+- [x] **Step 1: Crear `pubspec.yaml` y escribir tests fallidos en `sync_outbox_test.dart` (encolado FIFO en memoria, reintento con backoff y marcado `synced`) y `theme_accessibility_test.dart` (renderizado con `TextScaler.linear(2.0)` sin overflow)**
+- [x] **Step 2: Ejecutar `flutter test` y verificar fallo inicial**
   - Run: `cd mobile && flutter test`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `AppDatabase` con Drift, `SyncCoordinator`, `CoraApiClient` (Dio con inyección de `X-Client-Mutation-Id` y parseo RFC 7807), `CoraTheme` y shell `CoraApp` con `ProviderScope` de Riverpod**
-- [ ] **Step 4: Generar código (`build_runner`), analizar y ejecutar tests**
+- [x] **Step 3: Implementar `AppDatabase` con Drift, `SyncCoordinator`, `CoraApiClient` (Dio con inyección de `X-Client-Mutation-Id` y parseo RFC 7807), `CoraTheme` y shell `CoraApp` con `ProviderScope` de Riverpod**
+- [x] **Step 4: Generar código (`build_runner`), analizar y ejecutar tests**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS (`0` issues, todos los tests en verde)
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add mobile`
   - `git commit -m "feat(mobile-core): initialize Flutter app with Riverpod, Drift sync outbox, and accessible themes"`
 
@@ -167,13 +167,13 @@
 - Consumes: Estructura completa de Tasks 1–4
 - Produces: Validación continua automática en GitHub para `eduardoevz/Cora`
 
-- [ ] **Step 1: Implementar `ci-backend.yml` (Python 3.12, `ruff`, `mypy --strict`, `pytest` unit + integration sobre servicio `pgvector/pgvector:pg16` + build de `backend/Dockerfile`)**
-- [ ] **Step 2: Implementar `ci-mobile.yml` (Flutter stable, verificación `build_runner`, `dart format`, `flutter analyze --fatal-infos`, `flutter test --coverage` y `flutter build apk --debug`)**
-- [ ] **Step 3: Implementar `security-and-contracts.yml` (validación `export_openapi.py` sin diff + auditoría de dependencias/secretos) y `cd-release-template.yml` (publicación en GHCR + plantilla parametrizada de despliegue en tags `v*.*.*`)**
-- [ ] **Step 4: Validar sintaxis YAML y correr toda la suite local antes de empujar**
+- [x] **Step 1: Implementar `ci-backend.yml` (Python 3.12, `ruff`, `mypy --strict`, `pytest` unit + integration sobre servicio `pgvector/pgvector:pg16` + build de `backend/Dockerfile`)**
+- [x] **Step 2: Implementar `ci-mobile.yml` (Flutter stable, verificación `build_runner`, `dart format`, `flutter analyze --fatal-infos`, `flutter test --coverage` y `flutter build apk --debug`)**
+- [x] **Step 3: Implementar `security-and-contracts.yml` (validación `export_openapi.py` sin diff + auditoría de dependencias/secretos) y `cd-release-template.yml` (publicación en GHCR + plantilla parametrizada de despliegue en tags `v*.*.*`)**
+- [x] **Step 4: Validar sintaxis YAML y correr toda la suite local antes de empujar**
   - Run: `ruff check backend && mypy --strict backend/app && pytest backend/tests -v && cd mobile && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales de la fase y actualización del roadmap**
+- [x] **Step 5: Commits finales de la fase y actualización del roadmap**
   - `git add .github/workflows`
   - `git commit -m "ci: add backend, mobile, OpenAPI contract, security, and release CD workflows"`
   - `git add docs/phases/phase-01-foundation-and-cicd.md docs/phases/README.md`
