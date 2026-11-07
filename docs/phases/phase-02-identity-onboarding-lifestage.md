@@ -45,15 +45,15 @@
   - `UserProfile` (`complete_onboarding(...)`, `switch_life_stage(target: LifeStage, reason: TransitionReason, occurred_at: datetime) -> LifeStageTransition`)
   - `LifeStageStateMachine.validate_and_compute_defaults(current: LifeStage, target: LifeStage, birth_year: int) -> StageTransitionPlan`
 
-- [ ] **Step 1: Escribir pruebas unitarias parametrizadas en `test_onboarding_validation.py` (edad/año de nacimiento válido, `1..3` intenciones, Capa 3 nula/completa) y `test_life_stage_state_machine.py` (todas las transiciones válidas, bloqueo de transiciones incoherentes sin confirmación explícita, preservación de historial y módulos por defecto por etapa)**
-- [ ] **Step 2: Ejecutar pytest para confirmar fallo**
+- [x] **Step 1: Escribir pruebas unitarias parametrizadas en `test_onboarding_validation.py` (edad/año de nacimiento válido, `1..3` intenciones, Capa 3 nula/completa) y `test_life_stage_state_machine.py` (todas las transiciones válidas, bloqueo de transiciones incoherentes sin confirmación explícita, preservación de historial y módulos por defecto por etapa)**
+- [x] **Step 2: Ejecutar pytest para confirmar fallo**
   - Run: `pytest backend/tests/unit/identity -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar los Value Objects inmutables, excepciones semánticas, `UserProfile` y `LifeStageStateMachine` en dominio puro**
-- [ ] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
+- [x] **Step 3: Implementar los Value Objects inmutables, excepciones semánticas, `UserProfile` y `LifeStageStateMachine` en dominio puro**
+- [x] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/identity -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/identity/domain backend/tests/unit/identity`
   - `git commit -m "feat(identity): implement 3-layer onboarding domain models and LifeStageStateMachine with TDD"`
 
@@ -77,15 +77,15 @@
   - `AuthenticatedUser` y dependencia `CurrentUserDep` en `backend/app/core/security.py`
   - `IUserProfileRepository` (puerto público reutilizable por otros módulos para consultar la etapa activa y condiciones base de una usuaria)
 
-- [ ] **Step 1: Escribir tests unitarios con repositorios en memoria y verificador JWT fake probando token expirado/inválido (`401`), alta idempotente en onboarding, cambio de etapa y activación/pausa de módulos secundarios**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests unitarios con repositorios en memoria y verificador JWT fake probando token expirado/inválido (`401`), alta idempotente en onboarding, cambio de etapa y activación/pausa de módulos secundarios**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/identity/test_identity_use_cases.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `security.py`, `FirebaseTokenVerifier`, puertos y casos de uso**
-- [ ] **Step 4: Ejecutar pruebas unitarias y linter**
+- [x] **Step 3: Implementar `security.py`, `FirebaseTokenVerifier`, puertos y casos de uso**
+- [x] **Step 4: Ejecutar pruebas unitarias y linter**
   - Run: `ruff check backend && mypy --strict backend/app && pytest backend/tests/unit/identity -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/core/security.py backend/app/modules/identity/application backend/app/modules/identity/infrastructure/adapters/firebase_token_verifier.py backend/tests/unit/identity/test_identity_use_cases.py`
   - `git commit -m "feat(identity): add Firebase JWT verification and onboarding/stage-switching use cases"`
 
@@ -111,15 +111,15 @@
   - `POST /api/v1/identity/life-stage/transitions`
   - `PATCH /api/v1/identity/module-preferences`
 
-- [ ] **Step 1: Escribir tests de integración HTTP contra PostgreSQL verificando onboarding completo, onboarding omitiendo Capa 3, transición longitudinal (`GET /me` conserva historial de transiciones) y aislamiento entre dos `firebase_uid` distintos**
-- [ ] **Step 2: Ejecutar pytest y verificar fallo**
+- [x] **Step 1: Escribir tests de integración HTTP contra PostgreSQL verificando onboarding completo, onboarding omitiendo Capa 3, transición longitudinal (`GET /me` conserva historial de transiciones) y aislamiento entre dos `firebase_uid` distintos**
+- [x] **Step 2: Ejecutar pytest y verificar fallo**
   - Run: `pytest backend/tests/integration/identity/test_identity_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Crear migración Alembic `0002`, modelos ORM, repositorio Postgres, router FastAPI y regenerar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar migración reversible (`upgrade` -> `downgrade` -> `upgrade`), integración y contrato OpenAPI**
+- [x] **Step 3: Crear migración Alembic `0002`, modelos ORM, repositorio Postgres, router FastAPI y regenerar `contracts/openapi.json`**
+- [x] **Step 4: Verificar migración reversible (`upgrade` -> `downgrade` -> `upgrade`), integración y contrato OpenAPI**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0002_create_identity_tables.py backend/app/modules/identity/infrastructure backend/app/main.py contracts/openapi.json backend/tests/integration/identity/test_identity_api.py`
   - `git commit -m "feat(identity): add PostgreSQL persistence, REST endpoints, and OpenAPI schemas for identity"`
 
@@ -146,15 +146,15 @@
   - `activeUserProfileProvider` y `enabledModulesProvider` (consumidos por todas las features de Fases 3–11)
   - `OnboardingWizardPage`, `DynamicHomeDashboardPage`, `LifeStageSwitcherSheet`, `ModulePreferencesPage`
 
-- [ ] **Step 1: Escribir widget/unit tests verificando: límite máximo de 3 intenciones en Capa 2, botón "Responder después" en Capa 3, cambio reactivo de tarjetas del *Home Dashboard* al conmutar de `regular_adult` a `pregnancy` o `senior_vitality` (activando tema `highLegibility`), y ocultamiento de módulos pausados**
-- [ ] **Step 2: Ejecutar `flutter test` y verificar fallo**
+- [x] **Step 1: Escribir widget/unit tests verificando: límite máximo de 3 intenciones en Capa 2, botón "Responder después" en Capa 3, cambio reactivo de tarjetas del *Home Dashboard* al conmutar de `regular_adult` a `pregnancy` o `senior_vitality` (activando tema `highLegibility`), y ocultamiento de módulos pausados**
+- [x] **Step 2: Ejecutar `flutter test` y verificar fallo**
   - Run: `cd mobile && flutter test test/features/onboarding test/features/dashboard`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift de perfil e historial de etapas, repositorio *Offline-First*, providers Riverpod y pantallas accesibles en español empático**
-- [ ] **Step 4: Ejecutar generación de código, análisis estático y toda la suite de pruebas móvil**
+- [x] **Step 3: Implementar tablas Drift de perfil e historial de etapas, repositorio *Offline-First*, providers Riverpod y pantallas accesibles en español empático**
+- [x] **Step 4: Ejecutar generación de código, análisis estático y toda la suite de pruebas móvil**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y actualización de progreso de Fase 02**
+- [x] **Step 5: Commits finales y actualización de progreso de Fase 02**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): build 3-layer onboarding wizard, life-stage switcher, and dynamic dashboard"`
   - `git add docs/phases/phase-02-identity-onboarding-lifestage.md docs/phases/README.md`
