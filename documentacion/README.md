@@ -24,7 +24,7 @@ Cada reporte de cierre de fase debe incluir estas 6 secciones:
 | Fase | Documento de Cierre | Fecha | Resumen |
 | :--- | :--- | :--- | :--- |
 | **Fase 00** | [fase-00-gobernanza-reglas-y-planificacion.md](./fase-00-gobernanza-reglas-y-planificacion.md) | 2026-11-07 | Definición de arquitectura, creación de reglas `.agents/rules/`, planes detallados `01–12` e inicialización del repositorio público `eduardoevz/Cora`. |
-| **Fase 01** | *Se generará al cerrar la Fase 01* | Pendiente | Monorepo `backend/` + `mobile/`, Docker `pgvector`, `SyncCoordinator` y GitHub Actions CI/CD. |
+| **Fase 01** | [fase-01-cimientos-y-cicd.md](./fase-01-cimientos-y-cicd.md) | 2026-11-07 | Monorepo `backend/` + `mobile/`, Docker Compose `pgvector`, Drift SQLite + `SyncCoordinator` *Offline-First*, SDD OpenAPI y GitHub Actions CI/CD. |
 | **Fase 02** | *Se generará al cerrar la Fase 02* | Pendiente | Identidad Firebase JWT, Onboarding de 3 Capas, `LifeStageStateMachine` y Dashboard dinámico. |
 | **Fase 03** | *Se generará al cerrar la Fase 03* | Pendiente | Bienestar/Hábitos diarios y Gestor de Tratamientos/Fármacos *Offline-First*. |
 | **Fase 04** | *Se generará al cerrar la Fase 04* | Pendiente | Etapas 1 y 2: Ciclo de 4 fases, Adolescencia + PIN, SOP/Endometriosis y alertas FIGO. |
