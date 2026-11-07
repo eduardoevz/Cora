@@ -45,14 +45,25 @@ Al implementar una feature en cualquier fase, divide los commits siguiendo este 
 7. `docs(plan): mark completed tasks in phase-XX plan`
 8. `docs(documentacion): add phase-XX completion report in documentacion/`
 
-## 3. Regla de Árbol Verde
+## 3. Regla de Árbol Verde y Verificación Obligatoria de CI en GitHub Actions
 
 - Cada commit subido a `main` (o a un Pull Request de fase) debe dejar el árbol compilando y pasando las pruebas existentes.
-- Antes de cerrar una sesión de Antigravity, actualiza las casillas `- [x]` de la fase activa en `docs/phases/phase-XX-*.md` y su estado en `docs/phases/README.md`.
+- **Invariante de Cierre con CI 100% Verde (Prohibido Cerrar Fase si Falla el CI):**
+  - Al realizar el `git push` de los commits de la fase, el agente **DEBE** verificar en tiempo real los flujos de GitHub Actions ejecutando `gh run list --limit 5` y `gh run watch <run_id>`.
+  - **Bajo ninguna circunstancia** se puede dar por cerrada la fase ni felicitar al usuario si algún workflow termina en `failure`.
+  - Si cualquier pipeline falla, el agente debe:
+    1. Ejecutar `gh run view <run_id> --log-failed` para extraer la traza y causa exacta.
+    2. Reproducir o analizar la discrepancia.
+    3. Aplicar el fix necesario en el código o configuración.
+    4. Probar en local (`pytest`, `flutter analyze`, etc.).
+    5. Crear un commit atómico correctivo (`fix(...)`) y hacer `git push`.
+    6. Re-inspeccionar `gh run list` hasta confirmar que todos los flujos activos (`Backend CI`, `Mobile CI`, `Security & OpenAPI`) finalicen con estado `success`.
 
 ## 4. Documentación Obligatoria de Cierre por Fase (`documentacion/`)
 
 Al finalizar **cada fase** (sin excepción, antes de dar por terminada la sesión en Antigravity):
-1. Crear en la carpeta raíz `documentacion/` un archivo detallado llamado `documentacion/fase-XX-<nombre>.md` documentando todo lo que se hizo en esa fase: resumen ejecutivo, módulos/archivos y migraciones creadas, decisiones técnicas y reglas clínicas implementadas, pruebas ejecutadas y resultados CI/CD, listado de commits realizados y qué queda listo para la siguiente fase.
-2. Actualizar la tabla de índice en `documentacion/README.md` enlazando el nuevo reporte de la fase completada.
-3. Confirmar estos archivos en un commit atómico dedicado (`docs(documentacion): add phase-XX completion report in documentacion/`) y hacer `git push` a `eduardoevz/Cora`.
+1. Confirmar que **todos los flujos de CI en GitHub Actions están en verde (`success`)**.
+2. Crear en la carpeta raíz `documentacion/` un archivo detallado llamado `documentacion/fase-XX-<nombre>.md` documentando todo lo que se hizo en esa fase: resumen ejecutivo, módulos/archivos y migraciones creadas, decisiones técnicas y reglas clínicas implementadas, pruebas ejecutadas y resultados de CI/CD (con IDs y duración de runs), listado de commits realizados y qué queda listo para la siguiente fase.
+3. Actualizar la tabla de índice en `documentacion/README.md` enlazando el nuevo reporte de la fase completada.
+4. Confirmar estos archivos en un commit atómico dedicado (`docs(documentacion): add phase-XX completion report in documentacion/`) y hacer `git push` a `eduardoevz/Cora`.
+5. Verificar nuevamente que el commit de documentación pase el CI correspondiente.

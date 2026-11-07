@@ -2,7 +2,7 @@
 
 Esta carpeta almacena la **documentación técnica e histórica de lo implementado en cada fase** del proyecto **Cora**.
 
-De acuerdo con la regla obligatoria definida en [`.agents/rules/01-project-workflow-and-git.md`](../.agents/rules/01-project-workflow-and-git.md) y [`AGENTS.md`](../AGENTS.md), **al finalizar cada fase (antes de dar por cerrada la sesión en Antigravity)** se debe crear aquí el archivo `fase-XX-<nombre>.md` correspondiente y actualizar el índice inferior.
+De acuerdo con la regla obligatoria definida en [`.agents/rules/01-project-workflow-and-git.md`](../.agents/rules/01-project-workflow-and-git.md) y [`AGENTS.md`](../AGENTS.md), **al finalizar cada fase (antes de dar por cerrada la sesión en Antigravity)** se debe certificar que todos los workflows de CI en GitHub Actions pasaron en verde (`success`), crear aquí el archivo `fase-XX-<nombre>.md` correspondiente y actualizar el índice inferior. Si algún flujo de CI falla, se debe solucionar antes de registrar la fase como completada.
 
 ---
 

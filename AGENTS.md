@@ -31,13 +31,17 @@ Cuando el usuario solicite avanzar con una fase en Antigravity:
    - Marcar los checkboxes (`- [x]`) completados en el archivo `docs/phases/phase-XX-*.md` y actualizar el estado en `docs/phases/README.md` al cerrar la fase.
 4. **Documentar lo realizado en `documentacion/` (Obligatorio al cerrar cada fase):**
    - Crear `documentacion/fase-XX-<nombre>.md` detallando todo lo construido, decisiones técnicas/clínicas, pruebas ejecutadas y commits de la fase, actualizar `documentacion/README.md` y confirmarlo en su propio commit atómico (`docs(documentacion): add phase-XX completion report in documentacion/`).
-5. **Sincronizar con GitHub (`eduardoevz/Cora`):** Empujar (`git push`) los commits verificados y comprobar que los workflows de GitHub Actions permanezcan en verde.
+5. **Sincronizar con GitHub y Verificar CI en Verde (Invariante Estricto de Cierre):**
+   - Empujar (`git push origin main`) los commits verificados.
+   - **Monitorear en vivo GitHub Actions:** Ejecutar inmediatamente `gh run list` / `gh run watch` para inspeccionar la ejecución de los pipelines.
+   - **Prohibido cerrar la fase con CI en rojo:** La fase **ÚNICAMENTE** se considera cerrada si el 100% de los flujos de CI aplicables (`Backend CI`, `Mobile CI`, `Security & OpenAPI`) culminan en `success`. Si cualquier flujo falla, el agente tiene la obligación innegociable de inspeccionar logs (`gh run view --log-failed`), diagnosticar, corregir el fallo, verificar en local, hacer commit/push del fix y re-monitorear hasta obtener verde completo.
 
 ---
 
 ## 3. Invariantes Innegociables
 
 - **Repositorio Público Seguro:** `eduardoevz/Cora` es público. Prohibido versionar `.env`, llaves privadas, `firebase_service_account.json`, tokens o datos clínicos reales.
+- **CI en Verde Obligatorio para Cierre de Fase:** Jamás declarar una fase terminada o despedirse sin haber verificado que todos los pipelines en GitHub Actions pasaron en verde (`success`). Si falla, se resuelve en la misma sesión.
 - **Pureza Hexagonal:** `backend/app/modules/<mod>/domain/` jamás importa FastAPI, SQLAlchemy, HTTP clients ni SDKs de terceros.
 - **Offline-First Real:** En `mobile/`, toda acción de escritura persiste primero en **Drift (SQLite)** y encola una mutación idempotente (`client_mutation_id`) antes de intentar sincronizar con FastAPI.
 - **Seguridad Clínica e IA:**

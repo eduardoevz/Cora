@@ -35,3 +35,25 @@ Los workflows deben ser rápidos, reproducibles, con permisos mínimos (`permiss
    - Escaneo de secretos accidentales y auditoría de dependencias (`pip-audit` / `osv-scanner`) para proteger el repositorio público `eduardoevz/Cora`.
 4. **`cd-release-template.yml`** (`workflow_dispatch` y tags `v*.*.*`):
    - Publica imagen Docker firmada en `ghcr.io/eduardoevz/cora-backend` y deja preparado el job parametrizado de despliegue continuo (ej. Google Cloud Run / Render) activable únicamente cuando existan los `GitHub Secrets` de entorno productivo, junto con la generación de `app-release.aab` para Android.
+
+---
+
+## 3. Protocolo Obligatorio de Verificación de CI en Cierre de Fase
+
+**Regla de oro:** *Una fase no está terminada hasta que GitHub Actions certifique el árbol en verde.*
+
+1. **Inspección en Vivo:** Tras realizar el push final de la fase a `eduardoevz/Cora`, ejecutar de inmediato:
+   ```bash
+   gh run list --limit 5
+   gh run watch <run_id>
+   ```
+2. **Criterio de Aprobación Innegociable:**
+   - La fase **SOLO** puede darse por cerrada si todos los workflows disparados (`Backend CI`, `Mobile CI`, `Security & OpenAPI`) culminan con estado `success`.
+3. **Resolución Obligatoria ante Fallos (`failure`):**
+   - El agente tiene estrictamente prohibido despedirse o declarar la fase completada si el CI falla.
+   - Debe extraer los logs del fallo con:
+     ```bash
+     gh run view <run_id> --log-failed
+     ```
+   - Corregir el código o configuración, verificar en local con los linters/tests, hacer commit atómico (`fix(...)`) y nuevo `git push`.
+   - Repetir la verificación con `gh run list` hasta que todos los flujos queden en verde (`success`).
