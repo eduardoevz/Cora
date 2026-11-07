@@ -1,6 +1,31 @@
 {
   "components": {
     "schemas": {
+      "DiagnosedCondition": {
+        "description": "Pre-existing clinical conditions that calibrate cycle and health algorithms.",
+        "enum": [
+          "pcos",
+          "endometriosis",
+          "thyroid_disorder",
+          "insulin_resistance_or_diabetes",
+          "none"
+        ],
+        "title": "DiagnosedCondition",
+        "type": "string"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
       "HealthResponse": {
         "description": "Schema for basic application health check.",
         "properties": {
@@ -41,6 +66,418 @@
         ],
         "title": "HealthResponse",
         "type": "object"
+      },
+      "HormonalMethod": {
+        "description": "Hormonal or contraceptive treatments currently active.",
+        "enum": [
+          "none",
+          "combined_oral_pill",
+          "progestin_only_pill",
+          "hormonal_iud",
+          "copper_iud",
+          "subdermal_implant",
+          "transdermal_patch",
+          "injectable",
+          "hormone_replacement_therapy",
+          "other"
+        ],
+        "title": "HormonalMethod",
+        "type": "string"
+      },
+      "LifeStage": {
+        "description": "Canonical 7 biological life stages of women in Cora.",
+        "enum": [
+          "adolescence",
+          "regular_adult",
+          "conception_search",
+          "pregnancy",
+          "postpartum",
+          "perimenopause",
+          "senior_vitality"
+        ],
+        "title": "LifeStage",
+        "type": "string"
+      },
+      "LifeStageTransitionResponse": {
+        "description": "Historical transition item.",
+        "properties": {
+          "from_stage": {
+            "$ref": "#/components/schemas/LifeStage"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "occurred_at": {
+            "format": "date-time",
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/TransitionReason"
+          },
+          "to_stage": {
+            "$ref": "#/components/schemas/LifeStage"
+          }
+        },
+        "required": [
+          "id",
+          "from_stage",
+          "to_stage",
+          "reason",
+          "occurred_at"
+        ],
+        "title": "LifeStageTransitionResponse",
+        "type": "object"
+      },
+      "OnboardingContextResponse": {
+        "description": "Context summary returned with profile.",
+        "properties": {
+          "birth_year": {
+            "title": "Birth Year",
+            "type": "integer"
+          },
+          "clinical_context_completed": {
+            "title": "Clinical Context Completed",
+            "type": "boolean"
+          },
+          "diagnosed_conditions": {
+            "items": {
+              "$ref": "#/components/schemas/DiagnosedCondition"
+            },
+            "title": "Diagnosed Conditions",
+            "type": "array"
+          },
+          "hormonal_method": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HormonalMethod"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "primary_intents": {
+            "items": {
+              "$ref": "#/components/schemas/PrimaryIntent"
+            },
+            "title": "Primary Intents",
+            "type": "array"
+          }
+        },
+        "required": [
+          "birth_year",
+          "primary_intents",
+          "hormonal_method",
+          "diagnosed_conditions",
+          "clinical_context_completed"
+        ],
+        "title": "OnboardingContextResponse",
+        "type": "object"
+      },
+      "OnboardingRequest": {
+        "description": "Payload to complete the 3-layer progressive onboarding.",
+        "properties": {
+          "birth_year": {
+            "description": "Birth year to calibrate age and clinical prevention timelines.",
+            "examples": [
+              1996
+            ],
+            "title": "Birth Year",
+            "type": "integer"
+          },
+          "clinical_context_completed": {
+            "default": false,
+            "description": "Whether Layer 3 was completed or deferred ('Responder despu\u00e9s').",
+            "title": "Clinical Context Completed",
+            "type": "boolean"
+          },
+          "current_life_stage": {
+            "$ref": "#/components/schemas/LifeStage",
+            "description": "Active biological life stage chosen in Layer 1.",
+            "examples": [
+              "regular_adult"
+            ]
+          },
+          "diagnosed_conditions": {
+            "description": "Diagnosed conditions in Layer 3 (PCOS, endometriosis, etc.).",
+            "items": {
+              "$ref": "#/components/schemas/DiagnosedCondition"
+            },
+            "title": "Diagnosed Conditions",
+            "type": "array"
+          },
+          "first_name": {
+            "examples": [
+              "Camila"
+            ],
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "First Name",
+            "type": "string"
+          },
+          "hormonal_method": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HormonalMethod"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Contraceptive or hormonal method active in Layer 3."
+          },
+          "last_name": {
+            "examples": [
+              "Torres"
+            ],
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Last Name",
+            "type": "string"
+          },
+          "primary_intents": {
+            "description": "1 to 3 primary priorities selected in Layer 2.",
+            "examples": [
+              [
+                "cycle_and_symptoms",
+                "general_wellness"
+              ]
+            ],
+            "items": {
+              "$ref": "#/components/schemas/PrimaryIntent"
+            },
+            "title": "Primary Intents",
+            "type": "array"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "current_life_stage",
+          "birth_year",
+          "primary_intents"
+        ],
+        "title": "OnboardingRequest",
+        "type": "object"
+      },
+      "PrimaryIntent": {
+        "description": "User primary wellness and health priorities in Cora.",
+        "enum": [
+          "cycle_and_symptoms",
+          "family_planning",
+          "pregnancy_tracking",
+          "hormonal_and_climacteric",
+          "preventive_health",
+          "general_wellness"
+        ],
+        "title": "PrimaryIntent",
+        "type": "string"
+      },
+      "SwitchLifeStageRequest": {
+        "description": "Payload to transition between biological life stages.",
+        "properties": {
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional clinical or user notes on transition.",
+            "title": "Notes"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/TransitionReason",
+            "description": "Clinical or user rationale for transition.",
+            "examples": [
+              "conception_confirmed"
+            ]
+          },
+          "target_stage": {
+            "$ref": "#/components/schemas/LifeStage",
+            "description": "Target biological life stage.",
+            "examples": [
+              "pregnancy"
+            ]
+          }
+        },
+        "required": [
+          "target_stage",
+          "reason"
+        ],
+        "title": "SwitchLifeStageRequest",
+        "type": "object"
+      },
+      "TransitionReason": {
+        "description": "Rationale for transitioning between biological life stages.",
+        "enum": [
+          "natural_progression",
+          "conception_confirmed",
+          "childbirth",
+          "pregnancy_loss",
+          "user_manual_selection"
+        ],
+        "title": "TransitionReason",
+        "type": "string"
+      },
+      "UpdateModulePreferencesRequest": {
+        "description": "Payload to update modularity preferences (Modularidad a la Carta).",
+        "properties": {
+          "enabled_modules": {
+            "description": "List of enabled secondary modules.",
+            "examples": [
+              [
+                "cycle_tracking",
+                "symptom_logger"
+              ]
+            ],
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Enabled Modules",
+            "type": "array"
+          }
+        },
+        "required": [
+          "enabled_modules"
+        ],
+        "title": "UpdateModulePreferencesRequest",
+        "type": "object"
+      },
+      "UserProfileResponse": {
+        "description": "Public representation of user profile and active biological stage.",
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "current_life_stage": {
+            "$ref": "#/components/schemas/LifeStage"
+          },
+          "enabled_modules": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Enabled Modules",
+            "type": "array"
+          },
+          "firebase_uid": {
+            "title": "Firebase Uid",
+            "type": "string"
+          },
+          "first_name": {
+            "title": "First Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "last_name": {
+            "title": "Last Name",
+            "type": "string"
+          },
+          "onboarding_completed": {
+            "title": "Onboarding Completed",
+            "type": "boolean"
+          },
+          "onboarding_context": {
+            "$ref": "#/components/schemas/OnboardingContextResponse"
+          },
+          "transition_history": {
+            "items": {
+              "$ref": "#/components/schemas/LifeStageTransitionResponse"
+            },
+            "title": "Transition History",
+            "type": "array"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "firebase_uid",
+          "first_name",
+          "last_name",
+          "current_life_stage",
+          "onboarding_completed",
+          "onboarding_context",
+          "enabled_modules",
+          "transition_history",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UserProfileResponse",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "scheme": "bearer",
+        "type": "http"
       }
     }
   },
@@ -70,6 +507,174 @@
         "summary": "Service Health Check",
         "tags": [
           "System"
+        ]
+      }
+    },
+    "/api/v1/identity/life-stage/transitions": {
+      "post": {
+        "description": "Switches the user's active life stage, recording an immutable longitudinal transition record.",
+        "operationId": "switch_life_stage_api_v1_identity_life_stage_transitions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SwitchLifeStageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Transition to a New Biological Life Stage",
+        "tags": [
+          "Identity"
+        ]
+      }
+    },
+    "/api/v1/identity/me": {
+      "get": {
+        "description": "Returns the calibrated profile, active life stage, and modules for the authenticated user.",
+        "operationId": "get_me_api_v1_identity_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Current User Profile",
+        "tags": [
+          "Identity"
+        ]
+      }
+    },
+    "/api/v1/identity/module-preferences": {
+      "patch": {
+        "description": "Adjusts visible and enabled secondary modules for the active profile (Modularidad a la Carta).",
+        "operationId": "update_module_preferences_api_v1_identity_module_preferences_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateModulePreferencesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Modular Preferences",
+        "tags": [
+          "Identity"
+        ]
+      }
+    },
+    "/api/v1/identity/onboarding": {
+      "put": {
+        "description": "Creates or initialises the user profile with 3-layer progressive context calibration.",
+        "operationId": "complete_onboarding_api_v1_identity_onboarding_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnboardingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Complete 3-Layer Onboarding",
+        "tags": [
+          "Identity"
         ]
       }
     }

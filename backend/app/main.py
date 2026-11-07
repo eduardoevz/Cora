@@ -47,6 +47,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     # Core Routes
     api_router = APIRouter(prefix=current_settings.api_v1_prefix)
 
+    # Bounded Context Routers
+    from app.modules.identity.infrastructure.entrypoints.router import (
+        router as identity_router,
+    )
+
+    api_router.include_router(identity_router)
+
     @api_router.get(
         "/health",
         response_model=HealthResponse,
