@@ -13,7 +13,8 @@ Al abrir una nueva conversación en Antigravity para avanzar con la siguiente et
 Al finalizar cada sesión:
 1. Todas las tareas (`- [x]`) del archivo de la fase deben quedar marcadas.
 2. El estado en la tabla inferior debe actualizarse a `✅ Completada`.
-3. Todos los pipelines aplicables en GitHub Actions deben quedar en verde (`✅`).
+3. Se debe crear el reporte completo de lo implementado en [`documentacion/fase-XX-<nombre>.md`](../../documentacion/README.md) y actualizar su índice.
+4. Todos los pipelines aplicables en GitHub Actions deben quedar en verde (`✅`).
 
 ---
 

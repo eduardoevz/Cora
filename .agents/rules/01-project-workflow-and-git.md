@@ -31,7 +31,7 @@ El historial de Git debe narrar con claridad qué se construyó en cada etapa. *
 - `chore`: Configuración de herramientas, linters, dependencias o scripts de generación SDD.
 
 #### Alcances recomendados (`<alcance>`):
-`repo`, `specs`, `rules`, `plan`, `core`, `identity`, `clinical-tracking`, `maternal-care`, `mature-health`, `treatments`, `medical-records`, `education`, `rag-assistant`, `partner-sharing`, `mobile-core`, `mobile-sync`, `mobile-ui`, `ci`.
+`repo`, `specs`, `rules`, `plan`, `documentacion`, `core`, `identity`, `clinical-tracking`, `maternal-care`, `mature-health`, `treatments`, `medical-records`, `education`, `rag-assistant`, `partner-sharing`, `mobile-core`, `mobile-sync`, `mobile-ui`, `ci`.
 
 ### Orden Lógico de Commits Dentro de una Funcionalidad
 
@@ -43,8 +43,16 @@ Al implementar una feature en cualquier fase, divide los commits siguiendo este 
 5. `feat(mobile-<feature>): add drift tables, sync outbox adapter, and riverpod providers`
 6. `feat(mobile-<feature>): build <pantalla / widget> with widget tests`
 7. `docs(plan): mark completed tasks in phase-XX plan`
+8. `docs(documentacion): add phase-XX completion report in documentacion/`
 
 ## 3. Regla de Árbol Verde
 
 - Cada commit subido a `main` (o a un Pull Request de fase) debe dejar el árbol compilando y pasando las pruebas existentes.
 - Antes de cerrar una sesión de Antigravity, actualiza las casillas `- [x]` de la fase activa en `docs/phases/phase-XX-*.md` y su estado en `docs/phases/README.md`.
+
+## 4. Documentación Obligatoria de Cierre por Fase (`documentacion/`)
+
+Al finalizar **cada fase** (sin excepción, antes de dar por terminada la sesión en Antigravity):
+1. Crear en la carpeta raíz `documentacion/` un archivo detallado llamado `documentacion/fase-XX-<nombre>.md` documentando todo lo que se hizo en esa fase: resumen ejecutivo, módulos/archivos y migraciones creadas, decisiones técnicas y reglas clínicas implementadas, pruebas ejecutadas y resultados CI/CD, listado de commits realizados y qué queda listo para la siguiente fase.
+2. Actualizar la tabla de índice en `documentacion/README.md` enlazando el nuevo reporte de la fase completada.
+3. Confirmar estos archivos en un commit atómico dedicado (`docs(documentacion): add phase-XX completion report in documentacion/`) y hacer `git push` a `eduardoevz/Cora`.

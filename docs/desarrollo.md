@@ -114,6 +114,7 @@ Cora/
 │   ├── SPECS.MD                         # Especificación funcional del producto
 │   ├── desarrollo.md                    # Especificación arquitectónica y técnica
 │   └── phases/                          # Planes detallados ejecutables por fase (01 a 12)
+├── documentacion/                       # Bitácora oficial de lo construido al finalizar cada fase
 ├── backend/
 │   ├── alembic/                         # Migraciones asíncronas de PostgreSQL + pgvector
 │   ├── app/
