@@ -43,15 +43,15 @@
   - `DailyWellnessLog.merge_patch(...)`
   - `IWellnessRepository` y `UpsertDailyWellnessUseCase`
 
-- [ ] **Step 1: Escribir tests unitarios parametrizados para rangos válidos/inválidos de sueño, hidratación, energía, estados de ánimo múltiples y `merge_patch` sin pérdida de campos previos**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests unitarios parametrizados para rangos válidos/inválidos de sueño, hidratación, energía, estados de ánimo múltiples y `merge_patch` sin pérdida de campos previos**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/clinical_tracking/test_daily_wellness_log.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar Value Objects, entidad `DailyWellnessLog`, puerto y caso de uso**
-- [ ] **Step 4: Verificar tests y `mypy --strict`**
+- [x] **Step 3: Implementar Value Objects, entidad `DailyWellnessLog`, puerto y caso de uso**
+- [x] **Step 4: Verificar tests y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/clinical_tracking/test_daily_wellness_log.py -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/clinical_tracking backend/tests/unit/clinical_tracking/test_daily_wellness_log.py`
   - `git commit -m "feat(clinical-tracking): implement DailyWellnessLog domain model and merge-patch use case"`
 
@@ -75,15 +75,15 @@
   - `AdherenceAndMissedDoseService.evaluate_intake(...) -> AdherenceAssessment`
   - `ITreatmentRepository` (reutilizado en Fase 9 para *Doctor-Ready PDF* y Fase 10 para contexto RAG)
 
-- [ ] **Step 1: Escribir tests TDD parametrizados cubriendo esquemas `21/7`, `24/4`, toma diaria de ácido fólico/hierro, recordatorio de recambio de DIU/implante (90 y 30 días antes de vencimiento) y detección de retraso crítico (`> 12h` minipíldora vs `>= 24h` combinada)**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests TDD parametrizados cubriendo esquemas `21/7`, `24/4`, toma diaria de ácido fólico/hierro, recordatorio de recambio de DIU/implante (90 y 30 días antes de vencimiento) y detección de retraso crítico (`> 12h` minipíldora vs `>= 24h` combinada)**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/treatments/test_treatment_schedules_and_adherence.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar modelos, `DosageSchedule`, `AdherenceAndMissedDoseService`, puerto y casos de uso**
-- [ ] **Step 4: Verificar tests unitarios y tipado**
+- [x] **Step 3: Implementar modelos, `DosageSchedule`, `AdherenceAndMissedDoseService`, puerto y casos de uso**
+- [x] **Step 4: Verificar tests unitarios y tipado**
   - Run: `ruff check backend && mypy --strict backend/app && pytest backend/tests/unit/treatments -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/treatments backend/tests/unit/treatments`
   - `git commit -m "feat(treatments): implement dosage schedules, LARC replacement alerts, and adherence engine"`
 
@@ -109,15 +109,15 @@
   - `PUT /api/v1/wellness/logs/{log_date}`, `GET /api/v1/wellness/logs`
   - `POST /api/v1/treatments/regimens`, `GET /api/v1/treatments/regimens`, `POST /api/v1/treatments/intakes`, `GET /api/v1/treatments/adherence-summary`
 
-- [ ] **Step 1: Escribir tests de integración HTTP verificando upsert parcial por fecha, creación de tratamiento `21/7`, registro idempotente de tomas con `X-Client-Mutation-Id` repetido y resumen de adherencia**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests de integración HTTP verificando upsert parcial por fecha, creación de tratamiento `21/7`, registro idempotente de tomas con `X-Client-Mutation-Id` repetido y resumen de adherencia**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/treatments/test_wellness_and_treatments_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración Alembic `0003`, modelos ORM, repositorios Postgres, routers FastAPI y exportar `contracts/openapi.json`**
-- [ ] **Step 4: Ejecutar suite completa backend (unit + integration + contract)**
+- [x] **Step 3: Implementar migración Alembic `0003`, modelos ORM, repositorios Postgres, routers FastAPI y exportar `contracts/openapi.json`**
+- [x] **Step 4: Ejecutar suite completa backend (unit + integration + contract)**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0003_create_wellness_and_treatments_tables.py backend/app/modules/clinical_tracking/infrastructure backend/app/modules/treatments/infrastructure backend/app/main.py contracts/openapi.json backend/tests/integration/treatments`
   - `git commit -m "feat(backend): add wellness and treatments persistence, idempotent APIs, and OpenAPI schemas"`
 
@@ -144,15 +144,15 @@
   - `DiscreetNotificationService` (reutilizable por citas médicas y Modo Discreto en Fase 11)
   - Widgets de acceso rápido en `DynamicHomeDashboardPage` para hidratación/ánimo y toma del día
 
-- [ ] **Step 1: Escribir tests en Flutter verificando: consolidación offline de dos ediciones parciales del mismo día en Drift, texto enmascarado por defecto en `DiscreetNotificationService` y marcado instantáneo de dosis tomada sin red**
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir tests en Flutter verificando: consolidación offline de dos ediciones parciales del mismo día en Drift, texto enmascarado por defecto en `DiscreetNotificationService` y marcado instantáneo de dosis tomada sin red**
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/features/wellness test/features/treatments`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift (`daily_wellness_logs`, `treatment_regimens`, `dose_intake_logs`), `DiscreetNotificationService`, repositorios con `SyncCoordinator` y pantallas UI en Riverpod conectadas al *Home Dashboard***
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar tablas Drift (`daily_wellness_logs`, `treatment_regimens`, `dose_intake_logs`), `DiscreetNotificationService`, repositorios con `SyncCoordinator` y pantallas UI en Riverpod conectadas al *Home Dashboard***
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y actualización de Fase 03**
+- [x] **Step 5: Commits finales y actualización de Fase 03**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add offline-first wellness tracker, virtual pillbox, and discreet reminders"`
   - `git add docs/phases/phase-03-wellness-and-treatments.md docs/phases/README.md`
