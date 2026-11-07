@@ -1686,6 +1686,1977 @@ class LifeStageTransitionEntriesCompanion
   }
 }
 
+class $DailyWellnessEntriesTable extends DailyWellnessEntries
+    with TableInfo<$DailyWellnessEntriesTable, DailyWellnessEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DailyWellnessEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _logDateMeta =
+      const VerificationMeta('logDate');
+  @override
+  late final GeneratedColumn<DateTime> logDate = GeneratedColumn<DateTime>(
+      'log_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _sleepHoursMeta =
+      const VerificationMeta('sleepHours');
+  @override
+  late final GeneratedColumn<double> sleepHours = GeneratedColumn<double>(
+      'sleep_hours', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _sleepQualityMeta =
+      const VerificationMeta('sleepQuality');
+  @override
+  late final GeneratedColumn<int> sleepQuality = GeneratedColumn<int>(
+      'sleep_quality', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _energyLevelMeta =
+      const VerificationMeta('energyLevel');
+  @override
+  late final GeneratedColumn<int> energyLevel = GeneratedColumn<int>(
+      'energy_level', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _hydrationMlMeta =
+      const VerificationMeta('hydrationMl');
+  @override
+  late final GeneratedColumn<int> hydrationMl = GeneratedColumn<int>(
+      'hydration_ml', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _exerciseMinutesMeta =
+      const VerificationMeta('exerciseMinutes');
+  @override
+  late final GeneratedColumn<int> exerciseMinutes = GeneratedColumn<int>(
+      'exercise_minutes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _moodTagsJsonMeta =
+      const VerificationMeta('moodTagsJson');
+  @override
+  late final GeneratedColumn<String> moodTagsJson = GeneratedColumn<String>(
+      'mood_tags_json', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        logDate,
+        sleepHours,
+        sleepQuality,
+        energyLevel,
+        hydrationMl,
+        exerciseMinutes,
+        moodTagsJson,
+        notes,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'daily_wellness_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<DailyWellnessEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('log_date')) {
+      context.handle(_logDateMeta,
+          logDate.isAcceptableOrUnknown(data['log_date']!, _logDateMeta));
+    } else if (isInserting) {
+      context.missing(_logDateMeta);
+    }
+    if (data.containsKey('sleep_hours')) {
+      context.handle(
+          _sleepHoursMeta,
+          sleepHours.isAcceptableOrUnknown(
+              data['sleep_hours']!, _sleepHoursMeta));
+    }
+    if (data.containsKey('sleep_quality')) {
+      context.handle(
+          _sleepQualityMeta,
+          sleepQuality.isAcceptableOrUnknown(
+              data['sleep_quality']!, _sleepQualityMeta));
+    }
+    if (data.containsKey('energy_level')) {
+      context.handle(
+          _energyLevelMeta,
+          energyLevel.isAcceptableOrUnknown(
+              data['energy_level']!, _energyLevelMeta));
+    }
+    if (data.containsKey('hydration_ml')) {
+      context.handle(
+          _hydrationMlMeta,
+          hydrationMl.isAcceptableOrUnknown(
+              data['hydration_ml']!, _hydrationMlMeta));
+    }
+    if (data.containsKey('exercise_minutes')) {
+      context.handle(
+          _exerciseMinutesMeta,
+          exerciseMinutes.isAcceptableOrUnknown(
+              data['exercise_minutes']!, _exerciseMinutesMeta));
+    }
+    if (data.containsKey('mood_tags_json')) {
+      context.handle(
+          _moodTagsJsonMeta,
+          moodTagsJson.isAcceptableOrUnknown(
+              data['mood_tags_json']!, _moodTagsJsonMeta));
+    } else if (isInserting) {
+      context.missing(_moodTagsJsonMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+        {userId, logDate},
+      ];
+  @override
+  DailyWellnessEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DailyWellnessEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      logDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}log_date'])!,
+      sleepHours: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}sleep_hours']),
+      sleepQuality: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}sleep_quality']),
+      energyLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}energy_level']),
+      hydrationMl: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}hydration_ml']),
+      exerciseMinutes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}exercise_minutes']),
+      moodTagsJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}mood_tags_json'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $DailyWellnessEntriesTable createAlias(String alias) {
+    return $DailyWellnessEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class DailyWellnessEntry extends DataClass
+    implements Insertable<DailyWellnessEntry> {
+  final String id;
+  final String userId;
+  final DateTime logDate;
+  final double? sleepHours;
+  final int? sleepQuality;
+  final int? energyLevel;
+  final int? hydrationMl;
+  final int? exerciseMinutes;
+  final String moodTagsJson;
+  final String? notes;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const DailyWellnessEntry(
+      {required this.id,
+      required this.userId,
+      required this.logDate,
+      this.sleepHours,
+      this.sleepQuality,
+      this.energyLevel,
+      this.hydrationMl,
+      this.exerciseMinutes,
+      required this.moodTagsJson,
+      this.notes,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['log_date'] = Variable<DateTime>(logDate);
+    if (!nullToAbsent || sleepHours != null) {
+      map['sleep_hours'] = Variable<double>(sleepHours);
+    }
+    if (!nullToAbsent || sleepQuality != null) {
+      map['sleep_quality'] = Variable<int>(sleepQuality);
+    }
+    if (!nullToAbsent || energyLevel != null) {
+      map['energy_level'] = Variable<int>(energyLevel);
+    }
+    if (!nullToAbsent || hydrationMl != null) {
+      map['hydration_ml'] = Variable<int>(hydrationMl);
+    }
+    if (!nullToAbsent || exerciseMinutes != null) {
+      map['exercise_minutes'] = Variable<int>(exerciseMinutes);
+    }
+    map['mood_tags_json'] = Variable<String>(moodTagsJson);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  DailyWellnessEntriesCompanion toCompanion(bool nullToAbsent) {
+    return DailyWellnessEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      logDate: Value(logDate),
+      sleepHours: sleepHours == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sleepHours),
+      sleepQuality: sleepQuality == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sleepQuality),
+      energyLevel: energyLevel == null && nullToAbsent
+          ? const Value.absent()
+          : Value(energyLevel),
+      hydrationMl: hydrationMl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(hydrationMl),
+      exerciseMinutes: exerciseMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(exerciseMinutes),
+      moodTagsJson: Value(moodTagsJson),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory DailyWellnessEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DailyWellnessEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      logDate: serializer.fromJson<DateTime>(json['logDate']),
+      sleepHours: serializer.fromJson<double?>(json['sleepHours']),
+      sleepQuality: serializer.fromJson<int?>(json['sleepQuality']),
+      energyLevel: serializer.fromJson<int?>(json['energyLevel']),
+      hydrationMl: serializer.fromJson<int?>(json['hydrationMl']),
+      exerciseMinutes: serializer.fromJson<int?>(json['exerciseMinutes']),
+      moodTagsJson: serializer.fromJson<String>(json['moodTagsJson']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'logDate': serializer.toJson<DateTime>(logDate),
+      'sleepHours': serializer.toJson<double?>(sleepHours),
+      'sleepQuality': serializer.toJson<int?>(sleepQuality),
+      'energyLevel': serializer.toJson<int?>(energyLevel),
+      'hydrationMl': serializer.toJson<int?>(hydrationMl),
+      'exerciseMinutes': serializer.toJson<int?>(exerciseMinutes),
+      'moodTagsJson': serializer.toJson<String>(moodTagsJson),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  DailyWellnessEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? logDate,
+          Value<double?> sleepHours = const Value.absent(),
+          Value<int?> sleepQuality = const Value.absent(),
+          Value<int?> energyLevel = const Value.absent(),
+          Value<int?> hydrationMl = const Value.absent(),
+          Value<int?> exerciseMinutes = const Value.absent(),
+          String? moodTagsJson,
+          Value<String?> notes = const Value.absent(),
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      DailyWellnessEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        logDate: logDate ?? this.logDate,
+        sleepHours: sleepHours.present ? sleepHours.value : this.sleepHours,
+        sleepQuality:
+            sleepQuality.present ? sleepQuality.value : this.sleepQuality,
+        energyLevel: energyLevel.present ? energyLevel.value : this.energyLevel,
+        hydrationMl: hydrationMl.present ? hydrationMl.value : this.hydrationMl,
+        exerciseMinutes: exerciseMinutes.present
+            ? exerciseMinutes.value
+            : this.exerciseMinutes,
+        moodTagsJson: moodTagsJson ?? this.moodTagsJson,
+        notes: notes.present ? notes.value : this.notes,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  DailyWellnessEntry copyWithCompanion(DailyWellnessEntriesCompanion data) {
+    return DailyWellnessEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      logDate: data.logDate.present ? data.logDate.value : this.logDate,
+      sleepHours:
+          data.sleepHours.present ? data.sleepHours.value : this.sleepHours,
+      sleepQuality: data.sleepQuality.present
+          ? data.sleepQuality.value
+          : this.sleepQuality,
+      energyLevel:
+          data.energyLevel.present ? data.energyLevel.value : this.energyLevel,
+      hydrationMl:
+          data.hydrationMl.present ? data.hydrationMl.value : this.hydrationMl,
+      exerciseMinutes: data.exerciseMinutes.present
+          ? data.exerciseMinutes.value
+          : this.exerciseMinutes,
+      moodTagsJson: data.moodTagsJson.present
+          ? data.moodTagsJson.value
+          : this.moodTagsJson,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyWellnessEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('logDate: $logDate, ')
+          ..write('sleepHours: $sleepHours, ')
+          ..write('sleepQuality: $sleepQuality, ')
+          ..write('energyLevel: $energyLevel, ')
+          ..write('hydrationMl: $hydrationMl, ')
+          ..write('exerciseMinutes: $exerciseMinutes, ')
+          ..write('moodTagsJson: $moodTagsJson, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      logDate,
+      sleepHours,
+      sleepQuality,
+      energyLevel,
+      hydrationMl,
+      exerciseMinutes,
+      moodTagsJson,
+      notes,
+      createdAt,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DailyWellnessEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.logDate == this.logDate &&
+          other.sleepHours == this.sleepHours &&
+          other.sleepQuality == this.sleepQuality &&
+          other.energyLevel == this.energyLevel &&
+          other.hydrationMl == this.hydrationMl &&
+          other.exerciseMinutes == this.exerciseMinutes &&
+          other.moodTagsJson == this.moodTagsJson &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class DailyWellnessEntriesCompanion
+    extends UpdateCompanion<DailyWellnessEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> logDate;
+  final Value<double?> sleepHours;
+  final Value<int?> sleepQuality;
+  final Value<int?> energyLevel;
+  final Value<int?> hydrationMl;
+  final Value<int?> exerciseMinutes;
+  final Value<String> moodTagsJson;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const DailyWellnessEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.logDate = const Value.absent(),
+    this.sleepHours = const Value.absent(),
+    this.sleepQuality = const Value.absent(),
+    this.energyLevel = const Value.absent(),
+    this.hydrationMl = const Value.absent(),
+    this.exerciseMinutes = const Value.absent(),
+    this.moodTagsJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DailyWellnessEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime logDate,
+    this.sleepHours = const Value.absent(),
+    this.sleepQuality = const Value.absent(),
+    this.energyLevel = const Value.absent(),
+    this.hydrationMl = const Value.absent(),
+    this.exerciseMinutes = const Value.absent(),
+    required String moodTagsJson,
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        logDate = Value(logDate),
+        moodTagsJson = Value(moodTagsJson);
+  static Insertable<DailyWellnessEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? logDate,
+    Expression<double>? sleepHours,
+    Expression<int>? sleepQuality,
+    Expression<int>? energyLevel,
+    Expression<int>? hydrationMl,
+    Expression<int>? exerciseMinutes,
+    Expression<String>? moodTagsJson,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (logDate != null) 'log_date': logDate,
+      if (sleepHours != null) 'sleep_hours': sleepHours,
+      if (sleepQuality != null) 'sleep_quality': sleepQuality,
+      if (energyLevel != null) 'energy_level': energyLevel,
+      if (hydrationMl != null) 'hydration_ml': hydrationMl,
+      if (exerciseMinutes != null) 'exercise_minutes': exerciseMinutes,
+      if (moodTagsJson != null) 'mood_tags_json': moodTagsJson,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DailyWellnessEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? logDate,
+      Value<double?>? sleepHours,
+      Value<int?>? sleepQuality,
+      Value<int?>? energyLevel,
+      Value<int?>? hydrationMl,
+      Value<int?>? exerciseMinutes,
+      Value<String>? moodTagsJson,
+      Value<String?>? notes,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return DailyWellnessEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      logDate: logDate ?? this.logDate,
+      sleepHours: sleepHours ?? this.sleepHours,
+      sleepQuality: sleepQuality ?? this.sleepQuality,
+      energyLevel: energyLevel ?? this.energyLevel,
+      hydrationMl: hydrationMl ?? this.hydrationMl,
+      exerciseMinutes: exerciseMinutes ?? this.exerciseMinutes,
+      moodTagsJson: moodTagsJson ?? this.moodTagsJson,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (logDate.present) {
+      map['log_date'] = Variable<DateTime>(logDate.value);
+    }
+    if (sleepHours.present) {
+      map['sleep_hours'] = Variable<double>(sleepHours.value);
+    }
+    if (sleepQuality.present) {
+      map['sleep_quality'] = Variable<int>(sleepQuality.value);
+    }
+    if (energyLevel.present) {
+      map['energy_level'] = Variable<int>(energyLevel.value);
+    }
+    if (hydrationMl.present) {
+      map['hydration_ml'] = Variable<int>(hydrationMl.value);
+    }
+    if (exerciseMinutes.present) {
+      map['exercise_minutes'] = Variable<int>(exerciseMinutes.value);
+    }
+    if (moodTagsJson.present) {
+      map['mood_tags_json'] = Variable<String>(moodTagsJson.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyWellnessEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('logDate: $logDate, ')
+          ..write('sleepHours: $sleepHours, ')
+          ..write('sleepQuality: $sleepQuality, ')
+          ..write('energyLevel: $energyLevel, ')
+          ..write('hydrationMl: $hydrationMl, ')
+          ..write('exerciseMinutes: $exerciseMinutes, ')
+          ..write('moodTagsJson: $moodTagsJson, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TreatmentRegimenEntriesTable extends TreatmentRegimenEntries
+    with TableInfo<$TreatmentRegimenEntriesTable, TreatmentRegimenEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TreatmentRegimenEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dosageMeta = const VerificationMeta('dosage');
+  @override
+  late final GeneratedColumn<String> dosage = GeneratedColumn<String>(
+      'dosage', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _scheduleTypeMeta =
+      const VerificationMeta('scheduleType');
+  @override
+  late final GeneratedColumn<String> scheduleType = GeneratedColumn<String>(
+      'schedule_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _scheduledTimeMeta =
+      const VerificationMeta('scheduledTime');
+  @override
+  late final GeneratedColumn<String> scheduledTime = GeneratedColumn<String>(
+      'scheduled_time', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _activeDaysMeta =
+      const VerificationMeta('activeDays');
+  @override
+  late final GeneratedColumn<int> activeDays = GeneratedColumn<int>(
+      'active_days', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _breakDaysMeta =
+      const VerificationMeta('breakDays');
+  @override
+  late final GeneratedColumn<int> breakDays = GeneratedColumn<int>(
+      'break_days', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _intervalDaysMeta =
+      const VerificationMeta('intervalDays');
+  @override
+  late final GeneratedColumn<int> intervalDays = GeneratedColumn<int>(
+      'interval_days', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _replacementDateMeta =
+      const VerificationMeta('replacementDate');
+  @override
+  late final GeneratedColumn<DateTime> replacementDate =
+      GeneratedColumn<DateTime>('replacement_date', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _instructionsMeta =
+      const VerificationMeta('instructions');
+  @override
+  late final GeneratedColumn<String> instructions = GeneratedColumn<String>(
+      'instructions', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _startDateMeta =
+      const VerificationMeta('startDate');
+  @override
+  late final GeneratedColumn<DateTime> startDate = GeneratedColumn<DateTime>(
+      'start_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _endDateMeta =
+      const VerificationMeta('endDate');
+  @override
+  late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
+      'end_date', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _reminderEnabledMeta =
+      const VerificationMeta('reminderEnabled');
+  @override
+  late final GeneratedColumn<bool> reminderEnabled = GeneratedColumn<bool>(
+      'reminder_enabled', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("reminder_enabled" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  static const VerificationMeta _discreetNotificationMeta =
+      const VerificationMeta('discreetNotification');
+  @override
+  late final GeneratedColumn<bool> discreetNotification = GeneratedColumn<bool>(
+      'discreet_notification', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("discreet_notification" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        name,
+        category,
+        dosage,
+        scheduleType,
+        scheduledTime,
+        activeDays,
+        breakDays,
+        intervalDays,
+        replacementDate,
+        instructions,
+        startDate,
+        endDate,
+        reminderEnabled,
+        discreetNotification,
+        isActive,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'treatment_regimen_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<TreatmentRegimenEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('dosage')) {
+      context.handle(_dosageMeta,
+          dosage.isAcceptableOrUnknown(data['dosage']!, _dosageMeta));
+    } else if (isInserting) {
+      context.missing(_dosageMeta);
+    }
+    if (data.containsKey('schedule_type')) {
+      context.handle(
+          _scheduleTypeMeta,
+          scheduleType.isAcceptableOrUnknown(
+              data['schedule_type']!, _scheduleTypeMeta));
+    } else if (isInserting) {
+      context.missing(_scheduleTypeMeta);
+    }
+    if (data.containsKey('scheduled_time')) {
+      context.handle(
+          _scheduledTimeMeta,
+          scheduledTime.isAcceptableOrUnknown(
+              data['scheduled_time']!, _scheduledTimeMeta));
+    } else if (isInserting) {
+      context.missing(_scheduledTimeMeta);
+    }
+    if (data.containsKey('active_days')) {
+      context.handle(
+          _activeDaysMeta,
+          activeDays.isAcceptableOrUnknown(
+              data['active_days']!, _activeDaysMeta));
+    }
+    if (data.containsKey('break_days')) {
+      context.handle(_breakDaysMeta,
+          breakDays.isAcceptableOrUnknown(data['break_days']!, _breakDaysMeta));
+    }
+    if (data.containsKey('interval_days')) {
+      context.handle(
+          _intervalDaysMeta,
+          intervalDays.isAcceptableOrUnknown(
+              data['interval_days']!, _intervalDaysMeta));
+    }
+    if (data.containsKey('replacement_date')) {
+      context.handle(
+          _replacementDateMeta,
+          replacementDate.isAcceptableOrUnknown(
+              data['replacement_date']!, _replacementDateMeta));
+    }
+    if (data.containsKey('instructions')) {
+      context.handle(
+          _instructionsMeta,
+          instructions.isAcceptableOrUnknown(
+              data['instructions']!, _instructionsMeta));
+    }
+    if (data.containsKey('start_date')) {
+      context.handle(_startDateMeta,
+          startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
+    } else if (isInserting) {
+      context.missing(_startDateMeta);
+    }
+    if (data.containsKey('end_date')) {
+      context.handle(_endDateMeta,
+          endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
+    }
+    if (data.containsKey('reminder_enabled')) {
+      context.handle(
+          _reminderEnabledMeta,
+          reminderEnabled.isAcceptableOrUnknown(
+              data['reminder_enabled']!, _reminderEnabledMeta));
+    }
+    if (data.containsKey('discreet_notification')) {
+      context.handle(
+          _discreetNotificationMeta,
+          discreetNotification.isAcceptableOrUnknown(
+              data['discreet_notification']!, _discreetNotificationMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TreatmentRegimenEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TreatmentRegimenEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      dosage: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}dosage'])!,
+      scheduleType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}schedule_type'])!,
+      scheduledTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}scheduled_time'])!,
+      activeDays: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}active_days']),
+      breakDays: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}break_days']),
+      intervalDays: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}interval_days']),
+      replacementDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}replacement_date']),
+      instructions: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}instructions']),
+      startDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_date'])!,
+      endDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}end_date']),
+      reminderEnabled: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}reminder_enabled'])!,
+      discreetNotification: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}discreet_notification'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $TreatmentRegimenEntriesTable createAlias(String alias) {
+    return $TreatmentRegimenEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class TreatmentRegimenEntry extends DataClass
+    implements Insertable<TreatmentRegimenEntry> {
+  final String id;
+  final String userId;
+  final String name;
+  final String category;
+  final String dosage;
+  final String scheduleType;
+  final String scheduledTime;
+  final int? activeDays;
+  final int? breakDays;
+  final int? intervalDays;
+  final DateTime? replacementDate;
+  final String? instructions;
+  final DateTime startDate;
+  final DateTime? endDate;
+  final bool reminderEnabled;
+  final bool discreetNotification;
+  final bool isActive;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const TreatmentRegimenEntry(
+      {required this.id,
+      required this.userId,
+      required this.name,
+      required this.category,
+      required this.dosage,
+      required this.scheduleType,
+      required this.scheduledTime,
+      this.activeDays,
+      this.breakDays,
+      this.intervalDays,
+      this.replacementDate,
+      this.instructions,
+      required this.startDate,
+      this.endDate,
+      required this.reminderEnabled,
+      required this.discreetNotification,
+      required this.isActive,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['name'] = Variable<String>(name);
+    map['category'] = Variable<String>(category);
+    map['dosage'] = Variable<String>(dosage);
+    map['schedule_type'] = Variable<String>(scheduleType);
+    map['scheduled_time'] = Variable<String>(scheduledTime);
+    if (!nullToAbsent || activeDays != null) {
+      map['active_days'] = Variable<int>(activeDays);
+    }
+    if (!nullToAbsent || breakDays != null) {
+      map['break_days'] = Variable<int>(breakDays);
+    }
+    if (!nullToAbsent || intervalDays != null) {
+      map['interval_days'] = Variable<int>(intervalDays);
+    }
+    if (!nullToAbsent || replacementDate != null) {
+      map['replacement_date'] = Variable<DateTime>(replacementDate);
+    }
+    if (!nullToAbsent || instructions != null) {
+      map['instructions'] = Variable<String>(instructions);
+    }
+    map['start_date'] = Variable<DateTime>(startDate);
+    if (!nullToAbsent || endDate != null) {
+      map['end_date'] = Variable<DateTime>(endDate);
+    }
+    map['reminder_enabled'] = Variable<bool>(reminderEnabled);
+    map['discreet_notification'] = Variable<bool>(discreetNotification);
+    map['is_active'] = Variable<bool>(isActive);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  TreatmentRegimenEntriesCompanion toCompanion(bool nullToAbsent) {
+    return TreatmentRegimenEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      name: Value(name),
+      category: Value(category),
+      dosage: Value(dosage),
+      scheduleType: Value(scheduleType),
+      scheduledTime: Value(scheduledTime),
+      activeDays: activeDays == null && nullToAbsent
+          ? const Value.absent()
+          : Value(activeDays),
+      breakDays: breakDays == null && nullToAbsent
+          ? const Value.absent()
+          : Value(breakDays),
+      intervalDays: intervalDays == null && nullToAbsent
+          ? const Value.absent()
+          : Value(intervalDays),
+      replacementDate: replacementDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(replacementDate),
+      instructions: instructions == null && nullToAbsent
+          ? const Value.absent()
+          : Value(instructions),
+      startDate: Value(startDate),
+      endDate: endDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endDate),
+      reminderEnabled: Value(reminderEnabled),
+      discreetNotification: Value(discreetNotification),
+      isActive: Value(isActive),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory TreatmentRegimenEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TreatmentRegimenEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      name: serializer.fromJson<String>(json['name']),
+      category: serializer.fromJson<String>(json['category']),
+      dosage: serializer.fromJson<String>(json['dosage']),
+      scheduleType: serializer.fromJson<String>(json['scheduleType']),
+      scheduledTime: serializer.fromJson<String>(json['scheduledTime']),
+      activeDays: serializer.fromJson<int?>(json['activeDays']),
+      breakDays: serializer.fromJson<int?>(json['breakDays']),
+      intervalDays: serializer.fromJson<int?>(json['intervalDays']),
+      replacementDate: serializer.fromJson<DateTime?>(json['replacementDate']),
+      instructions: serializer.fromJson<String?>(json['instructions']),
+      startDate: serializer.fromJson<DateTime>(json['startDate']),
+      endDate: serializer.fromJson<DateTime?>(json['endDate']),
+      reminderEnabled: serializer.fromJson<bool>(json['reminderEnabled']),
+      discreetNotification:
+          serializer.fromJson<bool>(json['discreetNotification']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'name': serializer.toJson<String>(name),
+      'category': serializer.toJson<String>(category),
+      'dosage': serializer.toJson<String>(dosage),
+      'scheduleType': serializer.toJson<String>(scheduleType),
+      'scheduledTime': serializer.toJson<String>(scheduledTime),
+      'activeDays': serializer.toJson<int?>(activeDays),
+      'breakDays': serializer.toJson<int?>(breakDays),
+      'intervalDays': serializer.toJson<int?>(intervalDays),
+      'replacementDate': serializer.toJson<DateTime?>(replacementDate),
+      'instructions': serializer.toJson<String?>(instructions),
+      'startDate': serializer.toJson<DateTime>(startDate),
+      'endDate': serializer.toJson<DateTime?>(endDate),
+      'reminderEnabled': serializer.toJson<bool>(reminderEnabled),
+      'discreetNotification': serializer.toJson<bool>(discreetNotification),
+      'isActive': serializer.toJson<bool>(isActive),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  TreatmentRegimenEntry copyWith(
+          {String? id,
+          String? userId,
+          String? name,
+          String? category,
+          String? dosage,
+          String? scheduleType,
+          String? scheduledTime,
+          Value<int?> activeDays = const Value.absent(),
+          Value<int?> breakDays = const Value.absent(),
+          Value<int?> intervalDays = const Value.absent(),
+          Value<DateTime?> replacementDate = const Value.absent(),
+          Value<String?> instructions = const Value.absent(),
+          DateTime? startDate,
+          Value<DateTime?> endDate = const Value.absent(),
+          bool? reminderEnabled,
+          bool? discreetNotification,
+          bool? isActive,
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      TreatmentRegimenEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        name: name ?? this.name,
+        category: category ?? this.category,
+        dosage: dosage ?? this.dosage,
+        scheduleType: scheduleType ?? this.scheduleType,
+        scheduledTime: scheduledTime ?? this.scheduledTime,
+        activeDays: activeDays.present ? activeDays.value : this.activeDays,
+        breakDays: breakDays.present ? breakDays.value : this.breakDays,
+        intervalDays:
+            intervalDays.present ? intervalDays.value : this.intervalDays,
+        replacementDate: replacementDate.present
+            ? replacementDate.value
+            : this.replacementDate,
+        instructions:
+            instructions.present ? instructions.value : this.instructions,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate.present ? endDate.value : this.endDate,
+        reminderEnabled: reminderEnabled ?? this.reminderEnabled,
+        discreetNotification: discreetNotification ?? this.discreetNotification,
+        isActive: isActive ?? this.isActive,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  TreatmentRegimenEntry copyWithCompanion(
+      TreatmentRegimenEntriesCompanion data) {
+    return TreatmentRegimenEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      name: data.name.present ? data.name.value : this.name,
+      category: data.category.present ? data.category.value : this.category,
+      dosage: data.dosage.present ? data.dosage.value : this.dosage,
+      scheduleType: data.scheduleType.present
+          ? data.scheduleType.value
+          : this.scheduleType,
+      scheduledTime: data.scheduledTime.present
+          ? data.scheduledTime.value
+          : this.scheduledTime,
+      activeDays:
+          data.activeDays.present ? data.activeDays.value : this.activeDays,
+      breakDays: data.breakDays.present ? data.breakDays.value : this.breakDays,
+      intervalDays: data.intervalDays.present
+          ? data.intervalDays.value
+          : this.intervalDays,
+      replacementDate: data.replacementDate.present
+          ? data.replacementDate.value
+          : this.replacementDate,
+      instructions: data.instructions.present
+          ? data.instructions.value
+          : this.instructions,
+      startDate: data.startDate.present ? data.startDate.value : this.startDate,
+      endDate: data.endDate.present ? data.endDate.value : this.endDate,
+      reminderEnabled: data.reminderEnabled.present
+          ? data.reminderEnabled.value
+          : this.reminderEnabled,
+      discreetNotification: data.discreetNotification.present
+          ? data.discreetNotification.value
+          : this.discreetNotification,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TreatmentRegimenEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('name: $name, ')
+          ..write('category: $category, ')
+          ..write('dosage: $dosage, ')
+          ..write('scheduleType: $scheduleType, ')
+          ..write('scheduledTime: $scheduledTime, ')
+          ..write('activeDays: $activeDays, ')
+          ..write('breakDays: $breakDays, ')
+          ..write('intervalDays: $intervalDays, ')
+          ..write('replacementDate: $replacementDate, ')
+          ..write('instructions: $instructions, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('reminderEnabled: $reminderEnabled, ')
+          ..write('discreetNotification: $discreetNotification, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      name,
+      category,
+      dosage,
+      scheduleType,
+      scheduledTime,
+      activeDays,
+      breakDays,
+      intervalDays,
+      replacementDate,
+      instructions,
+      startDate,
+      endDate,
+      reminderEnabled,
+      discreetNotification,
+      isActive,
+      createdAt,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TreatmentRegimenEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.name == this.name &&
+          other.category == this.category &&
+          other.dosage == this.dosage &&
+          other.scheduleType == this.scheduleType &&
+          other.scheduledTime == this.scheduledTime &&
+          other.activeDays == this.activeDays &&
+          other.breakDays == this.breakDays &&
+          other.intervalDays == this.intervalDays &&
+          other.replacementDate == this.replacementDate &&
+          other.instructions == this.instructions &&
+          other.startDate == this.startDate &&
+          other.endDate == this.endDate &&
+          other.reminderEnabled == this.reminderEnabled &&
+          other.discreetNotification == this.discreetNotification &&
+          other.isActive == this.isActive &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class TreatmentRegimenEntriesCompanion
+    extends UpdateCompanion<TreatmentRegimenEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> name;
+  final Value<String> category;
+  final Value<String> dosage;
+  final Value<String> scheduleType;
+  final Value<String> scheduledTime;
+  final Value<int?> activeDays;
+  final Value<int?> breakDays;
+  final Value<int?> intervalDays;
+  final Value<DateTime?> replacementDate;
+  final Value<String?> instructions;
+  final Value<DateTime> startDate;
+  final Value<DateTime?> endDate;
+  final Value<bool> reminderEnabled;
+  final Value<bool> discreetNotification;
+  final Value<bool> isActive;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const TreatmentRegimenEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.name = const Value.absent(),
+    this.category = const Value.absent(),
+    this.dosage = const Value.absent(),
+    this.scheduleType = const Value.absent(),
+    this.scheduledTime = const Value.absent(),
+    this.activeDays = const Value.absent(),
+    this.breakDays = const Value.absent(),
+    this.intervalDays = const Value.absent(),
+    this.replacementDate = const Value.absent(),
+    this.instructions = const Value.absent(),
+    this.startDate = const Value.absent(),
+    this.endDate = const Value.absent(),
+    this.reminderEnabled = const Value.absent(),
+    this.discreetNotification = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TreatmentRegimenEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required String name,
+    required String category,
+    required String dosage,
+    required String scheduleType,
+    required String scheduledTime,
+    this.activeDays = const Value.absent(),
+    this.breakDays = const Value.absent(),
+    this.intervalDays = const Value.absent(),
+    this.replacementDate = const Value.absent(),
+    this.instructions = const Value.absent(),
+    required DateTime startDate,
+    this.endDate = const Value.absent(),
+    this.reminderEnabled = const Value.absent(),
+    this.discreetNotification = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        name = Value(name),
+        category = Value(category),
+        dosage = Value(dosage),
+        scheduleType = Value(scheduleType),
+        scheduledTime = Value(scheduledTime),
+        startDate = Value(startDate);
+  static Insertable<TreatmentRegimenEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? name,
+    Expression<String>? category,
+    Expression<String>? dosage,
+    Expression<String>? scheduleType,
+    Expression<String>? scheduledTime,
+    Expression<int>? activeDays,
+    Expression<int>? breakDays,
+    Expression<int>? intervalDays,
+    Expression<DateTime>? replacementDate,
+    Expression<String>? instructions,
+    Expression<DateTime>? startDate,
+    Expression<DateTime>? endDate,
+    Expression<bool>? reminderEnabled,
+    Expression<bool>? discreetNotification,
+    Expression<bool>? isActive,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (name != null) 'name': name,
+      if (category != null) 'category': category,
+      if (dosage != null) 'dosage': dosage,
+      if (scheduleType != null) 'schedule_type': scheduleType,
+      if (scheduledTime != null) 'scheduled_time': scheduledTime,
+      if (activeDays != null) 'active_days': activeDays,
+      if (breakDays != null) 'break_days': breakDays,
+      if (intervalDays != null) 'interval_days': intervalDays,
+      if (replacementDate != null) 'replacement_date': replacementDate,
+      if (instructions != null) 'instructions': instructions,
+      if (startDate != null) 'start_date': startDate,
+      if (endDate != null) 'end_date': endDate,
+      if (reminderEnabled != null) 'reminder_enabled': reminderEnabled,
+      if (discreetNotification != null)
+        'discreet_notification': discreetNotification,
+      if (isActive != null) 'is_active': isActive,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TreatmentRegimenEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String>? name,
+      Value<String>? category,
+      Value<String>? dosage,
+      Value<String>? scheduleType,
+      Value<String>? scheduledTime,
+      Value<int?>? activeDays,
+      Value<int?>? breakDays,
+      Value<int?>? intervalDays,
+      Value<DateTime?>? replacementDate,
+      Value<String?>? instructions,
+      Value<DateTime>? startDate,
+      Value<DateTime?>? endDate,
+      Value<bool>? reminderEnabled,
+      Value<bool>? discreetNotification,
+      Value<bool>? isActive,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return TreatmentRegimenEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      name: name ?? this.name,
+      category: category ?? this.category,
+      dosage: dosage ?? this.dosage,
+      scheduleType: scheduleType ?? this.scheduleType,
+      scheduledTime: scheduledTime ?? this.scheduledTime,
+      activeDays: activeDays ?? this.activeDays,
+      breakDays: breakDays ?? this.breakDays,
+      intervalDays: intervalDays ?? this.intervalDays,
+      replacementDate: replacementDate ?? this.replacementDate,
+      instructions: instructions ?? this.instructions,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      reminderEnabled: reminderEnabled ?? this.reminderEnabled,
+      discreetNotification: discreetNotification ?? this.discreetNotification,
+      isActive: isActive ?? this.isActive,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (dosage.present) {
+      map['dosage'] = Variable<String>(dosage.value);
+    }
+    if (scheduleType.present) {
+      map['schedule_type'] = Variable<String>(scheduleType.value);
+    }
+    if (scheduledTime.present) {
+      map['scheduled_time'] = Variable<String>(scheduledTime.value);
+    }
+    if (activeDays.present) {
+      map['active_days'] = Variable<int>(activeDays.value);
+    }
+    if (breakDays.present) {
+      map['break_days'] = Variable<int>(breakDays.value);
+    }
+    if (intervalDays.present) {
+      map['interval_days'] = Variable<int>(intervalDays.value);
+    }
+    if (replacementDate.present) {
+      map['replacement_date'] = Variable<DateTime>(replacementDate.value);
+    }
+    if (instructions.present) {
+      map['instructions'] = Variable<String>(instructions.value);
+    }
+    if (startDate.present) {
+      map['start_date'] = Variable<DateTime>(startDate.value);
+    }
+    if (endDate.present) {
+      map['end_date'] = Variable<DateTime>(endDate.value);
+    }
+    if (reminderEnabled.present) {
+      map['reminder_enabled'] = Variable<bool>(reminderEnabled.value);
+    }
+    if (discreetNotification.present) {
+      map['discreet_notification'] = Variable<bool>(discreetNotification.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TreatmentRegimenEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('name: $name, ')
+          ..write('category: $category, ')
+          ..write('dosage: $dosage, ')
+          ..write('scheduleType: $scheduleType, ')
+          ..write('scheduledTime: $scheduledTime, ')
+          ..write('activeDays: $activeDays, ')
+          ..write('breakDays: $breakDays, ')
+          ..write('intervalDays: $intervalDays, ')
+          ..write('replacementDate: $replacementDate, ')
+          ..write('instructions: $instructions, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('reminderEnabled: $reminderEnabled, ')
+          ..write('discreetNotification: $discreetNotification, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DoseIntakeEntriesTable extends DoseIntakeEntries
+    with TableInfo<$DoseIntakeEntriesTable, DoseIntakeEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DoseIntakeEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _regimenIdMeta =
+      const VerificationMeta('regimenId');
+  @override
+  late final GeneratedColumn<String> regimenId = GeneratedColumn<String>(
+      'regimen_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _scheduledForMeta =
+      const VerificationMeta('scheduledFor');
+  @override
+  late final GeneratedColumn<DateTime> scheduledFor = GeneratedColumn<DateTime>(
+      'scheduled_for', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _takenAtMeta =
+      const VerificationMeta('takenAt');
+  @override
+  late final GeneratedColumn<DateTime> takenAt = GeneratedColumn<DateTime>(
+      'taken_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+      'status', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _clientMutationIdMeta =
+      const VerificationMeta('clientMutationId');
+  @override
+  late final GeneratedColumn<String> clientMutationId = GeneratedColumn<String>(
+      'client_mutation_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        regimenId,
+        scheduledFor,
+        takenAt,
+        status,
+        notes,
+        clientMutationId,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'dose_intake_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<DoseIntakeEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('regimen_id')) {
+      context.handle(_regimenIdMeta,
+          regimenId.isAcceptableOrUnknown(data['regimen_id']!, _regimenIdMeta));
+    } else if (isInserting) {
+      context.missing(_regimenIdMeta);
+    }
+    if (data.containsKey('scheduled_for')) {
+      context.handle(
+          _scheduledForMeta,
+          scheduledFor.isAcceptableOrUnknown(
+              data['scheduled_for']!, _scheduledForMeta));
+    } else if (isInserting) {
+      context.missing(_scheduledForMeta);
+    }
+    if (data.containsKey('taken_at')) {
+      context.handle(_takenAtMeta,
+          takenAt.isAcceptableOrUnknown(data['taken_at']!, _takenAtMeta));
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status']!, _statusMeta));
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('client_mutation_id')) {
+      context.handle(
+          _clientMutationIdMeta,
+          clientMutationId.isAcceptableOrUnknown(
+              data['client_mutation_id']!, _clientMutationIdMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DoseIntakeEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DoseIntakeEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      regimenId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}regimen_id'])!,
+      scheduledFor: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}scheduled_for'])!,
+      takenAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}taken_at']),
+      status: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}status'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      clientMutationId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}client_mutation_id']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $DoseIntakeEntriesTable createAlias(String alias) {
+    return $DoseIntakeEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class DoseIntakeEntry extends DataClass implements Insertable<DoseIntakeEntry> {
+  final String id;
+  final String regimenId;
+  final DateTime scheduledFor;
+  final DateTime? takenAt;
+  final String status;
+  final String? notes;
+  final String? clientMutationId;
+  final DateTime createdAt;
+  const DoseIntakeEntry(
+      {required this.id,
+      required this.regimenId,
+      required this.scheduledFor,
+      this.takenAt,
+      required this.status,
+      this.notes,
+      this.clientMutationId,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['regimen_id'] = Variable<String>(regimenId);
+    map['scheduled_for'] = Variable<DateTime>(scheduledFor);
+    if (!nullToAbsent || takenAt != null) {
+      map['taken_at'] = Variable<DateTime>(takenAt);
+    }
+    map['status'] = Variable<String>(status);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    if (!nullToAbsent || clientMutationId != null) {
+      map['client_mutation_id'] = Variable<String>(clientMutationId);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  DoseIntakeEntriesCompanion toCompanion(bool nullToAbsent) {
+    return DoseIntakeEntriesCompanion(
+      id: Value(id),
+      regimenId: Value(regimenId),
+      scheduledFor: Value(scheduledFor),
+      takenAt: takenAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(takenAt),
+      status: Value(status),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      clientMutationId: clientMutationId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(clientMutationId),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory DoseIntakeEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DoseIntakeEntry(
+      id: serializer.fromJson<String>(json['id']),
+      regimenId: serializer.fromJson<String>(json['regimenId']),
+      scheduledFor: serializer.fromJson<DateTime>(json['scheduledFor']),
+      takenAt: serializer.fromJson<DateTime?>(json['takenAt']),
+      status: serializer.fromJson<String>(json['status']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      clientMutationId: serializer.fromJson<String?>(json['clientMutationId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'regimenId': serializer.toJson<String>(regimenId),
+      'scheduledFor': serializer.toJson<DateTime>(scheduledFor),
+      'takenAt': serializer.toJson<DateTime?>(takenAt),
+      'status': serializer.toJson<String>(status),
+      'notes': serializer.toJson<String?>(notes),
+      'clientMutationId': serializer.toJson<String?>(clientMutationId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  DoseIntakeEntry copyWith(
+          {String? id,
+          String? regimenId,
+          DateTime? scheduledFor,
+          Value<DateTime?> takenAt = const Value.absent(),
+          String? status,
+          Value<String?> notes = const Value.absent(),
+          Value<String?> clientMutationId = const Value.absent(),
+          DateTime? createdAt}) =>
+      DoseIntakeEntry(
+        id: id ?? this.id,
+        regimenId: regimenId ?? this.regimenId,
+        scheduledFor: scheduledFor ?? this.scheduledFor,
+        takenAt: takenAt.present ? takenAt.value : this.takenAt,
+        status: status ?? this.status,
+        notes: notes.present ? notes.value : this.notes,
+        clientMutationId: clientMutationId.present
+            ? clientMutationId.value
+            : this.clientMutationId,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  DoseIntakeEntry copyWithCompanion(DoseIntakeEntriesCompanion data) {
+    return DoseIntakeEntry(
+      id: data.id.present ? data.id.value : this.id,
+      regimenId: data.regimenId.present ? data.regimenId.value : this.regimenId,
+      scheduledFor: data.scheduledFor.present
+          ? data.scheduledFor.value
+          : this.scheduledFor,
+      takenAt: data.takenAt.present ? data.takenAt.value : this.takenAt,
+      status: data.status.present ? data.status.value : this.status,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      clientMutationId: data.clientMutationId.present
+          ? data.clientMutationId.value
+          : this.clientMutationId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DoseIntakeEntry(')
+          ..write('id: $id, ')
+          ..write('regimenId: $regimenId, ')
+          ..write('scheduledFor: $scheduledFor, ')
+          ..write('takenAt: $takenAt, ')
+          ..write('status: $status, ')
+          ..write('notes: $notes, ')
+          ..write('clientMutationId: $clientMutationId, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, regimenId, scheduledFor, takenAt, status,
+      notes, clientMutationId, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DoseIntakeEntry &&
+          other.id == this.id &&
+          other.regimenId == this.regimenId &&
+          other.scheduledFor == this.scheduledFor &&
+          other.takenAt == this.takenAt &&
+          other.status == this.status &&
+          other.notes == this.notes &&
+          other.clientMutationId == this.clientMutationId &&
+          other.createdAt == this.createdAt);
+}
+
+class DoseIntakeEntriesCompanion extends UpdateCompanion<DoseIntakeEntry> {
+  final Value<String> id;
+  final Value<String> regimenId;
+  final Value<DateTime> scheduledFor;
+  final Value<DateTime?> takenAt;
+  final Value<String> status;
+  final Value<String?> notes;
+  final Value<String?> clientMutationId;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const DoseIntakeEntriesCompanion({
+    this.id = const Value.absent(),
+    this.regimenId = const Value.absent(),
+    this.scheduledFor = const Value.absent(),
+    this.takenAt = const Value.absent(),
+    this.status = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.clientMutationId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DoseIntakeEntriesCompanion.insert({
+    required String id,
+    required String regimenId,
+    required DateTime scheduledFor,
+    this.takenAt = const Value.absent(),
+    required String status,
+    this.notes = const Value.absent(),
+    this.clientMutationId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        regimenId = Value(regimenId),
+        scheduledFor = Value(scheduledFor),
+        status = Value(status);
+  static Insertable<DoseIntakeEntry> custom({
+    Expression<String>? id,
+    Expression<String>? regimenId,
+    Expression<DateTime>? scheduledFor,
+    Expression<DateTime>? takenAt,
+    Expression<String>? status,
+    Expression<String>? notes,
+    Expression<String>? clientMutationId,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (regimenId != null) 'regimen_id': regimenId,
+      if (scheduledFor != null) 'scheduled_for': scheduledFor,
+      if (takenAt != null) 'taken_at': takenAt,
+      if (status != null) 'status': status,
+      if (notes != null) 'notes': notes,
+      if (clientMutationId != null) 'client_mutation_id': clientMutationId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DoseIntakeEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? regimenId,
+      Value<DateTime>? scheduledFor,
+      Value<DateTime?>? takenAt,
+      Value<String>? status,
+      Value<String?>? notes,
+      Value<String?>? clientMutationId,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return DoseIntakeEntriesCompanion(
+      id: id ?? this.id,
+      regimenId: regimenId ?? this.regimenId,
+      scheduledFor: scheduledFor ?? this.scheduledFor,
+      takenAt: takenAt ?? this.takenAt,
+      status: status ?? this.status,
+      notes: notes ?? this.notes,
+      clientMutationId: clientMutationId ?? this.clientMutationId,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (regimenId.present) {
+      map['regimen_id'] = Variable<String>(regimenId.value);
+    }
+    if (scheduledFor.present) {
+      map['scheduled_for'] = Variable<DateTime>(scheduledFor.value);
+    }
+    if (takenAt.present) {
+      map['taken_at'] = Variable<DateTime>(takenAt.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (clientMutationId.present) {
+      map['client_mutation_id'] = Variable<String>(clientMutationId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DoseIntakeEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('regimenId: $regimenId, ')
+          ..write('scheduledFor: $scheduledFor, ')
+          ..write('takenAt: $takenAt, ')
+          ..write('status: $status, ')
+          ..write('notes: $notes, ')
+          ..write('clientMutationId: $clientMutationId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1695,12 +3666,24 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $UserProfileEntriesTable(this);
   late final $LifeStageTransitionEntriesTable lifeStageTransitionEntries =
       $LifeStageTransitionEntriesTable(this);
+  late final $DailyWellnessEntriesTable dailyWellnessEntries =
+      $DailyWellnessEntriesTable(this);
+  late final $TreatmentRegimenEntriesTable treatmentRegimenEntries =
+      $TreatmentRegimenEntriesTable(this);
+  late final $DoseIntakeEntriesTable doseIntakeEntries =
+      $DoseIntakeEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [syncOutboxEntries, userProfileEntries, lifeStageTransitionEntries];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        syncOutboxEntries,
+        userProfileEntries,
+        lifeStageTransitionEntries,
+        dailyWellnessEntries,
+        treatmentRegimenEntries,
+        doseIntakeEntries
+      ];
 }
 
 typedef $$SyncOutboxEntriesTableCreateCompanionBuilder
@@ -2518,6 +4501,932 @@ typedef $$LifeStageTransitionEntriesTableProcessedTableManager
         ),
         LifeStageTransitionEntry,
         PrefetchHooks Function()>;
+typedef $$DailyWellnessEntriesTableCreateCompanionBuilder
+    = DailyWellnessEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime logDate,
+  Value<double?> sleepHours,
+  Value<int?> sleepQuality,
+  Value<int?> energyLevel,
+  Value<int?> hydrationMl,
+  Value<int?> exerciseMinutes,
+  required String moodTagsJson,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$DailyWellnessEntriesTableUpdateCompanionBuilder
+    = DailyWellnessEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> logDate,
+  Value<double?> sleepHours,
+  Value<int?> sleepQuality,
+  Value<int?> energyLevel,
+  Value<int?> hydrationMl,
+  Value<int?> exerciseMinutes,
+  Value<String> moodTagsJson,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$DailyWellnessEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $DailyWellnessEntriesTable> {
+  $$DailyWellnessEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get sleepHours => $composableBuilder(
+      column: $table.sleepHours, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get sleepQuality => $composableBuilder(
+      column: $table.sleepQuality, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get energyLevel => $composableBuilder(
+      column: $table.energyLevel, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get hydrationMl => $composableBuilder(
+      column: $table.hydrationMl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get exerciseMinutes => $composableBuilder(
+      column: $table.exerciseMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get moodTagsJson => $composableBuilder(
+      column: $table.moodTagsJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$DailyWellnessEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $DailyWellnessEntriesTable> {
+  $$DailyWellnessEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get sleepHours => $composableBuilder(
+      column: $table.sleepHours, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get sleepQuality => $composableBuilder(
+      column: $table.sleepQuality,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get energyLevel => $composableBuilder(
+      column: $table.energyLevel, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get hydrationMl => $composableBuilder(
+      column: $table.hydrationMl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get exerciseMinutes => $composableBuilder(
+      column: $table.exerciseMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get moodTagsJson => $composableBuilder(
+      column: $table.moodTagsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$DailyWellnessEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DailyWellnessEntriesTable> {
+  $$DailyWellnessEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get logDate =>
+      $composableBuilder(column: $table.logDate, builder: (column) => column);
+
+  GeneratedColumn<double> get sleepHours => $composableBuilder(
+      column: $table.sleepHours, builder: (column) => column);
+
+  GeneratedColumn<int> get sleepQuality => $composableBuilder(
+      column: $table.sleepQuality, builder: (column) => column);
+
+  GeneratedColumn<int> get energyLevel => $composableBuilder(
+      column: $table.energyLevel, builder: (column) => column);
+
+  GeneratedColumn<int> get hydrationMl => $composableBuilder(
+      column: $table.hydrationMl, builder: (column) => column);
+
+  GeneratedColumn<int> get exerciseMinutes => $composableBuilder(
+      column: $table.exerciseMinutes, builder: (column) => column);
+
+  GeneratedColumn<String> get moodTagsJson => $composableBuilder(
+      column: $table.moodTagsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$DailyWellnessEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $DailyWellnessEntriesTable,
+    DailyWellnessEntry,
+    $$DailyWellnessEntriesTableFilterComposer,
+    $$DailyWellnessEntriesTableOrderingComposer,
+    $$DailyWellnessEntriesTableAnnotationComposer,
+    $$DailyWellnessEntriesTableCreateCompanionBuilder,
+    $$DailyWellnessEntriesTableUpdateCompanionBuilder,
+    (
+      DailyWellnessEntry,
+      BaseReferences<_$AppDatabase, $DailyWellnessEntriesTable,
+          DailyWellnessEntry>
+    ),
+    DailyWellnessEntry,
+    PrefetchHooks Function()> {
+  $$DailyWellnessEntriesTableTableManager(
+      _$AppDatabase db, $DailyWellnessEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DailyWellnessEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DailyWellnessEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DailyWellnessEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> logDate = const Value.absent(),
+            Value<double?> sleepHours = const Value.absent(),
+            Value<int?> sleepQuality = const Value.absent(),
+            Value<int?> energyLevel = const Value.absent(),
+            Value<int?> hydrationMl = const Value.absent(),
+            Value<int?> exerciseMinutes = const Value.absent(),
+            Value<String> moodTagsJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DailyWellnessEntriesCompanion(
+            id: id,
+            userId: userId,
+            logDate: logDate,
+            sleepHours: sleepHours,
+            sleepQuality: sleepQuality,
+            energyLevel: energyLevel,
+            hydrationMl: hydrationMl,
+            exerciseMinutes: exerciseMinutes,
+            moodTagsJson: moodTagsJson,
+            notes: notes,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime logDate,
+            Value<double?> sleepHours = const Value.absent(),
+            Value<int?> sleepQuality = const Value.absent(),
+            Value<int?> energyLevel = const Value.absent(),
+            Value<int?> hydrationMl = const Value.absent(),
+            Value<int?> exerciseMinutes = const Value.absent(),
+            required String moodTagsJson,
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DailyWellnessEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            logDate: logDate,
+            sleepHours: sleepHours,
+            sleepQuality: sleepQuality,
+            energyLevel: energyLevel,
+            hydrationMl: hydrationMl,
+            exerciseMinutes: exerciseMinutes,
+            moodTagsJson: moodTagsJson,
+            notes: notes,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$DailyWellnessEntriesTable, DailyWellnessEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $DailyWellnessEntriesTable,
+                        DailyWellnessEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$DailyWellnessEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $DailyWellnessEntriesTable,
+        DailyWellnessEntry,
+        $$DailyWellnessEntriesTableFilterComposer,
+        $$DailyWellnessEntriesTableOrderingComposer,
+        $$DailyWellnessEntriesTableAnnotationComposer,
+        $$DailyWellnessEntriesTableCreateCompanionBuilder,
+        $$DailyWellnessEntriesTableUpdateCompanionBuilder,
+        (
+          DailyWellnessEntry,
+          BaseReferences<_$AppDatabase, $DailyWellnessEntriesTable,
+              DailyWellnessEntry>
+        ),
+        DailyWellnessEntry,
+        PrefetchHooks Function()>;
+typedef $$TreatmentRegimenEntriesTableCreateCompanionBuilder
+    = TreatmentRegimenEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required String name,
+  required String category,
+  required String dosage,
+  required String scheduleType,
+  required String scheduledTime,
+  Value<int?> activeDays,
+  Value<int?> breakDays,
+  Value<int?> intervalDays,
+  Value<DateTime?> replacementDate,
+  Value<String?> instructions,
+  required DateTime startDate,
+  Value<DateTime?> endDate,
+  Value<bool> reminderEnabled,
+  Value<bool> discreetNotification,
+  Value<bool> isActive,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$TreatmentRegimenEntriesTableUpdateCompanionBuilder
+    = TreatmentRegimenEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<String> name,
+  Value<String> category,
+  Value<String> dosage,
+  Value<String> scheduleType,
+  Value<String> scheduledTime,
+  Value<int?> activeDays,
+  Value<int?> breakDays,
+  Value<int?> intervalDays,
+  Value<DateTime?> replacementDate,
+  Value<String?> instructions,
+  Value<DateTime> startDate,
+  Value<DateTime?> endDate,
+  Value<bool> reminderEnabled,
+  Value<bool> discreetNotification,
+  Value<bool> isActive,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$TreatmentRegimenEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $TreatmentRegimenEntriesTable> {
+  $$TreatmentRegimenEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get dosage => $composableBuilder(
+      column: $table.dosage, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get scheduleType => $composableBuilder(
+      column: $table.scheduleType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get scheduledTime => $composableBuilder(
+      column: $table.scheduledTime, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get activeDays => $composableBuilder(
+      column: $table.activeDays, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get breakDays => $composableBuilder(
+      column: $table.breakDays, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get intervalDays => $composableBuilder(
+      column: $table.intervalDays, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get replacementDate => $composableBuilder(
+      column: $table.replacementDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get instructions => $composableBuilder(
+      column: $table.instructions, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get reminderEnabled => $composableBuilder(
+      column: $table.reminderEnabled,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get discreetNotification => $composableBuilder(
+      column: $table.discreetNotification,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$TreatmentRegimenEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $TreatmentRegimenEntriesTable> {
+  $$TreatmentRegimenEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get dosage => $composableBuilder(
+      column: $table.dosage, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get scheduleType => $composableBuilder(
+      column: $table.scheduleType,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get scheduledTime => $composableBuilder(
+      column: $table.scheduledTime,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get activeDays => $composableBuilder(
+      column: $table.activeDays, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get breakDays => $composableBuilder(
+      column: $table.breakDays, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get intervalDays => $composableBuilder(
+      column: $table.intervalDays,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get replacementDate => $composableBuilder(
+      column: $table.replacementDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get instructions => $composableBuilder(
+      column: $table.instructions,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get reminderEnabled => $composableBuilder(
+      column: $table.reminderEnabled,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get discreetNotification => $composableBuilder(
+      column: $table.discreetNotification,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TreatmentRegimenEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TreatmentRegimenEntriesTable> {
+  $$TreatmentRegimenEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<String> get dosage =>
+      $composableBuilder(column: $table.dosage, builder: (column) => column);
+
+  GeneratedColumn<String> get scheduleType => $composableBuilder(
+      column: $table.scheduleType, builder: (column) => column);
+
+  GeneratedColumn<String> get scheduledTime => $composableBuilder(
+      column: $table.scheduledTime, builder: (column) => column);
+
+  GeneratedColumn<int> get activeDays => $composableBuilder(
+      column: $table.activeDays, builder: (column) => column);
+
+  GeneratedColumn<int> get breakDays =>
+      $composableBuilder(column: $table.breakDays, builder: (column) => column);
+
+  GeneratedColumn<int> get intervalDays => $composableBuilder(
+      column: $table.intervalDays, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get replacementDate => $composableBuilder(
+      column: $table.replacementDate, builder: (column) => column);
+
+  GeneratedColumn<String> get instructions => $composableBuilder(
+      column: $table.instructions, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => column);
+
+  GeneratedColumn<bool> get reminderEnabled => $composableBuilder(
+      column: $table.reminderEnabled, builder: (column) => column);
+
+  GeneratedColumn<bool> get discreetNotification => $composableBuilder(
+      column: $table.discreetNotification, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$TreatmentRegimenEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $TreatmentRegimenEntriesTable,
+    TreatmentRegimenEntry,
+    $$TreatmentRegimenEntriesTableFilterComposer,
+    $$TreatmentRegimenEntriesTableOrderingComposer,
+    $$TreatmentRegimenEntriesTableAnnotationComposer,
+    $$TreatmentRegimenEntriesTableCreateCompanionBuilder,
+    $$TreatmentRegimenEntriesTableUpdateCompanionBuilder,
+    (
+      TreatmentRegimenEntry,
+      BaseReferences<_$AppDatabase, $TreatmentRegimenEntriesTable,
+          TreatmentRegimenEntry>
+    ),
+    TreatmentRegimenEntry,
+    PrefetchHooks Function()> {
+  $$TreatmentRegimenEntriesTableTableManager(
+      _$AppDatabase db, $TreatmentRegimenEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TreatmentRegimenEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TreatmentRegimenEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TreatmentRegimenEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String> dosage = const Value.absent(),
+            Value<String> scheduleType = const Value.absent(),
+            Value<String> scheduledTime = const Value.absent(),
+            Value<int?> activeDays = const Value.absent(),
+            Value<int?> breakDays = const Value.absent(),
+            Value<int?> intervalDays = const Value.absent(),
+            Value<DateTime?> replacementDate = const Value.absent(),
+            Value<String?> instructions = const Value.absent(),
+            Value<DateTime> startDate = const Value.absent(),
+            Value<DateTime?> endDate = const Value.absent(),
+            Value<bool> reminderEnabled = const Value.absent(),
+            Value<bool> discreetNotification = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TreatmentRegimenEntriesCompanion(
+            id: id,
+            userId: userId,
+            name: name,
+            category: category,
+            dosage: dosage,
+            scheduleType: scheduleType,
+            scheduledTime: scheduledTime,
+            activeDays: activeDays,
+            breakDays: breakDays,
+            intervalDays: intervalDays,
+            replacementDate: replacementDate,
+            instructions: instructions,
+            startDate: startDate,
+            endDate: endDate,
+            reminderEnabled: reminderEnabled,
+            discreetNotification: discreetNotification,
+            isActive: isActive,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required String name,
+            required String category,
+            required String dosage,
+            required String scheduleType,
+            required String scheduledTime,
+            Value<int?> activeDays = const Value.absent(),
+            Value<int?> breakDays = const Value.absent(),
+            Value<int?> intervalDays = const Value.absent(),
+            Value<DateTime?> replacementDate = const Value.absent(),
+            Value<String?> instructions = const Value.absent(),
+            required DateTime startDate,
+            Value<DateTime?> endDate = const Value.absent(),
+            Value<bool> reminderEnabled = const Value.absent(),
+            Value<bool> discreetNotification = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TreatmentRegimenEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            name: name,
+            category: category,
+            dosage: dosage,
+            scheduleType: scheduleType,
+            scheduledTime: scheduledTime,
+            activeDays: activeDays,
+            breakDays: breakDays,
+            intervalDays: intervalDays,
+            replacementDate: replacementDate,
+            instructions: instructions,
+            startDate: startDate,
+            endDate: endDate,
+            reminderEnabled: reminderEnabled,
+            discreetNotification: discreetNotification,
+            isActive: isActive,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$TreatmentRegimenEntriesTable,
+                        TreatmentRegimenEntry>(table),
+                    BaseReferences<_$AppDatabase, $TreatmentRegimenEntriesTable,
+                        TreatmentRegimenEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$TreatmentRegimenEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $TreatmentRegimenEntriesTable,
+        TreatmentRegimenEntry,
+        $$TreatmentRegimenEntriesTableFilterComposer,
+        $$TreatmentRegimenEntriesTableOrderingComposer,
+        $$TreatmentRegimenEntriesTableAnnotationComposer,
+        $$TreatmentRegimenEntriesTableCreateCompanionBuilder,
+        $$TreatmentRegimenEntriesTableUpdateCompanionBuilder,
+        (
+          TreatmentRegimenEntry,
+          BaseReferences<_$AppDatabase, $TreatmentRegimenEntriesTable,
+              TreatmentRegimenEntry>
+        ),
+        TreatmentRegimenEntry,
+        PrefetchHooks Function()>;
+typedef $$DoseIntakeEntriesTableCreateCompanionBuilder
+    = DoseIntakeEntriesCompanion Function({
+  required String id,
+  required String regimenId,
+  required DateTime scheduledFor,
+  Value<DateTime?> takenAt,
+  required String status,
+  Value<String?> notes,
+  Value<String?> clientMutationId,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$DoseIntakeEntriesTableUpdateCompanionBuilder
+    = DoseIntakeEntriesCompanion Function({
+  Value<String> id,
+  Value<String> regimenId,
+  Value<DateTime> scheduledFor,
+  Value<DateTime?> takenAt,
+  Value<String> status,
+  Value<String?> notes,
+  Value<String?> clientMutationId,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$DoseIntakeEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $DoseIntakeEntriesTable> {
+  $$DoseIntakeEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get regimenId => $composableBuilder(
+      column: $table.regimenId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get scheduledFor => $composableBuilder(
+      column: $table.scheduledFor, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get takenAt => $composableBuilder(
+      column: $table.takenAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get status => $composableBuilder(
+      column: $table.status, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get clientMutationId => $composableBuilder(
+      column: $table.clientMutationId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$DoseIntakeEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $DoseIntakeEntriesTable> {
+  $$DoseIntakeEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get regimenId => $composableBuilder(
+      column: $table.regimenId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get scheduledFor => $composableBuilder(
+      column: $table.scheduledFor,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get takenAt => $composableBuilder(
+      column: $table.takenAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get status => $composableBuilder(
+      column: $table.status, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get clientMutationId => $composableBuilder(
+      column: $table.clientMutationId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$DoseIntakeEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DoseIntakeEntriesTable> {
+  $$DoseIntakeEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get regimenId =>
+      $composableBuilder(column: $table.regimenId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get scheduledFor => $composableBuilder(
+      column: $table.scheduledFor, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get takenAt =>
+      $composableBuilder(column: $table.takenAt, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get clientMutationId => $composableBuilder(
+      column: $table.clientMutationId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$DoseIntakeEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $DoseIntakeEntriesTable,
+    DoseIntakeEntry,
+    $$DoseIntakeEntriesTableFilterComposer,
+    $$DoseIntakeEntriesTableOrderingComposer,
+    $$DoseIntakeEntriesTableAnnotationComposer,
+    $$DoseIntakeEntriesTableCreateCompanionBuilder,
+    $$DoseIntakeEntriesTableUpdateCompanionBuilder,
+    (
+      DoseIntakeEntry,
+      BaseReferences<_$AppDatabase, $DoseIntakeEntriesTable, DoseIntakeEntry>
+    ),
+    DoseIntakeEntry,
+    PrefetchHooks Function()> {
+  $$DoseIntakeEntriesTableTableManager(
+      _$AppDatabase db, $DoseIntakeEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DoseIntakeEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DoseIntakeEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DoseIntakeEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> regimenId = const Value.absent(),
+            Value<DateTime> scheduledFor = const Value.absent(),
+            Value<DateTime?> takenAt = const Value.absent(),
+            Value<String> status = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<String?> clientMutationId = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DoseIntakeEntriesCompanion(
+            id: id,
+            regimenId: regimenId,
+            scheduledFor: scheduledFor,
+            takenAt: takenAt,
+            status: status,
+            notes: notes,
+            clientMutationId: clientMutationId,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String regimenId,
+            required DateTime scheduledFor,
+            Value<DateTime?> takenAt = const Value.absent(),
+            required String status,
+            Value<String?> notes = const Value.absent(),
+            Value<String?> clientMutationId = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DoseIntakeEntriesCompanion.insert(
+            id: id,
+            regimenId: regimenId,
+            scheduledFor: scheduledFor,
+            takenAt: takenAt,
+            status: status,
+            notes: notes,
+            clientMutationId: clientMutationId,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$DoseIntakeEntriesTable, DoseIntakeEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $DoseIntakeEntriesTable,
+                        DoseIntakeEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$DoseIntakeEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $DoseIntakeEntriesTable,
+    DoseIntakeEntry,
+    $$DoseIntakeEntriesTableFilterComposer,
+    $$DoseIntakeEntriesTableOrderingComposer,
+    $$DoseIntakeEntriesTableAnnotationComposer,
+    $$DoseIntakeEntriesTableCreateCompanionBuilder,
+    $$DoseIntakeEntriesTableUpdateCompanionBuilder,
+    (
+      DoseIntakeEntry,
+      BaseReferences<_$AppDatabase, $DoseIntakeEntriesTable, DoseIntakeEntry>
+    ),
+    DoseIntakeEntry,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -2530,4 +5439,11 @@ class $AppDatabaseManager {
       get lifeStageTransitionEntries =>
           $$LifeStageTransitionEntriesTableTableManager(
               _db, _db.lifeStageTransitionEntries);
+  $$DailyWellnessEntriesTableTableManager get dailyWellnessEntries =>
+      $$DailyWellnessEntriesTableTableManager(_db, _db.dailyWellnessEntries);
+  $$TreatmentRegimenEntriesTableTableManager get treatmentRegimenEntries =>
+      $$TreatmentRegimenEntriesTableTableManager(
+          _db, _db.treatmentRegimenEntries);
+  $$DoseIntakeEntriesTableTableManager get doseIntakeEntries =>
+      $$DoseIntakeEntriesTableTableManager(_db, _db.doseIntakeEntries);
 }

@@ -4,6 +4,8 @@ import 'package:mobile/features/dashboard/presentation/widgets/life_stage_switch
 import 'package:mobile/features/dashboard/presentation/widgets/module_preferences_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
+import 'package:mobile/features/treatments/presentation/pages/pillbox_and_treatments_page.dart';
+import 'package:mobile/features/wellness/presentation/pages/wellness_tracker_page.dart';
 
 class DynamicHomeDashboardPage extends ConsumerWidget {
   const DynamicHomeDashboardPage({super.key});
@@ -186,6 +188,94 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
               _buildStageCard(context, profile, theme),
               const SizedBox(height: 16),
 
+              // Transversal Quick Access Row
+              Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      key: const Key('quick_action_wellness'),
+                      elevation: 0,
+                      color: theme.colorScheme.secondaryContainer
+                          .withValues(alpha: 0.5),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const WellnessTrackerPage(),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(Icons.spa,
+                                  color: theme.colorScheme.primary),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Bienestar Diario',
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Sueño, agua y ánimo',
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Card(
+                      key: const Key('quick_action_treatments'),
+                      elevation: 0,
+                      color: theme.colorScheme.tertiaryContainer
+                          .withValues(alpha: 0.5),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PillboxAndTreatmentsPage(),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(Icons.medication,
+                                  color: theme.colorScheme.tertiary),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Pastillero Virtual',
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Tomas y alertas',
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+
               // Section header
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,7 +344,23 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                       ),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
-                        // Module details navigation
+                        if (moduleKey == 'wellness' ||
+                            moduleKey == 'sleep_and_mood') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const WellnessTrackerPage(),
+                            ),
+                          );
+                        } else if (moduleKey == 'contraceptive_management' ||
+                            moduleKey == 'hormone_therapy') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PillboxAndTreatmentsPage(),
+                            ),
+                          );
+                        }
                       },
                     ),
                   ),

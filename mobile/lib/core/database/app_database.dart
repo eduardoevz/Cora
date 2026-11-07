@@ -57,10 +57,77 @@ class LifeStageTransitionEntries extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class DailyWellnessEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get logDate => dateTime()();
+  RealColumn get sleepHours => real().nullable()();
+  IntColumn get sleepQuality => integer().nullable()();
+  IntColumn get energyLevel => integer().nullable()();
+  IntColumn get hydrationMl => integer().nullable()();
+  IntColumn get exerciseMinutes => integer().nullable()();
+  TextColumn get moodTagsJson => text()();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+        {userId, logDate},
+      ];
+}
+
+class TreatmentRegimenEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get name => text()();
+  TextColumn get category => text()();
+  TextColumn get dosage => text()();
+  TextColumn get scheduleType => text()();
+  TextColumn get scheduledTime => text()();
+  IntColumn get activeDays => integer().nullable()();
+  IntColumn get breakDays => integer().nullable()();
+  IntColumn get intervalDays => integer().nullable()();
+  DateTimeColumn get replacementDate => dateTime().nullable()();
+  TextColumn get instructions => text().nullable()();
+  DateTimeColumn get startDate => dateTime()();
+  DateTimeColumn get endDate => dateTime().nullable()();
+  BoolColumn get reminderEnabled =>
+      boolean().withDefault(const Constant(true))();
+  BoolColumn get discreetNotification =>
+      boolean().withDefault(const Constant(true))();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class DoseIntakeEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get regimenId => text()();
+  DateTimeColumn get scheduledFor => dateTime()();
+  DateTimeColumn get takenAt => dateTime().nullable()();
+  TextColumn get status => text()();
+  TextColumn get notes => text().nullable()();
+  TextColumn get clientMutationId => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
   LifeStageTransitionEntries,
+  DailyWellnessEntries,
+  TreatmentRegimenEntries,
+  DoseIntakeEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -68,7 +135,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -79,6 +146,11 @@ class AppDatabase extends _$AppDatabase {
           if (from < 2) {
             await m.createTable(userProfileEntries);
             await m.createTable(lifeStageTransitionEntries);
+          }
+          if (from < 3) {
+            await m.createTable(dailyWellnessEntries);
+            await m.createTable(treatmentRegimenEntries);
+            await m.createTable(doseIntakeEntries);
           }
         },
       );
