@@ -18,9 +18,9 @@ def main() -> None:
         xml_content = z.read("word/document.xml")
         root = ET.fromstring(xml_content)
         ns = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
-        paragraphs = []
-        for p in root.findall(".//w:p", ns):
-            texts = [t.text for t in p.findall(".//w:t", ns) if t.text]
+        paragraphs: list[str] = []
+        for elem in root.findall(".//w:p", ns):
+            texts = [t.text for t in elem.findall(".//w:t", ns) if t.text]
             if texts:
                 paragraphs.append("".join(texts))
 
@@ -39,15 +39,15 @@ def main() -> None:
     s3_secret = ""
     s3_region = "us-east-2"
 
-    for p in paragraphs:
-        if "AWS_ENDPOINT_URL_S3=" in p:
-            s3_endpoint = p.split("AWS_ENDPOINT_URL_S3=", 1)[1].strip(" \"'")
-        elif "AWS_ACCESS_KEY_ID=" in p:
-            s3_key_id = p.split("AWS_ACCESS_KEY_ID=", 1)[1].strip(" \"'")
-        elif "AWS_SECRET_ACCESS_KEY=" in p:
-            s3_secret = p.split("AWS_SECRET_ACCESS_KEY=", 1)[1].strip(" \"'")
-        elif "AWS_REGION=" in p:
-            s3_region = p.split("AWS_REGION=", 1)[1].strip(" \"'")
+    for para_text in paragraphs:
+        if "AWS_ENDPOINT_URL_S3=" in para_text:
+            s3_endpoint = para_text.split("AWS_ENDPOINT_URL_S3=", 1)[1].strip(" \"'")
+        elif "AWS_ACCESS_KEY_ID=" in para_text:
+            s3_key_id = para_text.split("AWS_ACCESS_KEY_ID=", 1)[1].strip(" \"'")
+        elif "AWS_SECRET_ACCESS_KEY=" in para_text:
+            s3_secret = para_text.split("AWS_SECRET_ACCESS_KEY=", 1)[1].strip(" \"'")
+        elif "AWS_REGION=" in para_text:
+            s3_region = para_text.split("AWS_REGION=", 1)[1].strip(" \"'")
 
     secrets_dir = backend_dir / "secrets"
     secrets_dir.mkdir(exist_ok=True)
@@ -90,7 +90,7 @@ def main() -> None:
 
 
 async def verify_connection() -> None:
-    import firebase_admin
+    import firebase_admin  # type: ignore[import-untyped]
     from firebase_admin import credentials
     from sqlalchemy import text
     from sqlalchemy.ext.asyncio import create_async_engine
@@ -116,7 +116,7 @@ async def verify_connection() -> None:
     if not firebase_admin._apps:
         cred = credentials.Certificate(str(creds_file))
         firebase_admin.initialize_app(cred, {"projectId": settings.firebase_project_id})
-    active_project = firebase_admin.get_app().project_id
+    active_project = str(firebase_admin.get_app().project_id)
     print(f"Firebase Admin SDK initialized for project: {active_project}!")
 
 
