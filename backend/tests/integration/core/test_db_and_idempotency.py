@@ -1,4 +1,5 @@
 import uuid
+from collections.abc import AsyncIterator
 
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -8,7 +9,7 @@ from app.core.idempotency import CachedMutationResponse, IdempotencyStore
 
 
 @pytest.fixture
-async def test_session() -> AsyncSession:
+async def test_session() -> AsyncIterator[AsyncSession]:
     engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=False)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
