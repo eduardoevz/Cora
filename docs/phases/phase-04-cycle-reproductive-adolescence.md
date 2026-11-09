@@ -42,15 +42,15 @@
   - `MenstrualCycle`, `CycleSymptomLog` (acné, dismenorrea `0–10`, dolor pélvico crónico, dispareunia, síntomas GI/fatiga para SOP/Endometriosis)
   - `CyclePhaseAndPredictionService.compute_status(cycles: list[MenstrualCycle], context: PatientCycleContext, reference_date: date) -> CycleStatusSnapshot`
 
-- [ ] **Step 1: Escribir batería parametrizada de tests unitarios: usuaria regular de `28` días (4 fases exactas), adolescente con `0` y `2` ciclos irregulares (`39` días sin falsa patología), usuaria con pastillas combinadas (`HORMONALLY_MANAGED`) y usuaria con SOP (`42` días con ventana de incertidumbre ampliada)**
-- [ ] **Step 2: Ejecutar pytest y verificar fallo**
+- [x] **Step 1: Escribir batería parametrizada de tests unitarios: usuaria regular de `28` días (4 fases exactas), adolescente con `0` y `2` ciclos irregulares (`39` días sin falsa patología), usuaria con pastillas combinadas (`HORMONALLY_MANAGED`) y usuaria con SOP (`42` días con ventana de incertidumbre ampliada)**
+- [x] **Step 2: Ejecutar pytest y verificar fallo**
   - Run: `pytest backend/tests/unit/clinical_tracking/test_cycle_phases_and_predictions.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `MenstrualCycle`, `BleedingIntensity`, `CycleSymptomLog` y `CyclePhaseAndPredictionService`**
-- [ ] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
+- [x] **Step 3: Implementar `MenstrualCycle`, `BleedingIntensity`, `CycleSymptomLog` y `CyclePhaseAndPredictionService`**
+- [x] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/clinical_tracking/test_cycle_phases_and_predictions.py -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/clinical_tracking/domain backend/tests/unit/clinical_tracking/test_cycle_phases_and_predictions.py`
   - `git commit -m "feat(clinical-tracking): implement 4-phase cycle engine adapted for adolescence, PCOS, and contraceptives"`
 
@@ -68,15 +68,15 @@
   - `ClinicalPatternAlert` (`code`, `severity: INFO | PREVENTIVE_CONSULT | URGENT`, `title_es`, `empathetic_summary_es`, `clinical_rationale`)
   - `FigoAtypicalPatternDetector.analyze(cycles: list[MenstrualCycle], logs: list[CycleSymptomLog], context: PatientCycleContext) -> list[ClinicalPatternAlert]`
 
-- [ ] **Step 1: Escribir tests unitarios parametrizados para polimenorrea (`< 24d`), oligomenorrea (`> 38d` en adulta vs tolerancia `<= 45d` en adolescente), sangrado prolongado (`> 8d`), sangrado intermenstrual repetido y dolor pélvico incapacitante recurrente, validando que el lenguaje generado sea no alarmista**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests unitarios parametrizados para polimenorrea (`< 24d`), oligomenorrea (`> 38d` en adulta vs tolerancia `<= 45d` en adolescente), sangrado prolongado (`> 8d`), sangrado intermenstrual repetido y dolor pélvico incapacitante recurrente, validando que el lenguaje generado sea no alarmista**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/clinical_tracking/test_figo_atypical_pattern_detector.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `FigoAtypicalPatternDetector`**
-- [ ] **Step 4: Ejecutar tests unitarios y linter**
+- [x] **Step 3: Implementar `FigoAtypicalPatternDetector`**
+- [x] **Step 4: Ejecutar tests unitarios y linter**
   - Run: `ruff check backend && mypy --strict backend/app && pytest backend/tests/unit/clinical_tracking -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/clinical_tracking/domain/services/figo_atypical_pattern_detector.py backend/tests/unit/clinical_tracking/test_figo_atypical_pattern_detector.py`
   - `git commit -m "feat(clinical-tracking): add FIGO atypical bleeding and pelvic pain detector with TDD"`
 
@@ -102,15 +102,15 @@
   - `ICycleRepository` (reutilizado en Fases 5, 9 y 10)
   - `POST /api/v1/cycles/bleeding-events`, `PUT /api/v1/cycles/symptom-logs/{log_date}`, `GET /api/v1/cycles/overview`
 
-- [ ] **Step 1: Escribir tests de integración HTTP probando apertura automática de nuevo ciclo ante sangrado menstrual, conservación de ciclo ante *spotting* aislado y generación de alertas FIGO en `GET /api/v1/cycles/overview`**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests de integración HTTP probando apertura automática de nuevo ciclo ante sangrado menstrual, conservación de ciclo ante *spotting* aislado y generación de alertas FIGO en `GET /api/v1/cycles/overview`**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/clinical_tracking/test_cycle_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración `0004`, ORM, repositorio, casos de uso, router y actualizar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar toda la suite backend**
+- [x] **Step 3: Implementar migración `0004`, ORM, repositorio, casos de uso, router y actualizar `contracts/openapi.json`**
+- [x] **Step 4: Verificar toda la suite backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0004_create_menstrual_cycles_and_symptoms.py backend/app/modules/clinical_tracking backend/app/main.py contracts/openapi.json backend/tests/integration/clinical_tracking`
   - `git commit -m "feat(clinical-tracking): expose cycle tracking, symptom logs, and FIGO alerts REST API"`
 
@@ -134,15 +134,15 @@
 - Consumes: `activeUserProfileProvider`, `AppDatabase`, `SyncCoordinator`
 - Produces: Experiencia móvil completa para Etapas 1 y 2 integrada al *Home Dashboard*
 
-- [ ] **Step 1: Escribir tests en Flutter verificando: renderizado diferencial entre etapa `adolescence` ("Mi Primer Periodo" + bloqueo `TeenPrivacyPinGate` con enfriamiento tras 5 fallos) y `regular_adult` (4 fases + tarjetas SOP/Endometriosis + banners preventivos FIGO)**
-- [ ] **Step 2: Ejecutar `flutter test` y verificar fallo**
+- [x] **Step 1: Escribir tests en Flutter verificando: renderizado diferencial entre etapa `adolescence` ("Mi Primer Periodo" + bloqueo `TeenPrivacyPinGate` con enfriamiento tras 5 fallos) y `regular_adult` (4 fases + tarjetas SOP/Endometriosis + banners preventivos FIGO)**
+- [x] **Step 2: Ejecutar `flutter test` y verificar fallo**
   - Run: `cd mobile && flutter test test/features/cycle test/features/adolescence`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift de ciclos/síntomas, cálculo local *Offline-First* espejo para respuesta inmediata sin red, gráficas de fases y pantallas de Adolescencia y Condiciones Crónicas**
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar tablas Drift de ciclos/síntomas, cálculo local *Offline-First* espejo para respuesta inmediata sin red, gráficas de fases y pantallas de Adolescencia y Condiciones Crónicas**
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 04**
+- [x] **Step 5: Commits finales y cierre de Fase 04**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add 4-phase cycle wheel, PCOS/endometriosis tracker, and teen PIN mode"`
   - `git add docs/phases/phase-04-cycle-reproductive-adolescence.md docs/phases/README.md`
