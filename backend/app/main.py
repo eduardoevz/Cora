@@ -51,6 +51,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     from app.modules.clinical_tracking.infrastructure.entrypoints.cycle_router import (  # noqa: E501
         router as cycle_router,
     )
+    from app.modules.clinical_tracking.infrastructure.entrypoints.fertility_router import (  # noqa: E501
+        router as fertility_router,
+    )
     from app.modules.clinical_tracking.infrastructure.entrypoints.wellness_router import (  # noqa: E501
         router as wellness_router,
     )
@@ -64,6 +67,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api_router.include_router(identity_router)
     api_router.include_router(wellness_router)
     api_router.include_router(cycle_router)
+    api_router.include_router(fertility_router)
     api_router.include_router(treatment_router)
 
     @api_router.get(

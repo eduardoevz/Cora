@@ -503,6 +503,227 @@
         "title": "CycleSymptomLogResponse",
         "type": "object"
       },
+      "DailyFertilityLogRequest": {
+        "additionalProperties": false,
+        "description": "Payload for logging or updating daily fertility observations.",
+        "properties": {
+          "bbt_celsius": {
+            "anyOf": [
+              {
+                "maximum": 42.0,
+                "minimum": 35.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Temperatura basal en grados Celsius (35.00 - 42.00)",
+            "title": "Bbt Celsius"
+          },
+          "cervical_mucus": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "dry | sticky | creamy | watery | egg_white",
+            "title": "Cervical Mucus"
+          },
+          "disturbance_reason": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Motivo cl\u00ednico o conductual de perturbaci\u00f3n",
+            "title": "Disturbance Reason"
+          },
+          "intercourse_had": {
+            "default": false,
+            "description": "Indica si hubo actividad sexual o inseminaci\u00f3n",
+            "title": "Intercourse Had",
+            "type": "boolean"
+          },
+          "intercourse_type": {
+            "default": "none",
+            "description": "none | unprotected | protected | insemination",
+            "title": "Intercourse Type",
+            "type": "string"
+          },
+          "is_disturbed": {
+            "default": false,
+            "description": "Indica si la medici\u00f3n fue perturbada (fiebre, insomnio, alcohol)",
+            "title": "Is Disturbed",
+            "type": "boolean"
+          },
+          "lh_result": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "negative | high | peak",
+            "title": "Lh Result"
+          },
+          "measured_at_time": {
+            "anyOf": [
+              {
+                "format": "time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Hora matutina de la toma de temperatura",
+            "title": "Measured At Time"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Notas cl\u00ednicas u observaciones",
+            "title": "Notes"
+          }
+        },
+        "title": "DailyFertilityLogRequest",
+        "type": "object"
+      },
+      "DailyFertilityLogResponse": {
+        "description": "Daily fertility log response representation.",
+        "properties": {
+          "bbt_celsius": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbt Celsius"
+          },
+          "bbt_fahrenheit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbt Fahrenheit"
+          },
+          "cervical_mucus": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cervical Mucus"
+          },
+          "disturbance_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disturbance Reason"
+          },
+          "intercourse_had": {
+            "title": "Intercourse Had",
+            "type": "boolean"
+          },
+          "intercourse_type": {
+            "title": "Intercourse Type",
+            "type": "string"
+          },
+          "is_disturbed": {
+            "title": "Is Disturbed",
+            "type": "boolean"
+          },
+          "lh_result": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lh Result"
+          },
+          "log_date": {
+            "format": "date",
+            "title": "Log Date",
+            "type": "string"
+          },
+          "measured_at_time": {
+            "anyOf": [
+              {
+                "format": "time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Measured At Time"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "required": [
+          "log_date",
+          "bbt_celsius",
+          "bbt_fahrenheit",
+          "is_disturbed",
+          "disturbance_reason",
+          "measured_at_time",
+          "cervical_mucus",
+          "lh_result",
+          "intercourse_had",
+          "intercourse_type",
+          "notes"
+        ],
+        "title": "DailyFertilityLogResponse",
+        "type": "object"
+      },
       "DailyWellnessLogResponse": {
         "description": "API representation of consolidated daily wellness.",
         "properties": {
@@ -701,6 +922,245 @@
           "created_at"
         ],
         "title": "DoseIntakeLogResponse",
+        "type": "object"
+      },
+      "FertilityChartEntryResponse": {
+        "description": "Single point in the cycle fertility chart.",
+        "properties": {
+          "bbt_celsius": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbt Celsius"
+          },
+          "bbt_fahrenheit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbt Fahrenheit"
+          },
+          "cervical_mucus": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cervical Mucus"
+          },
+          "cycle_day": {
+            "title": "Cycle Day",
+            "type": "integer"
+          },
+          "disturbance_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disturbance Reason"
+          },
+          "intercourse_had": {
+            "title": "Intercourse Had",
+            "type": "boolean"
+          },
+          "intercourse_type": {
+            "title": "Intercourse Type",
+            "type": "string"
+          },
+          "is_disturbed": {
+            "title": "Is Disturbed",
+            "type": "boolean"
+          },
+          "lh_result": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lh Result"
+          },
+          "log_date": {
+            "format": "date",
+            "title": "Log Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "log_date",
+          "cycle_day",
+          "bbt_celsius",
+          "bbt_fahrenheit",
+          "is_disturbed",
+          "disturbance_reason",
+          "cervical_mucus",
+          "lh_result",
+          "intercourse_had",
+          "intercourse_type"
+        ],
+        "title": "FertilityChartEntryResponse",
+        "type": "object"
+      },
+      "FertilityCycleChartResponse": {
+        "description": "Biphasic temperature chart, coverline, and symptothermal evaluation.",
+        "properties": {
+          "active_seeking_guidance_es": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Seeking Guidance Es"
+          },
+          "coverline_celsius": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverline Celsius"
+          },
+          "coverline_fahrenheit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverline Fahrenheit"
+          },
+          "cycle_day": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cycle Day"
+          },
+          "cycle_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cycle Id"
+          },
+          "cycle_start_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cycle Start Date"
+          },
+          "daily_entries": {
+            "items": {
+              "$ref": "#/components/schemas/FertilityChartEntryResponse"
+            },
+            "title": "Daily Entries",
+            "type": "array"
+          },
+          "evaluation_notes_es": {
+            "title": "Evaluation Notes Es",
+            "type": "string"
+          },
+          "fertile_window_end": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fertile Window End"
+          },
+          "fertile_window_start": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fertile Window Start"
+          },
+          "is_biphasic_shift_detected": {
+            "title": "Is Biphasic Shift Detected",
+            "type": "boolean"
+          },
+          "ovulation_confirmed_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ovulation Confirmed Date"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "cycle_id",
+          "cycle_start_date",
+          "cycle_day",
+          "status",
+          "coverline_celsius",
+          "coverline_fahrenheit",
+          "ovulation_confirmed_date",
+          "fertile_window_start",
+          "fertile_window_end",
+          "is_biphasic_shift_detected",
+          "evaluation_notes_es",
+          "active_seeking_guidance_es",
+          "daily_entries"
+        ],
+        "title": "FertilityCycleChartResponse",
         "type": "object"
       },
       "FigoAlertType": {
@@ -1297,6 +1757,83 @@
         "title": "OnboardingRequest",
         "type": "object"
       },
+      "PreconceptionChecklistResponse": {
+        "description": "Preconception clinical recommendations checklist and adherence score.",
+        "properties": {
+          "active_seeking_months": {
+            "title": "Active Seeking Months",
+            "type": "integer"
+          },
+          "completion_percentage": {
+            "title": "Completion Percentage",
+            "type": "integer"
+          },
+          "dental_checkup_done": {
+            "title": "Dental Checkup Done",
+            "type": "boolean"
+          },
+          "folic_acid_dose_mcg": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Folic Acid Dose Mcg"
+          },
+          "is_folic_acid_adequate": {
+            "title": "Is Folic Acid Adequate",
+            "type": "boolean"
+          },
+          "medical_checkup_done": {
+            "title": "Medical Checkup Done",
+            "type": "boolean"
+          },
+          "partner_evaluation_planned": {
+            "title": "Partner Evaluation Planned",
+            "type": "boolean"
+          },
+          "rubella_immunity_checked": {
+            "title": "Rubella Immunity Checked",
+            "type": "boolean"
+          },
+          "taking_folic_acid": {
+            "title": "Taking Folic Acid",
+            "type": "boolean"
+          },
+          "toxic_habits_stopped": {
+            "title": "Toxic Habits Stopped",
+            "type": "boolean"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "user_id",
+          "taking_folic_acid",
+          "folic_acid_dose_mcg",
+          "is_folic_acid_adequate",
+          "medical_checkup_done",
+          "rubella_immunity_checked",
+          "dental_checkup_done",
+          "toxic_habits_stopped",
+          "partner_evaluation_planned",
+          "active_seeking_months",
+          "completion_percentage",
+          "updated_at"
+        ],
+        "title": "PreconceptionChecklistResponse",
+        "type": "object"
+      },
       "PrimaryIntent": {
         "description": "User primary wellness and health priorities in Cora.",
         "enum": [
@@ -1519,6 +2056,106 @@
           "enabled_modules"
         ],
         "title": "UpdateModulePreferencesRequest",
+        "type": "object"
+      },
+      "UpdatePreconceptionChecklistRequest": {
+        "additionalProperties": false,
+        "description": "Partial update payload for preconception checklist.",
+        "properties": {
+          "active_seeking_months": {
+            "anyOf": [
+              {
+                "maximum": 120.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Seeking Months"
+          },
+          "dental_checkup_done": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dental Checkup Done"
+          },
+          "folic_acid_dose_mcg": {
+            "anyOf": [
+              {
+                "maximum": 5000.0,
+                "minimum": 100.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Folic Acid Dose Mcg"
+          },
+          "medical_checkup_done": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Medical Checkup Done"
+          },
+          "partner_evaluation_planned": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Evaluation Planned"
+          },
+          "rubella_immunity_checked": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rubella Immunity Checked"
+          },
+          "taking_folic_acid": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Taking Folic Acid"
+          },
+          "toxic_habits_stopped": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Toxic Habits Stopped"
+          }
+        },
+        "title": "UpdatePreconceptionChecklistRequest",
         "type": "object"
       },
       "UpsertDailyWellnessRequest": {
@@ -1903,6 +2540,213 @@
         "summary": "Log Bleeding and Cycle Symptoms",
         "tags": [
           "Menstrual Cycles & Symptoms"
+        ]
+      }
+    },
+    "/api/v1/fertility/chart": {
+      "get": {
+        "description": "Retrieves biphasic temperature curve, symptothermal coverline, ovulation confirmation status, and fertile window prediction.",
+        "operationId": "get_fertility_chart_api_v1_fertility_chart_get",
+        "parameters": [
+          {
+            "description": "Cycle ID; defaults to current active cycle",
+            "in": "query",
+            "name": "cycle_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Cycle ID; defaults to current active cycle",
+              "title": "Cycle Id"
+            }
+          },
+          {
+            "description": "Reference evaluation date; defaults to today",
+            "in": "query",
+            "name": "reference_date",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Reference evaluation date; defaults to today",
+              "title": "Reference Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FertilityCycleChartResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Fertility Cycle Chart and Symptothermal Analysis",
+        "tags": [
+          "Fertility & Conception"
+        ]
+      }
+    },
+    "/api/v1/fertility/logs/{log_date}": {
+      "put": {
+        "description": "Records basal body temperature, cervical mucus texture, urinary LH strip test results, and intercourse/insemination.",
+        "operationId": "log_daily_fertility_api_v1_fertility_logs__log_date__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "log_date",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "Log Date",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DailyFertilityLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyFertilityLogResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Log or Update Daily Fertility Biomarkers",
+        "tags": [
+          "Fertility & Conception"
+        ]
+      }
+    },
+    "/api/v1/fertility/preconception-checklist": {
+      "get": {
+        "description": "Retrieves user's preconception checklist, folic acid adherence, and clinical completion percentage.",
+        "operationId": "get_preconception_checklist_api_v1_fertility_preconception_checklist_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreconceptionChecklistResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Preconception Health Recommendations Checklist",
+        "tags": [
+          "Fertility & Conception"
+        ]
+      },
+      "patch": {
+        "description": "Updates adherence to preconception clinical recommendations.",
+        "operationId": "update_preconception_checklist_api_v1_fertility_preconception_checklist_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePreconceptionChecklistRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreconceptionChecklistResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update Preconception Health Checklist",
+        "tags": [
+          "Fertility & Conception"
         ]
       }
     },
