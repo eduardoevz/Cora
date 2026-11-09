@@ -42,15 +42,15 @@
   - `LhStripResult` (`NEGATIVE`, `HIGH`, `PEAK`)
   - `FertilityWindowAssessment` (`status: LOW | HIGH | PEAK_FERTILITY | OVULATION_CONFIRMED`, `coverline_celsius: Decimal | None`, `estimated_ovulation_date: date | None`)
 
-- [ ] **Step 1: Escribir tests TDD parametrizados: validación de rangos `35.00–42.00 °C`, detección exacta de línea base (*coverline*) y regla `3 sobre 6`, exclusión de mediciones con `disturbed=True`, caso de doble pico LH en SOP sin ascenso térmico, y recomendación por tiempo de búsqueda según edad (`< 35` vs `>= 35`)**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests TDD parametrizados: validación de rangos `35.00–42.00 °C`, detección exacta de línea base (*coverline*) y regla `3 sobre 6`, exclusión de mediciones con `disturbed=True`, caso de doble pico LH en SOP sin ascenso térmico, y recomendación por tiempo de búsqueda según edad (`< 35` vs `>= 35`)**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/clinical_tracking/test_symptothermal_fertility_service.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `fertility_biomarkers.py`, `preconception_checklist.py` y `SymptothermalFertilityService`**
-- [ ] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
+- [x] **Step 3: Implementar `fertility_biomarkers.py`, `preconception_checklist.py` y `SymptothermalFertilityService`**
+- [x] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/clinical_tracking/test_symptothermal_fertility_service.py -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/clinical_tracking/domain backend/tests/unit/clinical_tracking/test_symptothermal_fertility_service.py`
   - `git commit -m "feat(clinical-tracking): implement BBT value object and symptothermal fertility engine with TDD"`
 
@@ -75,15 +75,15 @@
   - `IFertilityRepository` (reutilizado en Fase 9 para *Doctor-Ready PDF* y Fase 11 para compartir ventana fértil en *Partner View*)
   - `PUT /api/v1/fertility/logs/{log_date}`, `GET /api/v1/fertility/chart`, `GET /api/v1/fertility/preconception-checklist`, `PATCH /api/v1/fertility/preconception-checklist`
 
-- [ ] **Step 1: Escribir tests de integración verificando ingesta de curva de 16 días de TBC + LH + moco, respuesta de `coverline_celsius` en `/api/v1/fertility/chart` y actualización del checklist preconcepcional**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests de integración verificando ingesta de curva de 16 días de TBC + LH + moco, respuesta de `coverline_celsius` en `/api/v1/fertility/chart` y actualización del checklist preconcepcional**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/clinical_tracking/test_fertility_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración `0005`, ORM, repositorio, casos de uso, router y actualizar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar toda la suite backend**
+- [x] **Step 3: Implementar migración `0005`, ORM, repositorio, casos de uso, router y actualizar `contracts/openapi.json`**
+- [x] **Step 4: Verificar toda la suite backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0005_create_fertility_logs_and_preconception.py backend/app/modules/clinical_tracking backend/app/main.py contracts/openapi.json backend/tests/integration/clinical_tracking/test_fertility_api.py`
   - `git commit -m "feat(clinical-tracking): add fertility biomarkers persistence, chart API, and preconception endpoints"`
 
@@ -105,15 +105,15 @@
 - Consumes: `AppDatabase`, `SyncCoordinator`, `activeUserProfileProvider`
 - Produces: Módulo móvil completo de Etapa 3 activado en `conception_search`
 
-- [ ] **Step 1: Escribir widget/unit tests verificando validación local `35.00–42.00 °C`, renderizado de huecos discontinuos en `BbtBiphasicChartWidget`, línea *coverline* y guardado *Offline-First* de LH + moco cervical**
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir widget/unit tests verificando validación local `35.00–42.00 °C`, renderizado de huecos discontinuos en `BbtBiphasicChartWidget`, línea *coverline* y guardado *Offline-First* de LH + moco cervical**
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/features/fertility`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift de fertilidad, repositorio *Offline-First*, gráfica interactiva accesible y pantallas de concepción/checklist**
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar tablas Drift de fertilidad, repositorio *Offline-First*, gráfica interactiva accesible y pantallas de concepción/checklist**
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 05**
+- [x] **Step 5: Commits finales y cierre de Fase 05**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add interactive BBT biphasic chart, LH/mucus logger, and preconception checklist"`
   - `git add docs/phases/phase-05-fertility-and-conception.md docs/phases/README.md`
