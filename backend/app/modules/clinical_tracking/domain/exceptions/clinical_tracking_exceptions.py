@@ -18,3 +18,18 @@ class InvalidWellnessMetricError(ClinicalTrackingError):
             ),
             status_code=400,
         )
+
+
+class InvalidBasalTemperatureError(ClinicalTrackingError):
+    """Raised when a basal body temperature is outside physiological limits."""
+
+    def __init__(self, value: object) -> None:
+        super().__init__(
+            code="invalid_basal_temperature",
+            title="Temperatura Basal Fuera de Rango Fisiológico",
+            detail=(
+                f"Temperatura basal inválida: {value} °C. "
+                "El rango fisiológico humano permitido es 35.00 °C – 42.00 °C."
+            ),
+            status_code=400,
+        )
