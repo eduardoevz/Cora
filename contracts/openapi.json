@@ -40,6 +40,65 @@
         "title": "AdherenceSummaryResponse",
         "type": "object"
       },
+      "AlertSeverity": {
+        "description": "Clinical severity level for preventative guidance.",
+        "enum": [
+          "info",
+          "attention",
+          "clinical_recommendation"
+        ],
+        "title": "AlertSeverity",
+        "type": "string"
+      },
+      "BleedingFlow": {
+        "description": "Menstrual flow intensity classification.",
+        "enum": [
+          "none",
+          "spotting",
+          "light",
+          "medium",
+          "heavy"
+        ],
+        "title": "BleedingFlow",
+        "type": "string"
+      },
+      "ClinicalPatternAlertResponse": {
+        "description": "Preventative FIGO alert or clinical finding.",
+        "properties": {
+          "alert_type": {
+            "$ref": "#/components/schemas/FigoAlertType"
+          },
+          "description_es": {
+            "title": "Description Es",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "recommendation_es": {
+            "title": "Recommendation Es",
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/AlertSeverity"
+          },
+          "title_es": {
+            "title": "Title Es",
+            "type": "string"
+          }
+        },
+        "required": [
+          "alert_type",
+          "severity",
+          "title_es",
+          "description_es",
+          "recommendation_es"
+        ],
+        "title": "ClinicalPatternAlertResponse",
+        "type": "object"
+      },
       "CreateTreatmentRegimenRequest": {
         "properties": {
           "active_days": {
@@ -152,6 +211,296 @@
           "start_date"
         ],
         "title": "CreateTreatmentRegimenRequest",
+        "type": "object"
+      },
+      "CycleOverviewResponse": {
+        "description": "Comprehensive cycle overview with status, FIGO alerts, and history.",
+        "properties": {
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalPatternAlertResponse"
+            },
+            "title": "Alerts",
+            "type": "array"
+          },
+          "current_cycle": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MenstrualCycleResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recent_cycles": {
+            "items": {
+              "$ref": "#/components/schemas/MenstrualCycleResponse"
+            },
+            "title": "Recent Cycles",
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CycleStatusResponse"
+          }
+        },
+        "required": [
+          "status",
+          "alerts",
+          "recent_cycles"
+        ],
+        "title": "CycleOverviewResponse",
+        "type": "object"
+      },
+      "CyclePhase": {
+        "description": "Physiological phase of the menstrual cycle.",
+        "enum": [
+          "menstrual",
+          "follicular",
+          "ovulatory",
+          "luteal",
+          "hormonally_managed"
+        ],
+        "title": "CyclePhase",
+        "type": "string"
+      },
+      "CycleStatusResponse": {
+        "description": "Detailed biological cycle status, 4-phase calculation, and predictions.",
+        "properties": {
+          "current_cycle_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Cycle Id"
+          },
+          "current_phase": {
+            "$ref": "#/components/schemas/CyclePhase"
+          },
+          "daily_tip_es": {
+            "title": "Daily Tip Es",
+            "type": "string"
+          },
+          "day_in_cycle": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Day In Cycle"
+          },
+          "fertile_window_end": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fertile Window End"
+          },
+          "fertile_window_start": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fertile Window Start"
+          },
+          "has_extended_uncertainty": {
+            "title": "Has Extended Uncertainty",
+            "type": "boolean"
+          },
+          "is_hormonally_managed": {
+            "title": "Is Hormonally Managed",
+            "type": "boolean"
+          },
+          "ovulation_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ovulation Date"
+          },
+          "phase_description_es": {
+            "title": "Phase Description Es",
+            "type": "string"
+          },
+          "predicted_next_period": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Predicted Next Period"
+          }
+        },
+        "required": [
+          "current_phase",
+          "is_hormonally_managed",
+          "has_extended_uncertainty",
+          "phase_description_es",
+          "daily_tip_es"
+        ],
+        "title": "CycleStatusResponse",
+        "type": "object"
+      },
+      "CycleSymptomLogResponse": {
+        "description": "Response model for a recorded cycle symptom log.",
+        "properties": {
+          "acne_severity": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Acne Severity"
+          },
+          "bleeding_flow": {
+            "$ref": "#/components/schemas/BleedingFlow"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "cycle_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cycle Id"
+          },
+          "dysmenorrhea": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dysmenorrhea"
+          },
+          "dyspareunia": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dyspareunia"
+          },
+          "fatigue_level": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fatigue Level"
+          },
+          "gi_symptoms": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Gi Symptoms",
+            "type": "array"
+          },
+          "hirsutism": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hirsutism"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "log_date": {
+            "format": "date",
+            "title": "Log Date",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "pelvic_pain": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pelvic Pain"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "log_date",
+          "bleeding_flow",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CycleSymptomLogResponse",
         "type": "object"
       },
       "DailyWellnessLogResponse": {
@@ -354,6 +703,18 @@
         "title": "DoseIntakeLogResponse",
         "type": "object"
       },
+      "FigoAlertType": {
+        "description": "FIGO standard classification for atypical uterine bleeding patterns.",
+        "enum": [
+          "polymenorrhea",
+          "oligomenorrhea",
+          "prolonged_bleeding",
+          "intermenstrual_spotting",
+          "severe_pelvic_pain_endometriosis_risk"
+        ],
+        "title": "FigoAlertType",
+        "type": "string"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -545,6 +906,129 @@
         "title": "LifeStageTransitionResponse",
         "type": "object"
       },
+      "LogBleedingAndSymptomsRequest": {
+        "additionalProperties": false,
+        "description": "Payload to log bleeding flow and associated somatic symptoms.",
+        "properties": {
+          "acne_severity": {
+            "anyOf": [
+              {
+                "maximum": 10.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Acne breakout severity 0-10",
+            "title": "Acne Severity"
+          },
+          "bleeding_flow": {
+            "$ref": "#/components/schemas/BleedingFlow",
+            "default": "none",
+            "description": "Flow intensity: none, spotting, light, medium, heavy"
+          },
+          "dysmenorrhea": {
+            "anyOf": [
+              {
+                "maximum": 10.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Menstrual cramps score on 0-10 scale",
+            "title": "Dysmenorrhea"
+          },
+          "dyspareunia": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pain during intercourse if applicable",
+            "title": "Dyspareunia"
+          },
+          "fatigue_level": {
+            "anyOf": [
+              {
+                "maximum": 10.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Fatigue level 0-10",
+            "title": "Fatigue Level"
+          },
+          "gi_symptoms": {
+            "description": "Gastrointestinal symptoms (e.g. bloating, nausea)",
+            "items": {
+              "type": "string"
+            },
+            "title": "Gi Symptoms",
+            "type": "array"
+          },
+          "hirsutism": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Presence of excess hair or androgenic signs",
+            "title": "Hirsutism"
+          },
+          "log_date": {
+            "description": "Date of the symptom record",
+            "format": "date",
+            "title": "Log Date",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional brief clinical note",
+            "title": "Notes"
+          },
+          "pelvic_pain": {
+            "anyOf": [
+              {
+                "maximum": 10.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pelvic pain score on 0-10 scale",
+            "title": "Pelvic Pain"
+          }
+        },
+        "required": [
+          "log_date"
+        ],
+        "title": "LogBleedingAndSymptomsRequest",
+        "type": "object"
+      },
       "LogDoseIntakeRequest": {
         "properties": {
           "client_mutation_id": {
@@ -603,6 +1087,82 @@
           "scheduled_for"
         ],
         "title": "LogDoseIntakeRequest",
+        "type": "object"
+      },
+      "MenstrualCycleResponse": {
+        "description": "Response model for a menstrual cycle aggregate.",
+        "properties": {
+          "bleeding_duration_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bleeding Duration Days"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "cycle_length_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cycle Length Days"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "is_current": {
+            "title": "Is Current",
+            "type": "boolean"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "start_date",
+          "is_current",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MenstrualCycleResponse",
         "type": "object"
       },
       "OnboardingContextResponse": {
@@ -1184,6 +1744,168 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/cycles/history": {
+      "get": {
+        "description": "Retrieves chronological history of past and current menstrual cycles.",
+        "operationId": "list_cycle_history_api_v1_cycles_history_get",
+        "parameters": [
+          {
+            "description": "Max cycles to return",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 12,
+              "description": "Max cycles to return",
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MenstrualCycleResponse"
+                  },
+                  "title": "Response List Cycle History Api V1 Cycles History Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Menstrual Cycle History",
+        "tags": [
+          "Menstrual Cycles & Symptoms"
+        ]
+      }
+    },
+    "/api/v1/cycles/overview": {
+      "get": {
+        "description": "Retrieves active cycle status, 4-phase biological prediction, and preventative FIGO alerts adapted to life stage and conditions.",
+        "operationId": "get_cycle_overview_api_v1_cycles_overview_get",
+        "parameters": [
+          {
+            "description": "Reference date for cycle calculation; defaults to today",
+            "in": "query",
+            "name": "reference_date",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Reference date for cycle calculation; defaults to today",
+              "title": "Reference Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CycleOverviewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Cycle Overview, Phase Prediction, and FIGO Alerts",
+        "tags": [
+          "Menstrual Cycles & Symptoms"
+        ]
+      }
+    },
+    "/api/v1/cycles/symptoms": {
+      "post": {
+        "description": "Records daily menstrual bleeding, somatic symptoms (pelvic pain, dysmenorrhea), and automatically manages cycle transitions according to clinical guidelines.",
+        "operationId": "log_bleeding_and_symptoms_api_v1_cycles_symptoms_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogBleedingAndSymptomsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CycleSymptomLogResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Log Bleeding and Cycle Symptoms",
+        "tags": [
+          "Menstrual Cycles & Symptoms"
+        ]
+      }
+    },
     "/api/v1/health": {
       "get": {
         "description": "Verifica disponibilidad b\u00e1sica del servicio y versi\u00f3n desplegada.",
