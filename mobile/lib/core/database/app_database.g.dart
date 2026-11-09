@@ -4892,6 +4892,1299 @@ class CycleSymptomEntriesCompanion extends UpdateCompanion<CycleSymptomEntry> {
   }
 }
 
+class $DailyFertilityEntriesTable extends DailyFertilityEntries
+    with TableInfo<$DailyFertilityEntriesTable, DailyFertilityEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DailyFertilityEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _logDateMeta =
+      const VerificationMeta('logDate');
+  @override
+  late final GeneratedColumn<DateTime> logDate = GeneratedColumn<DateTime>(
+      'log_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _bbtCelsiusMeta =
+      const VerificationMeta('bbtCelsius');
+  @override
+  late final GeneratedColumn<double> bbtCelsius = GeneratedColumn<double>(
+      'bbt_celsius', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _isDisturbedMeta =
+      const VerificationMeta('isDisturbed');
+  @override
+  late final GeneratedColumn<bool> isDisturbed = GeneratedColumn<bool>(
+      'is_disturbed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_disturbed" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _disturbanceReasonMeta =
+      const VerificationMeta('disturbanceReason');
+  @override
+  late final GeneratedColumn<String> disturbanceReason =
+      GeneratedColumn<String>('disturbance_reason', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _measuredAtTimeMeta =
+      const VerificationMeta('measuredAtTime');
+  @override
+  late final GeneratedColumn<String> measuredAtTime = GeneratedColumn<String>(
+      'measured_at_time', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _cervicalMucusMeta =
+      const VerificationMeta('cervicalMucus');
+  @override
+  late final GeneratedColumn<String> cervicalMucus = GeneratedColumn<String>(
+      'cervical_mucus', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _lhResultMeta =
+      const VerificationMeta('lhResult');
+  @override
+  late final GeneratedColumn<String> lhResult = GeneratedColumn<String>(
+      'lh_result', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _intercourseHadMeta =
+      const VerificationMeta('intercourseHad');
+  @override
+  late final GeneratedColumn<bool> intercourseHad = GeneratedColumn<bool>(
+      'intercourse_had', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("intercourse_had" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _intercourseTypeMeta =
+      const VerificationMeta('intercourseType');
+  @override
+  late final GeneratedColumn<String> intercourseType = GeneratedColumn<String>(
+      'intercourse_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('none'));
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        logDate,
+        bbtCelsius,
+        isDisturbed,
+        disturbanceReason,
+        measuredAtTime,
+        cervicalMucus,
+        lhResult,
+        intercourseHad,
+        intercourseType,
+        notes,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'daily_fertility_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DailyFertilityEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('log_date')) {
+      context.handle(_logDateMeta,
+          logDate.isAcceptableOrUnknown(data['log_date']!, _logDateMeta));
+    } else if (isInserting) {
+      context.missing(_logDateMeta);
+    }
+    if (data.containsKey('bbt_celsius')) {
+      context.handle(
+          _bbtCelsiusMeta,
+          bbtCelsius.isAcceptableOrUnknown(
+              data['bbt_celsius']!, _bbtCelsiusMeta));
+    }
+    if (data.containsKey('is_disturbed')) {
+      context.handle(
+          _isDisturbedMeta,
+          isDisturbed.isAcceptableOrUnknown(
+              data['is_disturbed']!, _isDisturbedMeta));
+    }
+    if (data.containsKey('disturbance_reason')) {
+      context.handle(
+          _disturbanceReasonMeta,
+          disturbanceReason.isAcceptableOrUnknown(
+              data['disturbance_reason']!, _disturbanceReasonMeta));
+    }
+    if (data.containsKey('measured_at_time')) {
+      context.handle(
+          _measuredAtTimeMeta,
+          measuredAtTime.isAcceptableOrUnknown(
+              data['measured_at_time']!, _measuredAtTimeMeta));
+    }
+    if (data.containsKey('cervical_mucus')) {
+      context.handle(
+          _cervicalMucusMeta,
+          cervicalMucus.isAcceptableOrUnknown(
+              data['cervical_mucus']!, _cervicalMucusMeta));
+    }
+    if (data.containsKey('lh_result')) {
+      context.handle(_lhResultMeta,
+          lhResult.isAcceptableOrUnknown(data['lh_result']!, _lhResultMeta));
+    }
+    if (data.containsKey('intercourse_had')) {
+      context.handle(
+          _intercourseHadMeta,
+          intercourseHad.isAcceptableOrUnknown(
+              data['intercourse_had']!, _intercourseHadMeta));
+    }
+    if (data.containsKey('intercourse_type')) {
+      context.handle(
+          _intercourseTypeMeta,
+          intercourseType.isAcceptableOrUnknown(
+              data['intercourse_type']!, _intercourseTypeMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+        {userId, logDate},
+      ];
+  @override
+  DailyFertilityEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DailyFertilityEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      logDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}log_date'])!,
+      bbtCelsius: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}bbt_celsius']),
+      isDisturbed: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_disturbed'])!,
+      disturbanceReason: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}disturbance_reason']),
+      measuredAtTime: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}measured_at_time']),
+      cervicalMucus: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cervical_mucus']),
+      lhResult: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}lh_result']),
+      intercourseHad: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}intercourse_had'])!,
+      intercourseType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}intercourse_type'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $DailyFertilityEntriesTable createAlias(String alias) {
+    return $DailyFertilityEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class DailyFertilityEntry extends DataClass
+    implements Insertable<DailyFertilityEntry> {
+  final String id;
+  final String userId;
+  final DateTime logDate;
+  final double? bbtCelsius;
+  final bool isDisturbed;
+  final String? disturbanceReason;
+  final String? measuredAtTime;
+  final String? cervicalMucus;
+  final String? lhResult;
+  final bool intercourseHad;
+  final String intercourseType;
+  final String? notes;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const DailyFertilityEntry(
+      {required this.id,
+      required this.userId,
+      required this.logDate,
+      this.bbtCelsius,
+      required this.isDisturbed,
+      this.disturbanceReason,
+      this.measuredAtTime,
+      this.cervicalMucus,
+      this.lhResult,
+      required this.intercourseHad,
+      required this.intercourseType,
+      this.notes,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['log_date'] = Variable<DateTime>(logDate);
+    if (!nullToAbsent || bbtCelsius != null) {
+      map['bbt_celsius'] = Variable<double>(bbtCelsius);
+    }
+    map['is_disturbed'] = Variable<bool>(isDisturbed);
+    if (!nullToAbsent || disturbanceReason != null) {
+      map['disturbance_reason'] = Variable<String>(disturbanceReason);
+    }
+    if (!nullToAbsent || measuredAtTime != null) {
+      map['measured_at_time'] = Variable<String>(measuredAtTime);
+    }
+    if (!nullToAbsent || cervicalMucus != null) {
+      map['cervical_mucus'] = Variable<String>(cervicalMucus);
+    }
+    if (!nullToAbsent || lhResult != null) {
+      map['lh_result'] = Variable<String>(lhResult);
+    }
+    map['intercourse_had'] = Variable<bool>(intercourseHad);
+    map['intercourse_type'] = Variable<String>(intercourseType);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  DailyFertilityEntriesCompanion toCompanion(bool nullToAbsent) {
+    return DailyFertilityEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      logDate: Value(logDate),
+      bbtCelsius: bbtCelsius == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bbtCelsius),
+      isDisturbed: Value(isDisturbed),
+      disturbanceReason: disturbanceReason == null && nullToAbsent
+          ? const Value.absent()
+          : Value(disturbanceReason),
+      measuredAtTime: measuredAtTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(measuredAtTime),
+      cervicalMucus: cervicalMucus == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cervicalMucus),
+      lhResult: lhResult == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lhResult),
+      intercourseHad: Value(intercourseHad),
+      intercourseType: Value(intercourseType),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory DailyFertilityEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DailyFertilityEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      logDate: serializer.fromJson<DateTime>(json['logDate']),
+      bbtCelsius: serializer.fromJson<double?>(json['bbtCelsius']),
+      isDisturbed: serializer.fromJson<bool>(json['isDisturbed']),
+      disturbanceReason:
+          serializer.fromJson<String?>(json['disturbanceReason']),
+      measuredAtTime: serializer.fromJson<String?>(json['measuredAtTime']),
+      cervicalMucus: serializer.fromJson<String?>(json['cervicalMucus']),
+      lhResult: serializer.fromJson<String?>(json['lhResult']),
+      intercourseHad: serializer.fromJson<bool>(json['intercourseHad']),
+      intercourseType: serializer.fromJson<String>(json['intercourseType']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'logDate': serializer.toJson<DateTime>(logDate),
+      'bbtCelsius': serializer.toJson<double?>(bbtCelsius),
+      'isDisturbed': serializer.toJson<bool>(isDisturbed),
+      'disturbanceReason': serializer.toJson<String?>(disturbanceReason),
+      'measuredAtTime': serializer.toJson<String?>(measuredAtTime),
+      'cervicalMucus': serializer.toJson<String?>(cervicalMucus),
+      'lhResult': serializer.toJson<String?>(lhResult),
+      'intercourseHad': serializer.toJson<bool>(intercourseHad),
+      'intercourseType': serializer.toJson<String>(intercourseType),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  DailyFertilityEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? logDate,
+          Value<double?> bbtCelsius = const Value.absent(),
+          bool? isDisturbed,
+          Value<String?> disturbanceReason = const Value.absent(),
+          Value<String?> measuredAtTime = const Value.absent(),
+          Value<String?> cervicalMucus = const Value.absent(),
+          Value<String?> lhResult = const Value.absent(),
+          bool? intercourseHad,
+          String? intercourseType,
+          Value<String?> notes = const Value.absent(),
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      DailyFertilityEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        logDate: logDate ?? this.logDate,
+        bbtCelsius: bbtCelsius.present ? bbtCelsius.value : this.bbtCelsius,
+        isDisturbed: isDisturbed ?? this.isDisturbed,
+        disturbanceReason: disturbanceReason.present
+            ? disturbanceReason.value
+            : this.disturbanceReason,
+        measuredAtTime:
+            measuredAtTime.present ? measuredAtTime.value : this.measuredAtTime,
+        cervicalMucus:
+            cervicalMucus.present ? cervicalMucus.value : this.cervicalMucus,
+        lhResult: lhResult.present ? lhResult.value : this.lhResult,
+        intercourseHad: intercourseHad ?? this.intercourseHad,
+        intercourseType: intercourseType ?? this.intercourseType,
+        notes: notes.present ? notes.value : this.notes,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  DailyFertilityEntry copyWithCompanion(DailyFertilityEntriesCompanion data) {
+    return DailyFertilityEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      logDate: data.logDate.present ? data.logDate.value : this.logDate,
+      bbtCelsius:
+          data.bbtCelsius.present ? data.bbtCelsius.value : this.bbtCelsius,
+      isDisturbed:
+          data.isDisturbed.present ? data.isDisturbed.value : this.isDisturbed,
+      disturbanceReason: data.disturbanceReason.present
+          ? data.disturbanceReason.value
+          : this.disturbanceReason,
+      measuredAtTime: data.measuredAtTime.present
+          ? data.measuredAtTime.value
+          : this.measuredAtTime,
+      cervicalMucus: data.cervicalMucus.present
+          ? data.cervicalMucus.value
+          : this.cervicalMucus,
+      lhResult: data.lhResult.present ? data.lhResult.value : this.lhResult,
+      intercourseHad: data.intercourseHad.present
+          ? data.intercourseHad.value
+          : this.intercourseHad,
+      intercourseType: data.intercourseType.present
+          ? data.intercourseType.value
+          : this.intercourseType,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyFertilityEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('logDate: $logDate, ')
+          ..write('bbtCelsius: $bbtCelsius, ')
+          ..write('isDisturbed: $isDisturbed, ')
+          ..write('disturbanceReason: $disturbanceReason, ')
+          ..write('measuredAtTime: $measuredAtTime, ')
+          ..write('cervicalMucus: $cervicalMucus, ')
+          ..write('lhResult: $lhResult, ')
+          ..write('intercourseHad: $intercourseHad, ')
+          ..write('intercourseType: $intercourseType, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      logDate,
+      bbtCelsius,
+      isDisturbed,
+      disturbanceReason,
+      measuredAtTime,
+      cervicalMucus,
+      lhResult,
+      intercourseHad,
+      intercourseType,
+      notes,
+      createdAt,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DailyFertilityEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.logDate == this.logDate &&
+          other.bbtCelsius == this.bbtCelsius &&
+          other.isDisturbed == this.isDisturbed &&
+          other.disturbanceReason == this.disturbanceReason &&
+          other.measuredAtTime == this.measuredAtTime &&
+          other.cervicalMucus == this.cervicalMucus &&
+          other.lhResult == this.lhResult &&
+          other.intercourseHad == this.intercourseHad &&
+          other.intercourseType == this.intercourseType &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class DailyFertilityEntriesCompanion
+    extends UpdateCompanion<DailyFertilityEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> logDate;
+  final Value<double?> bbtCelsius;
+  final Value<bool> isDisturbed;
+  final Value<String?> disturbanceReason;
+  final Value<String?> measuredAtTime;
+  final Value<String?> cervicalMucus;
+  final Value<String?> lhResult;
+  final Value<bool> intercourseHad;
+  final Value<String> intercourseType;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const DailyFertilityEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.logDate = const Value.absent(),
+    this.bbtCelsius = const Value.absent(),
+    this.isDisturbed = const Value.absent(),
+    this.disturbanceReason = const Value.absent(),
+    this.measuredAtTime = const Value.absent(),
+    this.cervicalMucus = const Value.absent(),
+    this.lhResult = const Value.absent(),
+    this.intercourseHad = const Value.absent(),
+    this.intercourseType = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DailyFertilityEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime logDate,
+    this.bbtCelsius = const Value.absent(),
+    this.isDisturbed = const Value.absent(),
+    this.disturbanceReason = const Value.absent(),
+    this.measuredAtTime = const Value.absent(),
+    this.cervicalMucus = const Value.absent(),
+    this.lhResult = const Value.absent(),
+    this.intercourseHad = const Value.absent(),
+    this.intercourseType = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        logDate = Value(logDate);
+  static Insertable<DailyFertilityEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? logDate,
+    Expression<double>? bbtCelsius,
+    Expression<bool>? isDisturbed,
+    Expression<String>? disturbanceReason,
+    Expression<String>? measuredAtTime,
+    Expression<String>? cervicalMucus,
+    Expression<String>? lhResult,
+    Expression<bool>? intercourseHad,
+    Expression<String>? intercourseType,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (logDate != null) 'log_date': logDate,
+      if (bbtCelsius != null) 'bbt_celsius': bbtCelsius,
+      if (isDisturbed != null) 'is_disturbed': isDisturbed,
+      if (disturbanceReason != null) 'disturbance_reason': disturbanceReason,
+      if (measuredAtTime != null) 'measured_at_time': measuredAtTime,
+      if (cervicalMucus != null) 'cervical_mucus': cervicalMucus,
+      if (lhResult != null) 'lh_result': lhResult,
+      if (intercourseHad != null) 'intercourse_had': intercourseHad,
+      if (intercourseType != null) 'intercourse_type': intercourseType,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DailyFertilityEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? logDate,
+      Value<double?>? bbtCelsius,
+      Value<bool>? isDisturbed,
+      Value<String?>? disturbanceReason,
+      Value<String?>? measuredAtTime,
+      Value<String?>? cervicalMucus,
+      Value<String?>? lhResult,
+      Value<bool>? intercourseHad,
+      Value<String>? intercourseType,
+      Value<String?>? notes,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return DailyFertilityEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      logDate: logDate ?? this.logDate,
+      bbtCelsius: bbtCelsius ?? this.bbtCelsius,
+      isDisturbed: isDisturbed ?? this.isDisturbed,
+      disturbanceReason: disturbanceReason ?? this.disturbanceReason,
+      measuredAtTime: measuredAtTime ?? this.measuredAtTime,
+      cervicalMucus: cervicalMucus ?? this.cervicalMucus,
+      lhResult: lhResult ?? this.lhResult,
+      intercourseHad: intercourseHad ?? this.intercourseHad,
+      intercourseType: intercourseType ?? this.intercourseType,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (logDate.present) {
+      map['log_date'] = Variable<DateTime>(logDate.value);
+    }
+    if (bbtCelsius.present) {
+      map['bbt_celsius'] = Variable<double>(bbtCelsius.value);
+    }
+    if (isDisturbed.present) {
+      map['is_disturbed'] = Variable<bool>(isDisturbed.value);
+    }
+    if (disturbanceReason.present) {
+      map['disturbance_reason'] = Variable<String>(disturbanceReason.value);
+    }
+    if (measuredAtTime.present) {
+      map['measured_at_time'] = Variable<String>(measuredAtTime.value);
+    }
+    if (cervicalMucus.present) {
+      map['cervical_mucus'] = Variable<String>(cervicalMucus.value);
+    }
+    if (lhResult.present) {
+      map['lh_result'] = Variable<String>(lhResult.value);
+    }
+    if (intercourseHad.present) {
+      map['intercourse_had'] = Variable<bool>(intercourseHad.value);
+    }
+    if (intercourseType.present) {
+      map['intercourse_type'] = Variable<String>(intercourseType.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyFertilityEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('logDate: $logDate, ')
+          ..write('bbtCelsius: $bbtCelsius, ')
+          ..write('isDisturbed: $isDisturbed, ')
+          ..write('disturbanceReason: $disturbanceReason, ')
+          ..write('measuredAtTime: $measuredAtTime, ')
+          ..write('cervicalMucus: $cervicalMucus, ')
+          ..write('lhResult: $lhResult, ')
+          ..write('intercourseHad: $intercourseHad, ')
+          ..write('intercourseType: $intercourseType, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PreconceptionChecklistEntriesTable extends PreconceptionChecklistEntries
+    with
+        TableInfo<$PreconceptionChecklistEntriesTable,
+            PreconceptionChecklistEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PreconceptionChecklistEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _takingFolicAcidMeta =
+      const VerificationMeta('takingFolicAcid');
+  @override
+  late final GeneratedColumn<bool> takingFolicAcid = GeneratedColumn<bool>(
+      'taking_folic_acid', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("taking_folic_acid" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _folicAcidDoseMcgMeta =
+      const VerificationMeta('folicAcidDoseMcg');
+  @override
+  late final GeneratedColumn<int> folicAcidDoseMcg = GeneratedColumn<int>(
+      'folic_acid_dose_mcg', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(400));
+  static const VerificationMeta _medicalCheckupDoneMeta =
+      const VerificationMeta('medicalCheckupDone');
+  @override
+  late final GeneratedColumn<bool> medicalCheckupDone = GeneratedColumn<bool>(
+      'medical_checkup_done', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("medical_checkup_done" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _rubellaImmunityCheckedMeta =
+      const VerificationMeta('rubellaImmunityChecked');
+  @override
+  late final GeneratedColumn<bool> rubellaImmunityChecked =
+      GeneratedColumn<bool>('rubella_immunity_checked', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("rubella_immunity_checked" IN (0, 1))'),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _dentalCheckupDoneMeta =
+      const VerificationMeta('dentalCheckupDone');
+  @override
+  late final GeneratedColumn<bool> dentalCheckupDone = GeneratedColumn<bool>(
+      'dental_checkup_done', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("dental_checkup_done" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _toxicHabitsStoppedMeta =
+      const VerificationMeta('toxicHabitsStopped');
+  @override
+  late final GeneratedColumn<bool> toxicHabitsStopped = GeneratedColumn<bool>(
+      'toxic_habits_stopped', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("toxic_habits_stopped" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _partnerEvaluationPlannedMeta =
+      const VerificationMeta('partnerEvaluationPlanned');
+  @override
+  late final GeneratedColumn<bool> partnerEvaluationPlanned =
+      GeneratedColumn<bool>(
+          'partner_evaluation_planned', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("partner_evaluation_planned" IN (0, 1))'),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _activeSeekingMonthsMeta =
+      const VerificationMeta('activeSeekingMonths');
+  @override
+  late final GeneratedColumn<int> activeSeekingMonths = GeneratedColumn<int>(
+      'active_seeking_months', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        userId,
+        takingFolicAcid,
+        folicAcidDoseMcg,
+        medicalCheckupDone,
+        rubellaImmunityChecked,
+        dentalCheckupDone,
+        toxicHabitsStopped,
+        partnerEvaluationPlanned,
+        activeSeekingMonths,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'preconception_checklist_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<PreconceptionChecklistEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('taking_folic_acid')) {
+      context.handle(
+          _takingFolicAcidMeta,
+          takingFolicAcid.isAcceptableOrUnknown(
+              data['taking_folic_acid']!, _takingFolicAcidMeta));
+    }
+    if (data.containsKey('folic_acid_dose_mcg')) {
+      context.handle(
+          _folicAcidDoseMcgMeta,
+          folicAcidDoseMcg.isAcceptableOrUnknown(
+              data['folic_acid_dose_mcg']!, _folicAcidDoseMcgMeta));
+    }
+    if (data.containsKey('medical_checkup_done')) {
+      context.handle(
+          _medicalCheckupDoneMeta,
+          medicalCheckupDone.isAcceptableOrUnknown(
+              data['medical_checkup_done']!, _medicalCheckupDoneMeta));
+    }
+    if (data.containsKey('rubella_immunity_checked')) {
+      context.handle(
+          _rubellaImmunityCheckedMeta,
+          rubellaImmunityChecked.isAcceptableOrUnknown(
+              data['rubella_immunity_checked']!, _rubellaImmunityCheckedMeta));
+    }
+    if (data.containsKey('dental_checkup_done')) {
+      context.handle(
+          _dentalCheckupDoneMeta,
+          dentalCheckupDone.isAcceptableOrUnknown(
+              data['dental_checkup_done']!, _dentalCheckupDoneMeta));
+    }
+    if (data.containsKey('toxic_habits_stopped')) {
+      context.handle(
+          _toxicHabitsStoppedMeta,
+          toxicHabitsStopped.isAcceptableOrUnknown(
+              data['toxic_habits_stopped']!, _toxicHabitsStoppedMeta));
+    }
+    if (data.containsKey('partner_evaluation_planned')) {
+      context.handle(
+          _partnerEvaluationPlannedMeta,
+          partnerEvaluationPlanned.isAcceptableOrUnknown(
+              data['partner_evaluation_planned']!,
+              _partnerEvaluationPlannedMeta));
+    }
+    if (data.containsKey('active_seeking_months')) {
+      context.handle(
+          _activeSeekingMonthsMeta,
+          activeSeekingMonths.isAcceptableOrUnknown(
+              data['active_seeking_months']!, _activeSeekingMonthsMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId};
+  @override
+  PreconceptionChecklistEntry map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PreconceptionChecklistEntry(
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      takingFolicAcid: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}taking_folic_acid'])!,
+      folicAcidDoseMcg: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}folic_acid_dose_mcg']),
+      medicalCheckupDone: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}medical_checkup_done'])!,
+      rubellaImmunityChecked: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}rubella_immunity_checked'])!,
+      dentalCheckupDone: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}dental_checkup_done'])!,
+      toxicHabitsStopped: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}toxic_habits_stopped'])!,
+      partnerEvaluationPlanned: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}partner_evaluation_planned'])!,
+      activeSeekingMonths: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}active_seeking_months'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $PreconceptionChecklistEntriesTable createAlias(String alias) {
+    return $PreconceptionChecklistEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class PreconceptionChecklistEntry extends DataClass
+    implements Insertable<PreconceptionChecklistEntry> {
+  final String userId;
+  final bool takingFolicAcid;
+  final int? folicAcidDoseMcg;
+  final bool medicalCheckupDone;
+  final bool rubellaImmunityChecked;
+  final bool dentalCheckupDone;
+  final bool toxicHabitsStopped;
+  final bool partnerEvaluationPlanned;
+  final int activeSeekingMonths;
+  final DateTime updatedAt;
+  const PreconceptionChecklistEntry(
+      {required this.userId,
+      required this.takingFolicAcid,
+      this.folicAcidDoseMcg,
+      required this.medicalCheckupDone,
+      required this.rubellaImmunityChecked,
+      required this.dentalCheckupDone,
+      required this.toxicHabitsStopped,
+      required this.partnerEvaluationPlanned,
+      required this.activeSeekingMonths,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<String>(userId);
+    map['taking_folic_acid'] = Variable<bool>(takingFolicAcid);
+    if (!nullToAbsent || folicAcidDoseMcg != null) {
+      map['folic_acid_dose_mcg'] = Variable<int>(folicAcidDoseMcg);
+    }
+    map['medical_checkup_done'] = Variable<bool>(medicalCheckupDone);
+    map['rubella_immunity_checked'] = Variable<bool>(rubellaImmunityChecked);
+    map['dental_checkup_done'] = Variable<bool>(dentalCheckupDone);
+    map['toxic_habits_stopped'] = Variable<bool>(toxicHabitsStopped);
+    map['partner_evaluation_planned'] =
+        Variable<bool>(partnerEvaluationPlanned);
+    map['active_seeking_months'] = Variable<int>(activeSeekingMonths);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  PreconceptionChecklistEntriesCompanion toCompanion(bool nullToAbsent) {
+    return PreconceptionChecklistEntriesCompanion(
+      userId: Value(userId),
+      takingFolicAcid: Value(takingFolicAcid),
+      folicAcidDoseMcg: folicAcidDoseMcg == null && nullToAbsent
+          ? const Value.absent()
+          : Value(folicAcidDoseMcg),
+      medicalCheckupDone: Value(medicalCheckupDone),
+      rubellaImmunityChecked: Value(rubellaImmunityChecked),
+      dentalCheckupDone: Value(dentalCheckupDone),
+      toxicHabitsStopped: Value(toxicHabitsStopped),
+      partnerEvaluationPlanned: Value(partnerEvaluationPlanned),
+      activeSeekingMonths: Value(activeSeekingMonths),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory PreconceptionChecklistEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PreconceptionChecklistEntry(
+      userId: serializer.fromJson<String>(json['userId']),
+      takingFolicAcid: serializer.fromJson<bool>(json['takingFolicAcid']),
+      folicAcidDoseMcg: serializer.fromJson<int?>(json['folicAcidDoseMcg']),
+      medicalCheckupDone: serializer.fromJson<bool>(json['medicalCheckupDone']),
+      rubellaImmunityChecked:
+          serializer.fromJson<bool>(json['rubellaImmunityChecked']),
+      dentalCheckupDone: serializer.fromJson<bool>(json['dentalCheckupDone']),
+      toxicHabitsStopped: serializer.fromJson<bool>(json['toxicHabitsStopped']),
+      partnerEvaluationPlanned:
+          serializer.fromJson<bool>(json['partnerEvaluationPlanned']),
+      activeSeekingMonths:
+          serializer.fromJson<int>(json['activeSeekingMonths']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'userId': serializer.toJson<String>(userId),
+      'takingFolicAcid': serializer.toJson<bool>(takingFolicAcid),
+      'folicAcidDoseMcg': serializer.toJson<int?>(folicAcidDoseMcg),
+      'medicalCheckupDone': serializer.toJson<bool>(medicalCheckupDone),
+      'rubellaImmunityChecked': serializer.toJson<bool>(rubellaImmunityChecked),
+      'dentalCheckupDone': serializer.toJson<bool>(dentalCheckupDone),
+      'toxicHabitsStopped': serializer.toJson<bool>(toxicHabitsStopped),
+      'partnerEvaluationPlanned':
+          serializer.toJson<bool>(partnerEvaluationPlanned),
+      'activeSeekingMonths': serializer.toJson<int>(activeSeekingMonths),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  PreconceptionChecklistEntry copyWith(
+          {String? userId,
+          bool? takingFolicAcid,
+          Value<int?> folicAcidDoseMcg = const Value.absent(),
+          bool? medicalCheckupDone,
+          bool? rubellaImmunityChecked,
+          bool? dentalCheckupDone,
+          bool? toxicHabitsStopped,
+          bool? partnerEvaluationPlanned,
+          int? activeSeekingMonths,
+          DateTime? updatedAt}) =>
+      PreconceptionChecklistEntry(
+        userId: userId ?? this.userId,
+        takingFolicAcid: takingFolicAcid ?? this.takingFolicAcid,
+        folicAcidDoseMcg: folicAcidDoseMcg.present
+            ? folicAcidDoseMcg.value
+            : this.folicAcidDoseMcg,
+        medicalCheckupDone: medicalCheckupDone ?? this.medicalCheckupDone,
+        rubellaImmunityChecked:
+            rubellaImmunityChecked ?? this.rubellaImmunityChecked,
+        dentalCheckupDone: dentalCheckupDone ?? this.dentalCheckupDone,
+        toxicHabitsStopped: toxicHabitsStopped ?? this.toxicHabitsStopped,
+        partnerEvaluationPlanned:
+            partnerEvaluationPlanned ?? this.partnerEvaluationPlanned,
+        activeSeekingMonths: activeSeekingMonths ?? this.activeSeekingMonths,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  PreconceptionChecklistEntry copyWithCompanion(
+      PreconceptionChecklistEntriesCompanion data) {
+    return PreconceptionChecklistEntry(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      takingFolicAcid: data.takingFolicAcid.present
+          ? data.takingFolicAcid.value
+          : this.takingFolicAcid,
+      folicAcidDoseMcg: data.folicAcidDoseMcg.present
+          ? data.folicAcidDoseMcg.value
+          : this.folicAcidDoseMcg,
+      medicalCheckupDone: data.medicalCheckupDone.present
+          ? data.medicalCheckupDone.value
+          : this.medicalCheckupDone,
+      rubellaImmunityChecked: data.rubellaImmunityChecked.present
+          ? data.rubellaImmunityChecked.value
+          : this.rubellaImmunityChecked,
+      dentalCheckupDone: data.dentalCheckupDone.present
+          ? data.dentalCheckupDone.value
+          : this.dentalCheckupDone,
+      toxicHabitsStopped: data.toxicHabitsStopped.present
+          ? data.toxicHabitsStopped.value
+          : this.toxicHabitsStopped,
+      partnerEvaluationPlanned: data.partnerEvaluationPlanned.present
+          ? data.partnerEvaluationPlanned.value
+          : this.partnerEvaluationPlanned,
+      activeSeekingMonths: data.activeSeekingMonths.present
+          ? data.activeSeekingMonths.value
+          : this.activeSeekingMonths,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PreconceptionChecklistEntry(')
+          ..write('userId: $userId, ')
+          ..write('takingFolicAcid: $takingFolicAcid, ')
+          ..write('folicAcidDoseMcg: $folicAcidDoseMcg, ')
+          ..write('medicalCheckupDone: $medicalCheckupDone, ')
+          ..write('rubellaImmunityChecked: $rubellaImmunityChecked, ')
+          ..write('dentalCheckupDone: $dentalCheckupDone, ')
+          ..write('toxicHabitsStopped: $toxicHabitsStopped, ')
+          ..write('partnerEvaluationPlanned: $partnerEvaluationPlanned, ')
+          ..write('activeSeekingMonths: $activeSeekingMonths, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      userId,
+      takingFolicAcid,
+      folicAcidDoseMcg,
+      medicalCheckupDone,
+      rubellaImmunityChecked,
+      dentalCheckupDone,
+      toxicHabitsStopped,
+      partnerEvaluationPlanned,
+      activeSeekingMonths,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PreconceptionChecklistEntry &&
+          other.userId == this.userId &&
+          other.takingFolicAcid == this.takingFolicAcid &&
+          other.folicAcidDoseMcg == this.folicAcidDoseMcg &&
+          other.medicalCheckupDone == this.medicalCheckupDone &&
+          other.rubellaImmunityChecked == this.rubellaImmunityChecked &&
+          other.dentalCheckupDone == this.dentalCheckupDone &&
+          other.toxicHabitsStopped == this.toxicHabitsStopped &&
+          other.partnerEvaluationPlanned == this.partnerEvaluationPlanned &&
+          other.activeSeekingMonths == this.activeSeekingMonths &&
+          other.updatedAt == this.updatedAt);
+}
+
+class PreconceptionChecklistEntriesCompanion
+    extends UpdateCompanion<PreconceptionChecklistEntry> {
+  final Value<String> userId;
+  final Value<bool> takingFolicAcid;
+  final Value<int?> folicAcidDoseMcg;
+  final Value<bool> medicalCheckupDone;
+  final Value<bool> rubellaImmunityChecked;
+  final Value<bool> dentalCheckupDone;
+  final Value<bool> toxicHabitsStopped;
+  final Value<bool> partnerEvaluationPlanned;
+  final Value<int> activeSeekingMonths;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const PreconceptionChecklistEntriesCompanion({
+    this.userId = const Value.absent(),
+    this.takingFolicAcid = const Value.absent(),
+    this.folicAcidDoseMcg = const Value.absent(),
+    this.medicalCheckupDone = const Value.absent(),
+    this.rubellaImmunityChecked = const Value.absent(),
+    this.dentalCheckupDone = const Value.absent(),
+    this.toxicHabitsStopped = const Value.absent(),
+    this.partnerEvaluationPlanned = const Value.absent(),
+    this.activeSeekingMonths = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PreconceptionChecklistEntriesCompanion.insert({
+    required String userId,
+    this.takingFolicAcid = const Value.absent(),
+    this.folicAcidDoseMcg = const Value.absent(),
+    this.medicalCheckupDone = const Value.absent(),
+    this.rubellaImmunityChecked = const Value.absent(),
+    this.dentalCheckupDone = const Value.absent(),
+    this.toxicHabitsStopped = const Value.absent(),
+    this.partnerEvaluationPlanned = const Value.absent(),
+    this.activeSeekingMonths = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : userId = Value(userId);
+  static Insertable<PreconceptionChecklistEntry> custom({
+    Expression<String>? userId,
+    Expression<bool>? takingFolicAcid,
+    Expression<int>? folicAcidDoseMcg,
+    Expression<bool>? medicalCheckupDone,
+    Expression<bool>? rubellaImmunityChecked,
+    Expression<bool>? dentalCheckupDone,
+    Expression<bool>? toxicHabitsStopped,
+    Expression<bool>? partnerEvaluationPlanned,
+    Expression<int>? activeSeekingMonths,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (takingFolicAcid != null) 'taking_folic_acid': takingFolicAcid,
+      if (folicAcidDoseMcg != null) 'folic_acid_dose_mcg': folicAcidDoseMcg,
+      if (medicalCheckupDone != null)
+        'medical_checkup_done': medicalCheckupDone,
+      if (rubellaImmunityChecked != null)
+        'rubella_immunity_checked': rubellaImmunityChecked,
+      if (dentalCheckupDone != null) 'dental_checkup_done': dentalCheckupDone,
+      if (toxicHabitsStopped != null)
+        'toxic_habits_stopped': toxicHabitsStopped,
+      if (partnerEvaluationPlanned != null)
+        'partner_evaluation_planned': partnerEvaluationPlanned,
+      if (activeSeekingMonths != null)
+        'active_seeking_months': activeSeekingMonths,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PreconceptionChecklistEntriesCompanion copyWith(
+      {Value<String>? userId,
+      Value<bool>? takingFolicAcid,
+      Value<int?>? folicAcidDoseMcg,
+      Value<bool>? medicalCheckupDone,
+      Value<bool>? rubellaImmunityChecked,
+      Value<bool>? dentalCheckupDone,
+      Value<bool>? toxicHabitsStopped,
+      Value<bool>? partnerEvaluationPlanned,
+      Value<int>? activeSeekingMonths,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return PreconceptionChecklistEntriesCompanion(
+      userId: userId ?? this.userId,
+      takingFolicAcid: takingFolicAcid ?? this.takingFolicAcid,
+      folicAcidDoseMcg: folicAcidDoseMcg ?? this.folicAcidDoseMcg,
+      medicalCheckupDone: medicalCheckupDone ?? this.medicalCheckupDone,
+      rubellaImmunityChecked:
+          rubellaImmunityChecked ?? this.rubellaImmunityChecked,
+      dentalCheckupDone: dentalCheckupDone ?? this.dentalCheckupDone,
+      toxicHabitsStopped: toxicHabitsStopped ?? this.toxicHabitsStopped,
+      partnerEvaluationPlanned:
+          partnerEvaluationPlanned ?? this.partnerEvaluationPlanned,
+      activeSeekingMonths: activeSeekingMonths ?? this.activeSeekingMonths,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (takingFolicAcid.present) {
+      map['taking_folic_acid'] = Variable<bool>(takingFolicAcid.value);
+    }
+    if (folicAcidDoseMcg.present) {
+      map['folic_acid_dose_mcg'] = Variable<int>(folicAcidDoseMcg.value);
+    }
+    if (medicalCheckupDone.present) {
+      map['medical_checkup_done'] = Variable<bool>(medicalCheckupDone.value);
+    }
+    if (rubellaImmunityChecked.present) {
+      map['rubella_immunity_checked'] =
+          Variable<bool>(rubellaImmunityChecked.value);
+    }
+    if (dentalCheckupDone.present) {
+      map['dental_checkup_done'] = Variable<bool>(dentalCheckupDone.value);
+    }
+    if (toxicHabitsStopped.present) {
+      map['toxic_habits_stopped'] = Variable<bool>(toxicHabitsStopped.value);
+    }
+    if (partnerEvaluationPlanned.present) {
+      map['partner_evaluation_planned'] =
+          Variable<bool>(partnerEvaluationPlanned.value);
+    }
+    if (activeSeekingMonths.present) {
+      map['active_seeking_months'] = Variable<int>(activeSeekingMonths.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PreconceptionChecklistEntriesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('takingFolicAcid: $takingFolicAcid, ')
+          ..write('folicAcidDoseMcg: $folicAcidDoseMcg, ')
+          ..write('medicalCheckupDone: $medicalCheckupDone, ')
+          ..write('rubellaImmunityChecked: $rubellaImmunityChecked, ')
+          ..write('dentalCheckupDone: $dentalCheckupDone, ')
+          ..write('toxicHabitsStopped: $toxicHabitsStopped, ')
+          ..write('partnerEvaluationPlanned: $partnerEvaluationPlanned, ')
+          ..write('activeSeekingMonths: $activeSeekingMonths, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -4911,6 +6204,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $MenstrualCycleEntriesTable(this);
   late final $CycleSymptomEntriesTable cycleSymptomEntries =
       $CycleSymptomEntriesTable(this);
+  late final $DailyFertilityEntriesTable dailyFertilityEntries =
+      $DailyFertilityEntriesTable(this);
+  late final $PreconceptionChecklistEntriesTable preconceptionChecklistEntries =
+      $PreconceptionChecklistEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -4923,7 +6220,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         treatmentRegimenEntries,
         doseIntakeEntries,
         menstrualCycleEntries,
-        cycleSymptomEntries
+        cycleSymptomEntries,
+        dailyFertilityEntries,
+        preconceptionChecklistEntries
       ];
 }
 
@@ -7256,6 +8555,613 @@ typedef $$CycleSymptomEntriesTableProcessedTableManager = ProcessedTableManager<
     ),
     CycleSymptomEntry,
     PrefetchHooks Function()>;
+typedef $$DailyFertilityEntriesTableCreateCompanionBuilder
+    = DailyFertilityEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime logDate,
+  Value<double?> bbtCelsius,
+  Value<bool> isDisturbed,
+  Value<String?> disturbanceReason,
+  Value<String?> measuredAtTime,
+  Value<String?> cervicalMucus,
+  Value<String?> lhResult,
+  Value<bool> intercourseHad,
+  Value<String> intercourseType,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$DailyFertilityEntriesTableUpdateCompanionBuilder
+    = DailyFertilityEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> logDate,
+  Value<double?> bbtCelsius,
+  Value<bool> isDisturbed,
+  Value<String?> disturbanceReason,
+  Value<String?> measuredAtTime,
+  Value<String?> cervicalMucus,
+  Value<String?> lhResult,
+  Value<bool> intercourseHad,
+  Value<String> intercourseType,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$DailyFertilityEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $DailyFertilityEntriesTable> {
+  $$DailyFertilityEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get bbtCelsius => $composableBuilder(
+      column: $table.bbtCelsius, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isDisturbed => $composableBuilder(
+      column: $table.isDisturbed, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get disturbanceReason => $composableBuilder(
+      column: $table.disturbanceReason,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get measuredAtTime => $composableBuilder(
+      column: $table.measuredAtTime,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get cervicalMucus => $composableBuilder(
+      column: $table.cervicalMucus, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lhResult => $composableBuilder(
+      column: $table.lhResult, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get intercourseHad => $composableBuilder(
+      column: $table.intercourseHad,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get intercourseType => $composableBuilder(
+      column: $table.intercourseType,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$DailyFertilityEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $DailyFertilityEntriesTable> {
+  $$DailyFertilityEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get bbtCelsius => $composableBuilder(
+      column: $table.bbtCelsius, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isDisturbed => $composableBuilder(
+      column: $table.isDisturbed, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get disturbanceReason => $composableBuilder(
+      column: $table.disturbanceReason,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get measuredAtTime => $composableBuilder(
+      column: $table.measuredAtTime,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get cervicalMucus => $composableBuilder(
+      column: $table.cervicalMucus,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lhResult => $composableBuilder(
+      column: $table.lhResult, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get intercourseHad => $composableBuilder(
+      column: $table.intercourseHad,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get intercourseType => $composableBuilder(
+      column: $table.intercourseType,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$DailyFertilityEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DailyFertilityEntriesTable> {
+  $$DailyFertilityEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get logDate =>
+      $composableBuilder(column: $table.logDate, builder: (column) => column);
+
+  GeneratedColumn<double> get bbtCelsius => $composableBuilder(
+      column: $table.bbtCelsius, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDisturbed => $composableBuilder(
+      column: $table.isDisturbed, builder: (column) => column);
+
+  GeneratedColumn<String> get disturbanceReason => $composableBuilder(
+      column: $table.disturbanceReason, builder: (column) => column);
+
+  GeneratedColumn<String> get measuredAtTime => $composableBuilder(
+      column: $table.measuredAtTime, builder: (column) => column);
+
+  GeneratedColumn<String> get cervicalMucus => $composableBuilder(
+      column: $table.cervicalMucus, builder: (column) => column);
+
+  GeneratedColumn<String> get lhResult =>
+      $composableBuilder(column: $table.lhResult, builder: (column) => column);
+
+  GeneratedColumn<bool> get intercourseHad => $composableBuilder(
+      column: $table.intercourseHad, builder: (column) => column);
+
+  GeneratedColumn<String> get intercourseType => $composableBuilder(
+      column: $table.intercourseType, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$DailyFertilityEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $DailyFertilityEntriesTable,
+    DailyFertilityEntry,
+    $$DailyFertilityEntriesTableFilterComposer,
+    $$DailyFertilityEntriesTableOrderingComposer,
+    $$DailyFertilityEntriesTableAnnotationComposer,
+    $$DailyFertilityEntriesTableCreateCompanionBuilder,
+    $$DailyFertilityEntriesTableUpdateCompanionBuilder,
+    (
+      DailyFertilityEntry,
+      BaseReferences<_$AppDatabase, $DailyFertilityEntriesTable,
+          DailyFertilityEntry>
+    ),
+    DailyFertilityEntry,
+    PrefetchHooks Function()> {
+  $$DailyFertilityEntriesTableTableManager(
+      _$AppDatabase db, $DailyFertilityEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DailyFertilityEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DailyFertilityEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DailyFertilityEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> logDate = const Value.absent(),
+            Value<double?> bbtCelsius = const Value.absent(),
+            Value<bool> isDisturbed = const Value.absent(),
+            Value<String?> disturbanceReason = const Value.absent(),
+            Value<String?> measuredAtTime = const Value.absent(),
+            Value<String?> cervicalMucus = const Value.absent(),
+            Value<String?> lhResult = const Value.absent(),
+            Value<bool> intercourseHad = const Value.absent(),
+            Value<String> intercourseType = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DailyFertilityEntriesCompanion(
+            id: id,
+            userId: userId,
+            logDate: logDate,
+            bbtCelsius: bbtCelsius,
+            isDisturbed: isDisturbed,
+            disturbanceReason: disturbanceReason,
+            measuredAtTime: measuredAtTime,
+            cervicalMucus: cervicalMucus,
+            lhResult: lhResult,
+            intercourseHad: intercourseHad,
+            intercourseType: intercourseType,
+            notes: notes,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime logDate,
+            Value<double?> bbtCelsius = const Value.absent(),
+            Value<bool> isDisturbed = const Value.absent(),
+            Value<String?> disturbanceReason = const Value.absent(),
+            Value<String?> measuredAtTime = const Value.absent(),
+            Value<String?> cervicalMucus = const Value.absent(),
+            Value<String?> lhResult = const Value.absent(),
+            Value<bool> intercourseHad = const Value.absent(),
+            Value<String> intercourseType = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DailyFertilityEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            logDate: logDate,
+            bbtCelsius: bbtCelsius,
+            isDisturbed: isDisturbed,
+            disturbanceReason: disturbanceReason,
+            measuredAtTime: measuredAtTime,
+            cervicalMucus: cervicalMucus,
+            lhResult: lhResult,
+            intercourseHad: intercourseHad,
+            intercourseType: intercourseType,
+            notes: notes,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$DailyFertilityEntriesTable,
+                        DailyFertilityEntry>(table),
+                    BaseReferences<_$AppDatabase, $DailyFertilityEntriesTable,
+                        DailyFertilityEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$DailyFertilityEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $DailyFertilityEntriesTable,
+        DailyFertilityEntry,
+        $$DailyFertilityEntriesTableFilterComposer,
+        $$DailyFertilityEntriesTableOrderingComposer,
+        $$DailyFertilityEntriesTableAnnotationComposer,
+        $$DailyFertilityEntriesTableCreateCompanionBuilder,
+        $$DailyFertilityEntriesTableUpdateCompanionBuilder,
+        (
+          DailyFertilityEntry,
+          BaseReferences<_$AppDatabase, $DailyFertilityEntriesTable,
+              DailyFertilityEntry>
+        ),
+        DailyFertilityEntry,
+        PrefetchHooks Function()>;
+typedef $$PreconceptionChecklistEntriesTableCreateCompanionBuilder
+    = PreconceptionChecklistEntriesCompanion Function({
+  required String userId,
+  Value<bool> takingFolicAcid,
+  Value<int?> folicAcidDoseMcg,
+  Value<bool> medicalCheckupDone,
+  Value<bool> rubellaImmunityChecked,
+  Value<bool> dentalCheckupDone,
+  Value<bool> toxicHabitsStopped,
+  Value<bool> partnerEvaluationPlanned,
+  Value<int> activeSeekingMonths,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$PreconceptionChecklistEntriesTableUpdateCompanionBuilder
+    = PreconceptionChecklistEntriesCompanion Function({
+  Value<String> userId,
+  Value<bool> takingFolicAcid,
+  Value<int?> folicAcidDoseMcg,
+  Value<bool> medicalCheckupDone,
+  Value<bool> rubellaImmunityChecked,
+  Value<bool> dentalCheckupDone,
+  Value<bool> toxicHabitsStopped,
+  Value<bool> partnerEvaluationPlanned,
+  Value<int> activeSeekingMonths,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$PreconceptionChecklistEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $PreconceptionChecklistEntriesTable> {
+  $$PreconceptionChecklistEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get takingFolicAcid => $composableBuilder(
+      column: $table.takingFolicAcid,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get folicAcidDoseMcg => $composableBuilder(
+      column: $table.folicAcidDoseMcg,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get medicalCheckupDone => $composableBuilder(
+      column: $table.medicalCheckupDone,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get rubellaImmunityChecked => $composableBuilder(
+      column: $table.rubellaImmunityChecked,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get dentalCheckupDone => $composableBuilder(
+      column: $table.dentalCheckupDone,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get toxicHabitsStopped => $composableBuilder(
+      column: $table.toxicHabitsStopped,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get partnerEvaluationPlanned => $composableBuilder(
+      column: $table.partnerEvaluationPlanned,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get activeSeekingMonths => $composableBuilder(
+      column: $table.activeSeekingMonths,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$PreconceptionChecklistEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $PreconceptionChecklistEntriesTable> {
+  $$PreconceptionChecklistEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get takingFolicAcid => $composableBuilder(
+      column: $table.takingFolicAcid,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get folicAcidDoseMcg => $composableBuilder(
+      column: $table.folicAcidDoseMcg,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get medicalCheckupDone => $composableBuilder(
+      column: $table.medicalCheckupDone,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get rubellaImmunityChecked => $composableBuilder(
+      column: $table.rubellaImmunityChecked,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get dentalCheckupDone => $composableBuilder(
+      column: $table.dentalCheckupDone,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get toxicHabitsStopped => $composableBuilder(
+      column: $table.toxicHabitsStopped,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get partnerEvaluationPlanned => $composableBuilder(
+      column: $table.partnerEvaluationPlanned,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get activeSeekingMonths => $composableBuilder(
+      column: $table.activeSeekingMonths,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$PreconceptionChecklistEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PreconceptionChecklistEntriesTable> {
+  $$PreconceptionChecklistEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<bool> get takingFolicAcid => $composableBuilder(
+      column: $table.takingFolicAcid, builder: (column) => column);
+
+  GeneratedColumn<int> get folicAcidDoseMcg => $composableBuilder(
+      column: $table.folicAcidDoseMcg, builder: (column) => column);
+
+  GeneratedColumn<bool> get medicalCheckupDone => $composableBuilder(
+      column: $table.medicalCheckupDone, builder: (column) => column);
+
+  GeneratedColumn<bool> get rubellaImmunityChecked => $composableBuilder(
+      column: $table.rubellaImmunityChecked, builder: (column) => column);
+
+  GeneratedColumn<bool> get dentalCheckupDone => $composableBuilder(
+      column: $table.dentalCheckupDone, builder: (column) => column);
+
+  GeneratedColumn<bool> get toxicHabitsStopped => $composableBuilder(
+      column: $table.toxicHabitsStopped, builder: (column) => column);
+
+  GeneratedColumn<bool> get partnerEvaluationPlanned => $composableBuilder(
+      column: $table.partnerEvaluationPlanned, builder: (column) => column);
+
+  GeneratedColumn<int> get activeSeekingMonths => $composableBuilder(
+      column: $table.activeSeekingMonths, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$PreconceptionChecklistEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PreconceptionChecklistEntriesTable,
+    PreconceptionChecklistEntry,
+    $$PreconceptionChecklistEntriesTableFilterComposer,
+    $$PreconceptionChecklistEntriesTableOrderingComposer,
+    $$PreconceptionChecklistEntriesTableAnnotationComposer,
+    $$PreconceptionChecklistEntriesTableCreateCompanionBuilder,
+    $$PreconceptionChecklistEntriesTableUpdateCompanionBuilder,
+    (
+      PreconceptionChecklistEntry,
+      BaseReferences<_$AppDatabase, $PreconceptionChecklistEntriesTable,
+          PreconceptionChecklistEntry>
+    ),
+    PreconceptionChecklistEntry,
+    PrefetchHooks Function()> {
+  $$PreconceptionChecklistEntriesTableTableManager(
+      _$AppDatabase db, $PreconceptionChecklistEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PreconceptionChecklistEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PreconceptionChecklistEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PreconceptionChecklistEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> userId = const Value.absent(),
+            Value<bool> takingFolicAcid = const Value.absent(),
+            Value<int?> folicAcidDoseMcg = const Value.absent(),
+            Value<bool> medicalCheckupDone = const Value.absent(),
+            Value<bool> rubellaImmunityChecked = const Value.absent(),
+            Value<bool> dentalCheckupDone = const Value.absent(),
+            Value<bool> toxicHabitsStopped = const Value.absent(),
+            Value<bool> partnerEvaluationPlanned = const Value.absent(),
+            Value<int> activeSeekingMonths = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PreconceptionChecklistEntriesCompanion(
+            userId: userId,
+            takingFolicAcid: takingFolicAcid,
+            folicAcidDoseMcg: folicAcidDoseMcg,
+            medicalCheckupDone: medicalCheckupDone,
+            rubellaImmunityChecked: rubellaImmunityChecked,
+            dentalCheckupDone: dentalCheckupDone,
+            toxicHabitsStopped: toxicHabitsStopped,
+            partnerEvaluationPlanned: partnerEvaluationPlanned,
+            activeSeekingMonths: activeSeekingMonths,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String userId,
+            Value<bool> takingFolicAcid = const Value.absent(),
+            Value<int?> folicAcidDoseMcg = const Value.absent(),
+            Value<bool> medicalCheckupDone = const Value.absent(),
+            Value<bool> rubellaImmunityChecked = const Value.absent(),
+            Value<bool> dentalCheckupDone = const Value.absent(),
+            Value<bool> toxicHabitsStopped = const Value.absent(),
+            Value<bool> partnerEvaluationPlanned = const Value.absent(),
+            Value<int> activeSeekingMonths = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PreconceptionChecklistEntriesCompanion.insert(
+            userId: userId,
+            takingFolicAcid: takingFolicAcid,
+            folicAcidDoseMcg: folicAcidDoseMcg,
+            medicalCheckupDone: medicalCheckupDone,
+            rubellaImmunityChecked: rubellaImmunityChecked,
+            dentalCheckupDone: dentalCheckupDone,
+            toxicHabitsStopped: toxicHabitsStopped,
+            partnerEvaluationPlanned: partnerEvaluationPlanned,
+            activeSeekingMonths: activeSeekingMonths,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$PreconceptionChecklistEntriesTable,
+                        PreconceptionChecklistEntry>(table),
+                    BaseReferences<
+                        _$AppDatabase,
+                        $PreconceptionChecklistEntriesTable,
+                        PreconceptionChecklistEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$PreconceptionChecklistEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $PreconceptionChecklistEntriesTable,
+        PreconceptionChecklistEntry,
+        $$PreconceptionChecklistEntriesTableFilterComposer,
+        $$PreconceptionChecklistEntriesTableOrderingComposer,
+        $$PreconceptionChecklistEntriesTableAnnotationComposer,
+        $$PreconceptionChecklistEntriesTableCreateCompanionBuilder,
+        $$PreconceptionChecklistEntriesTableUpdateCompanionBuilder,
+        (
+          PreconceptionChecklistEntry,
+          BaseReferences<_$AppDatabase, $PreconceptionChecklistEntriesTable,
+              PreconceptionChecklistEntry>
+        ),
+        PreconceptionChecklistEntry,
+        PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -7279,4 +9185,10 @@ class $AppDatabaseManager {
       $$MenstrualCycleEntriesTableTableManager(_db, _db.menstrualCycleEntries);
   $$CycleSymptomEntriesTableTableManager get cycleSymptomEntries =>
       $$CycleSymptomEntriesTableTableManager(_db, _db.cycleSymptomEntries);
+  $$DailyFertilityEntriesTableTableManager get dailyFertilityEntries =>
+      $$DailyFertilityEntriesTableTableManager(_db, _db.dailyFertilityEntries);
+  $$PreconceptionChecklistEntriesTableTableManager
+      get preconceptionChecklistEntries =>
+          $$PreconceptionChecklistEntriesTableTableManager(
+              _db, _db.preconceptionChecklistEntries);
 }

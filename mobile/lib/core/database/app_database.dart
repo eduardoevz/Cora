@@ -164,6 +164,58 @@ class CycleSymptomEntries extends Table {
       ];
 }
 
+class DailyFertilityEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get logDate => dateTime()();
+  RealColumn get bbtCelsius => real().nullable()();
+  BoolColumn get isDisturbed =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get disturbanceReason => text().nullable()();
+  TextColumn get measuredAtTime => text().nullable()();
+  TextColumn get cervicalMucus => text().nullable()();
+  TextColumn get lhResult => text().nullable()();
+  BoolColumn get intercourseHad =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get intercourseType =>
+      text().withDefault(const Constant('none'))();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+        {userId, logDate},
+      ];
+}
+
+class PreconceptionChecklistEntries extends Table {
+  TextColumn get userId => text()();
+  BoolColumn get takingFolicAcid =>
+      boolean().withDefault(const Constant(false))();
+  IntColumn get folicAcidDoseMcg =>
+      integer().nullable().withDefault(const Constant(400))();
+  BoolColumn get medicalCheckupDone =>
+      boolean().withDefault(const Constant(false))();
+  BoolColumn get rubellaImmunityChecked =>
+      boolean().withDefault(const Constant(false))();
+  BoolColumn get dentalCheckupDone =>
+      boolean().withDefault(const Constant(false))();
+  BoolColumn get toxicHabitsStopped =>
+      boolean().withDefault(const Constant(false))();
+  BoolColumn get partnerEvaluationPlanned =>
+      boolean().withDefault(const Constant(false))();
+  IntColumn get activeSeekingMonths =>
+      integer().withDefault(const Constant(0))();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {userId};
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
@@ -173,6 +225,8 @@ class CycleSymptomEntries extends Table {
   DoseIntakeEntries,
   MenstrualCycleEntries,
   CycleSymptomEntries,
+  DailyFertilityEntries,
+  PreconceptionChecklistEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -180,7 +234,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -200,6 +254,10 @@ class AppDatabase extends _$AppDatabase {
           if (from < 4) {
             await m.createTable(menstrualCycleEntries);
             await m.createTable(cycleSymptomEntries);
+          }
+          if (from < 5) {
+            await m.createTable(dailyFertilityEntries);
+            await m.createTable(preconceptionChecklistEntries);
           }
         },
       );

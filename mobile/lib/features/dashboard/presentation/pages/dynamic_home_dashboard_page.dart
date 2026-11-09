@@ -4,6 +4,7 @@ import 'package:mobile/features/adolescence/presentation/pages/first_period_and_
 import 'package:mobile/features/cycle/presentation/pages/cycle_monitor_page.dart';
 import 'package:mobile/features/dashboard/presentation/widgets/life_stage_switcher_sheet.dart';
 import 'package:mobile/features/dashboard/presentation/widgets/module_preferences_page.dart';
+import 'package:mobile/features/fertility/presentation/pages/conception_hub_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/treatments/presentation/pages/pillbox_and_treatments_page.dart';
@@ -259,6 +260,42 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                 const SizedBox(height: 12),
               ],
 
+              // Conception Hub Quick Card
+              if (profile.currentLifeStage == LifeStage.conceptionSearch) ...[
+                Card(
+                  key: const Key('dashboard_conception_hub_card'),
+                  elevation: 0,
+                  color: const Color(0xFFF0FDF4),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Color(0xFFBBF7D0)),
+                  ),
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: const CircleAvatar(
+                      backgroundColor: Color(0xFF16A34A),
+                      child: Icon(Icons.favorite, color: Colors.white),
+                    ),
+                    title: const Text(
+                      'Hub de Fertilidad y Concepción',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: const Text(
+                        'Curva BBT bifásica, moco, LH y checklist preconcepcional.'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const ConceptionHubPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+
               // Transversal Quick Access Row
               Row(
                 children: [
@@ -437,6 +474,14 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                             MaterialPageRoute(
                               builder: (context) =>
                                   const PillboxAndTreatmentsPage(),
+                            ),
+                          );
+                        } else if (moduleKey == 'fertility_bbt' ||
+                            moduleKey == 'lh_surge_prediction' ||
+                            moduleKey == 'cervical_mucus') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ConceptionHubPage(),
                             ),
                           );
                         }
