@@ -1,4 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final coraApiClientProvider = Provider<CoraApiClient>((ref) {
+  return CoraApiClient();
+});
 
 class ProblemDetailsException implements Exception {
   final String type;

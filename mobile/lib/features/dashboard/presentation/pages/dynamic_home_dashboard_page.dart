@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/features/adolescence/presentation/pages/first_period_and_body_guide_page.dart';
+import 'package:mobile/features/cycle/presentation/pages/cycle_monitor_page.dart';
 import 'package:mobile/features/dashboard/presentation/widgets/life_stage_switcher_sheet.dart';
 import 'package:mobile/features/dashboard/presentation/widgets/module_preferences_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
@@ -188,6 +190,75 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
               _buildStageCard(context, profile, theme),
               const SizedBox(height: 16),
 
+              // Cycle Wheel Quick Card
+              Card(
+                key: const Key('dashboard_cycle_card'),
+                elevation: 0,
+                color: const Color(0xFFFDF2F8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: const BorderSide(color: Color(0xFFFBCFE8)),
+                ),
+                child: ListTile(
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  leading: const CircleAvatar(
+                    backgroundColor: Color(0xFFF43F5E),
+                    child: Icon(Icons.water_drop, color: Colors.white),
+                  ),
+                  title: const Text(
+                    'Monitoreo del Ciclo Menstrual',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: const Text(
+                      'Rueda de 4 fases, predicciones y alertas FIGO.'),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (_) => const CycleMonitorPage()),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // Teen First Period Educational Card
+              if (profile.currentLifeStage == LifeStage.adolescence) ...[
+                Card(
+                  key: const Key('dashboard_teen_guide_card'),
+                  elevation: 0,
+                  color: const Color(0xFFF5F3FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Color(0xFFDDD6FE)),
+                  ),
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: const CircleAvatar(
+                      backgroundColor: Color(0xFF8B5CF6),
+                      child: Icon(Icons.auto_stories, color: Colors.white),
+                    ),
+                    title: const Text(
+                      'Mi Primer Periodo',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: const Text(
+                        'Guía de desarrollo, mitos clínicos y PIN de privacidad.'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const FirstPeriodAndBodyGuidePage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+
               // Transversal Quick Access Row
               Row(
                 children: [
@@ -344,7 +415,15 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                       ),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
-                        if (moduleKey == 'wellness' ||
+                        if (moduleKey == 'cycle_tracking' ||
+                            moduleKey == 'ovulation_prediction' ||
+                            moduleKey == 'symptom_diary') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const CycleMonitorPage(),
+                            ),
+                          );
+                        } else if (moduleKey == 'wellness' ||
                             moduleKey == 'sleep_and_mood') {
                           Navigator.of(context).push(
                             MaterialPageRoute(

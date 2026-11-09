@@ -121,6 +121,49 @@ class DoseIntakeEntries extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class MenstrualCycleEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get startDate => dateTime()();
+  DateTimeColumn get endDate => dateTime().nullable()();
+  IntColumn get cycleLengthDays => integer().nullable()();
+  IntColumn get bleedingDurationDays => integer().nullable()();
+  BoolColumn get isCurrent => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class CycleSymptomEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get cycleId => text().nullable()();
+  DateTimeColumn get logDate => dateTime()();
+  TextColumn get bleedingFlow =>
+      text().withDefault(const Constant('none'))();
+  IntColumn get pelvicPain => integer().nullable()();
+  IntColumn get dysmenorrhea => integer().nullable()();
+  BoolColumn get dyspareunia => boolean().nullable()();
+  IntColumn get acneSeverity => integer().nullable()();
+  BoolColumn get hirsutism => boolean().nullable()();
+  IntColumn get fatigueLevel => integer().nullable()();
+  TextColumn get giSymptomsJson =>
+      text().withDefault(const Constant('[]'))();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+
+  @override
+  List<Set<Column>> get uniqueKeys => [
+        {userId, logDate},
+      ];
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
@@ -128,6 +171,8 @@ class DoseIntakeEntries extends Table {
   DailyWellnessEntries,
   TreatmentRegimenEntries,
   DoseIntakeEntries,
+  MenstrualCycleEntries,
+  CycleSymptomEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -135,7 +180,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -151,6 +196,10 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(dailyWellnessEntries);
             await m.createTable(treatmentRegimenEntries);
             await m.createTable(doseIntakeEntries);
+          }
+          if (from < 4) {
+            await m.createTable(menstrualCycleEntries);
+            await m.createTable(cycleSymptomEntries);
           }
         },
       );

@@ -3657,6 +3657,1241 @@ class DoseIntakeEntriesCompanion extends UpdateCompanion<DoseIntakeEntry> {
   }
 }
 
+class $MenstrualCycleEntriesTable extends MenstrualCycleEntries
+    with TableInfo<$MenstrualCycleEntriesTable, MenstrualCycleEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MenstrualCycleEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _startDateMeta =
+      const VerificationMeta('startDate');
+  @override
+  late final GeneratedColumn<DateTime> startDate = GeneratedColumn<DateTime>(
+      'start_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _endDateMeta =
+      const VerificationMeta('endDate');
+  @override
+  late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
+      'end_date', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _cycleLengthDaysMeta =
+      const VerificationMeta('cycleLengthDays');
+  @override
+  late final GeneratedColumn<int> cycleLengthDays = GeneratedColumn<int>(
+      'cycle_length_days', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _bleedingDurationDaysMeta =
+      const VerificationMeta('bleedingDurationDays');
+  @override
+  late final GeneratedColumn<int> bleedingDurationDays = GeneratedColumn<int>(
+      'bleeding_duration_days', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _isCurrentMeta =
+      const VerificationMeta('isCurrent');
+  @override
+  late final GeneratedColumn<bool> isCurrent = GeneratedColumn<bool>(
+      'is_current', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_current" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        startDate,
+        endDate,
+        cycleLengthDays,
+        bleedingDurationDays,
+        isCurrent,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'menstrual_cycle_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<MenstrualCycleEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('start_date')) {
+      context.handle(_startDateMeta,
+          startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
+    } else if (isInserting) {
+      context.missing(_startDateMeta);
+    }
+    if (data.containsKey('end_date')) {
+      context.handle(_endDateMeta,
+          endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
+    }
+    if (data.containsKey('cycle_length_days')) {
+      context.handle(
+          _cycleLengthDaysMeta,
+          cycleLengthDays.isAcceptableOrUnknown(
+              data['cycle_length_days']!, _cycleLengthDaysMeta));
+    }
+    if (data.containsKey('bleeding_duration_days')) {
+      context.handle(
+          _bleedingDurationDaysMeta,
+          bleedingDurationDays.isAcceptableOrUnknown(
+              data['bleeding_duration_days']!, _bleedingDurationDaysMeta));
+    }
+    if (data.containsKey('is_current')) {
+      context.handle(_isCurrentMeta,
+          isCurrent.isAcceptableOrUnknown(data['is_current']!, _isCurrentMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MenstrualCycleEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MenstrualCycleEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      startDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_date'])!,
+      endDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}end_date']),
+      cycleLengthDays: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cycle_length_days']),
+      bleedingDurationDays: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}bleeding_duration_days']),
+      isCurrent: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_current'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $MenstrualCycleEntriesTable createAlias(String alias) {
+    return $MenstrualCycleEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class MenstrualCycleEntry extends DataClass
+    implements Insertable<MenstrualCycleEntry> {
+  final String id;
+  final String userId;
+  final DateTime startDate;
+  final DateTime? endDate;
+  final int? cycleLengthDays;
+  final int? bleedingDurationDays;
+  final bool isCurrent;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const MenstrualCycleEntry(
+      {required this.id,
+      required this.userId,
+      required this.startDate,
+      this.endDate,
+      this.cycleLengthDays,
+      this.bleedingDurationDays,
+      required this.isCurrent,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['start_date'] = Variable<DateTime>(startDate);
+    if (!nullToAbsent || endDate != null) {
+      map['end_date'] = Variable<DateTime>(endDate);
+    }
+    if (!nullToAbsent || cycleLengthDays != null) {
+      map['cycle_length_days'] = Variable<int>(cycleLengthDays);
+    }
+    if (!nullToAbsent || bleedingDurationDays != null) {
+      map['bleeding_duration_days'] = Variable<int>(bleedingDurationDays);
+    }
+    map['is_current'] = Variable<bool>(isCurrent);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  MenstrualCycleEntriesCompanion toCompanion(bool nullToAbsent) {
+    return MenstrualCycleEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      startDate: Value(startDate),
+      endDate: endDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endDate),
+      cycleLengthDays: cycleLengthDays == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cycleLengthDays),
+      bleedingDurationDays: bleedingDurationDays == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bleedingDurationDays),
+      isCurrent: Value(isCurrent),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory MenstrualCycleEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MenstrualCycleEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      startDate: serializer.fromJson<DateTime>(json['startDate']),
+      endDate: serializer.fromJson<DateTime?>(json['endDate']),
+      cycleLengthDays: serializer.fromJson<int?>(json['cycleLengthDays']),
+      bleedingDurationDays:
+          serializer.fromJson<int?>(json['bleedingDurationDays']),
+      isCurrent: serializer.fromJson<bool>(json['isCurrent']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'startDate': serializer.toJson<DateTime>(startDate),
+      'endDate': serializer.toJson<DateTime?>(endDate),
+      'cycleLengthDays': serializer.toJson<int?>(cycleLengthDays),
+      'bleedingDurationDays': serializer.toJson<int?>(bleedingDurationDays),
+      'isCurrent': serializer.toJson<bool>(isCurrent),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  MenstrualCycleEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? startDate,
+          Value<DateTime?> endDate = const Value.absent(),
+          Value<int?> cycleLengthDays = const Value.absent(),
+          Value<int?> bleedingDurationDays = const Value.absent(),
+          bool? isCurrent,
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      MenstrualCycleEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate.present ? endDate.value : this.endDate,
+        cycleLengthDays: cycleLengthDays.present
+            ? cycleLengthDays.value
+            : this.cycleLengthDays,
+        bleedingDurationDays: bleedingDurationDays.present
+            ? bleedingDurationDays.value
+            : this.bleedingDurationDays,
+        isCurrent: isCurrent ?? this.isCurrent,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  MenstrualCycleEntry copyWithCompanion(MenstrualCycleEntriesCompanion data) {
+    return MenstrualCycleEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      startDate: data.startDate.present ? data.startDate.value : this.startDate,
+      endDate: data.endDate.present ? data.endDate.value : this.endDate,
+      cycleLengthDays: data.cycleLengthDays.present
+          ? data.cycleLengthDays.value
+          : this.cycleLengthDays,
+      bleedingDurationDays: data.bleedingDurationDays.present
+          ? data.bleedingDurationDays.value
+          : this.bleedingDurationDays,
+      isCurrent: data.isCurrent.present ? data.isCurrent.value : this.isCurrent,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MenstrualCycleEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('cycleLengthDays: $cycleLengthDays, ')
+          ..write('bleedingDurationDays: $bleedingDurationDays, ')
+          ..write('isCurrent: $isCurrent, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, startDate, endDate,
+      cycleLengthDays, bleedingDurationDays, isCurrent, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MenstrualCycleEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.startDate == this.startDate &&
+          other.endDate == this.endDate &&
+          other.cycleLengthDays == this.cycleLengthDays &&
+          other.bleedingDurationDays == this.bleedingDurationDays &&
+          other.isCurrent == this.isCurrent &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class MenstrualCycleEntriesCompanion
+    extends UpdateCompanion<MenstrualCycleEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> startDate;
+  final Value<DateTime?> endDate;
+  final Value<int?> cycleLengthDays;
+  final Value<int?> bleedingDurationDays;
+  final Value<bool> isCurrent;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const MenstrualCycleEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.startDate = const Value.absent(),
+    this.endDate = const Value.absent(),
+    this.cycleLengthDays = const Value.absent(),
+    this.bleedingDurationDays = const Value.absent(),
+    this.isCurrent = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MenstrualCycleEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime startDate,
+    this.endDate = const Value.absent(),
+    this.cycleLengthDays = const Value.absent(),
+    this.bleedingDurationDays = const Value.absent(),
+    this.isCurrent = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        startDate = Value(startDate);
+  static Insertable<MenstrualCycleEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? startDate,
+    Expression<DateTime>? endDate,
+    Expression<int>? cycleLengthDays,
+    Expression<int>? bleedingDurationDays,
+    Expression<bool>? isCurrent,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (startDate != null) 'start_date': startDate,
+      if (endDate != null) 'end_date': endDate,
+      if (cycleLengthDays != null) 'cycle_length_days': cycleLengthDays,
+      if (bleedingDurationDays != null)
+        'bleeding_duration_days': bleedingDurationDays,
+      if (isCurrent != null) 'is_current': isCurrent,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MenstrualCycleEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? startDate,
+      Value<DateTime?>? endDate,
+      Value<int?>? cycleLengthDays,
+      Value<int?>? bleedingDurationDays,
+      Value<bool>? isCurrent,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return MenstrualCycleEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      cycleLengthDays: cycleLengthDays ?? this.cycleLengthDays,
+      bleedingDurationDays: bleedingDurationDays ?? this.bleedingDurationDays,
+      isCurrent: isCurrent ?? this.isCurrent,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (startDate.present) {
+      map['start_date'] = Variable<DateTime>(startDate.value);
+    }
+    if (endDate.present) {
+      map['end_date'] = Variable<DateTime>(endDate.value);
+    }
+    if (cycleLengthDays.present) {
+      map['cycle_length_days'] = Variable<int>(cycleLengthDays.value);
+    }
+    if (bleedingDurationDays.present) {
+      map['bleeding_duration_days'] = Variable<int>(bleedingDurationDays.value);
+    }
+    if (isCurrent.present) {
+      map['is_current'] = Variable<bool>(isCurrent.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MenstrualCycleEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('cycleLengthDays: $cycleLengthDays, ')
+          ..write('bleedingDurationDays: $bleedingDurationDays, ')
+          ..write('isCurrent: $isCurrent, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CycleSymptomEntriesTable extends CycleSymptomEntries
+    with TableInfo<$CycleSymptomEntriesTable, CycleSymptomEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CycleSymptomEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _cycleIdMeta =
+      const VerificationMeta('cycleId');
+  @override
+  late final GeneratedColumn<String> cycleId = GeneratedColumn<String>(
+      'cycle_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _logDateMeta =
+      const VerificationMeta('logDate');
+  @override
+  late final GeneratedColumn<DateTime> logDate = GeneratedColumn<DateTime>(
+      'log_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _bleedingFlowMeta =
+      const VerificationMeta('bleedingFlow');
+  @override
+  late final GeneratedColumn<String> bleedingFlow = GeneratedColumn<String>(
+      'bleeding_flow', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('none'));
+  static const VerificationMeta _pelvicPainMeta =
+      const VerificationMeta('pelvicPain');
+  @override
+  late final GeneratedColumn<int> pelvicPain = GeneratedColumn<int>(
+      'pelvic_pain', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _dysmenorrheaMeta =
+      const VerificationMeta('dysmenorrhea');
+  @override
+  late final GeneratedColumn<int> dysmenorrhea = GeneratedColumn<int>(
+      'dysmenorrhea', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _dyspareuniaMeta =
+      const VerificationMeta('dyspareunia');
+  @override
+  late final GeneratedColumn<bool> dyspareunia = GeneratedColumn<bool>(
+      'dyspareunia', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("dyspareunia" IN (0, 1))'));
+  static const VerificationMeta _acneSeverityMeta =
+      const VerificationMeta('acneSeverity');
+  @override
+  late final GeneratedColumn<int> acneSeverity = GeneratedColumn<int>(
+      'acne_severity', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _hirsutismMeta =
+      const VerificationMeta('hirsutism');
+  @override
+  late final GeneratedColumn<bool> hirsutism = GeneratedColumn<bool>(
+      'hirsutism', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("hirsutism" IN (0, 1))'));
+  static const VerificationMeta _fatigueLevelMeta =
+      const VerificationMeta('fatigueLevel');
+  @override
+  late final GeneratedColumn<int> fatigueLevel = GeneratedColumn<int>(
+      'fatigue_level', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _giSymptomsJsonMeta =
+      const VerificationMeta('giSymptomsJson');
+  @override
+  late final GeneratedColumn<String> giSymptomsJson = GeneratedColumn<String>(
+      'gi_symptoms_json', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('[]'));
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        cycleId,
+        logDate,
+        bleedingFlow,
+        pelvicPain,
+        dysmenorrhea,
+        dyspareunia,
+        acneSeverity,
+        hirsutism,
+        fatigueLevel,
+        giSymptomsJson,
+        notes,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'cycle_symptom_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<CycleSymptomEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('cycle_id')) {
+      context.handle(_cycleIdMeta,
+          cycleId.isAcceptableOrUnknown(data['cycle_id']!, _cycleIdMeta));
+    }
+    if (data.containsKey('log_date')) {
+      context.handle(_logDateMeta,
+          logDate.isAcceptableOrUnknown(data['log_date']!, _logDateMeta));
+    } else if (isInserting) {
+      context.missing(_logDateMeta);
+    }
+    if (data.containsKey('bleeding_flow')) {
+      context.handle(
+          _bleedingFlowMeta,
+          bleedingFlow.isAcceptableOrUnknown(
+              data['bleeding_flow']!, _bleedingFlowMeta));
+    }
+    if (data.containsKey('pelvic_pain')) {
+      context.handle(
+          _pelvicPainMeta,
+          pelvicPain.isAcceptableOrUnknown(
+              data['pelvic_pain']!, _pelvicPainMeta));
+    }
+    if (data.containsKey('dysmenorrhea')) {
+      context.handle(
+          _dysmenorrheaMeta,
+          dysmenorrhea.isAcceptableOrUnknown(
+              data['dysmenorrhea']!, _dysmenorrheaMeta));
+    }
+    if (data.containsKey('dyspareunia')) {
+      context.handle(
+          _dyspareuniaMeta,
+          dyspareunia.isAcceptableOrUnknown(
+              data['dyspareunia']!, _dyspareuniaMeta));
+    }
+    if (data.containsKey('acne_severity')) {
+      context.handle(
+          _acneSeverityMeta,
+          acneSeverity.isAcceptableOrUnknown(
+              data['acne_severity']!, _acneSeverityMeta));
+    }
+    if (data.containsKey('hirsutism')) {
+      context.handle(_hirsutismMeta,
+          hirsutism.isAcceptableOrUnknown(data['hirsutism']!, _hirsutismMeta));
+    }
+    if (data.containsKey('fatigue_level')) {
+      context.handle(
+          _fatigueLevelMeta,
+          fatigueLevel.isAcceptableOrUnknown(
+              data['fatigue_level']!, _fatigueLevelMeta));
+    }
+    if (data.containsKey('gi_symptoms_json')) {
+      context.handle(
+          _giSymptomsJsonMeta,
+          giSymptomsJson.isAcceptableOrUnknown(
+              data['gi_symptoms_json']!, _giSymptomsJsonMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+        {userId, logDate},
+      ];
+  @override
+  CycleSymptomEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CycleSymptomEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      cycleId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cycle_id']),
+      logDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}log_date'])!,
+      bleedingFlow: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bleeding_flow'])!,
+      pelvicPain: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}pelvic_pain']),
+      dysmenorrhea: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}dysmenorrhea']),
+      dyspareunia: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}dyspareunia']),
+      acneSeverity: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}acne_severity']),
+      hirsutism: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}hirsutism']),
+      fatigueLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fatigue_level']),
+      giSymptomsJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}gi_symptoms_json'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $CycleSymptomEntriesTable createAlias(String alias) {
+    return $CycleSymptomEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class CycleSymptomEntry extends DataClass
+    implements Insertable<CycleSymptomEntry> {
+  final String id;
+  final String userId;
+  final String? cycleId;
+  final DateTime logDate;
+  final String bleedingFlow;
+  final int? pelvicPain;
+  final int? dysmenorrhea;
+  final bool? dyspareunia;
+  final int? acneSeverity;
+  final bool? hirsutism;
+  final int? fatigueLevel;
+  final String giSymptomsJson;
+  final String? notes;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const CycleSymptomEntry(
+      {required this.id,
+      required this.userId,
+      this.cycleId,
+      required this.logDate,
+      required this.bleedingFlow,
+      this.pelvicPain,
+      this.dysmenorrhea,
+      this.dyspareunia,
+      this.acneSeverity,
+      this.hirsutism,
+      this.fatigueLevel,
+      required this.giSymptomsJson,
+      this.notes,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    if (!nullToAbsent || cycleId != null) {
+      map['cycle_id'] = Variable<String>(cycleId);
+    }
+    map['log_date'] = Variable<DateTime>(logDate);
+    map['bleeding_flow'] = Variable<String>(bleedingFlow);
+    if (!nullToAbsent || pelvicPain != null) {
+      map['pelvic_pain'] = Variable<int>(pelvicPain);
+    }
+    if (!nullToAbsent || dysmenorrhea != null) {
+      map['dysmenorrhea'] = Variable<int>(dysmenorrhea);
+    }
+    if (!nullToAbsent || dyspareunia != null) {
+      map['dyspareunia'] = Variable<bool>(dyspareunia);
+    }
+    if (!nullToAbsent || acneSeverity != null) {
+      map['acne_severity'] = Variable<int>(acneSeverity);
+    }
+    if (!nullToAbsent || hirsutism != null) {
+      map['hirsutism'] = Variable<bool>(hirsutism);
+    }
+    if (!nullToAbsent || fatigueLevel != null) {
+      map['fatigue_level'] = Variable<int>(fatigueLevel);
+    }
+    map['gi_symptoms_json'] = Variable<String>(giSymptomsJson);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  CycleSymptomEntriesCompanion toCompanion(bool nullToAbsent) {
+    return CycleSymptomEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      cycleId: cycleId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cycleId),
+      logDate: Value(logDate),
+      bleedingFlow: Value(bleedingFlow),
+      pelvicPain: pelvicPain == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pelvicPain),
+      dysmenorrhea: dysmenorrhea == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dysmenorrhea),
+      dyspareunia: dyspareunia == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dyspareunia),
+      acneSeverity: acneSeverity == null && nullToAbsent
+          ? const Value.absent()
+          : Value(acneSeverity),
+      hirsutism: hirsutism == null && nullToAbsent
+          ? const Value.absent()
+          : Value(hirsutism),
+      fatigueLevel: fatigueLevel == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fatigueLevel),
+      giSymptomsJson: Value(giSymptomsJson),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory CycleSymptomEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CycleSymptomEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      cycleId: serializer.fromJson<String?>(json['cycleId']),
+      logDate: serializer.fromJson<DateTime>(json['logDate']),
+      bleedingFlow: serializer.fromJson<String>(json['bleedingFlow']),
+      pelvicPain: serializer.fromJson<int?>(json['pelvicPain']),
+      dysmenorrhea: serializer.fromJson<int?>(json['dysmenorrhea']),
+      dyspareunia: serializer.fromJson<bool?>(json['dyspareunia']),
+      acneSeverity: serializer.fromJson<int?>(json['acneSeverity']),
+      hirsutism: serializer.fromJson<bool?>(json['hirsutism']),
+      fatigueLevel: serializer.fromJson<int?>(json['fatigueLevel']),
+      giSymptomsJson: serializer.fromJson<String>(json['giSymptomsJson']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'cycleId': serializer.toJson<String?>(cycleId),
+      'logDate': serializer.toJson<DateTime>(logDate),
+      'bleedingFlow': serializer.toJson<String>(bleedingFlow),
+      'pelvicPain': serializer.toJson<int?>(pelvicPain),
+      'dysmenorrhea': serializer.toJson<int?>(dysmenorrhea),
+      'dyspareunia': serializer.toJson<bool?>(dyspareunia),
+      'acneSeverity': serializer.toJson<int?>(acneSeverity),
+      'hirsutism': serializer.toJson<bool?>(hirsutism),
+      'fatigueLevel': serializer.toJson<int?>(fatigueLevel),
+      'giSymptomsJson': serializer.toJson<String>(giSymptomsJson),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  CycleSymptomEntry copyWith(
+          {String? id,
+          String? userId,
+          Value<String?> cycleId = const Value.absent(),
+          DateTime? logDate,
+          String? bleedingFlow,
+          Value<int?> pelvicPain = const Value.absent(),
+          Value<int?> dysmenorrhea = const Value.absent(),
+          Value<bool?> dyspareunia = const Value.absent(),
+          Value<int?> acneSeverity = const Value.absent(),
+          Value<bool?> hirsutism = const Value.absent(),
+          Value<int?> fatigueLevel = const Value.absent(),
+          String? giSymptomsJson,
+          Value<String?> notes = const Value.absent(),
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      CycleSymptomEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        cycleId: cycleId.present ? cycleId.value : this.cycleId,
+        logDate: logDate ?? this.logDate,
+        bleedingFlow: bleedingFlow ?? this.bleedingFlow,
+        pelvicPain: pelvicPain.present ? pelvicPain.value : this.pelvicPain,
+        dysmenorrhea:
+            dysmenorrhea.present ? dysmenorrhea.value : this.dysmenorrhea,
+        dyspareunia: dyspareunia.present ? dyspareunia.value : this.dyspareunia,
+        acneSeverity:
+            acneSeverity.present ? acneSeverity.value : this.acneSeverity,
+        hirsutism: hirsutism.present ? hirsutism.value : this.hirsutism,
+        fatigueLevel:
+            fatigueLevel.present ? fatigueLevel.value : this.fatigueLevel,
+        giSymptomsJson: giSymptomsJson ?? this.giSymptomsJson,
+        notes: notes.present ? notes.value : this.notes,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  CycleSymptomEntry copyWithCompanion(CycleSymptomEntriesCompanion data) {
+    return CycleSymptomEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      cycleId: data.cycleId.present ? data.cycleId.value : this.cycleId,
+      logDate: data.logDate.present ? data.logDate.value : this.logDate,
+      bleedingFlow: data.bleedingFlow.present
+          ? data.bleedingFlow.value
+          : this.bleedingFlow,
+      pelvicPain:
+          data.pelvicPain.present ? data.pelvicPain.value : this.pelvicPain,
+      dysmenorrhea: data.dysmenorrhea.present
+          ? data.dysmenorrhea.value
+          : this.dysmenorrhea,
+      dyspareunia:
+          data.dyspareunia.present ? data.dyspareunia.value : this.dyspareunia,
+      acneSeverity: data.acneSeverity.present
+          ? data.acneSeverity.value
+          : this.acneSeverity,
+      hirsutism: data.hirsutism.present ? data.hirsutism.value : this.hirsutism,
+      fatigueLevel: data.fatigueLevel.present
+          ? data.fatigueLevel.value
+          : this.fatigueLevel,
+      giSymptomsJson: data.giSymptomsJson.present
+          ? data.giSymptomsJson.value
+          : this.giSymptomsJson,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CycleSymptomEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('cycleId: $cycleId, ')
+          ..write('logDate: $logDate, ')
+          ..write('bleedingFlow: $bleedingFlow, ')
+          ..write('pelvicPain: $pelvicPain, ')
+          ..write('dysmenorrhea: $dysmenorrhea, ')
+          ..write('dyspareunia: $dyspareunia, ')
+          ..write('acneSeverity: $acneSeverity, ')
+          ..write('hirsutism: $hirsutism, ')
+          ..write('fatigueLevel: $fatigueLevel, ')
+          ..write('giSymptomsJson: $giSymptomsJson, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      cycleId,
+      logDate,
+      bleedingFlow,
+      pelvicPain,
+      dysmenorrhea,
+      dyspareunia,
+      acneSeverity,
+      hirsutism,
+      fatigueLevel,
+      giSymptomsJson,
+      notes,
+      createdAt,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CycleSymptomEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.cycleId == this.cycleId &&
+          other.logDate == this.logDate &&
+          other.bleedingFlow == this.bleedingFlow &&
+          other.pelvicPain == this.pelvicPain &&
+          other.dysmenorrhea == this.dysmenorrhea &&
+          other.dyspareunia == this.dyspareunia &&
+          other.acneSeverity == this.acneSeverity &&
+          other.hirsutism == this.hirsutism &&
+          other.fatigueLevel == this.fatigueLevel &&
+          other.giSymptomsJson == this.giSymptomsJson &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class CycleSymptomEntriesCompanion extends UpdateCompanion<CycleSymptomEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String?> cycleId;
+  final Value<DateTime> logDate;
+  final Value<String> bleedingFlow;
+  final Value<int?> pelvicPain;
+  final Value<int?> dysmenorrhea;
+  final Value<bool?> dyspareunia;
+  final Value<int?> acneSeverity;
+  final Value<bool?> hirsutism;
+  final Value<int?> fatigueLevel;
+  final Value<String> giSymptomsJson;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const CycleSymptomEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.cycleId = const Value.absent(),
+    this.logDate = const Value.absent(),
+    this.bleedingFlow = const Value.absent(),
+    this.pelvicPain = const Value.absent(),
+    this.dysmenorrhea = const Value.absent(),
+    this.dyspareunia = const Value.absent(),
+    this.acneSeverity = const Value.absent(),
+    this.hirsutism = const Value.absent(),
+    this.fatigueLevel = const Value.absent(),
+    this.giSymptomsJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CycleSymptomEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    this.cycleId = const Value.absent(),
+    required DateTime logDate,
+    this.bleedingFlow = const Value.absent(),
+    this.pelvicPain = const Value.absent(),
+    this.dysmenorrhea = const Value.absent(),
+    this.dyspareunia = const Value.absent(),
+    this.acneSeverity = const Value.absent(),
+    this.hirsutism = const Value.absent(),
+    this.fatigueLevel = const Value.absent(),
+    this.giSymptomsJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        logDate = Value(logDate);
+  static Insertable<CycleSymptomEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? cycleId,
+    Expression<DateTime>? logDate,
+    Expression<String>? bleedingFlow,
+    Expression<int>? pelvicPain,
+    Expression<int>? dysmenorrhea,
+    Expression<bool>? dyspareunia,
+    Expression<int>? acneSeverity,
+    Expression<bool>? hirsutism,
+    Expression<int>? fatigueLevel,
+    Expression<String>? giSymptomsJson,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (cycleId != null) 'cycle_id': cycleId,
+      if (logDate != null) 'log_date': logDate,
+      if (bleedingFlow != null) 'bleeding_flow': bleedingFlow,
+      if (pelvicPain != null) 'pelvic_pain': pelvicPain,
+      if (dysmenorrhea != null) 'dysmenorrhea': dysmenorrhea,
+      if (dyspareunia != null) 'dyspareunia': dyspareunia,
+      if (acneSeverity != null) 'acne_severity': acneSeverity,
+      if (hirsutism != null) 'hirsutism': hirsutism,
+      if (fatigueLevel != null) 'fatigue_level': fatigueLevel,
+      if (giSymptomsJson != null) 'gi_symptoms_json': giSymptomsJson,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CycleSymptomEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String?>? cycleId,
+      Value<DateTime>? logDate,
+      Value<String>? bleedingFlow,
+      Value<int?>? pelvicPain,
+      Value<int?>? dysmenorrhea,
+      Value<bool?>? dyspareunia,
+      Value<int?>? acneSeverity,
+      Value<bool?>? hirsutism,
+      Value<int?>? fatigueLevel,
+      Value<String>? giSymptomsJson,
+      Value<String?>? notes,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return CycleSymptomEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      cycleId: cycleId ?? this.cycleId,
+      logDate: logDate ?? this.logDate,
+      bleedingFlow: bleedingFlow ?? this.bleedingFlow,
+      pelvicPain: pelvicPain ?? this.pelvicPain,
+      dysmenorrhea: dysmenorrhea ?? this.dysmenorrhea,
+      dyspareunia: dyspareunia ?? this.dyspareunia,
+      acneSeverity: acneSeverity ?? this.acneSeverity,
+      hirsutism: hirsutism ?? this.hirsutism,
+      fatigueLevel: fatigueLevel ?? this.fatigueLevel,
+      giSymptomsJson: giSymptomsJson ?? this.giSymptomsJson,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (cycleId.present) {
+      map['cycle_id'] = Variable<String>(cycleId.value);
+    }
+    if (logDate.present) {
+      map['log_date'] = Variable<DateTime>(logDate.value);
+    }
+    if (bleedingFlow.present) {
+      map['bleeding_flow'] = Variable<String>(bleedingFlow.value);
+    }
+    if (pelvicPain.present) {
+      map['pelvic_pain'] = Variable<int>(pelvicPain.value);
+    }
+    if (dysmenorrhea.present) {
+      map['dysmenorrhea'] = Variable<int>(dysmenorrhea.value);
+    }
+    if (dyspareunia.present) {
+      map['dyspareunia'] = Variable<bool>(dyspareunia.value);
+    }
+    if (acneSeverity.present) {
+      map['acne_severity'] = Variable<int>(acneSeverity.value);
+    }
+    if (hirsutism.present) {
+      map['hirsutism'] = Variable<bool>(hirsutism.value);
+    }
+    if (fatigueLevel.present) {
+      map['fatigue_level'] = Variable<int>(fatigueLevel.value);
+    }
+    if (giSymptomsJson.present) {
+      map['gi_symptoms_json'] = Variable<String>(giSymptomsJson.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CycleSymptomEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('cycleId: $cycleId, ')
+          ..write('logDate: $logDate, ')
+          ..write('bleedingFlow: $bleedingFlow, ')
+          ..write('pelvicPain: $pelvicPain, ')
+          ..write('dysmenorrhea: $dysmenorrhea, ')
+          ..write('dyspareunia: $dyspareunia, ')
+          ..write('acneSeverity: $acneSeverity, ')
+          ..write('hirsutism: $hirsutism, ')
+          ..write('fatigueLevel: $fatigueLevel, ')
+          ..write('giSymptomsJson: $giSymptomsJson, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -3672,6 +4907,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $TreatmentRegimenEntriesTable(this);
   late final $DoseIntakeEntriesTable doseIntakeEntries =
       $DoseIntakeEntriesTable(this);
+  late final $MenstrualCycleEntriesTable menstrualCycleEntries =
+      $MenstrualCycleEntriesTable(this);
+  late final $CycleSymptomEntriesTable cycleSymptomEntries =
+      $CycleSymptomEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3682,7 +4921,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         lifeStageTransitionEntries,
         dailyWellnessEntries,
         treatmentRegimenEntries,
-        doseIntakeEntries
+        doseIntakeEntries,
+        menstrualCycleEntries,
+        cycleSymptomEntries
       ];
 }
 
@@ -5427,6 +6668,594 @@ typedef $$DoseIntakeEntriesTableProcessedTableManager = ProcessedTableManager<
     ),
     DoseIntakeEntry,
     PrefetchHooks Function()>;
+typedef $$MenstrualCycleEntriesTableCreateCompanionBuilder
+    = MenstrualCycleEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime startDate,
+  Value<DateTime?> endDate,
+  Value<int?> cycleLengthDays,
+  Value<int?> bleedingDurationDays,
+  Value<bool> isCurrent,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$MenstrualCycleEntriesTableUpdateCompanionBuilder
+    = MenstrualCycleEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> startDate,
+  Value<DateTime?> endDate,
+  Value<int?> cycleLengthDays,
+  Value<int?> bleedingDurationDays,
+  Value<bool> isCurrent,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$MenstrualCycleEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $MenstrualCycleEntriesTable> {
+  $$MenstrualCycleEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get cycleLengthDays => $composableBuilder(
+      column: $table.cycleLengthDays,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get bleedingDurationDays => $composableBuilder(
+      column: $table.bleedingDurationDays,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isCurrent => $composableBuilder(
+      column: $table.isCurrent, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$MenstrualCycleEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $MenstrualCycleEntriesTable> {
+  $$MenstrualCycleEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get cycleLengthDays => $composableBuilder(
+      column: $table.cycleLengthDays,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get bleedingDurationDays => $composableBuilder(
+      column: $table.bleedingDurationDays,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isCurrent => $composableBuilder(
+      column: $table.isCurrent, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$MenstrualCycleEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MenstrualCycleEntriesTable> {
+  $$MenstrualCycleEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => column);
+
+  GeneratedColumn<int> get cycleLengthDays => $composableBuilder(
+      column: $table.cycleLengthDays, builder: (column) => column);
+
+  GeneratedColumn<int> get bleedingDurationDays => $composableBuilder(
+      column: $table.bleedingDurationDays, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCurrent =>
+      $composableBuilder(column: $table.isCurrent, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$MenstrualCycleEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $MenstrualCycleEntriesTable,
+    MenstrualCycleEntry,
+    $$MenstrualCycleEntriesTableFilterComposer,
+    $$MenstrualCycleEntriesTableOrderingComposer,
+    $$MenstrualCycleEntriesTableAnnotationComposer,
+    $$MenstrualCycleEntriesTableCreateCompanionBuilder,
+    $$MenstrualCycleEntriesTableUpdateCompanionBuilder,
+    (
+      MenstrualCycleEntry,
+      BaseReferences<_$AppDatabase, $MenstrualCycleEntriesTable,
+          MenstrualCycleEntry>
+    ),
+    MenstrualCycleEntry,
+    PrefetchHooks Function()> {
+  $$MenstrualCycleEntriesTableTableManager(
+      _$AppDatabase db, $MenstrualCycleEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MenstrualCycleEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MenstrualCycleEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MenstrualCycleEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> startDate = const Value.absent(),
+            Value<DateTime?> endDate = const Value.absent(),
+            Value<int?> cycleLengthDays = const Value.absent(),
+            Value<int?> bleedingDurationDays = const Value.absent(),
+            Value<bool> isCurrent = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MenstrualCycleEntriesCompanion(
+            id: id,
+            userId: userId,
+            startDate: startDate,
+            endDate: endDate,
+            cycleLengthDays: cycleLengthDays,
+            bleedingDurationDays: bleedingDurationDays,
+            isCurrent: isCurrent,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime startDate,
+            Value<DateTime?> endDate = const Value.absent(),
+            Value<int?> cycleLengthDays = const Value.absent(),
+            Value<int?> bleedingDurationDays = const Value.absent(),
+            Value<bool> isCurrent = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MenstrualCycleEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            startDate: startDate,
+            endDate: endDate,
+            cycleLengthDays: cycleLengthDays,
+            bleedingDurationDays: bleedingDurationDays,
+            isCurrent: isCurrent,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$MenstrualCycleEntriesTable,
+                        MenstrualCycleEntry>(table),
+                    BaseReferences<_$AppDatabase, $MenstrualCycleEntriesTable,
+                        MenstrualCycleEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$MenstrualCycleEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $MenstrualCycleEntriesTable,
+        MenstrualCycleEntry,
+        $$MenstrualCycleEntriesTableFilterComposer,
+        $$MenstrualCycleEntriesTableOrderingComposer,
+        $$MenstrualCycleEntriesTableAnnotationComposer,
+        $$MenstrualCycleEntriesTableCreateCompanionBuilder,
+        $$MenstrualCycleEntriesTableUpdateCompanionBuilder,
+        (
+          MenstrualCycleEntry,
+          BaseReferences<_$AppDatabase, $MenstrualCycleEntriesTable,
+              MenstrualCycleEntry>
+        ),
+        MenstrualCycleEntry,
+        PrefetchHooks Function()>;
+typedef $$CycleSymptomEntriesTableCreateCompanionBuilder
+    = CycleSymptomEntriesCompanion Function({
+  required String id,
+  required String userId,
+  Value<String?> cycleId,
+  required DateTime logDate,
+  Value<String> bleedingFlow,
+  Value<int?> pelvicPain,
+  Value<int?> dysmenorrhea,
+  Value<bool?> dyspareunia,
+  Value<int?> acneSeverity,
+  Value<bool?> hirsutism,
+  Value<int?> fatigueLevel,
+  Value<String> giSymptomsJson,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$CycleSymptomEntriesTableUpdateCompanionBuilder
+    = CycleSymptomEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<String?> cycleId,
+  Value<DateTime> logDate,
+  Value<String> bleedingFlow,
+  Value<int?> pelvicPain,
+  Value<int?> dysmenorrhea,
+  Value<bool?> dyspareunia,
+  Value<int?> acneSeverity,
+  Value<bool?> hirsutism,
+  Value<int?> fatigueLevel,
+  Value<String> giSymptomsJson,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$CycleSymptomEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $CycleSymptomEntriesTable> {
+  $$CycleSymptomEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get cycleId => $composableBuilder(
+      column: $table.cycleId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get bleedingFlow => $composableBuilder(
+      column: $table.bleedingFlow, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get pelvicPain => $composableBuilder(
+      column: $table.pelvicPain, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get dysmenorrhea => $composableBuilder(
+      column: $table.dysmenorrhea, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get dyspareunia => $composableBuilder(
+      column: $table.dyspareunia, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get acneSeverity => $composableBuilder(
+      column: $table.acneSeverity, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get hirsutism => $composableBuilder(
+      column: $table.hirsutism, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get fatigueLevel => $composableBuilder(
+      column: $table.fatigueLevel, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get giSymptomsJson => $composableBuilder(
+      column: $table.giSymptomsJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$CycleSymptomEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $CycleSymptomEntriesTable> {
+  $$CycleSymptomEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get cycleId => $composableBuilder(
+      column: $table.cycleId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get bleedingFlow => $composableBuilder(
+      column: $table.bleedingFlow,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get pelvicPain => $composableBuilder(
+      column: $table.pelvicPain, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get dysmenorrhea => $composableBuilder(
+      column: $table.dysmenorrhea,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get dyspareunia => $composableBuilder(
+      column: $table.dyspareunia, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get acneSeverity => $composableBuilder(
+      column: $table.acneSeverity,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get hirsutism => $composableBuilder(
+      column: $table.hirsutism, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get fatigueLevel => $composableBuilder(
+      column: $table.fatigueLevel,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get giSymptomsJson => $composableBuilder(
+      column: $table.giSymptomsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CycleSymptomEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CycleSymptomEntriesTable> {
+  $$CycleSymptomEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get cycleId =>
+      $composableBuilder(column: $table.cycleId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get logDate =>
+      $composableBuilder(column: $table.logDate, builder: (column) => column);
+
+  GeneratedColumn<String> get bleedingFlow => $composableBuilder(
+      column: $table.bleedingFlow, builder: (column) => column);
+
+  GeneratedColumn<int> get pelvicPain => $composableBuilder(
+      column: $table.pelvicPain, builder: (column) => column);
+
+  GeneratedColumn<int> get dysmenorrhea => $composableBuilder(
+      column: $table.dysmenorrhea, builder: (column) => column);
+
+  GeneratedColumn<bool> get dyspareunia => $composableBuilder(
+      column: $table.dyspareunia, builder: (column) => column);
+
+  GeneratedColumn<int> get acneSeverity => $composableBuilder(
+      column: $table.acneSeverity, builder: (column) => column);
+
+  GeneratedColumn<bool> get hirsutism =>
+      $composableBuilder(column: $table.hirsutism, builder: (column) => column);
+
+  GeneratedColumn<int> get fatigueLevel => $composableBuilder(
+      column: $table.fatigueLevel, builder: (column) => column);
+
+  GeneratedColumn<String> get giSymptomsJson => $composableBuilder(
+      column: $table.giSymptomsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$CycleSymptomEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CycleSymptomEntriesTable,
+    CycleSymptomEntry,
+    $$CycleSymptomEntriesTableFilterComposer,
+    $$CycleSymptomEntriesTableOrderingComposer,
+    $$CycleSymptomEntriesTableAnnotationComposer,
+    $$CycleSymptomEntriesTableCreateCompanionBuilder,
+    $$CycleSymptomEntriesTableUpdateCompanionBuilder,
+    (
+      CycleSymptomEntry,
+      BaseReferences<_$AppDatabase, $CycleSymptomEntriesTable,
+          CycleSymptomEntry>
+    ),
+    CycleSymptomEntry,
+    PrefetchHooks Function()> {
+  $$CycleSymptomEntriesTableTableManager(
+      _$AppDatabase db, $CycleSymptomEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CycleSymptomEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CycleSymptomEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CycleSymptomEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String?> cycleId = const Value.absent(),
+            Value<DateTime> logDate = const Value.absent(),
+            Value<String> bleedingFlow = const Value.absent(),
+            Value<int?> pelvicPain = const Value.absent(),
+            Value<int?> dysmenorrhea = const Value.absent(),
+            Value<bool?> dyspareunia = const Value.absent(),
+            Value<int?> acneSeverity = const Value.absent(),
+            Value<bool?> hirsutism = const Value.absent(),
+            Value<int?> fatigueLevel = const Value.absent(),
+            Value<String> giSymptomsJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CycleSymptomEntriesCompanion(
+            id: id,
+            userId: userId,
+            cycleId: cycleId,
+            logDate: logDate,
+            bleedingFlow: bleedingFlow,
+            pelvicPain: pelvicPain,
+            dysmenorrhea: dysmenorrhea,
+            dyspareunia: dyspareunia,
+            acneSeverity: acneSeverity,
+            hirsutism: hirsutism,
+            fatigueLevel: fatigueLevel,
+            giSymptomsJson: giSymptomsJson,
+            notes: notes,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            Value<String?> cycleId = const Value.absent(),
+            required DateTime logDate,
+            Value<String> bleedingFlow = const Value.absent(),
+            Value<int?> pelvicPain = const Value.absent(),
+            Value<int?> dysmenorrhea = const Value.absent(),
+            Value<bool?> dyspareunia = const Value.absent(),
+            Value<int?> acneSeverity = const Value.absent(),
+            Value<bool?> hirsutism = const Value.absent(),
+            Value<int?> fatigueLevel = const Value.absent(),
+            Value<String> giSymptomsJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CycleSymptomEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            cycleId: cycleId,
+            logDate: logDate,
+            bleedingFlow: bleedingFlow,
+            pelvicPain: pelvicPain,
+            dysmenorrhea: dysmenorrhea,
+            dyspareunia: dyspareunia,
+            acneSeverity: acneSeverity,
+            hirsutism: hirsutism,
+            fatigueLevel: fatigueLevel,
+            giSymptomsJson: giSymptomsJson,
+            notes: notes,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$CycleSymptomEntriesTable, CycleSymptomEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $CycleSymptomEntriesTable,
+                        CycleSymptomEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CycleSymptomEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $CycleSymptomEntriesTable,
+    CycleSymptomEntry,
+    $$CycleSymptomEntriesTableFilterComposer,
+    $$CycleSymptomEntriesTableOrderingComposer,
+    $$CycleSymptomEntriesTableAnnotationComposer,
+    $$CycleSymptomEntriesTableCreateCompanionBuilder,
+    $$CycleSymptomEntriesTableUpdateCompanionBuilder,
+    (
+      CycleSymptomEntry,
+      BaseReferences<_$AppDatabase, $CycleSymptomEntriesTable,
+          CycleSymptomEntry>
+    ),
+    CycleSymptomEntry,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -5446,4 +7275,8 @@ class $AppDatabaseManager {
           _db, _db.treatmentRegimenEntries);
   $$DoseIntakeEntriesTableTableManager get doseIntakeEntries =>
       $$DoseIntakeEntriesTableTableManager(_db, _db.doseIntakeEntries);
+  $$MenstrualCycleEntriesTableTableManager get menstrualCycleEntries =>
+      $$MenstrualCycleEntriesTableTableManager(_db, _db.menstrualCycleEntries);
+  $$CycleSymptomEntriesTableTableManager get cycleSymptomEntries =>
+      $$CycleSymptomEntriesTableTableManager(_db, _db.cycleSymptomEntries);
 }
