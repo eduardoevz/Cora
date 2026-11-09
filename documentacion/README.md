@@ -28,7 +28,7 @@ Cada reporte de cierre de fase debe incluir estas 6 secciones:
 | **Fase 02** | [fase-02-identidad-y-onboarding.md](./fase-02-identidad-y-onboarding.md) | 2026-11-07 | Identidad Firebase JWT, Onboarding de 3 Capas, `LifeStageStateMachine`, Modularidad y Dashboard dinámico. |
 | **Fase 03** | [fase-03-bienestar-y-tratamientos.md](./fase-03-bienestar-y-tratamientos.md) | 2026-11-07 | Bienestar/Hábitos diarios consolidado con merge-patch y Gestor de Tratamientos/Pastillero virtual Offline-First con alertas clínicas. |
 | **Fase 04** | [fase-04-salud-ciclica-y-adolescencia.md](./fase-04-salud-ciclica-y-adolescencia.md) | 2026-11-09 | Etapas 1 y 2: Ciclo de 4 fases, Adolescencia + PIN 30s, SOP/Endometriosis y alertas preventivas FIGO. |
-| **Fase 05** | *Se generará al cerrar la Fase 05* | Pendiente | Etapa 3: Fertilidad sintotérmica (TBC, moco cervical, LH) y preparación preconcepcional. |
+| **Fase 05** | [fase-05-fertilidad-y-concepcion.md](./fase-05-fertilidad-y-concepcion.md) | 2026-11-09 | Etapa 3: Fertilidad sintotérmica (BBT, regla 3 sobre 6, moco cervical, LH) y checklist preconcepcional. |
 | **Fase 06** | *Se generará al cerrar la Fase 06* | Pendiente | Etapa 4: Embarazo semanal, alertas ACOG (preeclampsia/DG), contracciones y patadas. |
 | **Fase 07** | *Se generará al cerrar la Fase 07* | Pendiente | Etapa 5: Recuperación posparto, lactancia/banco de leche y tamizaje EPDS. |
 | **Fase 08** | *Se generará al cerrar la Fase 08* | Pendiente | Etapas 6 y 7: Transición STRAW+10, sofocos, TRH, salud ósea/caídas y tema WCAG AAA. |
