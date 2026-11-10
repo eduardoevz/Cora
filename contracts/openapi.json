@@ -1,6 +1,47 @@
 {
   "components": {
     "schemas": {
+      "AddMilkStashRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "pumped_at": {
+            "description": "Fecha y hora de extracci\u00f3n de leche materna",
+            "format": "date-time",
+            "title": "Pumped At",
+            "type": "string"
+          },
+          "storage_location": {
+            "default": "refrigerator",
+            "description": "room_temp | refrigerator | freezer | deep_freezer",
+            "title": "Storage Location",
+            "type": "string"
+          },
+          "volume_ml": {
+            "description": "Volumen extra\u00eddo en mililitros",
+            "exclusiveMinimum": 0.0,
+            "title": "Volume Ml",
+            "type": "number"
+          }
+        },
+        "required": [
+          "pumped_at",
+          "volume_ml"
+        ],
+        "title": "AddMilkStashRequest",
+        "type": "object"
+      },
       "AdherenceSummaryResponse": {
         "properties": {
           "adherence_percentage": {
@@ -1249,6 +1290,191 @@
         "title": "DoseIntakeLogResponse",
         "type": "object"
       },
+      "EpdsQuestionnaireResponses": {
+        "additionalProperties": false,
+        "properties": {
+          "item_1": {
+            "description": "Capacidad de re\u00edr (0-3)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 1",
+            "type": "integer"
+          },
+          "item_10": {
+            "description": "Pensamiento de autolesi\u00f3n (0-3, invertido)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 10",
+            "type": "integer"
+          },
+          "item_2": {
+            "description": "Mirar con agrado hacia el futuro (0-3)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 2",
+            "type": "integer"
+          },
+          "item_3": {
+            "description": "Culpabilidad innecesaria (0-3, invertido)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 3",
+            "type": "integer"
+          },
+          "item_4": {
+            "description": "Ansiedad sin causa (0-3)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 4",
+            "type": "integer"
+          },
+          "item_5": {
+            "description": "Miedo o p\u00e1nico sin motivo (0-3, invertido)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 5",
+            "type": "integer"
+          },
+          "item_6": {
+            "description": "Cosas que me sobrepasan (0-3, invertido)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 6",
+            "type": "integer"
+          },
+          "item_7": {
+            "description": "Dificultad para dormir (0-3, invertido)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 7",
+            "type": "integer"
+          },
+          "item_8": {
+            "description": "Tristeza o desdicha (0-3, invertido)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 8",
+            "type": "integer"
+          },
+          "item_9": {
+            "description": "Llanto descontrolado (0-3, invertido)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Item 9",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "item_1",
+          "item_2",
+          "item_3",
+          "item_4",
+          "item_5",
+          "item_6",
+          "item_7",
+          "item_8",
+          "item_9",
+          "item_10"
+        ],
+        "title": "EpdsQuestionnaireResponses",
+        "type": "object"
+      },
+      "EpdsScreeningResponse": {
+        "properties": {
+          "action_recommended": {
+            "title": "Action Recommended",
+            "type": "string"
+          },
+          "clinical_summary": {
+            "title": "Clinical Summary",
+            "type": "string"
+          },
+          "days_postpartum": {
+            "title": "Days Postpartum",
+            "type": "integer"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "item_10_score": {
+            "title": "Item 10 Score",
+            "type": "integer"
+          },
+          "responses": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Responses",
+            "type": "object"
+          },
+          "screened_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Screened At"
+          },
+          "self_harm_risk": {
+            "title": "Self Harm Risk",
+            "type": "boolean"
+          },
+          "severity": {
+            "title": "Severity",
+            "type": "string"
+          },
+          "total_score": {
+            "title": "Total Score",
+            "type": "integer"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "days_postpartum",
+          "responses",
+          "total_score",
+          "item_10_score",
+          "self_harm_risk",
+          "severity",
+          "clinical_summary",
+          "action_recommended"
+        ],
+        "title": "EpdsScreeningResponse",
+        "type": "object"
+      },
+      "EvaluateEpdsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "days_postpartum": {
+            "description": "D\u00edas transcurridos desde el parto",
+            "maximum": 365.0,
+            "minimum": 0.0,
+            "title": "Days Postpartum",
+            "type": "integer"
+          },
+          "responses": {
+            "$ref": "#/components/schemas/EpdsQuestionnaireResponses"
+          }
+        },
+        "required": [
+          "days_postpartum",
+          "responses"
+        ],
+        "title": "EvaluateEpdsRequest",
+        "type": "object"
+      },
       "FertilityChartEntryResponse": {
         "description": "Single point in the cycle fertility chart.",
         "properties": {
@@ -1733,6 +1959,90 @@
         "title": "KickSessionResponse",
         "type": "object"
       },
+      "LactationSessionResponse": {
+        "properties": {
+          "bottle_volume_ml": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bottle Volume Ml"
+          },
+          "ended_at": {
+            "format": "date-time",
+            "title": "Ended At",
+            "type": "string"
+          },
+          "feeding_type": {
+            "title": "Feeding Type",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "last_offered_breast": {
+            "title": "Last Offered Breast",
+            "type": "string"
+          },
+          "left_duration_seconds": {
+            "title": "Left Duration Seconds",
+            "type": "integer"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "right_duration_seconds": {
+            "title": "Right Duration Seconds",
+            "type": "integer"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "suggested_next_breast": {
+            "title": "Suggested Next Breast",
+            "type": "string"
+          },
+          "total_duration_seconds": {
+            "title": "Total Duration Seconds",
+            "type": "integer"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "started_at",
+          "ended_at",
+          "left_duration_seconds",
+          "right_duration_seconds",
+          "total_duration_seconds",
+          "last_offered_breast",
+          "suggested_next_breast",
+          "feeding_type"
+        ],
+        "title": "LactationSessionResponse",
+        "type": "object"
+      },
       "LarcAlertResponse": {
         "properties": {
           "alert_level": {
@@ -2074,6 +2384,80 @@
           "duration_minutes"
         ],
         "title": "LogKickSessionRequest",
+        "type": "object"
+      },
+      "LogLactationSessionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "bottle_volume_ml": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Volumen suministrado en biber\u00f3n (ml)",
+            "title": "Bottle Volume Ml"
+          },
+          "ended_at": {
+            "description": "Fin de la toma o extracci\u00f3n",
+            "format": "date-time",
+            "title": "Ended At",
+            "type": "string"
+          },
+          "feeding_type": {
+            "default": "breast_only",
+            "description": "breast_only | bottle_expressed | bottle_formula | mixed",
+            "title": "Feeding Type",
+            "type": "string"
+          },
+          "last_offered_breast": {
+            "default": "none",
+            "description": "left | right | both | none",
+            "title": "Last Offered Breast",
+            "type": "string"
+          },
+          "left_duration_seconds": {
+            "default": 0,
+            "description": "Segundos al pecho izquierdo",
+            "minimum": 0.0,
+            "title": "Left Duration Seconds",
+            "type": "integer"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "right_duration_seconds": {
+            "default": 0,
+            "description": "Segundos al pecho derecho",
+            "minimum": 0.0,
+            "title": "Right Duration Seconds",
+            "type": "integer"
+          },
+          "started_at": {
+            "description": "Inicio de la toma o extracci\u00f3n",
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "started_at",
+          "ended_at"
+        ],
+        "title": "LogLactationSessionRequest",
         "type": "object"
       },
       "LogMaternalVitalsRequest": {
@@ -2427,6 +2811,76 @@
         "title": "MenstrualCycleResponse",
         "type": "object"
       },
+      "MilkStashResponse": {
+        "properties": {
+          "consumed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consumed At"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_consumed": {
+            "title": "Is Consumed",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "pumped_at": {
+            "format": "date-time",
+            "title": "Pumped At",
+            "type": "string"
+          },
+          "storage_location": {
+            "title": "Storage Location",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "volume_ml": {
+            "title": "Volume Ml",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "pumped_at",
+          "volume_ml",
+          "storage_location",
+          "expires_at",
+          "is_consumed"
+        ],
+        "title": "MilkStashResponse",
+        "type": "object"
+      },
       "OnboardingContextResponse": {
         "description": "Context summary returned with profile.",
         "properties": {
@@ -2557,6 +3011,151 @@
           "primary_intents"
         ],
         "title": "OnboardingRequest",
+        "type": "object"
+      },
+      "PostpartumAlertItem": {
+        "properties": {
+          "action_recommended": {
+            "title": "Action Recommended",
+            "type": "string"
+          },
+          "category": {
+            "description": "hemorrhage | endometritis | wound | pelvic_floor",
+            "title": "Category",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "severity": {
+            "description": "urgent_emergency | high_priority_consult | routine_observation",
+            "title": "Severity",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "severity",
+          "category",
+          "title",
+          "message",
+          "action_recommended"
+        ],
+        "title": "PostpartumAlertItem",
+        "type": "object"
+      },
+      "PostpartumRecoveryResponse": {
+        "properties": {
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/PostpartumAlertItem"
+            },
+            "title": "Alerts",
+            "type": "array"
+          },
+          "cesarean_wound_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cesarean Wound Status"
+          },
+          "days_postpartum": {
+            "title": "Days Postpartum",
+            "type": "integer"
+          },
+          "foul_odor": {
+            "title": "Foul Odor",
+            "type": "boolean"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "lochia_flow": {
+            "title": "Lochia Flow",
+            "type": "string"
+          },
+          "lochia_stage": {
+            "title": "Lochia Stage",
+            "type": "string"
+          },
+          "logged_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logged At"
+          },
+          "maternal_temperature_c": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maternal Temperature C"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "pelvic_floor_symptoms": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Pelvic Floor Symptoms",
+            "type": "array"
+          },
+          "perineal_wound_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Perineal Wound Status"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "days_postpartum",
+          "lochia_stage",
+          "lochia_flow",
+          "foul_odor"
+        ],
+        "title": "PostpartumRecoveryResponse",
         "type": "object"
       },
       "PreconceptionChecklistResponse": {
@@ -2875,6 +3474,99 @@
         ],
         "title": "PrimaryIntent",
         "type": "string"
+      },
+      "RecordPostpartumRecoveryRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "cesarean_wound_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "intact_clean | erythema_induration | fluid_discharge | severe_pain | gaping_dehiscence | not_applicable",
+            "title": "Cesarean Wound Status"
+          },
+          "days_postpartum": {
+            "description": "D\u00edas transcurridos desde el parto",
+            "maximum": 365.0,
+            "minimum": 0.0,
+            "title": "Days Postpartum",
+            "type": "integer"
+          },
+          "foul_odor": {
+            "default": false,
+            "description": "Olor f\u00e9tido o sospecha de infecci\u00f3n puerperal",
+            "title": "Foul Odor",
+            "type": "boolean"
+          },
+          "lochia_flow": {
+            "description": "none | light | moderate | heavy | severe_hemorrhage",
+            "title": "Lochia Flow",
+            "type": "string"
+          },
+          "lochia_stage": {
+            "description": "rubra | serosa | alba | none",
+            "title": "Lochia Stage",
+            "type": "string"
+          },
+          "maternal_temperature_c": {
+            "anyOf": [
+              {
+                "maximum": 43.0,
+                "minimum": 34.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Temperatura axilar/timp\u00e1nica materna en \u00b0C",
+            "title": "Maternal Temperature C"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "pelvic_floor_symptoms": {
+            "description": "normal | urinary_incontinence | fecal_incontinence | pelvic_heaviness_prolapse | dyspareunia",
+            "items": {
+              "type": "string"
+            },
+            "title": "Pelvic Floor Symptoms",
+            "type": "array"
+          },
+          "perineal_wound_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "healing_well | mild_pain | severe_pain | erythema_edema | purulent_discharge | wound_dehiscence | not_applicable",
+            "title": "Perineal Wound Status"
+          }
+        },
+        "required": [
+          "days_postpartum",
+          "lochia_stage",
+          "lochia_flow"
+        ],
+        "title": "RecordPostpartumRecoveryRequest",
+        "type": "object"
       },
       "SwitchLifeStageRequest": {
         "description": "Payload to transition between biological life stages.",
@@ -3980,6 +4672,410 @@
         "summary": "Complete 3-Layer Onboarding",
         "tags": [
           "Identity"
+        ]
+      }
+    },
+    "/api/v1/postpartum/epds-screenings": {
+      "post": {
+        "operationId": "evaluate_epds_screening_api_v1_postpartum_epds_screenings_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluateEpdsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpdsScreeningResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Evaluar y registrar Escala de Depresi\u00f3n Posparto de Edimburgo (EPDS)",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      }
+    },
+    "/api/v1/postpartum/epds-screenings/latest": {
+      "get": {
+        "operationId": "get_latest_epds_screening_api_v1_postpartum_epds_screenings_latest_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/EpdsScreeningResponse"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Latest Epds Screening Api V1 Postpartum Epds Screenings Latest Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Obtener \u00faltimo tamizaje de depresi\u00f3n posparto (EPDS)",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      }
+    },
+    "/api/v1/postpartum/lactation-sessions": {
+      "post": {
+        "operationId": "log_lactation_session_api_v1_postpartum_lactation_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogLactationSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LactationSessionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar sesi\u00f3n de lactancia materna o biber\u00f3n",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      }
+    },
+    "/api/v1/postpartum/lactation-sessions/recent": {
+      "get": {
+        "operationId": "get_recent_lactation_sessions_api_v1_postpartum_lactation_sessions_recent_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/LactationSessionResponse"
+                  },
+                  "title": "Response Get Recent Lactation Sessions Api V1 Postpartum Lactation Sessions Recent Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Obtener sesiones recientes de lactancia",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      }
+    },
+    "/api/v1/postpartum/milk-stash": {
+      "get": {
+        "operationId": "get_active_milk_stash_api_v1_postpartum_milk_stash_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MilkStashResponse"
+                  },
+                  "title": "Response Get Active Milk Stash Api V1 Postpartum Milk Stash Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar lotes activos del banco de leche (orden FIFO por caducidad)",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      },
+      "post": {
+        "operationId": "add_milk_stash_entry_api_v1_postpartum_milk_stash_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddMilkStashRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilkStashResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "A\u00f1adir lote de leche extra\u00edda al banco de leche",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      }
+    },
+    "/api/v1/postpartum/milk-stash/{stash_id}/consume": {
+      "patch": {
+        "operationId": "consume_milk_stash_entry_api_v1_postpartum_milk_stash__stash_id__consume_patch",
+        "parameters": [
+          {
+            "description": "UUID del lote de leche",
+            "in": "path",
+            "name": "stash_id",
+            "required": true,
+            "schema": {
+              "description": "UUID del lote de leche",
+              "format": "uuid",
+              "title": "Stash Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilkStashResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Marcar lote de leche como consumido",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      }
+    },
+    "/api/v1/postpartum/recovery-logs": {
+      "post": {
+        "operationId": "record_recovery_log_api_v1_postpartum_recovery_logs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordPostpartumRecoveryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostpartumRecoveryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar evoluci\u00f3n del puerperio y evaluar alertas cl\u00ednicas",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
+        ]
+      }
+    },
+    "/api/v1/postpartum/recovery-logs/recent": {
+      "get": {
+        "operationId": "get_recent_recovery_logs_api_v1_postpartum_recovery_logs_recent_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PostpartumRecoveryResponse"
+                  },
+                  "title": "Response Get Recent Recovery Logs Api V1 Postpartum Recovery Logs Recent Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Obtener registros puerperales recientes",
+        "tags": [
+          "Maternal Care - Postpartum & Lactation"
         ]
       }
     },

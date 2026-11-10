@@ -26,8 +26,9 @@ class PostpartumRecoveryEvaluationInput:
 class PostpartumRecoveryEvaluator:
     """Evaluates physiological postpartum recovery, lochia, and wound healing."""
 
+    @staticmethod
     def evaluate(
-        self, obs: PostpartumRecoveryEvaluationInput
+        obs: PostpartumRecoveryEvaluationInput,
     ) -> list[PostpartumClinicalAlert]:
         alerts: list[PostpartumClinicalAlert] = []
 

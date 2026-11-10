@@ -59,7 +59,8 @@ class EpdsScreeningService:
     - Item 10 > 0 unconditionally triggers IMMEDIATE_CRISIS_SUPPORT.
     """
 
-    def evaluate(self, responses: EpdsQuestionnaireInput) -> EpdsAssessmentResult:
+    @staticmethod
+    def evaluate(responses: EpdsQuestionnaireInput) -> EpdsAssessmentResult:
         item_scores: dict[str, int] = {
             "item_1": responses.item_1,
             "item_2": responses.item_2,
