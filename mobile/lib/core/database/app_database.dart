@@ -400,6 +400,116 @@ class EpdsScreeningEntries extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class HotFlashEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get occurredAt => dateTime()();
+  IntColumn get severity => integer()();
+  TextColumn get flashType => text()();
+  IntColumn get durationMinutes => integer()();
+  TextColumn get triggersJson => text()();
+  IntColumn get sleepDisruptionLevel => integer()();
+  BoolColumn get associatedWithHrt => boolean()();
+  TextColumn get notes => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class CardiometabolicEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get measurementDate => dateTime()();
+  IntColumn get systolicBp => integer().nullable()();
+  IntColumn get diastolicBp => integer().nullable()();
+  RealColumn get totalCholesterol => real().nullable()();
+  RealColumn get ldlCholesterol => real().nullable()();
+  RealColumn get hdlCholesterol => real().nullable()();
+  RealColumn get triglycerides => real().nullable()();
+  RealColumn get fastingGlucose => real().nullable()();
+  TextColumn get riskLevel => text()();
+  TextColumn get flaggedParamsJson => text()();
+  TextColumn get notes => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class VaginalBleedingEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get observationDate => dateTime()();
+  IntColumn get daysPriorAmenorrhea => integer()();
+  TextColumn get flowIntensity => text()();
+  BoolColumn get hasCramping => boolean()();
+  BoolColumn get isAlertTriggered => boolean()();
+  TextColumn get notes => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class DexaBoneEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get scanDate => dateTime()();
+  TextColumn get anatomicalSite => text()();
+  RealColumn get tScore => real()();
+  RealColumn get zScore => real().nullable()();
+  RealColumn get bmdGCm2 => real().nullable()();
+  BoolColumn get previousFragilityFracture => boolean()();
+  TextColumn get category => text()();
+  TextColumn get notes => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class FallRiskEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get assessmentDate => dateTime()();
+  IntColumn get fallsPastYear => integer()();
+  BoolColumn get hasGaitUnsteadiness => boolean()();
+  BoolColumn get usesWalkingAid => boolean()();
+  RealColumn get timedUpAndGoSeconds => real().nullable()();
+  TextColumn get riskLevel => text()();
+  IntColumn get compositeScore => integer()();
+  TextColumn get environmentalHazardsJson => text()();
+  TextColumn get notes => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class ContinenceEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get logDate => dateTime()();
+  TextColumn get incontinenceType => text()();
+  IntColumn get dailyPadCount => integer()();
+  BoolColumn get hasPelvicHeaviness => boolean()();
+  IntColumn get vaginalDrynessLevel => integer()();
+  BoolColumn get hasDyspareunia => boolean()();
+  TextColumn get notes => text().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class TrustedContactEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get contactName => text()();
+  TextColumn get relationship => text()();
+  TextColumn get phoneNumber => text()();
+  TextColumn get notes => text().nullable()();
+  BoolColumn get isPrimary => boolean()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
@@ -421,6 +531,13 @@ class EpdsScreeningEntries extends Table {
   LactationSessionEntries,
   MilkStashEntries,
   EpdsScreeningEntries,
+  HotFlashEntries,
+  CardiometabolicEntries,
+  VaginalBleedingEntries,
+  DexaBoneEntries,
+  FallRiskEntries,
+  ContinenceEntries,
+  TrustedContactEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -428,7 +545,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -466,6 +583,15 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(lactationSessionEntries);
             await m.createTable(milkStashEntries);
             await m.createTable(epdsScreeningEntries);
+          }
+          if (from < 8) {
+            await m.createTable(hotFlashEntries);
+            await m.createTable(cardiometabolicEntries);
+            await m.createTable(vaginalBleedingEntries);
+            await m.createTable(dexaBoneEntries);
+            await m.createTable(fallRiskEntries);
+            await m.createTable(continenceEntries);
+            await m.createTable(trustedContactEntries);
           }
         },
       );

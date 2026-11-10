@@ -5,12 +5,14 @@ import 'package:mobile/features/cycle/presentation/pages/cycle_monitor_page.dart
 import 'package:mobile/features/dashboard/presentation/widgets/life_stage_switcher_sheet.dart';
 import 'package:mobile/features/dashboard/presentation/widgets/module_preferences_page.dart';
 import 'package:mobile/features/fertility/presentation/pages/conception_hub_page.dart';
+import 'package:mobile/features/menopause/presentation/pages/perimenopause_hub_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/postpartum/presentation/pages/epds_mental_health_page.dart';
 import 'package:mobile/features/postpartum/presentation/pages/lactation_and_milk_bank_page.dart';
 import 'package:mobile/features/postpartum/presentation/pages/postpartum_recovery_page.dart';
 import 'package:mobile/features/pregnancy/presentation/pages/pregnancy_weekly_hub_page.dart';
+import 'package:mobile/features/senior_vitality/presentation/pages/senior_vitality_hub_page.dart';
 import 'package:mobile/features/treatments/presentation/pages/pillbox_and_treatments_page.dart';
 import 'package:mobile/features/wellness/presentation/pages/wellness_tracker_page.dart';
 
@@ -328,6 +330,78 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => const PregnancyWeeklyHubPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+
+              // Perimenopause Hub Quick Card
+              if (profile.currentLifeStage == LifeStage.perimenopause) ...[
+                Card(
+                  key: const Key('dashboard_perimenopause_card'),
+                  elevation: 0,
+                  color: const Color(0xFFFDF4FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Color(0xFFF0ABFC)),
+                  ),
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: const CircleAvatar(
+                      backgroundColor: Color(0xFFC026D3),
+                      child: Icon(Icons.wb_sunny_outlined, color: Colors.white),
+                    ),
+                    title: const Text(
+                      'Perimenopausia y Menopausia',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: const Text(
+                        'Transición STRAW+10, gestor de sofocos y cardiometabolismo.'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const PerimenopauseHubPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+
+              // Senior Vitality Hub Quick Card
+              if (profile.currentLifeStage == LifeStage.seniorVitality) ...[
+                Card(
+                  key: const Key('dashboard_senior_vitality_card'),
+                  elevation: 0,
+                  color: const Color(0xFFF8FAFC),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Color(0xFF94A3B8), width: 1.5),
+                  ),
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: const CircleAvatar(
+                      backgroundColor: Color(0xFF334155),
+                      child: Icon(Icons.elderly_rounded, color: Colors.white),
+                    ),
+                    title: const Text(
+                      'Plenitud y Vitalidad Sénior',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: const Text(
+                        'Densitometría ósea, prevención de caídas y contacto de apoyo.'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const SeniorVitalityHubPage(),
                         ),
                       );
                     },

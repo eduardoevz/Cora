@@ -12239,6 +12239,3703 @@ class EpdsScreeningEntriesCompanion
   }
 }
 
+class $HotFlashEntriesTable extends HotFlashEntries
+    with TableInfo<$HotFlashEntriesTable, HotFlashEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $HotFlashEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _occurredAtMeta =
+      const VerificationMeta('occurredAt');
+  @override
+  late final GeneratedColumn<DateTime> occurredAt = GeneratedColumn<DateTime>(
+      'occurred_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _severityMeta =
+      const VerificationMeta('severity');
+  @override
+  late final GeneratedColumn<int> severity = GeneratedColumn<int>(
+      'severity', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _flashTypeMeta =
+      const VerificationMeta('flashType');
+  @override
+  late final GeneratedColumn<String> flashType = GeneratedColumn<String>(
+      'flash_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _durationMinutesMeta =
+      const VerificationMeta('durationMinutes');
+  @override
+  late final GeneratedColumn<int> durationMinutes = GeneratedColumn<int>(
+      'duration_minutes', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _triggersJsonMeta =
+      const VerificationMeta('triggersJson');
+  @override
+  late final GeneratedColumn<String> triggersJson = GeneratedColumn<String>(
+      'triggers_json', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sleepDisruptionLevelMeta =
+      const VerificationMeta('sleepDisruptionLevel');
+  @override
+  late final GeneratedColumn<int> sleepDisruptionLevel = GeneratedColumn<int>(
+      'sleep_disruption_level', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _associatedWithHrtMeta =
+      const VerificationMeta('associatedWithHrt');
+  @override
+  late final GeneratedColumn<bool> associatedWithHrt = GeneratedColumn<bool>(
+      'associated_with_hrt', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("associated_with_hrt" IN (0, 1))'));
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        occurredAt,
+        severity,
+        flashType,
+        durationMinutes,
+        triggersJson,
+        sleepDisruptionLevel,
+        associatedWithHrt,
+        notes
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'hot_flash_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<HotFlashEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('occurred_at')) {
+      context.handle(
+          _occurredAtMeta,
+          occurredAt.isAcceptableOrUnknown(
+              data['occurred_at']!, _occurredAtMeta));
+    } else if (isInserting) {
+      context.missing(_occurredAtMeta);
+    }
+    if (data.containsKey('severity')) {
+      context.handle(_severityMeta,
+          severity.isAcceptableOrUnknown(data['severity']!, _severityMeta));
+    } else if (isInserting) {
+      context.missing(_severityMeta);
+    }
+    if (data.containsKey('flash_type')) {
+      context.handle(_flashTypeMeta,
+          flashType.isAcceptableOrUnknown(data['flash_type']!, _flashTypeMeta));
+    } else if (isInserting) {
+      context.missing(_flashTypeMeta);
+    }
+    if (data.containsKey('duration_minutes')) {
+      context.handle(
+          _durationMinutesMeta,
+          durationMinutes.isAcceptableOrUnknown(
+              data['duration_minutes']!, _durationMinutesMeta));
+    } else if (isInserting) {
+      context.missing(_durationMinutesMeta);
+    }
+    if (data.containsKey('triggers_json')) {
+      context.handle(
+          _triggersJsonMeta,
+          triggersJson.isAcceptableOrUnknown(
+              data['triggers_json']!, _triggersJsonMeta));
+    } else if (isInserting) {
+      context.missing(_triggersJsonMeta);
+    }
+    if (data.containsKey('sleep_disruption_level')) {
+      context.handle(
+          _sleepDisruptionLevelMeta,
+          sleepDisruptionLevel.isAcceptableOrUnknown(
+              data['sleep_disruption_level']!, _sleepDisruptionLevelMeta));
+    } else if (isInserting) {
+      context.missing(_sleepDisruptionLevelMeta);
+    }
+    if (data.containsKey('associated_with_hrt')) {
+      context.handle(
+          _associatedWithHrtMeta,
+          associatedWithHrt.isAcceptableOrUnknown(
+              data['associated_with_hrt']!, _associatedWithHrtMeta));
+    } else if (isInserting) {
+      context.missing(_associatedWithHrtMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  HotFlashEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return HotFlashEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      occurredAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}occurred_at'])!,
+      severity: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}severity'])!,
+      flashType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}flash_type'])!,
+      durationMinutes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}duration_minutes'])!,
+      triggersJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}triggers_json'])!,
+      sleepDisruptionLevel: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}sleep_disruption_level'])!,
+      associatedWithHrt: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}associated_with_hrt'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+    );
+  }
+
+  @override
+  $HotFlashEntriesTable createAlias(String alias) {
+    return $HotFlashEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class HotFlashEntry extends DataClass implements Insertable<HotFlashEntry> {
+  final String id;
+  final String userId;
+  final DateTime occurredAt;
+  final int severity;
+  final String flashType;
+  final int durationMinutes;
+  final String triggersJson;
+  final int sleepDisruptionLevel;
+  final bool associatedWithHrt;
+  final String? notes;
+  const HotFlashEntry(
+      {required this.id,
+      required this.userId,
+      required this.occurredAt,
+      required this.severity,
+      required this.flashType,
+      required this.durationMinutes,
+      required this.triggersJson,
+      required this.sleepDisruptionLevel,
+      required this.associatedWithHrt,
+      this.notes});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['occurred_at'] = Variable<DateTime>(occurredAt);
+    map['severity'] = Variable<int>(severity);
+    map['flash_type'] = Variable<String>(flashType);
+    map['duration_minutes'] = Variable<int>(durationMinutes);
+    map['triggers_json'] = Variable<String>(triggersJson);
+    map['sleep_disruption_level'] = Variable<int>(sleepDisruptionLevel);
+    map['associated_with_hrt'] = Variable<bool>(associatedWithHrt);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    return map;
+  }
+
+  HotFlashEntriesCompanion toCompanion(bool nullToAbsent) {
+    return HotFlashEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      occurredAt: Value(occurredAt),
+      severity: Value(severity),
+      flashType: Value(flashType),
+      durationMinutes: Value(durationMinutes),
+      triggersJson: Value(triggersJson),
+      sleepDisruptionLevel: Value(sleepDisruptionLevel),
+      associatedWithHrt: Value(associatedWithHrt),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+    );
+  }
+
+  factory HotFlashEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return HotFlashEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      occurredAt: serializer.fromJson<DateTime>(json['occurredAt']),
+      severity: serializer.fromJson<int>(json['severity']),
+      flashType: serializer.fromJson<String>(json['flashType']),
+      durationMinutes: serializer.fromJson<int>(json['durationMinutes']),
+      triggersJson: serializer.fromJson<String>(json['triggersJson']),
+      sleepDisruptionLevel:
+          serializer.fromJson<int>(json['sleepDisruptionLevel']),
+      associatedWithHrt: serializer.fromJson<bool>(json['associatedWithHrt']),
+      notes: serializer.fromJson<String?>(json['notes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'occurredAt': serializer.toJson<DateTime>(occurredAt),
+      'severity': serializer.toJson<int>(severity),
+      'flashType': serializer.toJson<String>(flashType),
+      'durationMinutes': serializer.toJson<int>(durationMinutes),
+      'triggersJson': serializer.toJson<String>(triggersJson),
+      'sleepDisruptionLevel': serializer.toJson<int>(sleepDisruptionLevel),
+      'associatedWithHrt': serializer.toJson<bool>(associatedWithHrt),
+      'notes': serializer.toJson<String?>(notes),
+    };
+  }
+
+  HotFlashEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? occurredAt,
+          int? severity,
+          String? flashType,
+          int? durationMinutes,
+          String? triggersJson,
+          int? sleepDisruptionLevel,
+          bool? associatedWithHrt,
+          Value<String?> notes = const Value.absent()}) =>
+      HotFlashEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        occurredAt: occurredAt ?? this.occurredAt,
+        severity: severity ?? this.severity,
+        flashType: flashType ?? this.flashType,
+        durationMinutes: durationMinutes ?? this.durationMinutes,
+        triggersJson: triggersJson ?? this.triggersJson,
+        sleepDisruptionLevel: sleepDisruptionLevel ?? this.sleepDisruptionLevel,
+        associatedWithHrt: associatedWithHrt ?? this.associatedWithHrt,
+        notes: notes.present ? notes.value : this.notes,
+      );
+  HotFlashEntry copyWithCompanion(HotFlashEntriesCompanion data) {
+    return HotFlashEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      occurredAt:
+          data.occurredAt.present ? data.occurredAt.value : this.occurredAt,
+      severity: data.severity.present ? data.severity.value : this.severity,
+      flashType: data.flashType.present ? data.flashType.value : this.flashType,
+      durationMinutes: data.durationMinutes.present
+          ? data.durationMinutes.value
+          : this.durationMinutes,
+      triggersJson: data.triggersJson.present
+          ? data.triggersJson.value
+          : this.triggersJson,
+      sleepDisruptionLevel: data.sleepDisruptionLevel.present
+          ? data.sleepDisruptionLevel.value
+          : this.sleepDisruptionLevel,
+      associatedWithHrt: data.associatedWithHrt.present
+          ? data.associatedWithHrt.value
+          : this.associatedWithHrt,
+      notes: data.notes.present ? data.notes.value : this.notes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HotFlashEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('occurredAt: $occurredAt, ')
+          ..write('severity: $severity, ')
+          ..write('flashType: $flashType, ')
+          ..write('durationMinutes: $durationMinutes, ')
+          ..write('triggersJson: $triggersJson, ')
+          ..write('sleepDisruptionLevel: $sleepDisruptionLevel, ')
+          ..write('associatedWithHrt: $associatedWithHrt, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      occurredAt,
+      severity,
+      flashType,
+      durationMinutes,
+      triggersJson,
+      sleepDisruptionLevel,
+      associatedWithHrt,
+      notes);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is HotFlashEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.occurredAt == this.occurredAt &&
+          other.severity == this.severity &&
+          other.flashType == this.flashType &&
+          other.durationMinutes == this.durationMinutes &&
+          other.triggersJson == this.triggersJson &&
+          other.sleepDisruptionLevel == this.sleepDisruptionLevel &&
+          other.associatedWithHrt == this.associatedWithHrt &&
+          other.notes == this.notes);
+}
+
+class HotFlashEntriesCompanion extends UpdateCompanion<HotFlashEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> occurredAt;
+  final Value<int> severity;
+  final Value<String> flashType;
+  final Value<int> durationMinutes;
+  final Value<String> triggersJson;
+  final Value<int> sleepDisruptionLevel;
+  final Value<bool> associatedWithHrt;
+  final Value<String?> notes;
+  final Value<int> rowid;
+  const HotFlashEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.occurredAt = const Value.absent(),
+    this.severity = const Value.absent(),
+    this.flashType = const Value.absent(),
+    this.durationMinutes = const Value.absent(),
+    this.triggersJson = const Value.absent(),
+    this.sleepDisruptionLevel = const Value.absent(),
+    this.associatedWithHrt = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  HotFlashEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime occurredAt,
+    required int severity,
+    required String flashType,
+    required int durationMinutes,
+    required String triggersJson,
+    required int sleepDisruptionLevel,
+    required bool associatedWithHrt,
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        occurredAt = Value(occurredAt),
+        severity = Value(severity),
+        flashType = Value(flashType),
+        durationMinutes = Value(durationMinutes),
+        triggersJson = Value(triggersJson),
+        sleepDisruptionLevel = Value(sleepDisruptionLevel),
+        associatedWithHrt = Value(associatedWithHrt);
+  static Insertable<HotFlashEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? occurredAt,
+    Expression<int>? severity,
+    Expression<String>? flashType,
+    Expression<int>? durationMinutes,
+    Expression<String>? triggersJson,
+    Expression<int>? sleepDisruptionLevel,
+    Expression<bool>? associatedWithHrt,
+    Expression<String>? notes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (occurredAt != null) 'occurred_at': occurredAt,
+      if (severity != null) 'severity': severity,
+      if (flashType != null) 'flash_type': flashType,
+      if (durationMinutes != null) 'duration_minutes': durationMinutes,
+      if (triggersJson != null) 'triggers_json': triggersJson,
+      if (sleepDisruptionLevel != null)
+        'sleep_disruption_level': sleepDisruptionLevel,
+      if (associatedWithHrt != null) 'associated_with_hrt': associatedWithHrt,
+      if (notes != null) 'notes': notes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  HotFlashEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? occurredAt,
+      Value<int>? severity,
+      Value<String>? flashType,
+      Value<int>? durationMinutes,
+      Value<String>? triggersJson,
+      Value<int>? sleepDisruptionLevel,
+      Value<bool>? associatedWithHrt,
+      Value<String?>? notes,
+      Value<int>? rowid}) {
+    return HotFlashEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      occurredAt: occurredAt ?? this.occurredAt,
+      severity: severity ?? this.severity,
+      flashType: flashType ?? this.flashType,
+      durationMinutes: durationMinutes ?? this.durationMinutes,
+      triggersJson: triggersJson ?? this.triggersJson,
+      sleepDisruptionLevel: sleepDisruptionLevel ?? this.sleepDisruptionLevel,
+      associatedWithHrt: associatedWithHrt ?? this.associatedWithHrt,
+      notes: notes ?? this.notes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (occurredAt.present) {
+      map['occurred_at'] = Variable<DateTime>(occurredAt.value);
+    }
+    if (severity.present) {
+      map['severity'] = Variable<int>(severity.value);
+    }
+    if (flashType.present) {
+      map['flash_type'] = Variable<String>(flashType.value);
+    }
+    if (durationMinutes.present) {
+      map['duration_minutes'] = Variable<int>(durationMinutes.value);
+    }
+    if (triggersJson.present) {
+      map['triggers_json'] = Variable<String>(triggersJson.value);
+    }
+    if (sleepDisruptionLevel.present) {
+      map['sleep_disruption_level'] = Variable<int>(sleepDisruptionLevel.value);
+    }
+    if (associatedWithHrt.present) {
+      map['associated_with_hrt'] = Variable<bool>(associatedWithHrt.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HotFlashEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('occurredAt: $occurredAt, ')
+          ..write('severity: $severity, ')
+          ..write('flashType: $flashType, ')
+          ..write('durationMinutes: $durationMinutes, ')
+          ..write('triggersJson: $triggersJson, ')
+          ..write('sleepDisruptionLevel: $sleepDisruptionLevel, ')
+          ..write('associatedWithHrt: $associatedWithHrt, ')
+          ..write('notes: $notes, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CardiometabolicEntriesTable extends CardiometabolicEntries
+    with TableInfo<$CardiometabolicEntriesTable, CardiometabolicEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CardiometabolicEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _measurementDateMeta =
+      const VerificationMeta('measurementDate');
+  @override
+  late final GeneratedColumn<DateTime> measurementDate =
+      GeneratedColumn<DateTime>('measurement_date', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _systolicBpMeta =
+      const VerificationMeta('systolicBp');
+  @override
+  late final GeneratedColumn<int> systolicBp = GeneratedColumn<int>(
+      'systolic_bp', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _diastolicBpMeta =
+      const VerificationMeta('diastolicBp');
+  @override
+  late final GeneratedColumn<int> diastolicBp = GeneratedColumn<int>(
+      'diastolic_bp', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _totalCholesterolMeta =
+      const VerificationMeta('totalCholesterol');
+  @override
+  late final GeneratedColumn<double> totalCholesterol = GeneratedColumn<double>(
+      'total_cholesterol', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _ldlCholesterolMeta =
+      const VerificationMeta('ldlCholesterol');
+  @override
+  late final GeneratedColumn<double> ldlCholesterol = GeneratedColumn<double>(
+      'ldl_cholesterol', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _hdlCholesterolMeta =
+      const VerificationMeta('hdlCholesterol');
+  @override
+  late final GeneratedColumn<double> hdlCholesterol = GeneratedColumn<double>(
+      'hdl_cholesterol', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _triglyceridesMeta =
+      const VerificationMeta('triglycerides');
+  @override
+  late final GeneratedColumn<double> triglycerides = GeneratedColumn<double>(
+      'triglycerides', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _fastingGlucoseMeta =
+      const VerificationMeta('fastingGlucose');
+  @override
+  late final GeneratedColumn<double> fastingGlucose = GeneratedColumn<double>(
+      'fasting_glucose', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _riskLevelMeta =
+      const VerificationMeta('riskLevel');
+  @override
+  late final GeneratedColumn<String> riskLevel = GeneratedColumn<String>(
+      'risk_level', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _flaggedParamsJsonMeta =
+      const VerificationMeta('flaggedParamsJson');
+  @override
+  late final GeneratedColumn<String> flaggedParamsJson =
+      GeneratedColumn<String>('flagged_params_json', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        measurementDate,
+        systolicBp,
+        diastolicBp,
+        totalCholesterol,
+        ldlCholesterol,
+        hdlCholesterol,
+        triglycerides,
+        fastingGlucose,
+        riskLevel,
+        flaggedParamsJson,
+        notes
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'cardiometabolic_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<CardiometabolicEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('measurement_date')) {
+      context.handle(
+          _measurementDateMeta,
+          measurementDate.isAcceptableOrUnknown(
+              data['measurement_date']!, _measurementDateMeta));
+    } else if (isInserting) {
+      context.missing(_measurementDateMeta);
+    }
+    if (data.containsKey('systolic_bp')) {
+      context.handle(
+          _systolicBpMeta,
+          systolicBp.isAcceptableOrUnknown(
+              data['systolic_bp']!, _systolicBpMeta));
+    }
+    if (data.containsKey('diastolic_bp')) {
+      context.handle(
+          _diastolicBpMeta,
+          diastolicBp.isAcceptableOrUnknown(
+              data['diastolic_bp']!, _diastolicBpMeta));
+    }
+    if (data.containsKey('total_cholesterol')) {
+      context.handle(
+          _totalCholesterolMeta,
+          totalCholesterol.isAcceptableOrUnknown(
+              data['total_cholesterol']!, _totalCholesterolMeta));
+    }
+    if (data.containsKey('ldl_cholesterol')) {
+      context.handle(
+          _ldlCholesterolMeta,
+          ldlCholesterol.isAcceptableOrUnknown(
+              data['ldl_cholesterol']!, _ldlCholesterolMeta));
+    }
+    if (data.containsKey('hdl_cholesterol')) {
+      context.handle(
+          _hdlCholesterolMeta,
+          hdlCholesterol.isAcceptableOrUnknown(
+              data['hdl_cholesterol']!, _hdlCholesterolMeta));
+    }
+    if (data.containsKey('triglycerides')) {
+      context.handle(
+          _triglyceridesMeta,
+          triglycerides.isAcceptableOrUnknown(
+              data['triglycerides']!, _triglyceridesMeta));
+    }
+    if (data.containsKey('fasting_glucose')) {
+      context.handle(
+          _fastingGlucoseMeta,
+          fastingGlucose.isAcceptableOrUnknown(
+              data['fasting_glucose']!, _fastingGlucoseMeta));
+    }
+    if (data.containsKey('risk_level')) {
+      context.handle(_riskLevelMeta,
+          riskLevel.isAcceptableOrUnknown(data['risk_level']!, _riskLevelMeta));
+    } else if (isInserting) {
+      context.missing(_riskLevelMeta);
+    }
+    if (data.containsKey('flagged_params_json')) {
+      context.handle(
+          _flaggedParamsJsonMeta,
+          flaggedParamsJson.isAcceptableOrUnknown(
+              data['flagged_params_json']!, _flaggedParamsJsonMeta));
+    } else if (isInserting) {
+      context.missing(_flaggedParamsJsonMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CardiometabolicEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CardiometabolicEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      measurementDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}measurement_date'])!,
+      systolicBp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}systolic_bp']),
+      diastolicBp: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}diastolic_bp']),
+      totalCholesterol: attachedDatabase.typeMapping.read(
+          DriftSqlType.double, data['${effectivePrefix}total_cholesterol']),
+      ldlCholesterol: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}ldl_cholesterol']),
+      hdlCholesterol: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}hdl_cholesterol']),
+      triglycerides: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}triglycerides']),
+      fastingGlucose: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}fasting_glucose']),
+      riskLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}risk_level'])!,
+      flaggedParamsJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}flagged_params_json'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+    );
+  }
+
+  @override
+  $CardiometabolicEntriesTable createAlias(String alias) {
+    return $CardiometabolicEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class CardiometabolicEntry extends DataClass
+    implements Insertable<CardiometabolicEntry> {
+  final String id;
+  final String userId;
+  final DateTime measurementDate;
+  final int? systolicBp;
+  final int? diastolicBp;
+  final double? totalCholesterol;
+  final double? ldlCholesterol;
+  final double? hdlCholesterol;
+  final double? triglycerides;
+  final double? fastingGlucose;
+  final String riskLevel;
+  final String flaggedParamsJson;
+  final String? notes;
+  const CardiometabolicEntry(
+      {required this.id,
+      required this.userId,
+      required this.measurementDate,
+      this.systolicBp,
+      this.diastolicBp,
+      this.totalCholesterol,
+      this.ldlCholesterol,
+      this.hdlCholesterol,
+      this.triglycerides,
+      this.fastingGlucose,
+      required this.riskLevel,
+      required this.flaggedParamsJson,
+      this.notes});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['measurement_date'] = Variable<DateTime>(measurementDate);
+    if (!nullToAbsent || systolicBp != null) {
+      map['systolic_bp'] = Variable<int>(systolicBp);
+    }
+    if (!nullToAbsent || diastolicBp != null) {
+      map['diastolic_bp'] = Variable<int>(diastolicBp);
+    }
+    if (!nullToAbsent || totalCholesterol != null) {
+      map['total_cholesterol'] = Variable<double>(totalCholesterol);
+    }
+    if (!nullToAbsent || ldlCholesterol != null) {
+      map['ldl_cholesterol'] = Variable<double>(ldlCholesterol);
+    }
+    if (!nullToAbsent || hdlCholesterol != null) {
+      map['hdl_cholesterol'] = Variable<double>(hdlCholesterol);
+    }
+    if (!nullToAbsent || triglycerides != null) {
+      map['triglycerides'] = Variable<double>(triglycerides);
+    }
+    if (!nullToAbsent || fastingGlucose != null) {
+      map['fasting_glucose'] = Variable<double>(fastingGlucose);
+    }
+    map['risk_level'] = Variable<String>(riskLevel);
+    map['flagged_params_json'] = Variable<String>(flaggedParamsJson);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    return map;
+  }
+
+  CardiometabolicEntriesCompanion toCompanion(bool nullToAbsent) {
+    return CardiometabolicEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      measurementDate: Value(measurementDate),
+      systolicBp: systolicBp == null && nullToAbsent
+          ? const Value.absent()
+          : Value(systolicBp),
+      diastolicBp: diastolicBp == null && nullToAbsent
+          ? const Value.absent()
+          : Value(diastolicBp),
+      totalCholesterol: totalCholesterol == null && nullToAbsent
+          ? const Value.absent()
+          : Value(totalCholesterol),
+      ldlCholesterol: ldlCholesterol == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ldlCholesterol),
+      hdlCholesterol: hdlCholesterol == null && nullToAbsent
+          ? const Value.absent()
+          : Value(hdlCholesterol),
+      triglycerides: triglycerides == null && nullToAbsent
+          ? const Value.absent()
+          : Value(triglycerides),
+      fastingGlucose: fastingGlucose == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fastingGlucose),
+      riskLevel: Value(riskLevel),
+      flaggedParamsJson: Value(flaggedParamsJson),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+    );
+  }
+
+  factory CardiometabolicEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CardiometabolicEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      measurementDate: serializer.fromJson<DateTime>(json['measurementDate']),
+      systolicBp: serializer.fromJson<int?>(json['systolicBp']),
+      diastolicBp: serializer.fromJson<int?>(json['diastolicBp']),
+      totalCholesterol: serializer.fromJson<double?>(json['totalCholesterol']),
+      ldlCholesterol: serializer.fromJson<double?>(json['ldlCholesterol']),
+      hdlCholesterol: serializer.fromJson<double?>(json['hdlCholesterol']),
+      triglycerides: serializer.fromJson<double?>(json['triglycerides']),
+      fastingGlucose: serializer.fromJson<double?>(json['fastingGlucose']),
+      riskLevel: serializer.fromJson<String>(json['riskLevel']),
+      flaggedParamsJson: serializer.fromJson<String>(json['flaggedParamsJson']),
+      notes: serializer.fromJson<String?>(json['notes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'measurementDate': serializer.toJson<DateTime>(measurementDate),
+      'systolicBp': serializer.toJson<int?>(systolicBp),
+      'diastolicBp': serializer.toJson<int?>(diastolicBp),
+      'totalCholesterol': serializer.toJson<double?>(totalCholesterol),
+      'ldlCholesterol': serializer.toJson<double?>(ldlCholesterol),
+      'hdlCholesterol': serializer.toJson<double?>(hdlCholesterol),
+      'triglycerides': serializer.toJson<double?>(triglycerides),
+      'fastingGlucose': serializer.toJson<double?>(fastingGlucose),
+      'riskLevel': serializer.toJson<String>(riskLevel),
+      'flaggedParamsJson': serializer.toJson<String>(flaggedParamsJson),
+      'notes': serializer.toJson<String?>(notes),
+    };
+  }
+
+  CardiometabolicEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? measurementDate,
+          Value<int?> systolicBp = const Value.absent(),
+          Value<int?> diastolicBp = const Value.absent(),
+          Value<double?> totalCholesterol = const Value.absent(),
+          Value<double?> ldlCholesterol = const Value.absent(),
+          Value<double?> hdlCholesterol = const Value.absent(),
+          Value<double?> triglycerides = const Value.absent(),
+          Value<double?> fastingGlucose = const Value.absent(),
+          String? riskLevel,
+          String? flaggedParamsJson,
+          Value<String?> notes = const Value.absent()}) =>
+      CardiometabolicEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        measurementDate: measurementDate ?? this.measurementDate,
+        systolicBp: systolicBp.present ? systolicBp.value : this.systolicBp,
+        diastolicBp: diastolicBp.present ? diastolicBp.value : this.diastolicBp,
+        totalCholesterol: totalCholesterol.present
+            ? totalCholesterol.value
+            : this.totalCholesterol,
+        ldlCholesterol:
+            ldlCholesterol.present ? ldlCholesterol.value : this.ldlCholesterol,
+        hdlCholesterol:
+            hdlCholesterol.present ? hdlCholesterol.value : this.hdlCholesterol,
+        triglycerides:
+            triglycerides.present ? triglycerides.value : this.triglycerides,
+        fastingGlucose:
+            fastingGlucose.present ? fastingGlucose.value : this.fastingGlucose,
+        riskLevel: riskLevel ?? this.riskLevel,
+        flaggedParamsJson: flaggedParamsJson ?? this.flaggedParamsJson,
+        notes: notes.present ? notes.value : this.notes,
+      );
+  CardiometabolicEntry copyWithCompanion(CardiometabolicEntriesCompanion data) {
+    return CardiometabolicEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      measurementDate: data.measurementDate.present
+          ? data.measurementDate.value
+          : this.measurementDate,
+      systolicBp:
+          data.systolicBp.present ? data.systolicBp.value : this.systolicBp,
+      diastolicBp:
+          data.diastolicBp.present ? data.diastolicBp.value : this.diastolicBp,
+      totalCholesterol: data.totalCholesterol.present
+          ? data.totalCholesterol.value
+          : this.totalCholesterol,
+      ldlCholesterol: data.ldlCholesterol.present
+          ? data.ldlCholesterol.value
+          : this.ldlCholesterol,
+      hdlCholesterol: data.hdlCholesterol.present
+          ? data.hdlCholesterol.value
+          : this.hdlCholesterol,
+      triglycerides: data.triglycerides.present
+          ? data.triglycerides.value
+          : this.triglycerides,
+      fastingGlucose: data.fastingGlucose.present
+          ? data.fastingGlucose.value
+          : this.fastingGlucose,
+      riskLevel: data.riskLevel.present ? data.riskLevel.value : this.riskLevel,
+      flaggedParamsJson: data.flaggedParamsJson.present
+          ? data.flaggedParamsJson.value
+          : this.flaggedParamsJson,
+      notes: data.notes.present ? data.notes.value : this.notes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CardiometabolicEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('measurementDate: $measurementDate, ')
+          ..write('systolicBp: $systolicBp, ')
+          ..write('diastolicBp: $diastolicBp, ')
+          ..write('totalCholesterol: $totalCholesterol, ')
+          ..write('ldlCholesterol: $ldlCholesterol, ')
+          ..write('hdlCholesterol: $hdlCholesterol, ')
+          ..write('triglycerides: $triglycerides, ')
+          ..write('fastingGlucose: $fastingGlucose, ')
+          ..write('riskLevel: $riskLevel, ')
+          ..write('flaggedParamsJson: $flaggedParamsJson, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      measurementDate,
+      systolicBp,
+      diastolicBp,
+      totalCholesterol,
+      ldlCholesterol,
+      hdlCholesterol,
+      triglycerides,
+      fastingGlucose,
+      riskLevel,
+      flaggedParamsJson,
+      notes);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CardiometabolicEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.measurementDate == this.measurementDate &&
+          other.systolicBp == this.systolicBp &&
+          other.diastolicBp == this.diastolicBp &&
+          other.totalCholesterol == this.totalCholesterol &&
+          other.ldlCholesterol == this.ldlCholesterol &&
+          other.hdlCholesterol == this.hdlCholesterol &&
+          other.triglycerides == this.triglycerides &&
+          other.fastingGlucose == this.fastingGlucose &&
+          other.riskLevel == this.riskLevel &&
+          other.flaggedParamsJson == this.flaggedParamsJson &&
+          other.notes == this.notes);
+}
+
+class CardiometabolicEntriesCompanion
+    extends UpdateCompanion<CardiometabolicEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> measurementDate;
+  final Value<int?> systolicBp;
+  final Value<int?> diastolicBp;
+  final Value<double?> totalCholesterol;
+  final Value<double?> ldlCholesterol;
+  final Value<double?> hdlCholesterol;
+  final Value<double?> triglycerides;
+  final Value<double?> fastingGlucose;
+  final Value<String> riskLevel;
+  final Value<String> flaggedParamsJson;
+  final Value<String?> notes;
+  final Value<int> rowid;
+  const CardiometabolicEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.measurementDate = const Value.absent(),
+    this.systolicBp = const Value.absent(),
+    this.diastolicBp = const Value.absent(),
+    this.totalCholesterol = const Value.absent(),
+    this.ldlCholesterol = const Value.absent(),
+    this.hdlCholesterol = const Value.absent(),
+    this.triglycerides = const Value.absent(),
+    this.fastingGlucose = const Value.absent(),
+    this.riskLevel = const Value.absent(),
+    this.flaggedParamsJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CardiometabolicEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime measurementDate,
+    this.systolicBp = const Value.absent(),
+    this.diastolicBp = const Value.absent(),
+    this.totalCholesterol = const Value.absent(),
+    this.ldlCholesterol = const Value.absent(),
+    this.hdlCholesterol = const Value.absent(),
+    this.triglycerides = const Value.absent(),
+    this.fastingGlucose = const Value.absent(),
+    required String riskLevel,
+    required String flaggedParamsJson,
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        measurementDate = Value(measurementDate),
+        riskLevel = Value(riskLevel),
+        flaggedParamsJson = Value(flaggedParamsJson);
+  static Insertable<CardiometabolicEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? measurementDate,
+    Expression<int>? systolicBp,
+    Expression<int>? diastolicBp,
+    Expression<double>? totalCholesterol,
+    Expression<double>? ldlCholesterol,
+    Expression<double>? hdlCholesterol,
+    Expression<double>? triglycerides,
+    Expression<double>? fastingGlucose,
+    Expression<String>? riskLevel,
+    Expression<String>? flaggedParamsJson,
+    Expression<String>? notes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (measurementDate != null) 'measurement_date': measurementDate,
+      if (systolicBp != null) 'systolic_bp': systolicBp,
+      if (diastolicBp != null) 'diastolic_bp': diastolicBp,
+      if (totalCholesterol != null) 'total_cholesterol': totalCholesterol,
+      if (ldlCholesterol != null) 'ldl_cholesterol': ldlCholesterol,
+      if (hdlCholesterol != null) 'hdl_cholesterol': hdlCholesterol,
+      if (triglycerides != null) 'triglycerides': triglycerides,
+      if (fastingGlucose != null) 'fasting_glucose': fastingGlucose,
+      if (riskLevel != null) 'risk_level': riskLevel,
+      if (flaggedParamsJson != null) 'flagged_params_json': flaggedParamsJson,
+      if (notes != null) 'notes': notes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CardiometabolicEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? measurementDate,
+      Value<int?>? systolicBp,
+      Value<int?>? diastolicBp,
+      Value<double?>? totalCholesterol,
+      Value<double?>? ldlCholesterol,
+      Value<double?>? hdlCholesterol,
+      Value<double?>? triglycerides,
+      Value<double?>? fastingGlucose,
+      Value<String>? riskLevel,
+      Value<String>? flaggedParamsJson,
+      Value<String?>? notes,
+      Value<int>? rowid}) {
+    return CardiometabolicEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      measurementDate: measurementDate ?? this.measurementDate,
+      systolicBp: systolicBp ?? this.systolicBp,
+      diastolicBp: diastolicBp ?? this.diastolicBp,
+      totalCholesterol: totalCholesterol ?? this.totalCholesterol,
+      ldlCholesterol: ldlCholesterol ?? this.ldlCholesterol,
+      hdlCholesterol: hdlCholesterol ?? this.hdlCholesterol,
+      triglycerides: triglycerides ?? this.triglycerides,
+      fastingGlucose: fastingGlucose ?? this.fastingGlucose,
+      riskLevel: riskLevel ?? this.riskLevel,
+      flaggedParamsJson: flaggedParamsJson ?? this.flaggedParamsJson,
+      notes: notes ?? this.notes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (measurementDate.present) {
+      map['measurement_date'] = Variable<DateTime>(measurementDate.value);
+    }
+    if (systolicBp.present) {
+      map['systolic_bp'] = Variable<int>(systolicBp.value);
+    }
+    if (diastolicBp.present) {
+      map['diastolic_bp'] = Variable<int>(diastolicBp.value);
+    }
+    if (totalCholesterol.present) {
+      map['total_cholesterol'] = Variable<double>(totalCholesterol.value);
+    }
+    if (ldlCholesterol.present) {
+      map['ldl_cholesterol'] = Variable<double>(ldlCholesterol.value);
+    }
+    if (hdlCholesterol.present) {
+      map['hdl_cholesterol'] = Variable<double>(hdlCholesterol.value);
+    }
+    if (triglycerides.present) {
+      map['triglycerides'] = Variable<double>(triglycerides.value);
+    }
+    if (fastingGlucose.present) {
+      map['fasting_glucose'] = Variable<double>(fastingGlucose.value);
+    }
+    if (riskLevel.present) {
+      map['risk_level'] = Variable<String>(riskLevel.value);
+    }
+    if (flaggedParamsJson.present) {
+      map['flagged_params_json'] = Variable<String>(flaggedParamsJson.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CardiometabolicEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('measurementDate: $measurementDate, ')
+          ..write('systolicBp: $systolicBp, ')
+          ..write('diastolicBp: $diastolicBp, ')
+          ..write('totalCholesterol: $totalCholesterol, ')
+          ..write('ldlCholesterol: $ldlCholesterol, ')
+          ..write('hdlCholesterol: $hdlCholesterol, ')
+          ..write('triglycerides: $triglycerides, ')
+          ..write('fastingGlucose: $fastingGlucose, ')
+          ..write('riskLevel: $riskLevel, ')
+          ..write('flaggedParamsJson: $flaggedParamsJson, ')
+          ..write('notes: $notes, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $VaginalBleedingEntriesTable extends VaginalBleedingEntries
+    with TableInfo<$VaginalBleedingEntriesTable, VaginalBleedingEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $VaginalBleedingEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _observationDateMeta =
+      const VerificationMeta('observationDate');
+  @override
+  late final GeneratedColumn<DateTime> observationDate =
+      GeneratedColumn<DateTime>('observation_date', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _daysPriorAmenorrheaMeta =
+      const VerificationMeta('daysPriorAmenorrhea');
+  @override
+  late final GeneratedColumn<int> daysPriorAmenorrhea = GeneratedColumn<int>(
+      'days_prior_amenorrhea', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _flowIntensityMeta =
+      const VerificationMeta('flowIntensity');
+  @override
+  late final GeneratedColumn<String> flowIntensity = GeneratedColumn<String>(
+      'flow_intensity', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _hasCrampingMeta =
+      const VerificationMeta('hasCramping');
+  @override
+  late final GeneratedColumn<bool> hasCramping = GeneratedColumn<bool>(
+      'has_cramping', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_cramping" IN (0, 1))'));
+  static const VerificationMeta _isAlertTriggeredMeta =
+      const VerificationMeta('isAlertTriggered');
+  @override
+  late final GeneratedColumn<bool> isAlertTriggered = GeneratedColumn<bool>(
+      'is_alert_triggered', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_alert_triggered" IN (0, 1))'));
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        observationDate,
+        daysPriorAmenorrhea,
+        flowIntensity,
+        hasCramping,
+        isAlertTriggered,
+        notes
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vaginal_bleeding_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<VaginalBleedingEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('observation_date')) {
+      context.handle(
+          _observationDateMeta,
+          observationDate.isAcceptableOrUnknown(
+              data['observation_date']!, _observationDateMeta));
+    } else if (isInserting) {
+      context.missing(_observationDateMeta);
+    }
+    if (data.containsKey('days_prior_amenorrhea')) {
+      context.handle(
+          _daysPriorAmenorrheaMeta,
+          daysPriorAmenorrhea.isAcceptableOrUnknown(
+              data['days_prior_amenorrhea']!, _daysPriorAmenorrheaMeta));
+    } else if (isInserting) {
+      context.missing(_daysPriorAmenorrheaMeta);
+    }
+    if (data.containsKey('flow_intensity')) {
+      context.handle(
+          _flowIntensityMeta,
+          flowIntensity.isAcceptableOrUnknown(
+              data['flow_intensity']!, _flowIntensityMeta));
+    } else if (isInserting) {
+      context.missing(_flowIntensityMeta);
+    }
+    if (data.containsKey('has_cramping')) {
+      context.handle(
+          _hasCrampingMeta,
+          hasCramping.isAcceptableOrUnknown(
+              data['has_cramping']!, _hasCrampingMeta));
+    } else if (isInserting) {
+      context.missing(_hasCrampingMeta);
+    }
+    if (data.containsKey('is_alert_triggered')) {
+      context.handle(
+          _isAlertTriggeredMeta,
+          isAlertTriggered.isAcceptableOrUnknown(
+              data['is_alert_triggered']!, _isAlertTriggeredMeta));
+    } else if (isInserting) {
+      context.missing(_isAlertTriggeredMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  VaginalBleedingEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return VaginalBleedingEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      observationDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}observation_date'])!,
+      daysPriorAmenorrhea: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}days_prior_amenorrhea'])!,
+      flowIntensity: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}flow_intensity'])!,
+      hasCramping: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_cramping'])!,
+      isAlertTriggered: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}is_alert_triggered'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+    );
+  }
+
+  @override
+  $VaginalBleedingEntriesTable createAlias(String alias) {
+    return $VaginalBleedingEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class VaginalBleedingEntry extends DataClass
+    implements Insertable<VaginalBleedingEntry> {
+  final String id;
+  final String userId;
+  final DateTime observationDate;
+  final int daysPriorAmenorrhea;
+  final String flowIntensity;
+  final bool hasCramping;
+  final bool isAlertTriggered;
+  final String? notes;
+  const VaginalBleedingEntry(
+      {required this.id,
+      required this.userId,
+      required this.observationDate,
+      required this.daysPriorAmenorrhea,
+      required this.flowIntensity,
+      required this.hasCramping,
+      required this.isAlertTriggered,
+      this.notes});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['observation_date'] = Variable<DateTime>(observationDate);
+    map['days_prior_amenorrhea'] = Variable<int>(daysPriorAmenorrhea);
+    map['flow_intensity'] = Variable<String>(flowIntensity);
+    map['has_cramping'] = Variable<bool>(hasCramping);
+    map['is_alert_triggered'] = Variable<bool>(isAlertTriggered);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    return map;
+  }
+
+  VaginalBleedingEntriesCompanion toCompanion(bool nullToAbsent) {
+    return VaginalBleedingEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      observationDate: Value(observationDate),
+      daysPriorAmenorrhea: Value(daysPriorAmenorrhea),
+      flowIntensity: Value(flowIntensity),
+      hasCramping: Value(hasCramping),
+      isAlertTriggered: Value(isAlertTriggered),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+    );
+  }
+
+  factory VaginalBleedingEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return VaginalBleedingEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      observationDate: serializer.fromJson<DateTime>(json['observationDate']),
+      daysPriorAmenorrhea:
+          serializer.fromJson<int>(json['daysPriorAmenorrhea']),
+      flowIntensity: serializer.fromJson<String>(json['flowIntensity']),
+      hasCramping: serializer.fromJson<bool>(json['hasCramping']),
+      isAlertTriggered: serializer.fromJson<bool>(json['isAlertTriggered']),
+      notes: serializer.fromJson<String?>(json['notes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'observationDate': serializer.toJson<DateTime>(observationDate),
+      'daysPriorAmenorrhea': serializer.toJson<int>(daysPriorAmenorrhea),
+      'flowIntensity': serializer.toJson<String>(flowIntensity),
+      'hasCramping': serializer.toJson<bool>(hasCramping),
+      'isAlertTriggered': serializer.toJson<bool>(isAlertTriggered),
+      'notes': serializer.toJson<String?>(notes),
+    };
+  }
+
+  VaginalBleedingEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? observationDate,
+          int? daysPriorAmenorrhea,
+          String? flowIntensity,
+          bool? hasCramping,
+          bool? isAlertTriggered,
+          Value<String?> notes = const Value.absent()}) =>
+      VaginalBleedingEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        observationDate: observationDate ?? this.observationDate,
+        daysPriorAmenorrhea: daysPriorAmenorrhea ?? this.daysPriorAmenorrhea,
+        flowIntensity: flowIntensity ?? this.flowIntensity,
+        hasCramping: hasCramping ?? this.hasCramping,
+        isAlertTriggered: isAlertTriggered ?? this.isAlertTriggered,
+        notes: notes.present ? notes.value : this.notes,
+      );
+  VaginalBleedingEntry copyWithCompanion(VaginalBleedingEntriesCompanion data) {
+    return VaginalBleedingEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      observationDate: data.observationDate.present
+          ? data.observationDate.value
+          : this.observationDate,
+      daysPriorAmenorrhea: data.daysPriorAmenorrhea.present
+          ? data.daysPriorAmenorrhea.value
+          : this.daysPriorAmenorrhea,
+      flowIntensity: data.flowIntensity.present
+          ? data.flowIntensity.value
+          : this.flowIntensity,
+      hasCramping:
+          data.hasCramping.present ? data.hasCramping.value : this.hasCramping,
+      isAlertTriggered: data.isAlertTriggered.present
+          ? data.isAlertTriggered.value
+          : this.isAlertTriggered,
+      notes: data.notes.present ? data.notes.value : this.notes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaginalBleedingEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('observationDate: $observationDate, ')
+          ..write('daysPriorAmenorrhea: $daysPriorAmenorrhea, ')
+          ..write('flowIntensity: $flowIntensity, ')
+          ..write('hasCramping: $hasCramping, ')
+          ..write('isAlertTriggered: $isAlertTriggered, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, observationDate,
+      daysPriorAmenorrhea, flowIntensity, hasCramping, isAlertTriggered, notes);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is VaginalBleedingEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.observationDate == this.observationDate &&
+          other.daysPriorAmenorrhea == this.daysPriorAmenorrhea &&
+          other.flowIntensity == this.flowIntensity &&
+          other.hasCramping == this.hasCramping &&
+          other.isAlertTriggered == this.isAlertTriggered &&
+          other.notes == this.notes);
+}
+
+class VaginalBleedingEntriesCompanion
+    extends UpdateCompanion<VaginalBleedingEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> observationDate;
+  final Value<int> daysPriorAmenorrhea;
+  final Value<String> flowIntensity;
+  final Value<bool> hasCramping;
+  final Value<bool> isAlertTriggered;
+  final Value<String?> notes;
+  final Value<int> rowid;
+  const VaginalBleedingEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.observationDate = const Value.absent(),
+    this.daysPriorAmenorrhea = const Value.absent(),
+    this.flowIntensity = const Value.absent(),
+    this.hasCramping = const Value.absent(),
+    this.isAlertTriggered = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  VaginalBleedingEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime observationDate,
+    required int daysPriorAmenorrhea,
+    required String flowIntensity,
+    required bool hasCramping,
+    required bool isAlertTriggered,
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        observationDate = Value(observationDate),
+        daysPriorAmenorrhea = Value(daysPriorAmenorrhea),
+        flowIntensity = Value(flowIntensity),
+        hasCramping = Value(hasCramping),
+        isAlertTriggered = Value(isAlertTriggered);
+  static Insertable<VaginalBleedingEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? observationDate,
+    Expression<int>? daysPriorAmenorrhea,
+    Expression<String>? flowIntensity,
+    Expression<bool>? hasCramping,
+    Expression<bool>? isAlertTriggered,
+    Expression<String>? notes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (observationDate != null) 'observation_date': observationDate,
+      if (daysPriorAmenorrhea != null)
+        'days_prior_amenorrhea': daysPriorAmenorrhea,
+      if (flowIntensity != null) 'flow_intensity': flowIntensity,
+      if (hasCramping != null) 'has_cramping': hasCramping,
+      if (isAlertTriggered != null) 'is_alert_triggered': isAlertTriggered,
+      if (notes != null) 'notes': notes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  VaginalBleedingEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? observationDate,
+      Value<int>? daysPriorAmenorrhea,
+      Value<String>? flowIntensity,
+      Value<bool>? hasCramping,
+      Value<bool>? isAlertTriggered,
+      Value<String?>? notes,
+      Value<int>? rowid}) {
+    return VaginalBleedingEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      observationDate: observationDate ?? this.observationDate,
+      daysPriorAmenorrhea: daysPriorAmenorrhea ?? this.daysPriorAmenorrhea,
+      flowIntensity: flowIntensity ?? this.flowIntensity,
+      hasCramping: hasCramping ?? this.hasCramping,
+      isAlertTriggered: isAlertTriggered ?? this.isAlertTriggered,
+      notes: notes ?? this.notes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (observationDate.present) {
+      map['observation_date'] = Variable<DateTime>(observationDate.value);
+    }
+    if (daysPriorAmenorrhea.present) {
+      map['days_prior_amenorrhea'] = Variable<int>(daysPriorAmenorrhea.value);
+    }
+    if (flowIntensity.present) {
+      map['flow_intensity'] = Variable<String>(flowIntensity.value);
+    }
+    if (hasCramping.present) {
+      map['has_cramping'] = Variable<bool>(hasCramping.value);
+    }
+    if (isAlertTriggered.present) {
+      map['is_alert_triggered'] = Variable<bool>(isAlertTriggered.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaginalBleedingEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('observationDate: $observationDate, ')
+          ..write('daysPriorAmenorrhea: $daysPriorAmenorrhea, ')
+          ..write('flowIntensity: $flowIntensity, ')
+          ..write('hasCramping: $hasCramping, ')
+          ..write('isAlertTriggered: $isAlertTriggered, ')
+          ..write('notes: $notes, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DexaBoneEntriesTable extends DexaBoneEntries
+    with TableInfo<$DexaBoneEntriesTable, DexaBoneEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DexaBoneEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _scanDateMeta =
+      const VerificationMeta('scanDate');
+  @override
+  late final GeneratedColumn<DateTime> scanDate = GeneratedColumn<DateTime>(
+      'scan_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _anatomicalSiteMeta =
+      const VerificationMeta('anatomicalSite');
+  @override
+  late final GeneratedColumn<String> anatomicalSite = GeneratedColumn<String>(
+      'anatomical_site', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _tScoreMeta = const VerificationMeta('tScore');
+  @override
+  late final GeneratedColumn<double> tScore = GeneratedColumn<double>(
+      't_score', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _zScoreMeta = const VerificationMeta('zScore');
+  @override
+  late final GeneratedColumn<double> zScore = GeneratedColumn<double>(
+      'z_score', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _bmdGCm2Meta =
+      const VerificationMeta('bmdGCm2');
+  @override
+  late final GeneratedColumn<double> bmdGCm2 = GeneratedColumn<double>(
+      'bmd_g_cm2', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _previousFragilityFractureMeta =
+      const VerificationMeta('previousFragilityFracture');
+  @override
+  late final GeneratedColumn<bool> previousFragilityFracture =
+      GeneratedColumn<bool>('previous_fragility_fracture', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("previous_fragility_fracture" IN (0, 1))'));
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        scanDate,
+        anatomicalSite,
+        tScore,
+        zScore,
+        bmdGCm2,
+        previousFragilityFracture,
+        category,
+        notes
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'dexa_bone_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<DexaBoneEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('scan_date')) {
+      context.handle(_scanDateMeta,
+          scanDate.isAcceptableOrUnknown(data['scan_date']!, _scanDateMeta));
+    } else if (isInserting) {
+      context.missing(_scanDateMeta);
+    }
+    if (data.containsKey('anatomical_site')) {
+      context.handle(
+          _anatomicalSiteMeta,
+          anatomicalSite.isAcceptableOrUnknown(
+              data['anatomical_site']!, _anatomicalSiteMeta));
+    } else if (isInserting) {
+      context.missing(_anatomicalSiteMeta);
+    }
+    if (data.containsKey('t_score')) {
+      context.handle(_tScoreMeta,
+          tScore.isAcceptableOrUnknown(data['t_score']!, _tScoreMeta));
+    } else if (isInserting) {
+      context.missing(_tScoreMeta);
+    }
+    if (data.containsKey('z_score')) {
+      context.handle(_zScoreMeta,
+          zScore.isAcceptableOrUnknown(data['z_score']!, _zScoreMeta));
+    }
+    if (data.containsKey('bmd_g_cm2')) {
+      context.handle(_bmdGCm2Meta,
+          bmdGCm2.isAcceptableOrUnknown(data['bmd_g_cm2']!, _bmdGCm2Meta));
+    }
+    if (data.containsKey('previous_fragility_fracture')) {
+      context.handle(
+          _previousFragilityFractureMeta,
+          previousFragilityFracture.isAcceptableOrUnknown(
+              data['previous_fragility_fracture']!,
+              _previousFragilityFractureMeta));
+    } else if (isInserting) {
+      context.missing(_previousFragilityFractureMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DexaBoneEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DexaBoneEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      scanDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}scan_date'])!,
+      anatomicalSite: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}anatomical_site'])!,
+      tScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}t_score'])!,
+      zScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}z_score']),
+      bmdGCm2: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}bmd_g_cm2']),
+      previousFragilityFracture: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}previous_fragility_fracture'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+    );
+  }
+
+  @override
+  $DexaBoneEntriesTable createAlias(String alias) {
+    return $DexaBoneEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class DexaBoneEntry extends DataClass implements Insertable<DexaBoneEntry> {
+  final String id;
+  final String userId;
+  final DateTime scanDate;
+  final String anatomicalSite;
+  final double tScore;
+  final double? zScore;
+  final double? bmdGCm2;
+  final bool previousFragilityFracture;
+  final String category;
+  final String? notes;
+  const DexaBoneEntry(
+      {required this.id,
+      required this.userId,
+      required this.scanDate,
+      required this.anatomicalSite,
+      required this.tScore,
+      this.zScore,
+      this.bmdGCm2,
+      required this.previousFragilityFracture,
+      required this.category,
+      this.notes});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['scan_date'] = Variable<DateTime>(scanDate);
+    map['anatomical_site'] = Variable<String>(anatomicalSite);
+    map['t_score'] = Variable<double>(tScore);
+    if (!nullToAbsent || zScore != null) {
+      map['z_score'] = Variable<double>(zScore);
+    }
+    if (!nullToAbsent || bmdGCm2 != null) {
+      map['bmd_g_cm2'] = Variable<double>(bmdGCm2);
+    }
+    map['previous_fragility_fracture'] =
+        Variable<bool>(previousFragilityFracture);
+    map['category'] = Variable<String>(category);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    return map;
+  }
+
+  DexaBoneEntriesCompanion toCompanion(bool nullToAbsent) {
+    return DexaBoneEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      scanDate: Value(scanDate),
+      anatomicalSite: Value(anatomicalSite),
+      tScore: Value(tScore),
+      zScore:
+          zScore == null && nullToAbsent ? const Value.absent() : Value(zScore),
+      bmdGCm2: bmdGCm2 == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bmdGCm2),
+      previousFragilityFracture: Value(previousFragilityFracture),
+      category: Value(category),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+    );
+  }
+
+  factory DexaBoneEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DexaBoneEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      scanDate: serializer.fromJson<DateTime>(json['scanDate']),
+      anatomicalSite: serializer.fromJson<String>(json['anatomicalSite']),
+      tScore: serializer.fromJson<double>(json['tScore']),
+      zScore: serializer.fromJson<double?>(json['zScore']),
+      bmdGCm2: serializer.fromJson<double?>(json['bmdGCm2']),
+      previousFragilityFracture:
+          serializer.fromJson<bool>(json['previousFragilityFracture']),
+      category: serializer.fromJson<String>(json['category']),
+      notes: serializer.fromJson<String?>(json['notes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'scanDate': serializer.toJson<DateTime>(scanDate),
+      'anatomicalSite': serializer.toJson<String>(anatomicalSite),
+      'tScore': serializer.toJson<double>(tScore),
+      'zScore': serializer.toJson<double?>(zScore),
+      'bmdGCm2': serializer.toJson<double?>(bmdGCm2),
+      'previousFragilityFracture':
+          serializer.toJson<bool>(previousFragilityFracture),
+      'category': serializer.toJson<String>(category),
+      'notes': serializer.toJson<String?>(notes),
+    };
+  }
+
+  DexaBoneEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? scanDate,
+          String? anatomicalSite,
+          double? tScore,
+          Value<double?> zScore = const Value.absent(),
+          Value<double?> bmdGCm2 = const Value.absent(),
+          bool? previousFragilityFracture,
+          String? category,
+          Value<String?> notes = const Value.absent()}) =>
+      DexaBoneEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        scanDate: scanDate ?? this.scanDate,
+        anatomicalSite: anatomicalSite ?? this.anatomicalSite,
+        tScore: tScore ?? this.tScore,
+        zScore: zScore.present ? zScore.value : this.zScore,
+        bmdGCm2: bmdGCm2.present ? bmdGCm2.value : this.bmdGCm2,
+        previousFragilityFracture:
+            previousFragilityFracture ?? this.previousFragilityFracture,
+        category: category ?? this.category,
+        notes: notes.present ? notes.value : this.notes,
+      );
+  DexaBoneEntry copyWithCompanion(DexaBoneEntriesCompanion data) {
+    return DexaBoneEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      scanDate: data.scanDate.present ? data.scanDate.value : this.scanDate,
+      anatomicalSite: data.anatomicalSite.present
+          ? data.anatomicalSite.value
+          : this.anatomicalSite,
+      tScore: data.tScore.present ? data.tScore.value : this.tScore,
+      zScore: data.zScore.present ? data.zScore.value : this.zScore,
+      bmdGCm2: data.bmdGCm2.present ? data.bmdGCm2.value : this.bmdGCm2,
+      previousFragilityFracture: data.previousFragilityFracture.present
+          ? data.previousFragilityFracture.value
+          : this.previousFragilityFracture,
+      category: data.category.present ? data.category.value : this.category,
+      notes: data.notes.present ? data.notes.value : this.notes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DexaBoneEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('scanDate: $scanDate, ')
+          ..write('anatomicalSite: $anatomicalSite, ')
+          ..write('tScore: $tScore, ')
+          ..write('zScore: $zScore, ')
+          ..write('bmdGCm2: $bmdGCm2, ')
+          ..write('previousFragilityFracture: $previousFragilityFracture, ')
+          ..write('category: $category, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, scanDate, anatomicalSite, tScore,
+      zScore, bmdGCm2, previousFragilityFracture, category, notes);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DexaBoneEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.scanDate == this.scanDate &&
+          other.anatomicalSite == this.anatomicalSite &&
+          other.tScore == this.tScore &&
+          other.zScore == this.zScore &&
+          other.bmdGCm2 == this.bmdGCm2 &&
+          other.previousFragilityFracture == this.previousFragilityFracture &&
+          other.category == this.category &&
+          other.notes == this.notes);
+}
+
+class DexaBoneEntriesCompanion extends UpdateCompanion<DexaBoneEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> scanDate;
+  final Value<String> anatomicalSite;
+  final Value<double> tScore;
+  final Value<double?> zScore;
+  final Value<double?> bmdGCm2;
+  final Value<bool> previousFragilityFracture;
+  final Value<String> category;
+  final Value<String?> notes;
+  final Value<int> rowid;
+  const DexaBoneEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.scanDate = const Value.absent(),
+    this.anatomicalSite = const Value.absent(),
+    this.tScore = const Value.absent(),
+    this.zScore = const Value.absent(),
+    this.bmdGCm2 = const Value.absent(),
+    this.previousFragilityFracture = const Value.absent(),
+    this.category = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DexaBoneEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime scanDate,
+    required String anatomicalSite,
+    required double tScore,
+    this.zScore = const Value.absent(),
+    this.bmdGCm2 = const Value.absent(),
+    required bool previousFragilityFracture,
+    required String category,
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        scanDate = Value(scanDate),
+        anatomicalSite = Value(anatomicalSite),
+        tScore = Value(tScore),
+        previousFragilityFracture = Value(previousFragilityFracture),
+        category = Value(category);
+  static Insertable<DexaBoneEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? scanDate,
+    Expression<String>? anatomicalSite,
+    Expression<double>? tScore,
+    Expression<double>? zScore,
+    Expression<double>? bmdGCm2,
+    Expression<bool>? previousFragilityFracture,
+    Expression<String>? category,
+    Expression<String>? notes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (scanDate != null) 'scan_date': scanDate,
+      if (anatomicalSite != null) 'anatomical_site': anatomicalSite,
+      if (tScore != null) 't_score': tScore,
+      if (zScore != null) 'z_score': zScore,
+      if (bmdGCm2 != null) 'bmd_g_cm2': bmdGCm2,
+      if (previousFragilityFracture != null)
+        'previous_fragility_fracture': previousFragilityFracture,
+      if (category != null) 'category': category,
+      if (notes != null) 'notes': notes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DexaBoneEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? scanDate,
+      Value<String>? anatomicalSite,
+      Value<double>? tScore,
+      Value<double?>? zScore,
+      Value<double?>? bmdGCm2,
+      Value<bool>? previousFragilityFracture,
+      Value<String>? category,
+      Value<String?>? notes,
+      Value<int>? rowid}) {
+    return DexaBoneEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      scanDate: scanDate ?? this.scanDate,
+      anatomicalSite: anatomicalSite ?? this.anatomicalSite,
+      tScore: tScore ?? this.tScore,
+      zScore: zScore ?? this.zScore,
+      bmdGCm2: bmdGCm2 ?? this.bmdGCm2,
+      previousFragilityFracture:
+          previousFragilityFracture ?? this.previousFragilityFracture,
+      category: category ?? this.category,
+      notes: notes ?? this.notes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (scanDate.present) {
+      map['scan_date'] = Variable<DateTime>(scanDate.value);
+    }
+    if (anatomicalSite.present) {
+      map['anatomical_site'] = Variable<String>(anatomicalSite.value);
+    }
+    if (tScore.present) {
+      map['t_score'] = Variable<double>(tScore.value);
+    }
+    if (zScore.present) {
+      map['z_score'] = Variable<double>(zScore.value);
+    }
+    if (bmdGCm2.present) {
+      map['bmd_g_cm2'] = Variable<double>(bmdGCm2.value);
+    }
+    if (previousFragilityFracture.present) {
+      map['previous_fragility_fracture'] =
+          Variable<bool>(previousFragilityFracture.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DexaBoneEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('scanDate: $scanDate, ')
+          ..write('anatomicalSite: $anatomicalSite, ')
+          ..write('tScore: $tScore, ')
+          ..write('zScore: $zScore, ')
+          ..write('bmdGCm2: $bmdGCm2, ')
+          ..write('previousFragilityFracture: $previousFragilityFracture, ')
+          ..write('category: $category, ')
+          ..write('notes: $notes, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FallRiskEntriesTable extends FallRiskEntries
+    with TableInfo<$FallRiskEntriesTable, FallRiskEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FallRiskEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _assessmentDateMeta =
+      const VerificationMeta('assessmentDate');
+  @override
+  late final GeneratedColumn<DateTime> assessmentDate =
+      GeneratedColumn<DateTime>('assessment_date', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _fallsPastYearMeta =
+      const VerificationMeta('fallsPastYear');
+  @override
+  late final GeneratedColumn<int> fallsPastYear = GeneratedColumn<int>(
+      'falls_past_year', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _hasGaitUnsteadinessMeta =
+      const VerificationMeta('hasGaitUnsteadiness');
+  @override
+  late final GeneratedColumn<bool> hasGaitUnsteadiness = GeneratedColumn<bool>(
+      'has_gait_unsteadiness', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_gait_unsteadiness" IN (0, 1))'));
+  static const VerificationMeta _usesWalkingAidMeta =
+      const VerificationMeta('usesWalkingAid');
+  @override
+  late final GeneratedColumn<bool> usesWalkingAid = GeneratedColumn<bool>(
+      'uses_walking_aid', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("uses_walking_aid" IN (0, 1))'));
+  static const VerificationMeta _timedUpAndGoSecondsMeta =
+      const VerificationMeta('timedUpAndGoSeconds');
+  @override
+  late final GeneratedColumn<double> timedUpAndGoSeconds =
+      GeneratedColumn<double>('timed_up_and_go_seconds', aliasedName, true,
+          type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _riskLevelMeta =
+      const VerificationMeta('riskLevel');
+  @override
+  late final GeneratedColumn<String> riskLevel = GeneratedColumn<String>(
+      'risk_level', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _compositeScoreMeta =
+      const VerificationMeta('compositeScore');
+  @override
+  late final GeneratedColumn<int> compositeScore = GeneratedColumn<int>(
+      'composite_score', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _environmentalHazardsJsonMeta =
+      const VerificationMeta('environmentalHazardsJson');
+  @override
+  late final GeneratedColumn<String> environmentalHazardsJson =
+      GeneratedColumn<String>('environmental_hazards_json', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        assessmentDate,
+        fallsPastYear,
+        hasGaitUnsteadiness,
+        usesWalkingAid,
+        timedUpAndGoSeconds,
+        riskLevel,
+        compositeScore,
+        environmentalHazardsJson,
+        notes
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'fall_risk_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<FallRiskEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('assessment_date')) {
+      context.handle(
+          _assessmentDateMeta,
+          assessmentDate.isAcceptableOrUnknown(
+              data['assessment_date']!, _assessmentDateMeta));
+    } else if (isInserting) {
+      context.missing(_assessmentDateMeta);
+    }
+    if (data.containsKey('falls_past_year')) {
+      context.handle(
+          _fallsPastYearMeta,
+          fallsPastYear.isAcceptableOrUnknown(
+              data['falls_past_year']!, _fallsPastYearMeta));
+    } else if (isInserting) {
+      context.missing(_fallsPastYearMeta);
+    }
+    if (data.containsKey('has_gait_unsteadiness')) {
+      context.handle(
+          _hasGaitUnsteadinessMeta,
+          hasGaitUnsteadiness.isAcceptableOrUnknown(
+              data['has_gait_unsteadiness']!, _hasGaitUnsteadinessMeta));
+    } else if (isInserting) {
+      context.missing(_hasGaitUnsteadinessMeta);
+    }
+    if (data.containsKey('uses_walking_aid')) {
+      context.handle(
+          _usesWalkingAidMeta,
+          usesWalkingAid.isAcceptableOrUnknown(
+              data['uses_walking_aid']!, _usesWalkingAidMeta));
+    } else if (isInserting) {
+      context.missing(_usesWalkingAidMeta);
+    }
+    if (data.containsKey('timed_up_and_go_seconds')) {
+      context.handle(
+          _timedUpAndGoSecondsMeta,
+          timedUpAndGoSeconds.isAcceptableOrUnknown(
+              data['timed_up_and_go_seconds']!, _timedUpAndGoSecondsMeta));
+    }
+    if (data.containsKey('risk_level')) {
+      context.handle(_riskLevelMeta,
+          riskLevel.isAcceptableOrUnknown(data['risk_level']!, _riskLevelMeta));
+    } else if (isInserting) {
+      context.missing(_riskLevelMeta);
+    }
+    if (data.containsKey('composite_score')) {
+      context.handle(
+          _compositeScoreMeta,
+          compositeScore.isAcceptableOrUnknown(
+              data['composite_score']!, _compositeScoreMeta));
+    } else if (isInserting) {
+      context.missing(_compositeScoreMeta);
+    }
+    if (data.containsKey('environmental_hazards_json')) {
+      context.handle(
+          _environmentalHazardsJsonMeta,
+          environmentalHazardsJson.isAcceptableOrUnknown(
+              data['environmental_hazards_json']!,
+              _environmentalHazardsJsonMeta));
+    } else if (isInserting) {
+      context.missing(_environmentalHazardsJsonMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FallRiskEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FallRiskEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      assessmentDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}assessment_date'])!,
+      fallsPastYear: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}falls_past_year'])!,
+      hasGaitUnsteadiness: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}has_gait_unsteadiness'])!,
+      usesWalkingAid: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}uses_walking_aid'])!,
+      timedUpAndGoSeconds: attachedDatabase.typeMapping.read(
+          DriftSqlType.double,
+          data['${effectivePrefix}timed_up_and_go_seconds']),
+      riskLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}risk_level'])!,
+      compositeScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}composite_score'])!,
+      environmentalHazardsJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}environmental_hazards_json'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+    );
+  }
+
+  @override
+  $FallRiskEntriesTable createAlias(String alias) {
+    return $FallRiskEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class FallRiskEntry extends DataClass implements Insertable<FallRiskEntry> {
+  final String id;
+  final String userId;
+  final DateTime assessmentDate;
+  final int fallsPastYear;
+  final bool hasGaitUnsteadiness;
+  final bool usesWalkingAid;
+  final double? timedUpAndGoSeconds;
+  final String riskLevel;
+  final int compositeScore;
+  final String environmentalHazardsJson;
+  final String? notes;
+  const FallRiskEntry(
+      {required this.id,
+      required this.userId,
+      required this.assessmentDate,
+      required this.fallsPastYear,
+      required this.hasGaitUnsteadiness,
+      required this.usesWalkingAid,
+      this.timedUpAndGoSeconds,
+      required this.riskLevel,
+      required this.compositeScore,
+      required this.environmentalHazardsJson,
+      this.notes});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['assessment_date'] = Variable<DateTime>(assessmentDate);
+    map['falls_past_year'] = Variable<int>(fallsPastYear);
+    map['has_gait_unsteadiness'] = Variable<bool>(hasGaitUnsteadiness);
+    map['uses_walking_aid'] = Variable<bool>(usesWalkingAid);
+    if (!nullToAbsent || timedUpAndGoSeconds != null) {
+      map['timed_up_and_go_seconds'] = Variable<double>(timedUpAndGoSeconds);
+    }
+    map['risk_level'] = Variable<String>(riskLevel);
+    map['composite_score'] = Variable<int>(compositeScore);
+    map['environmental_hazards_json'] =
+        Variable<String>(environmentalHazardsJson);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    return map;
+  }
+
+  FallRiskEntriesCompanion toCompanion(bool nullToAbsent) {
+    return FallRiskEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      assessmentDate: Value(assessmentDate),
+      fallsPastYear: Value(fallsPastYear),
+      hasGaitUnsteadiness: Value(hasGaitUnsteadiness),
+      usesWalkingAid: Value(usesWalkingAid),
+      timedUpAndGoSeconds: timedUpAndGoSeconds == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timedUpAndGoSeconds),
+      riskLevel: Value(riskLevel),
+      compositeScore: Value(compositeScore),
+      environmentalHazardsJson: Value(environmentalHazardsJson),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+    );
+  }
+
+  factory FallRiskEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FallRiskEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      assessmentDate: serializer.fromJson<DateTime>(json['assessmentDate']),
+      fallsPastYear: serializer.fromJson<int>(json['fallsPastYear']),
+      hasGaitUnsteadiness:
+          serializer.fromJson<bool>(json['hasGaitUnsteadiness']),
+      usesWalkingAid: serializer.fromJson<bool>(json['usesWalkingAid']),
+      timedUpAndGoSeconds:
+          serializer.fromJson<double?>(json['timedUpAndGoSeconds']),
+      riskLevel: serializer.fromJson<String>(json['riskLevel']),
+      compositeScore: serializer.fromJson<int>(json['compositeScore']),
+      environmentalHazardsJson:
+          serializer.fromJson<String>(json['environmentalHazardsJson']),
+      notes: serializer.fromJson<String?>(json['notes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'assessmentDate': serializer.toJson<DateTime>(assessmentDate),
+      'fallsPastYear': serializer.toJson<int>(fallsPastYear),
+      'hasGaitUnsteadiness': serializer.toJson<bool>(hasGaitUnsteadiness),
+      'usesWalkingAid': serializer.toJson<bool>(usesWalkingAid),
+      'timedUpAndGoSeconds': serializer.toJson<double?>(timedUpAndGoSeconds),
+      'riskLevel': serializer.toJson<String>(riskLevel),
+      'compositeScore': serializer.toJson<int>(compositeScore),
+      'environmentalHazardsJson':
+          serializer.toJson<String>(environmentalHazardsJson),
+      'notes': serializer.toJson<String?>(notes),
+    };
+  }
+
+  FallRiskEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? assessmentDate,
+          int? fallsPastYear,
+          bool? hasGaitUnsteadiness,
+          bool? usesWalkingAid,
+          Value<double?> timedUpAndGoSeconds = const Value.absent(),
+          String? riskLevel,
+          int? compositeScore,
+          String? environmentalHazardsJson,
+          Value<String?> notes = const Value.absent()}) =>
+      FallRiskEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        assessmentDate: assessmentDate ?? this.assessmentDate,
+        fallsPastYear: fallsPastYear ?? this.fallsPastYear,
+        hasGaitUnsteadiness: hasGaitUnsteadiness ?? this.hasGaitUnsteadiness,
+        usesWalkingAid: usesWalkingAid ?? this.usesWalkingAid,
+        timedUpAndGoSeconds: timedUpAndGoSeconds.present
+            ? timedUpAndGoSeconds.value
+            : this.timedUpAndGoSeconds,
+        riskLevel: riskLevel ?? this.riskLevel,
+        compositeScore: compositeScore ?? this.compositeScore,
+        environmentalHazardsJson:
+            environmentalHazardsJson ?? this.environmentalHazardsJson,
+        notes: notes.present ? notes.value : this.notes,
+      );
+  FallRiskEntry copyWithCompanion(FallRiskEntriesCompanion data) {
+    return FallRiskEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      assessmentDate: data.assessmentDate.present
+          ? data.assessmentDate.value
+          : this.assessmentDate,
+      fallsPastYear: data.fallsPastYear.present
+          ? data.fallsPastYear.value
+          : this.fallsPastYear,
+      hasGaitUnsteadiness: data.hasGaitUnsteadiness.present
+          ? data.hasGaitUnsteadiness.value
+          : this.hasGaitUnsteadiness,
+      usesWalkingAid: data.usesWalkingAid.present
+          ? data.usesWalkingAid.value
+          : this.usesWalkingAid,
+      timedUpAndGoSeconds: data.timedUpAndGoSeconds.present
+          ? data.timedUpAndGoSeconds.value
+          : this.timedUpAndGoSeconds,
+      riskLevel: data.riskLevel.present ? data.riskLevel.value : this.riskLevel,
+      compositeScore: data.compositeScore.present
+          ? data.compositeScore.value
+          : this.compositeScore,
+      environmentalHazardsJson: data.environmentalHazardsJson.present
+          ? data.environmentalHazardsJson.value
+          : this.environmentalHazardsJson,
+      notes: data.notes.present ? data.notes.value : this.notes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FallRiskEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('assessmentDate: $assessmentDate, ')
+          ..write('fallsPastYear: $fallsPastYear, ')
+          ..write('hasGaitUnsteadiness: $hasGaitUnsteadiness, ')
+          ..write('usesWalkingAid: $usesWalkingAid, ')
+          ..write('timedUpAndGoSeconds: $timedUpAndGoSeconds, ')
+          ..write('riskLevel: $riskLevel, ')
+          ..write('compositeScore: $compositeScore, ')
+          ..write('environmentalHazardsJson: $environmentalHazardsJson, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      assessmentDate,
+      fallsPastYear,
+      hasGaitUnsteadiness,
+      usesWalkingAid,
+      timedUpAndGoSeconds,
+      riskLevel,
+      compositeScore,
+      environmentalHazardsJson,
+      notes);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FallRiskEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.assessmentDate == this.assessmentDate &&
+          other.fallsPastYear == this.fallsPastYear &&
+          other.hasGaitUnsteadiness == this.hasGaitUnsteadiness &&
+          other.usesWalkingAid == this.usesWalkingAid &&
+          other.timedUpAndGoSeconds == this.timedUpAndGoSeconds &&
+          other.riskLevel == this.riskLevel &&
+          other.compositeScore == this.compositeScore &&
+          other.environmentalHazardsJson == this.environmentalHazardsJson &&
+          other.notes == this.notes);
+}
+
+class FallRiskEntriesCompanion extends UpdateCompanion<FallRiskEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> assessmentDate;
+  final Value<int> fallsPastYear;
+  final Value<bool> hasGaitUnsteadiness;
+  final Value<bool> usesWalkingAid;
+  final Value<double?> timedUpAndGoSeconds;
+  final Value<String> riskLevel;
+  final Value<int> compositeScore;
+  final Value<String> environmentalHazardsJson;
+  final Value<String?> notes;
+  final Value<int> rowid;
+  const FallRiskEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.assessmentDate = const Value.absent(),
+    this.fallsPastYear = const Value.absent(),
+    this.hasGaitUnsteadiness = const Value.absent(),
+    this.usesWalkingAid = const Value.absent(),
+    this.timedUpAndGoSeconds = const Value.absent(),
+    this.riskLevel = const Value.absent(),
+    this.compositeScore = const Value.absent(),
+    this.environmentalHazardsJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FallRiskEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime assessmentDate,
+    required int fallsPastYear,
+    required bool hasGaitUnsteadiness,
+    required bool usesWalkingAid,
+    this.timedUpAndGoSeconds = const Value.absent(),
+    required String riskLevel,
+    required int compositeScore,
+    required String environmentalHazardsJson,
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        assessmentDate = Value(assessmentDate),
+        fallsPastYear = Value(fallsPastYear),
+        hasGaitUnsteadiness = Value(hasGaitUnsteadiness),
+        usesWalkingAid = Value(usesWalkingAid),
+        riskLevel = Value(riskLevel),
+        compositeScore = Value(compositeScore),
+        environmentalHazardsJson = Value(environmentalHazardsJson);
+  static Insertable<FallRiskEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? assessmentDate,
+    Expression<int>? fallsPastYear,
+    Expression<bool>? hasGaitUnsteadiness,
+    Expression<bool>? usesWalkingAid,
+    Expression<double>? timedUpAndGoSeconds,
+    Expression<String>? riskLevel,
+    Expression<int>? compositeScore,
+    Expression<String>? environmentalHazardsJson,
+    Expression<String>? notes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (assessmentDate != null) 'assessment_date': assessmentDate,
+      if (fallsPastYear != null) 'falls_past_year': fallsPastYear,
+      if (hasGaitUnsteadiness != null)
+        'has_gait_unsteadiness': hasGaitUnsteadiness,
+      if (usesWalkingAid != null) 'uses_walking_aid': usesWalkingAid,
+      if (timedUpAndGoSeconds != null)
+        'timed_up_and_go_seconds': timedUpAndGoSeconds,
+      if (riskLevel != null) 'risk_level': riskLevel,
+      if (compositeScore != null) 'composite_score': compositeScore,
+      if (environmentalHazardsJson != null)
+        'environmental_hazards_json': environmentalHazardsJson,
+      if (notes != null) 'notes': notes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FallRiskEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? assessmentDate,
+      Value<int>? fallsPastYear,
+      Value<bool>? hasGaitUnsteadiness,
+      Value<bool>? usesWalkingAid,
+      Value<double?>? timedUpAndGoSeconds,
+      Value<String>? riskLevel,
+      Value<int>? compositeScore,
+      Value<String>? environmentalHazardsJson,
+      Value<String?>? notes,
+      Value<int>? rowid}) {
+    return FallRiskEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      assessmentDate: assessmentDate ?? this.assessmentDate,
+      fallsPastYear: fallsPastYear ?? this.fallsPastYear,
+      hasGaitUnsteadiness: hasGaitUnsteadiness ?? this.hasGaitUnsteadiness,
+      usesWalkingAid: usesWalkingAid ?? this.usesWalkingAid,
+      timedUpAndGoSeconds: timedUpAndGoSeconds ?? this.timedUpAndGoSeconds,
+      riskLevel: riskLevel ?? this.riskLevel,
+      compositeScore: compositeScore ?? this.compositeScore,
+      environmentalHazardsJson:
+          environmentalHazardsJson ?? this.environmentalHazardsJson,
+      notes: notes ?? this.notes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (assessmentDate.present) {
+      map['assessment_date'] = Variable<DateTime>(assessmentDate.value);
+    }
+    if (fallsPastYear.present) {
+      map['falls_past_year'] = Variable<int>(fallsPastYear.value);
+    }
+    if (hasGaitUnsteadiness.present) {
+      map['has_gait_unsteadiness'] = Variable<bool>(hasGaitUnsteadiness.value);
+    }
+    if (usesWalkingAid.present) {
+      map['uses_walking_aid'] = Variable<bool>(usesWalkingAid.value);
+    }
+    if (timedUpAndGoSeconds.present) {
+      map['timed_up_and_go_seconds'] =
+          Variable<double>(timedUpAndGoSeconds.value);
+    }
+    if (riskLevel.present) {
+      map['risk_level'] = Variable<String>(riskLevel.value);
+    }
+    if (compositeScore.present) {
+      map['composite_score'] = Variable<int>(compositeScore.value);
+    }
+    if (environmentalHazardsJson.present) {
+      map['environmental_hazards_json'] =
+          Variable<String>(environmentalHazardsJson.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FallRiskEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('assessmentDate: $assessmentDate, ')
+          ..write('fallsPastYear: $fallsPastYear, ')
+          ..write('hasGaitUnsteadiness: $hasGaitUnsteadiness, ')
+          ..write('usesWalkingAid: $usesWalkingAid, ')
+          ..write('timedUpAndGoSeconds: $timedUpAndGoSeconds, ')
+          ..write('riskLevel: $riskLevel, ')
+          ..write('compositeScore: $compositeScore, ')
+          ..write('environmentalHazardsJson: $environmentalHazardsJson, ')
+          ..write('notes: $notes, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ContinenceEntriesTable extends ContinenceEntries
+    with TableInfo<$ContinenceEntriesTable, ContinenceEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ContinenceEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _logDateMeta =
+      const VerificationMeta('logDate');
+  @override
+  late final GeneratedColumn<DateTime> logDate = GeneratedColumn<DateTime>(
+      'log_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _incontinenceTypeMeta =
+      const VerificationMeta('incontinenceType');
+  @override
+  late final GeneratedColumn<String> incontinenceType = GeneratedColumn<String>(
+      'incontinence_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dailyPadCountMeta =
+      const VerificationMeta('dailyPadCount');
+  @override
+  late final GeneratedColumn<int> dailyPadCount = GeneratedColumn<int>(
+      'daily_pad_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _hasPelvicHeavinessMeta =
+      const VerificationMeta('hasPelvicHeaviness');
+  @override
+  late final GeneratedColumn<bool> hasPelvicHeaviness = GeneratedColumn<bool>(
+      'has_pelvic_heaviness', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_pelvic_heaviness" IN (0, 1))'));
+  static const VerificationMeta _vaginalDrynessLevelMeta =
+      const VerificationMeta('vaginalDrynessLevel');
+  @override
+  late final GeneratedColumn<int> vaginalDrynessLevel = GeneratedColumn<int>(
+      'vaginal_dryness_level', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _hasDyspareuniaMeta =
+      const VerificationMeta('hasDyspareunia');
+  @override
+  late final GeneratedColumn<bool> hasDyspareunia = GeneratedColumn<bool>(
+      'has_dyspareunia', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_dyspareunia" IN (0, 1))'));
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        logDate,
+        incontinenceType,
+        dailyPadCount,
+        hasPelvicHeaviness,
+        vaginalDrynessLevel,
+        hasDyspareunia,
+        notes
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'continence_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<ContinenceEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('log_date')) {
+      context.handle(_logDateMeta,
+          logDate.isAcceptableOrUnknown(data['log_date']!, _logDateMeta));
+    } else if (isInserting) {
+      context.missing(_logDateMeta);
+    }
+    if (data.containsKey('incontinence_type')) {
+      context.handle(
+          _incontinenceTypeMeta,
+          incontinenceType.isAcceptableOrUnknown(
+              data['incontinence_type']!, _incontinenceTypeMeta));
+    } else if (isInserting) {
+      context.missing(_incontinenceTypeMeta);
+    }
+    if (data.containsKey('daily_pad_count')) {
+      context.handle(
+          _dailyPadCountMeta,
+          dailyPadCount.isAcceptableOrUnknown(
+              data['daily_pad_count']!, _dailyPadCountMeta));
+    } else if (isInserting) {
+      context.missing(_dailyPadCountMeta);
+    }
+    if (data.containsKey('has_pelvic_heaviness')) {
+      context.handle(
+          _hasPelvicHeavinessMeta,
+          hasPelvicHeaviness.isAcceptableOrUnknown(
+              data['has_pelvic_heaviness']!, _hasPelvicHeavinessMeta));
+    } else if (isInserting) {
+      context.missing(_hasPelvicHeavinessMeta);
+    }
+    if (data.containsKey('vaginal_dryness_level')) {
+      context.handle(
+          _vaginalDrynessLevelMeta,
+          vaginalDrynessLevel.isAcceptableOrUnknown(
+              data['vaginal_dryness_level']!, _vaginalDrynessLevelMeta));
+    } else if (isInserting) {
+      context.missing(_vaginalDrynessLevelMeta);
+    }
+    if (data.containsKey('has_dyspareunia')) {
+      context.handle(
+          _hasDyspareuniaMeta,
+          hasDyspareunia.isAcceptableOrUnknown(
+              data['has_dyspareunia']!, _hasDyspareuniaMeta));
+    } else if (isInserting) {
+      context.missing(_hasDyspareuniaMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ContinenceEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ContinenceEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      logDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}log_date'])!,
+      incontinenceType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}incontinence_type'])!,
+      dailyPadCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}daily_pad_count'])!,
+      hasPelvicHeaviness: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}has_pelvic_heaviness'])!,
+      vaginalDrynessLevel: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}vaginal_dryness_level'])!,
+      hasDyspareunia: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_dyspareunia'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+    );
+  }
+
+  @override
+  $ContinenceEntriesTable createAlias(String alias) {
+    return $ContinenceEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class ContinenceEntry extends DataClass implements Insertable<ContinenceEntry> {
+  final String id;
+  final String userId;
+  final DateTime logDate;
+  final String incontinenceType;
+  final int dailyPadCount;
+  final bool hasPelvicHeaviness;
+  final int vaginalDrynessLevel;
+  final bool hasDyspareunia;
+  final String? notes;
+  const ContinenceEntry(
+      {required this.id,
+      required this.userId,
+      required this.logDate,
+      required this.incontinenceType,
+      required this.dailyPadCount,
+      required this.hasPelvicHeaviness,
+      required this.vaginalDrynessLevel,
+      required this.hasDyspareunia,
+      this.notes});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['log_date'] = Variable<DateTime>(logDate);
+    map['incontinence_type'] = Variable<String>(incontinenceType);
+    map['daily_pad_count'] = Variable<int>(dailyPadCount);
+    map['has_pelvic_heaviness'] = Variable<bool>(hasPelvicHeaviness);
+    map['vaginal_dryness_level'] = Variable<int>(vaginalDrynessLevel);
+    map['has_dyspareunia'] = Variable<bool>(hasDyspareunia);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    return map;
+  }
+
+  ContinenceEntriesCompanion toCompanion(bool nullToAbsent) {
+    return ContinenceEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      logDate: Value(logDate),
+      incontinenceType: Value(incontinenceType),
+      dailyPadCount: Value(dailyPadCount),
+      hasPelvicHeaviness: Value(hasPelvicHeaviness),
+      vaginalDrynessLevel: Value(vaginalDrynessLevel),
+      hasDyspareunia: Value(hasDyspareunia),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+    );
+  }
+
+  factory ContinenceEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ContinenceEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      logDate: serializer.fromJson<DateTime>(json['logDate']),
+      incontinenceType: serializer.fromJson<String>(json['incontinenceType']),
+      dailyPadCount: serializer.fromJson<int>(json['dailyPadCount']),
+      hasPelvicHeaviness: serializer.fromJson<bool>(json['hasPelvicHeaviness']),
+      vaginalDrynessLevel:
+          serializer.fromJson<int>(json['vaginalDrynessLevel']),
+      hasDyspareunia: serializer.fromJson<bool>(json['hasDyspareunia']),
+      notes: serializer.fromJson<String?>(json['notes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'logDate': serializer.toJson<DateTime>(logDate),
+      'incontinenceType': serializer.toJson<String>(incontinenceType),
+      'dailyPadCount': serializer.toJson<int>(dailyPadCount),
+      'hasPelvicHeaviness': serializer.toJson<bool>(hasPelvicHeaviness),
+      'vaginalDrynessLevel': serializer.toJson<int>(vaginalDrynessLevel),
+      'hasDyspareunia': serializer.toJson<bool>(hasDyspareunia),
+      'notes': serializer.toJson<String?>(notes),
+    };
+  }
+
+  ContinenceEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? logDate,
+          String? incontinenceType,
+          int? dailyPadCount,
+          bool? hasPelvicHeaviness,
+          int? vaginalDrynessLevel,
+          bool? hasDyspareunia,
+          Value<String?> notes = const Value.absent()}) =>
+      ContinenceEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        logDate: logDate ?? this.logDate,
+        incontinenceType: incontinenceType ?? this.incontinenceType,
+        dailyPadCount: dailyPadCount ?? this.dailyPadCount,
+        hasPelvicHeaviness: hasPelvicHeaviness ?? this.hasPelvicHeaviness,
+        vaginalDrynessLevel: vaginalDrynessLevel ?? this.vaginalDrynessLevel,
+        hasDyspareunia: hasDyspareunia ?? this.hasDyspareunia,
+        notes: notes.present ? notes.value : this.notes,
+      );
+  ContinenceEntry copyWithCompanion(ContinenceEntriesCompanion data) {
+    return ContinenceEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      logDate: data.logDate.present ? data.logDate.value : this.logDate,
+      incontinenceType: data.incontinenceType.present
+          ? data.incontinenceType.value
+          : this.incontinenceType,
+      dailyPadCount: data.dailyPadCount.present
+          ? data.dailyPadCount.value
+          : this.dailyPadCount,
+      hasPelvicHeaviness: data.hasPelvicHeaviness.present
+          ? data.hasPelvicHeaviness.value
+          : this.hasPelvicHeaviness,
+      vaginalDrynessLevel: data.vaginalDrynessLevel.present
+          ? data.vaginalDrynessLevel.value
+          : this.vaginalDrynessLevel,
+      hasDyspareunia: data.hasDyspareunia.present
+          ? data.hasDyspareunia.value
+          : this.hasDyspareunia,
+      notes: data.notes.present ? data.notes.value : this.notes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContinenceEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('logDate: $logDate, ')
+          ..write('incontinenceType: $incontinenceType, ')
+          ..write('dailyPadCount: $dailyPadCount, ')
+          ..write('hasPelvicHeaviness: $hasPelvicHeaviness, ')
+          ..write('vaginalDrynessLevel: $vaginalDrynessLevel, ')
+          ..write('hasDyspareunia: $hasDyspareunia, ')
+          ..write('notes: $notes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      logDate,
+      incontinenceType,
+      dailyPadCount,
+      hasPelvicHeaviness,
+      vaginalDrynessLevel,
+      hasDyspareunia,
+      notes);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ContinenceEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.logDate == this.logDate &&
+          other.incontinenceType == this.incontinenceType &&
+          other.dailyPadCount == this.dailyPadCount &&
+          other.hasPelvicHeaviness == this.hasPelvicHeaviness &&
+          other.vaginalDrynessLevel == this.vaginalDrynessLevel &&
+          other.hasDyspareunia == this.hasDyspareunia &&
+          other.notes == this.notes);
+}
+
+class ContinenceEntriesCompanion extends UpdateCompanion<ContinenceEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> logDate;
+  final Value<String> incontinenceType;
+  final Value<int> dailyPadCount;
+  final Value<bool> hasPelvicHeaviness;
+  final Value<int> vaginalDrynessLevel;
+  final Value<bool> hasDyspareunia;
+  final Value<String?> notes;
+  final Value<int> rowid;
+  const ContinenceEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.logDate = const Value.absent(),
+    this.incontinenceType = const Value.absent(),
+    this.dailyPadCount = const Value.absent(),
+    this.hasPelvicHeaviness = const Value.absent(),
+    this.vaginalDrynessLevel = const Value.absent(),
+    this.hasDyspareunia = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ContinenceEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime logDate,
+    required String incontinenceType,
+    required int dailyPadCount,
+    required bool hasPelvicHeaviness,
+    required int vaginalDrynessLevel,
+    required bool hasDyspareunia,
+    this.notes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        logDate = Value(logDate),
+        incontinenceType = Value(incontinenceType),
+        dailyPadCount = Value(dailyPadCount),
+        hasPelvicHeaviness = Value(hasPelvicHeaviness),
+        vaginalDrynessLevel = Value(vaginalDrynessLevel),
+        hasDyspareunia = Value(hasDyspareunia);
+  static Insertable<ContinenceEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? logDate,
+    Expression<String>? incontinenceType,
+    Expression<int>? dailyPadCount,
+    Expression<bool>? hasPelvicHeaviness,
+    Expression<int>? vaginalDrynessLevel,
+    Expression<bool>? hasDyspareunia,
+    Expression<String>? notes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (logDate != null) 'log_date': logDate,
+      if (incontinenceType != null) 'incontinence_type': incontinenceType,
+      if (dailyPadCount != null) 'daily_pad_count': dailyPadCount,
+      if (hasPelvicHeaviness != null)
+        'has_pelvic_heaviness': hasPelvicHeaviness,
+      if (vaginalDrynessLevel != null)
+        'vaginal_dryness_level': vaginalDrynessLevel,
+      if (hasDyspareunia != null) 'has_dyspareunia': hasDyspareunia,
+      if (notes != null) 'notes': notes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ContinenceEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? logDate,
+      Value<String>? incontinenceType,
+      Value<int>? dailyPadCount,
+      Value<bool>? hasPelvicHeaviness,
+      Value<int>? vaginalDrynessLevel,
+      Value<bool>? hasDyspareunia,
+      Value<String?>? notes,
+      Value<int>? rowid}) {
+    return ContinenceEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      logDate: logDate ?? this.logDate,
+      incontinenceType: incontinenceType ?? this.incontinenceType,
+      dailyPadCount: dailyPadCount ?? this.dailyPadCount,
+      hasPelvicHeaviness: hasPelvicHeaviness ?? this.hasPelvicHeaviness,
+      vaginalDrynessLevel: vaginalDrynessLevel ?? this.vaginalDrynessLevel,
+      hasDyspareunia: hasDyspareunia ?? this.hasDyspareunia,
+      notes: notes ?? this.notes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (logDate.present) {
+      map['log_date'] = Variable<DateTime>(logDate.value);
+    }
+    if (incontinenceType.present) {
+      map['incontinence_type'] = Variable<String>(incontinenceType.value);
+    }
+    if (dailyPadCount.present) {
+      map['daily_pad_count'] = Variable<int>(dailyPadCount.value);
+    }
+    if (hasPelvicHeaviness.present) {
+      map['has_pelvic_heaviness'] = Variable<bool>(hasPelvicHeaviness.value);
+    }
+    if (vaginalDrynessLevel.present) {
+      map['vaginal_dryness_level'] = Variable<int>(vaginalDrynessLevel.value);
+    }
+    if (hasDyspareunia.present) {
+      map['has_dyspareunia'] = Variable<bool>(hasDyspareunia.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContinenceEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('logDate: $logDate, ')
+          ..write('incontinenceType: $incontinenceType, ')
+          ..write('dailyPadCount: $dailyPadCount, ')
+          ..write('hasPelvicHeaviness: $hasPelvicHeaviness, ')
+          ..write('vaginalDrynessLevel: $vaginalDrynessLevel, ')
+          ..write('hasDyspareunia: $hasDyspareunia, ')
+          ..write('notes: $notes, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TrustedContactEntriesTable extends TrustedContactEntries
+    with TableInfo<$TrustedContactEntriesTable, TrustedContactEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TrustedContactEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _contactNameMeta =
+      const VerificationMeta('contactName');
+  @override
+  late final GeneratedColumn<String> contactName = GeneratedColumn<String>(
+      'contact_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _relationshipMeta =
+      const VerificationMeta('relationship');
+  @override
+  late final GeneratedColumn<String> relationship = GeneratedColumn<String>(
+      'relationship', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _phoneNumberMeta =
+      const VerificationMeta('phoneNumber');
+  @override
+  late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
+      'phone_number', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _isPrimaryMeta =
+      const VerificationMeta('isPrimary');
+  @override
+  late final GeneratedColumn<bool> isPrimary = GeneratedColumn<bool>(
+      'is_primary', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_primary" IN (0, 1))'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, userId, contactName, relationship, phoneNumber, notes, isPrimary];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'trusted_contact_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<TrustedContactEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('contact_name')) {
+      context.handle(
+          _contactNameMeta,
+          contactName.isAcceptableOrUnknown(
+              data['contact_name']!, _contactNameMeta));
+    } else if (isInserting) {
+      context.missing(_contactNameMeta);
+    }
+    if (data.containsKey('relationship')) {
+      context.handle(
+          _relationshipMeta,
+          relationship.isAcceptableOrUnknown(
+              data['relationship']!, _relationshipMeta));
+    } else if (isInserting) {
+      context.missing(_relationshipMeta);
+    }
+    if (data.containsKey('phone_number')) {
+      context.handle(
+          _phoneNumberMeta,
+          phoneNumber.isAcceptableOrUnknown(
+              data['phone_number']!, _phoneNumberMeta));
+    } else if (isInserting) {
+      context.missing(_phoneNumberMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('is_primary')) {
+      context.handle(_isPrimaryMeta,
+          isPrimary.isAcceptableOrUnknown(data['is_primary']!, _isPrimaryMeta));
+    } else if (isInserting) {
+      context.missing(_isPrimaryMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TrustedContactEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TrustedContactEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      contactName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}contact_name'])!,
+      relationship: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}relationship'])!,
+      phoneNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}phone_number'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      isPrimary: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_primary'])!,
+    );
+  }
+
+  @override
+  $TrustedContactEntriesTable createAlias(String alias) {
+    return $TrustedContactEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class TrustedContactEntry extends DataClass
+    implements Insertable<TrustedContactEntry> {
+  final String id;
+  final String userId;
+  final String contactName;
+  final String relationship;
+  final String phoneNumber;
+  final String? notes;
+  final bool isPrimary;
+  const TrustedContactEntry(
+      {required this.id,
+      required this.userId,
+      required this.contactName,
+      required this.relationship,
+      required this.phoneNumber,
+      this.notes,
+      required this.isPrimary});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['contact_name'] = Variable<String>(contactName);
+    map['relationship'] = Variable<String>(relationship);
+    map['phone_number'] = Variable<String>(phoneNumber);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['is_primary'] = Variable<bool>(isPrimary);
+    return map;
+  }
+
+  TrustedContactEntriesCompanion toCompanion(bool nullToAbsent) {
+    return TrustedContactEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      contactName: Value(contactName),
+      relationship: Value(relationship),
+      phoneNumber: Value(phoneNumber),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      isPrimary: Value(isPrimary),
+    );
+  }
+
+  factory TrustedContactEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TrustedContactEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      contactName: serializer.fromJson<String>(json['contactName']),
+      relationship: serializer.fromJson<String>(json['relationship']),
+      phoneNumber: serializer.fromJson<String>(json['phoneNumber']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      isPrimary: serializer.fromJson<bool>(json['isPrimary']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'contactName': serializer.toJson<String>(contactName),
+      'relationship': serializer.toJson<String>(relationship),
+      'phoneNumber': serializer.toJson<String>(phoneNumber),
+      'notes': serializer.toJson<String?>(notes),
+      'isPrimary': serializer.toJson<bool>(isPrimary),
+    };
+  }
+
+  TrustedContactEntry copyWith(
+          {String? id,
+          String? userId,
+          String? contactName,
+          String? relationship,
+          String? phoneNumber,
+          Value<String?> notes = const Value.absent(),
+          bool? isPrimary}) =>
+      TrustedContactEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        contactName: contactName ?? this.contactName,
+        relationship: relationship ?? this.relationship,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        notes: notes.present ? notes.value : this.notes,
+        isPrimary: isPrimary ?? this.isPrimary,
+      );
+  TrustedContactEntry copyWithCompanion(TrustedContactEntriesCompanion data) {
+    return TrustedContactEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      contactName:
+          data.contactName.present ? data.contactName.value : this.contactName,
+      relationship: data.relationship.present
+          ? data.relationship.value
+          : this.relationship,
+      phoneNumber:
+          data.phoneNumber.present ? data.phoneNumber.value : this.phoneNumber,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      isPrimary: data.isPrimary.present ? data.isPrimary.value : this.isPrimary,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TrustedContactEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('contactName: $contactName, ')
+          ..write('relationship: $relationship, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('notes: $notes, ')
+          ..write('isPrimary: $isPrimary')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, userId, contactName, relationship, phoneNumber, notes, isPrimary);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TrustedContactEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.contactName == this.contactName &&
+          other.relationship == this.relationship &&
+          other.phoneNumber == this.phoneNumber &&
+          other.notes == this.notes &&
+          other.isPrimary == this.isPrimary);
+}
+
+class TrustedContactEntriesCompanion
+    extends UpdateCompanion<TrustedContactEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> contactName;
+  final Value<String> relationship;
+  final Value<String> phoneNumber;
+  final Value<String?> notes;
+  final Value<bool> isPrimary;
+  final Value<int> rowid;
+  const TrustedContactEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.contactName = const Value.absent(),
+    this.relationship = const Value.absent(),
+    this.phoneNumber = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isPrimary = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TrustedContactEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required String contactName,
+    required String relationship,
+    required String phoneNumber,
+    this.notes = const Value.absent(),
+    required bool isPrimary,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        contactName = Value(contactName),
+        relationship = Value(relationship),
+        phoneNumber = Value(phoneNumber),
+        isPrimary = Value(isPrimary);
+  static Insertable<TrustedContactEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? contactName,
+    Expression<String>? relationship,
+    Expression<String>? phoneNumber,
+    Expression<String>? notes,
+    Expression<bool>? isPrimary,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (contactName != null) 'contact_name': contactName,
+      if (relationship != null) 'relationship': relationship,
+      if (phoneNumber != null) 'phone_number': phoneNumber,
+      if (notes != null) 'notes': notes,
+      if (isPrimary != null) 'is_primary': isPrimary,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TrustedContactEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String>? contactName,
+      Value<String>? relationship,
+      Value<String>? phoneNumber,
+      Value<String?>? notes,
+      Value<bool>? isPrimary,
+      Value<int>? rowid}) {
+    return TrustedContactEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      contactName: contactName ?? this.contactName,
+      relationship: relationship ?? this.relationship,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      notes: notes ?? this.notes,
+      isPrimary: isPrimary ?? this.isPrimary,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (contactName.present) {
+      map['contact_name'] = Variable<String>(contactName.value);
+    }
+    if (relationship.present) {
+      map['relationship'] = Variable<String>(relationship.value);
+    }
+    if (phoneNumber.present) {
+      map['phone_number'] = Variable<String>(phoneNumber.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (isPrimary.present) {
+      map['is_primary'] = Variable<bool>(isPrimary.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TrustedContactEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('contactName: $contactName, ')
+          ..write('relationship: $relationship, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('notes: $notes, ')
+          ..write('isPrimary: $isPrimary, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -12282,6 +15979,20 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $MilkStashEntriesTable(this);
   late final $EpdsScreeningEntriesTable epdsScreeningEntries =
       $EpdsScreeningEntriesTable(this);
+  late final $HotFlashEntriesTable hotFlashEntries =
+      $HotFlashEntriesTable(this);
+  late final $CardiometabolicEntriesTable cardiometabolicEntries =
+      $CardiometabolicEntriesTable(this);
+  late final $VaginalBleedingEntriesTable vaginalBleedingEntries =
+      $VaginalBleedingEntriesTable(this);
+  late final $DexaBoneEntriesTable dexaBoneEntries =
+      $DexaBoneEntriesTable(this);
+  late final $FallRiskEntriesTable fallRiskEntries =
+      $FallRiskEntriesTable(this);
+  late final $ContinenceEntriesTable continenceEntries =
+      $ContinenceEntriesTable(this);
+  late final $TrustedContactEntriesTable trustedContactEntries =
+      $TrustedContactEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -12306,7 +16017,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         postpartumRecoveryEntries,
         lactationSessionEntries,
         milkStashEntries,
-        epdsScreeningEntries
+        epdsScreeningEntries,
+        hotFlashEntries,
+        cardiometabolicEntries,
+        vaginalBleedingEntries,
+        dexaBoneEntries,
+        fallRiskEntries,
+        continenceEntries,
+        trustedContactEntries
       ];
 }
 
@@ -18127,6 +21845,1824 @@ typedef $$EpdsScreeningEntriesTableProcessedTableManager
         ),
         EpdsScreeningEntry,
         PrefetchHooks Function()>;
+typedef $$HotFlashEntriesTableCreateCompanionBuilder = HotFlashEntriesCompanion
+    Function({
+  required String id,
+  required String userId,
+  required DateTime occurredAt,
+  required int severity,
+  required String flashType,
+  required int durationMinutes,
+  required String triggersJson,
+  required int sleepDisruptionLevel,
+  required bool associatedWithHrt,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+typedef $$HotFlashEntriesTableUpdateCompanionBuilder = HotFlashEntriesCompanion
+    Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> occurredAt,
+  Value<int> severity,
+  Value<String> flashType,
+  Value<int> durationMinutes,
+  Value<String> triggersJson,
+  Value<int> sleepDisruptionLevel,
+  Value<bool> associatedWithHrt,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+
+class $$HotFlashEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $HotFlashEntriesTable> {
+  $$HotFlashEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get occurredAt => $composableBuilder(
+      column: $table.occurredAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get severity => $composableBuilder(
+      column: $table.severity, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get flashType => $composableBuilder(
+      column: $table.flashType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get durationMinutes => $composableBuilder(
+      column: $table.durationMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get triggersJson => $composableBuilder(
+      column: $table.triggersJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get sleepDisruptionLevel => $composableBuilder(
+      column: $table.sleepDisruptionLevel,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get associatedWithHrt => $composableBuilder(
+      column: $table.associatedWithHrt,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+}
+
+class $$HotFlashEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $HotFlashEntriesTable> {
+  $$HotFlashEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get occurredAt => $composableBuilder(
+      column: $table.occurredAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get severity => $composableBuilder(
+      column: $table.severity, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get flashType => $composableBuilder(
+      column: $table.flashType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get durationMinutes => $composableBuilder(
+      column: $table.durationMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get triggersJson => $composableBuilder(
+      column: $table.triggersJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get sleepDisruptionLevel => $composableBuilder(
+      column: $table.sleepDisruptionLevel,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get associatedWithHrt => $composableBuilder(
+      column: $table.associatedWithHrt,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+}
+
+class $$HotFlashEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $HotFlashEntriesTable> {
+  $$HotFlashEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get occurredAt => $composableBuilder(
+      column: $table.occurredAt, builder: (column) => column);
+
+  GeneratedColumn<int> get severity =>
+      $composableBuilder(column: $table.severity, builder: (column) => column);
+
+  GeneratedColumn<String> get flashType =>
+      $composableBuilder(column: $table.flashType, builder: (column) => column);
+
+  GeneratedColumn<int> get durationMinutes => $composableBuilder(
+      column: $table.durationMinutes, builder: (column) => column);
+
+  GeneratedColumn<String> get triggersJson => $composableBuilder(
+      column: $table.triggersJson, builder: (column) => column);
+
+  GeneratedColumn<int> get sleepDisruptionLevel => $composableBuilder(
+      column: $table.sleepDisruptionLevel, builder: (column) => column);
+
+  GeneratedColumn<bool> get associatedWithHrt => $composableBuilder(
+      column: $table.associatedWithHrt, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+}
+
+class $$HotFlashEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $HotFlashEntriesTable,
+    HotFlashEntry,
+    $$HotFlashEntriesTableFilterComposer,
+    $$HotFlashEntriesTableOrderingComposer,
+    $$HotFlashEntriesTableAnnotationComposer,
+    $$HotFlashEntriesTableCreateCompanionBuilder,
+    $$HotFlashEntriesTableUpdateCompanionBuilder,
+    (
+      HotFlashEntry,
+      BaseReferences<_$AppDatabase, $HotFlashEntriesTable, HotFlashEntry>
+    ),
+    HotFlashEntry,
+    PrefetchHooks Function()> {
+  $$HotFlashEntriesTableTableManager(
+      _$AppDatabase db, $HotFlashEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$HotFlashEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$HotFlashEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$HotFlashEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> occurredAt = const Value.absent(),
+            Value<int> severity = const Value.absent(),
+            Value<String> flashType = const Value.absent(),
+            Value<int> durationMinutes = const Value.absent(),
+            Value<String> triggersJson = const Value.absent(),
+            Value<int> sleepDisruptionLevel = const Value.absent(),
+            Value<bool> associatedWithHrt = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              HotFlashEntriesCompanion(
+            id: id,
+            userId: userId,
+            occurredAt: occurredAt,
+            severity: severity,
+            flashType: flashType,
+            durationMinutes: durationMinutes,
+            triggersJson: triggersJson,
+            sleepDisruptionLevel: sleepDisruptionLevel,
+            associatedWithHrt: associatedWithHrt,
+            notes: notes,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime occurredAt,
+            required int severity,
+            required String flashType,
+            required int durationMinutes,
+            required String triggersJson,
+            required int sleepDisruptionLevel,
+            required bool associatedWithHrt,
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              HotFlashEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            occurredAt: occurredAt,
+            severity: severity,
+            flashType: flashType,
+            durationMinutes: durationMinutes,
+            triggersJson: triggersJson,
+            sleepDisruptionLevel: sleepDisruptionLevel,
+            associatedWithHrt: associatedWithHrt,
+            notes: notes,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$HotFlashEntriesTable, HotFlashEntry>(table),
+                    BaseReferences<_$AppDatabase, $HotFlashEntriesTable,
+                        HotFlashEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$HotFlashEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $HotFlashEntriesTable,
+    HotFlashEntry,
+    $$HotFlashEntriesTableFilterComposer,
+    $$HotFlashEntriesTableOrderingComposer,
+    $$HotFlashEntriesTableAnnotationComposer,
+    $$HotFlashEntriesTableCreateCompanionBuilder,
+    $$HotFlashEntriesTableUpdateCompanionBuilder,
+    (
+      HotFlashEntry,
+      BaseReferences<_$AppDatabase, $HotFlashEntriesTable, HotFlashEntry>
+    ),
+    HotFlashEntry,
+    PrefetchHooks Function()>;
+typedef $$CardiometabolicEntriesTableCreateCompanionBuilder
+    = CardiometabolicEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime measurementDate,
+  Value<int?> systolicBp,
+  Value<int?> diastolicBp,
+  Value<double?> totalCholesterol,
+  Value<double?> ldlCholesterol,
+  Value<double?> hdlCholesterol,
+  Value<double?> triglycerides,
+  Value<double?> fastingGlucose,
+  required String riskLevel,
+  required String flaggedParamsJson,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+typedef $$CardiometabolicEntriesTableUpdateCompanionBuilder
+    = CardiometabolicEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> measurementDate,
+  Value<int?> systolicBp,
+  Value<int?> diastolicBp,
+  Value<double?> totalCholesterol,
+  Value<double?> ldlCholesterol,
+  Value<double?> hdlCholesterol,
+  Value<double?> triglycerides,
+  Value<double?> fastingGlucose,
+  Value<String> riskLevel,
+  Value<String> flaggedParamsJson,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+
+class $$CardiometabolicEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $CardiometabolicEntriesTable> {
+  $$CardiometabolicEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get measurementDate => $composableBuilder(
+      column: $table.measurementDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get systolicBp => $composableBuilder(
+      column: $table.systolicBp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get diastolicBp => $composableBuilder(
+      column: $table.diastolicBp, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get totalCholesterol => $composableBuilder(
+      column: $table.totalCholesterol,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get ldlCholesterol => $composableBuilder(
+      column: $table.ldlCholesterol,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get hdlCholesterol => $composableBuilder(
+      column: $table.hdlCholesterol,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get triglycerides => $composableBuilder(
+      column: $table.triglycerides, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get fastingGlucose => $composableBuilder(
+      column: $table.fastingGlucose,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get riskLevel => $composableBuilder(
+      column: $table.riskLevel, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get flaggedParamsJson => $composableBuilder(
+      column: $table.flaggedParamsJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+}
+
+class $$CardiometabolicEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $CardiometabolicEntriesTable> {
+  $$CardiometabolicEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get measurementDate => $composableBuilder(
+      column: $table.measurementDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get systolicBp => $composableBuilder(
+      column: $table.systolicBp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get diastolicBp => $composableBuilder(
+      column: $table.diastolicBp, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get totalCholesterol => $composableBuilder(
+      column: $table.totalCholesterol,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get ldlCholesterol => $composableBuilder(
+      column: $table.ldlCholesterol,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get hdlCholesterol => $composableBuilder(
+      column: $table.hdlCholesterol,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get triglycerides => $composableBuilder(
+      column: $table.triglycerides,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get fastingGlucose => $composableBuilder(
+      column: $table.fastingGlucose,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get riskLevel => $composableBuilder(
+      column: $table.riskLevel, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get flaggedParamsJson => $composableBuilder(
+      column: $table.flaggedParamsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CardiometabolicEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CardiometabolicEntriesTable> {
+  $$CardiometabolicEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get measurementDate => $composableBuilder(
+      column: $table.measurementDate, builder: (column) => column);
+
+  GeneratedColumn<int> get systolicBp => $composableBuilder(
+      column: $table.systolicBp, builder: (column) => column);
+
+  GeneratedColumn<int> get diastolicBp => $composableBuilder(
+      column: $table.diastolicBp, builder: (column) => column);
+
+  GeneratedColumn<double> get totalCholesterol => $composableBuilder(
+      column: $table.totalCholesterol, builder: (column) => column);
+
+  GeneratedColumn<double> get ldlCholesterol => $composableBuilder(
+      column: $table.ldlCholesterol, builder: (column) => column);
+
+  GeneratedColumn<double> get hdlCholesterol => $composableBuilder(
+      column: $table.hdlCholesterol, builder: (column) => column);
+
+  GeneratedColumn<double> get triglycerides => $composableBuilder(
+      column: $table.triglycerides, builder: (column) => column);
+
+  GeneratedColumn<double> get fastingGlucose => $composableBuilder(
+      column: $table.fastingGlucose, builder: (column) => column);
+
+  GeneratedColumn<String> get riskLevel =>
+      $composableBuilder(column: $table.riskLevel, builder: (column) => column);
+
+  GeneratedColumn<String> get flaggedParamsJson => $composableBuilder(
+      column: $table.flaggedParamsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+}
+
+class $$CardiometabolicEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CardiometabolicEntriesTable,
+    CardiometabolicEntry,
+    $$CardiometabolicEntriesTableFilterComposer,
+    $$CardiometabolicEntriesTableOrderingComposer,
+    $$CardiometabolicEntriesTableAnnotationComposer,
+    $$CardiometabolicEntriesTableCreateCompanionBuilder,
+    $$CardiometabolicEntriesTableUpdateCompanionBuilder,
+    (
+      CardiometabolicEntry,
+      BaseReferences<_$AppDatabase, $CardiometabolicEntriesTable,
+          CardiometabolicEntry>
+    ),
+    CardiometabolicEntry,
+    PrefetchHooks Function()> {
+  $$CardiometabolicEntriesTableTableManager(
+      _$AppDatabase db, $CardiometabolicEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CardiometabolicEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CardiometabolicEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CardiometabolicEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> measurementDate = const Value.absent(),
+            Value<int?> systolicBp = const Value.absent(),
+            Value<int?> diastolicBp = const Value.absent(),
+            Value<double?> totalCholesterol = const Value.absent(),
+            Value<double?> ldlCholesterol = const Value.absent(),
+            Value<double?> hdlCholesterol = const Value.absent(),
+            Value<double?> triglycerides = const Value.absent(),
+            Value<double?> fastingGlucose = const Value.absent(),
+            Value<String> riskLevel = const Value.absent(),
+            Value<String> flaggedParamsJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CardiometabolicEntriesCompanion(
+            id: id,
+            userId: userId,
+            measurementDate: measurementDate,
+            systolicBp: systolicBp,
+            diastolicBp: diastolicBp,
+            totalCholesterol: totalCholesterol,
+            ldlCholesterol: ldlCholesterol,
+            hdlCholesterol: hdlCholesterol,
+            triglycerides: triglycerides,
+            fastingGlucose: fastingGlucose,
+            riskLevel: riskLevel,
+            flaggedParamsJson: flaggedParamsJson,
+            notes: notes,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime measurementDate,
+            Value<int?> systolicBp = const Value.absent(),
+            Value<int?> diastolicBp = const Value.absent(),
+            Value<double?> totalCholesterol = const Value.absent(),
+            Value<double?> ldlCholesterol = const Value.absent(),
+            Value<double?> hdlCholesterol = const Value.absent(),
+            Value<double?> triglycerides = const Value.absent(),
+            Value<double?> fastingGlucose = const Value.absent(),
+            required String riskLevel,
+            required String flaggedParamsJson,
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CardiometabolicEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            measurementDate: measurementDate,
+            systolicBp: systolicBp,
+            diastolicBp: diastolicBp,
+            totalCholesterol: totalCholesterol,
+            ldlCholesterol: ldlCholesterol,
+            hdlCholesterol: hdlCholesterol,
+            triglycerides: triglycerides,
+            fastingGlucose: fastingGlucose,
+            riskLevel: riskLevel,
+            flaggedParamsJson: flaggedParamsJson,
+            notes: notes,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$CardiometabolicEntriesTable,
+                        CardiometabolicEntry>(table),
+                    BaseReferences<_$AppDatabase, $CardiometabolicEntriesTable,
+                        CardiometabolicEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CardiometabolicEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $CardiometabolicEntriesTable,
+        CardiometabolicEntry,
+        $$CardiometabolicEntriesTableFilterComposer,
+        $$CardiometabolicEntriesTableOrderingComposer,
+        $$CardiometabolicEntriesTableAnnotationComposer,
+        $$CardiometabolicEntriesTableCreateCompanionBuilder,
+        $$CardiometabolicEntriesTableUpdateCompanionBuilder,
+        (
+          CardiometabolicEntry,
+          BaseReferences<_$AppDatabase, $CardiometabolicEntriesTable,
+              CardiometabolicEntry>
+        ),
+        CardiometabolicEntry,
+        PrefetchHooks Function()>;
+typedef $$VaginalBleedingEntriesTableCreateCompanionBuilder
+    = VaginalBleedingEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime observationDate,
+  required int daysPriorAmenorrhea,
+  required String flowIntensity,
+  required bool hasCramping,
+  required bool isAlertTriggered,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+typedef $$VaginalBleedingEntriesTableUpdateCompanionBuilder
+    = VaginalBleedingEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> observationDate,
+  Value<int> daysPriorAmenorrhea,
+  Value<String> flowIntensity,
+  Value<bool> hasCramping,
+  Value<bool> isAlertTriggered,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+
+class $$VaginalBleedingEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $VaginalBleedingEntriesTable> {
+  $$VaginalBleedingEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get observationDate => $composableBuilder(
+      column: $table.observationDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get daysPriorAmenorrhea => $composableBuilder(
+      column: $table.daysPriorAmenorrhea,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get flowIntensity => $composableBuilder(
+      column: $table.flowIntensity, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get hasCramping => $composableBuilder(
+      column: $table.hasCramping, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isAlertTriggered => $composableBuilder(
+      column: $table.isAlertTriggered,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+}
+
+class $$VaginalBleedingEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $VaginalBleedingEntriesTable> {
+  $$VaginalBleedingEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get observationDate => $composableBuilder(
+      column: $table.observationDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get daysPriorAmenorrhea => $composableBuilder(
+      column: $table.daysPriorAmenorrhea,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get flowIntensity => $composableBuilder(
+      column: $table.flowIntensity,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get hasCramping => $composableBuilder(
+      column: $table.hasCramping, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isAlertTriggered => $composableBuilder(
+      column: $table.isAlertTriggered,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+}
+
+class $$VaginalBleedingEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $VaginalBleedingEntriesTable> {
+  $$VaginalBleedingEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get observationDate => $composableBuilder(
+      column: $table.observationDate, builder: (column) => column);
+
+  GeneratedColumn<int> get daysPriorAmenorrhea => $composableBuilder(
+      column: $table.daysPriorAmenorrhea, builder: (column) => column);
+
+  GeneratedColumn<String> get flowIntensity => $composableBuilder(
+      column: $table.flowIntensity, builder: (column) => column);
+
+  GeneratedColumn<bool> get hasCramping => $composableBuilder(
+      column: $table.hasCramping, builder: (column) => column);
+
+  GeneratedColumn<bool> get isAlertTriggered => $composableBuilder(
+      column: $table.isAlertTriggered, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+}
+
+class $$VaginalBleedingEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $VaginalBleedingEntriesTable,
+    VaginalBleedingEntry,
+    $$VaginalBleedingEntriesTableFilterComposer,
+    $$VaginalBleedingEntriesTableOrderingComposer,
+    $$VaginalBleedingEntriesTableAnnotationComposer,
+    $$VaginalBleedingEntriesTableCreateCompanionBuilder,
+    $$VaginalBleedingEntriesTableUpdateCompanionBuilder,
+    (
+      VaginalBleedingEntry,
+      BaseReferences<_$AppDatabase, $VaginalBleedingEntriesTable,
+          VaginalBleedingEntry>
+    ),
+    VaginalBleedingEntry,
+    PrefetchHooks Function()> {
+  $$VaginalBleedingEntriesTableTableManager(
+      _$AppDatabase db, $VaginalBleedingEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$VaginalBleedingEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$VaginalBleedingEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$VaginalBleedingEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> observationDate = const Value.absent(),
+            Value<int> daysPriorAmenorrhea = const Value.absent(),
+            Value<String> flowIntensity = const Value.absent(),
+            Value<bool> hasCramping = const Value.absent(),
+            Value<bool> isAlertTriggered = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              VaginalBleedingEntriesCompanion(
+            id: id,
+            userId: userId,
+            observationDate: observationDate,
+            daysPriorAmenorrhea: daysPriorAmenorrhea,
+            flowIntensity: flowIntensity,
+            hasCramping: hasCramping,
+            isAlertTriggered: isAlertTriggered,
+            notes: notes,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime observationDate,
+            required int daysPriorAmenorrhea,
+            required String flowIntensity,
+            required bool hasCramping,
+            required bool isAlertTriggered,
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              VaginalBleedingEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            observationDate: observationDate,
+            daysPriorAmenorrhea: daysPriorAmenorrhea,
+            flowIntensity: flowIntensity,
+            hasCramping: hasCramping,
+            isAlertTriggered: isAlertTriggered,
+            notes: notes,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$VaginalBleedingEntriesTable,
+                        VaginalBleedingEntry>(table),
+                    BaseReferences<_$AppDatabase, $VaginalBleedingEntriesTable,
+                        VaginalBleedingEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$VaginalBleedingEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $VaginalBleedingEntriesTable,
+        VaginalBleedingEntry,
+        $$VaginalBleedingEntriesTableFilterComposer,
+        $$VaginalBleedingEntriesTableOrderingComposer,
+        $$VaginalBleedingEntriesTableAnnotationComposer,
+        $$VaginalBleedingEntriesTableCreateCompanionBuilder,
+        $$VaginalBleedingEntriesTableUpdateCompanionBuilder,
+        (
+          VaginalBleedingEntry,
+          BaseReferences<_$AppDatabase, $VaginalBleedingEntriesTable,
+              VaginalBleedingEntry>
+        ),
+        VaginalBleedingEntry,
+        PrefetchHooks Function()>;
+typedef $$DexaBoneEntriesTableCreateCompanionBuilder = DexaBoneEntriesCompanion
+    Function({
+  required String id,
+  required String userId,
+  required DateTime scanDate,
+  required String anatomicalSite,
+  required double tScore,
+  Value<double?> zScore,
+  Value<double?> bmdGCm2,
+  required bool previousFragilityFracture,
+  required String category,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+typedef $$DexaBoneEntriesTableUpdateCompanionBuilder = DexaBoneEntriesCompanion
+    Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> scanDate,
+  Value<String> anatomicalSite,
+  Value<double> tScore,
+  Value<double?> zScore,
+  Value<double?> bmdGCm2,
+  Value<bool> previousFragilityFracture,
+  Value<String> category,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+
+class $$DexaBoneEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $DexaBoneEntriesTable> {
+  $$DexaBoneEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get scanDate => $composableBuilder(
+      column: $table.scanDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get anatomicalSite => $composableBuilder(
+      column: $table.anatomicalSite,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get tScore => $composableBuilder(
+      column: $table.tScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get zScore => $composableBuilder(
+      column: $table.zScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get bmdGCm2 => $composableBuilder(
+      column: $table.bmdGCm2, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get previousFragilityFracture => $composableBuilder(
+      column: $table.previousFragilityFracture,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+}
+
+class $$DexaBoneEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $DexaBoneEntriesTable> {
+  $$DexaBoneEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get scanDate => $composableBuilder(
+      column: $table.scanDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get anatomicalSite => $composableBuilder(
+      column: $table.anatomicalSite,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get tScore => $composableBuilder(
+      column: $table.tScore, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get zScore => $composableBuilder(
+      column: $table.zScore, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get bmdGCm2 => $composableBuilder(
+      column: $table.bmdGCm2, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get previousFragilityFracture => $composableBuilder(
+      column: $table.previousFragilityFracture,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+}
+
+class $$DexaBoneEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DexaBoneEntriesTable> {
+  $$DexaBoneEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get scanDate =>
+      $composableBuilder(column: $table.scanDate, builder: (column) => column);
+
+  GeneratedColumn<String> get anatomicalSite => $composableBuilder(
+      column: $table.anatomicalSite, builder: (column) => column);
+
+  GeneratedColumn<double> get tScore =>
+      $composableBuilder(column: $table.tScore, builder: (column) => column);
+
+  GeneratedColumn<double> get zScore =>
+      $composableBuilder(column: $table.zScore, builder: (column) => column);
+
+  GeneratedColumn<double> get bmdGCm2 =>
+      $composableBuilder(column: $table.bmdGCm2, builder: (column) => column);
+
+  GeneratedColumn<bool> get previousFragilityFracture => $composableBuilder(
+      column: $table.previousFragilityFracture, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+}
+
+class $$DexaBoneEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $DexaBoneEntriesTable,
+    DexaBoneEntry,
+    $$DexaBoneEntriesTableFilterComposer,
+    $$DexaBoneEntriesTableOrderingComposer,
+    $$DexaBoneEntriesTableAnnotationComposer,
+    $$DexaBoneEntriesTableCreateCompanionBuilder,
+    $$DexaBoneEntriesTableUpdateCompanionBuilder,
+    (
+      DexaBoneEntry,
+      BaseReferences<_$AppDatabase, $DexaBoneEntriesTable, DexaBoneEntry>
+    ),
+    DexaBoneEntry,
+    PrefetchHooks Function()> {
+  $$DexaBoneEntriesTableTableManager(
+      _$AppDatabase db, $DexaBoneEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DexaBoneEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DexaBoneEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DexaBoneEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> scanDate = const Value.absent(),
+            Value<String> anatomicalSite = const Value.absent(),
+            Value<double> tScore = const Value.absent(),
+            Value<double?> zScore = const Value.absent(),
+            Value<double?> bmdGCm2 = const Value.absent(),
+            Value<bool> previousFragilityFracture = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DexaBoneEntriesCompanion(
+            id: id,
+            userId: userId,
+            scanDate: scanDate,
+            anatomicalSite: anatomicalSite,
+            tScore: tScore,
+            zScore: zScore,
+            bmdGCm2: bmdGCm2,
+            previousFragilityFracture: previousFragilityFracture,
+            category: category,
+            notes: notes,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime scanDate,
+            required String anatomicalSite,
+            required double tScore,
+            Value<double?> zScore = const Value.absent(),
+            Value<double?> bmdGCm2 = const Value.absent(),
+            required bool previousFragilityFracture,
+            required String category,
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DexaBoneEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            scanDate: scanDate,
+            anatomicalSite: anatomicalSite,
+            tScore: tScore,
+            zScore: zScore,
+            bmdGCm2: bmdGCm2,
+            previousFragilityFracture: previousFragilityFracture,
+            category: category,
+            notes: notes,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$DexaBoneEntriesTable, DexaBoneEntry>(table),
+                    BaseReferences<_$AppDatabase, $DexaBoneEntriesTable,
+                        DexaBoneEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$DexaBoneEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $DexaBoneEntriesTable,
+    DexaBoneEntry,
+    $$DexaBoneEntriesTableFilterComposer,
+    $$DexaBoneEntriesTableOrderingComposer,
+    $$DexaBoneEntriesTableAnnotationComposer,
+    $$DexaBoneEntriesTableCreateCompanionBuilder,
+    $$DexaBoneEntriesTableUpdateCompanionBuilder,
+    (
+      DexaBoneEntry,
+      BaseReferences<_$AppDatabase, $DexaBoneEntriesTable, DexaBoneEntry>
+    ),
+    DexaBoneEntry,
+    PrefetchHooks Function()>;
+typedef $$FallRiskEntriesTableCreateCompanionBuilder = FallRiskEntriesCompanion
+    Function({
+  required String id,
+  required String userId,
+  required DateTime assessmentDate,
+  required int fallsPastYear,
+  required bool hasGaitUnsteadiness,
+  required bool usesWalkingAid,
+  Value<double?> timedUpAndGoSeconds,
+  required String riskLevel,
+  required int compositeScore,
+  required String environmentalHazardsJson,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+typedef $$FallRiskEntriesTableUpdateCompanionBuilder = FallRiskEntriesCompanion
+    Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> assessmentDate,
+  Value<int> fallsPastYear,
+  Value<bool> hasGaitUnsteadiness,
+  Value<bool> usesWalkingAid,
+  Value<double?> timedUpAndGoSeconds,
+  Value<String> riskLevel,
+  Value<int> compositeScore,
+  Value<String> environmentalHazardsJson,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+
+class $$FallRiskEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $FallRiskEntriesTable> {
+  $$FallRiskEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get assessmentDate => $composableBuilder(
+      column: $table.assessmentDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get fallsPastYear => $composableBuilder(
+      column: $table.fallsPastYear, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get hasGaitUnsteadiness => $composableBuilder(
+      column: $table.hasGaitUnsteadiness,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get usesWalkingAid => $composableBuilder(
+      column: $table.usesWalkingAid,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get timedUpAndGoSeconds => $composableBuilder(
+      column: $table.timedUpAndGoSeconds,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get riskLevel => $composableBuilder(
+      column: $table.riskLevel, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get compositeScore => $composableBuilder(
+      column: $table.compositeScore,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get environmentalHazardsJson => $composableBuilder(
+      column: $table.environmentalHazardsJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+}
+
+class $$FallRiskEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $FallRiskEntriesTable> {
+  $$FallRiskEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get assessmentDate => $composableBuilder(
+      column: $table.assessmentDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get fallsPastYear => $composableBuilder(
+      column: $table.fallsPastYear,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get hasGaitUnsteadiness => $composableBuilder(
+      column: $table.hasGaitUnsteadiness,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get usesWalkingAid => $composableBuilder(
+      column: $table.usesWalkingAid,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get timedUpAndGoSeconds => $composableBuilder(
+      column: $table.timedUpAndGoSeconds,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get riskLevel => $composableBuilder(
+      column: $table.riskLevel, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get compositeScore => $composableBuilder(
+      column: $table.compositeScore,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get environmentalHazardsJson => $composableBuilder(
+      column: $table.environmentalHazardsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+}
+
+class $$FallRiskEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $FallRiskEntriesTable> {
+  $$FallRiskEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get assessmentDate => $composableBuilder(
+      column: $table.assessmentDate, builder: (column) => column);
+
+  GeneratedColumn<int> get fallsPastYear => $composableBuilder(
+      column: $table.fallsPastYear, builder: (column) => column);
+
+  GeneratedColumn<bool> get hasGaitUnsteadiness => $composableBuilder(
+      column: $table.hasGaitUnsteadiness, builder: (column) => column);
+
+  GeneratedColumn<bool> get usesWalkingAid => $composableBuilder(
+      column: $table.usesWalkingAid, builder: (column) => column);
+
+  GeneratedColumn<double> get timedUpAndGoSeconds => $composableBuilder(
+      column: $table.timedUpAndGoSeconds, builder: (column) => column);
+
+  GeneratedColumn<String> get riskLevel =>
+      $composableBuilder(column: $table.riskLevel, builder: (column) => column);
+
+  GeneratedColumn<int> get compositeScore => $composableBuilder(
+      column: $table.compositeScore, builder: (column) => column);
+
+  GeneratedColumn<String> get environmentalHazardsJson => $composableBuilder(
+      column: $table.environmentalHazardsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+}
+
+class $$FallRiskEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $FallRiskEntriesTable,
+    FallRiskEntry,
+    $$FallRiskEntriesTableFilterComposer,
+    $$FallRiskEntriesTableOrderingComposer,
+    $$FallRiskEntriesTableAnnotationComposer,
+    $$FallRiskEntriesTableCreateCompanionBuilder,
+    $$FallRiskEntriesTableUpdateCompanionBuilder,
+    (
+      FallRiskEntry,
+      BaseReferences<_$AppDatabase, $FallRiskEntriesTable, FallRiskEntry>
+    ),
+    FallRiskEntry,
+    PrefetchHooks Function()> {
+  $$FallRiskEntriesTableTableManager(
+      _$AppDatabase db, $FallRiskEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$FallRiskEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FallRiskEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FallRiskEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> assessmentDate = const Value.absent(),
+            Value<int> fallsPastYear = const Value.absent(),
+            Value<bool> hasGaitUnsteadiness = const Value.absent(),
+            Value<bool> usesWalkingAid = const Value.absent(),
+            Value<double?> timedUpAndGoSeconds = const Value.absent(),
+            Value<String> riskLevel = const Value.absent(),
+            Value<int> compositeScore = const Value.absent(),
+            Value<String> environmentalHazardsJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              FallRiskEntriesCompanion(
+            id: id,
+            userId: userId,
+            assessmentDate: assessmentDate,
+            fallsPastYear: fallsPastYear,
+            hasGaitUnsteadiness: hasGaitUnsteadiness,
+            usesWalkingAid: usesWalkingAid,
+            timedUpAndGoSeconds: timedUpAndGoSeconds,
+            riskLevel: riskLevel,
+            compositeScore: compositeScore,
+            environmentalHazardsJson: environmentalHazardsJson,
+            notes: notes,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime assessmentDate,
+            required int fallsPastYear,
+            required bool hasGaitUnsteadiness,
+            required bool usesWalkingAid,
+            Value<double?> timedUpAndGoSeconds = const Value.absent(),
+            required String riskLevel,
+            required int compositeScore,
+            required String environmentalHazardsJson,
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              FallRiskEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            assessmentDate: assessmentDate,
+            fallsPastYear: fallsPastYear,
+            hasGaitUnsteadiness: hasGaitUnsteadiness,
+            usesWalkingAid: usesWalkingAid,
+            timedUpAndGoSeconds: timedUpAndGoSeconds,
+            riskLevel: riskLevel,
+            compositeScore: compositeScore,
+            environmentalHazardsJson: environmentalHazardsJson,
+            notes: notes,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$FallRiskEntriesTable, FallRiskEntry>(table),
+                    BaseReferences<_$AppDatabase, $FallRiskEntriesTable,
+                        FallRiskEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$FallRiskEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $FallRiskEntriesTable,
+    FallRiskEntry,
+    $$FallRiskEntriesTableFilterComposer,
+    $$FallRiskEntriesTableOrderingComposer,
+    $$FallRiskEntriesTableAnnotationComposer,
+    $$FallRiskEntriesTableCreateCompanionBuilder,
+    $$FallRiskEntriesTableUpdateCompanionBuilder,
+    (
+      FallRiskEntry,
+      BaseReferences<_$AppDatabase, $FallRiskEntriesTable, FallRiskEntry>
+    ),
+    FallRiskEntry,
+    PrefetchHooks Function()>;
+typedef $$ContinenceEntriesTableCreateCompanionBuilder
+    = ContinenceEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime logDate,
+  required String incontinenceType,
+  required int dailyPadCount,
+  required bool hasPelvicHeaviness,
+  required int vaginalDrynessLevel,
+  required bool hasDyspareunia,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+typedef $$ContinenceEntriesTableUpdateCompanionBuilder
+    = ContinenceEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> logDate,
+  Value<String> incontinenceType,
+  Value<int> dailyPadCount,
+  Value<bool> hasPelvicHeaviness,
+  Value<int> vaginalDrynessLevel,
+  Value<bool> hasDyspareunia,
+  Value<String?> notes,
+  Value<int> rowid,
+});
+
+class $$ContinenceEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $ContinenceEntriesTable> {
+  $$ContinenceEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get incontinenceType => $composableBuilder(
+      column: $table.incontinenceType,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get dailyPadCount => $composableBuilder(
+      column: $table.dailyPadCount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get hasPelvicHeaviness => $composableBuilder(
+      column: $table.hasPelvicHeaviness,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get vaginalDrynessLevel => $composableBuilder(
+      column: $table.vaginalDrynessLevel,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get hasDyspareunia => $composableBuilder(
+      column: $table.hasDyspareunia,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+}
+
+class $$ContinenceEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ContinenceEntriesTable> {
+  $$ContinenceEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get logDate => $composableBuilder(
+      column: $table.logDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get incontinenceType => $composableBuilder(
+      column: $table.incontinenceType,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get dailyPadCount => $composableBuilder(
+      column: $table.dailyPadCount,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get hasPelvicHeaviness => $composableBuilder(
+      column: $table.hasPelvicHeaviness,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get vaginalDrynessLevel => $composableBuilder(
+      column: $table.vaginalDrynessLevel,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get hasDyspareunia => $composableBuilder(
+      column: $table.hasDyspareunia,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ContinenceEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ContinenceEntriesTable> {
+  $$ContinenceEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get logDate =>
+      $composableBuilder(column: $table.logDate, builder: (column) => column);
+
+  GeneratedColumn<String> get incontinenceType => $composableBuilder(
+      column: $table.incontinenceType, builder: (column) => column);
+
+  GeneratedColumn<int> get dailyPadCount => $composableBuilder(
+      column: $table.dailyPadCount, builder: (column) => column);
+
+  GeneratedColumn<bool> get hasPelvicHeaviness => $composableBuilder(
+      column: $table.hasPelvicHeaviness, builder: (column) => column);
+
+  GeneratedColumn<int> get vaginalDrynessLevel => $composableBuilder(
+      column: $table.vaginalDrynessLevel, builder: (column) => column);
+
+  GeneratedColumn<bool> get hasDyspareunia => $composableBuilder(
+      column: $table.hasDyspareunia, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+}
+
+class $$ContinenceEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ContinenceEntriesTable,
+    ContinenceEntry,
+    $$ContinenceEntriesTableFilterComposer,
+    $$ContinenceEntriesTableOrderingComposer,
+    $$ContinenceEntriesTableAnnotationComposer,
+    $$ContinenceEntriesTableCreateCompanionBuilder,
+    $$ContinenceEntriesTableUpdateCompanionBuilder,
+    (
+      ContinenceEntry,
+      BaseReferences<_$AppDatabase, $ContinenceEntriesTable, ContinenceEntry>
+    ),
+    ContinenceEntry,
+    PrefetchHooks Function()> {
+  $$ContinenceEntriesTableTableManager(
+      _$AppDatabase db, $ContinenceEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ContinenceEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ContinenceEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ContinenceEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> logDate = const Value.absent(),
+            Value<String> incontinenceType = const Value.absent(),
+            Value<int> dailyPadCount = const Value.absent(),
+            Value<bool> hasPelvicHeaviness = const Value.absent(),
+            Value<int> vaginalDrynessLevel = const Value.absent(),
+            Value<bool> hasDyspareunia = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ContinenceEntriesCompanion(
+            id: id,
+            userId: userId,
+            logDate: logDate,
+            incontinenceType: incontinenceType,
+            dailyPadCount: dailyPadCount,
+            hasPelvicHeaviness: hasPelvicHeaviness,
+            vaginalDrynessLevel: vaginalDrynessLevel,
+            hasDyspareunia: hasDyspareunia,
+            notes: notes,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime logDate,
+            required String incontinenceType,
+            required int dailyPadCount,
+            required bool hasPelvicHeaviness,
+            required int vaginalDrynessLevel,
+            required bool hasDyspareunia,
+            Value<String?> notes = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ContinenceEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            logDate: logDate,
+            incontinenceType: incontinenceType,
+            dailyPadCount: dailyPadCount,
+            hasPelvicHeaviness: hasPelvicHeaviness,
+            vaginalDrynessLevel: vaginalDrynessLevel,
+            hasDyspareunia: hasDyspareunia,
+            notes: notes,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$ContinenceEntriesTable, ContinenceEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $ContinenceEntriesTable,
+                        ContinenceEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ContinenceEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ContinenceEntriesTable,
+    ContinenceEntry,
+    $$ContinenceEntriesTableFilterComposer,
+    $$ContinenceEntriesTableOrderingComposer,
+    $$ContinenceEntriesTableAnnotationComposer,
+    $$ContinenceEntriesTableCreateCompanionBuilder,
+    $$ContinenceEntriesTableUpdateCompanionBuilder,
+    (
+      ContinenceEntry,
+      BaseReferences<_$AppDatabase, $ContinenceEntriesTable, ContinenceEntry>
+    ),
+    ContinenceEntry,
+    PrefetchHooks Function()>;
+typedef $$TrustedContactEntriesTableCreateCompanionBuilder
+    = TrustedContactEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required String contactName,
+  required String relationship,
+  required String phoneNumber,
+  Value<String?> notes,
+  required bool isPrimary,
+  Value<int> rowid,
+});
+typedef $$TrustedContactEntriesTableUpdateCompanionBuilder
+    = TrustedContactEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<String> contactName,
+  Value<String> relationship,
+  Value<String> phoneNumber,
+  Value<String?> notes,
+  Value<bool> isPrimary,
+  Value<int> rowid,
+});
+
+class $$TrustedContactEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $TrustedContactEntriesTable> {
+  $$TrustedContactEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get contactName => $composableBuilder(
+      column: $table.contactName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get relationship => $composableBuilder(
+      column: $table.relationship, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get phoneNumber => $composableBuilder(
+      column: $table.phoneNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isPrimary => $composableBuilder(
+      column: $table.isPrimary, builder: (column) => ColumnFilters(column));
+}
+
+class $$TrustedContactEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $TrustedContactEntriesTable> {
+  $$TrustedContactEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get contactName => $composableBuilder(
+      column: $table.contactName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get relationship => $composableBuilder(
+      column: $table.relationship,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get phoneNumber => $composableBuilder(
+      column: $table.phoneNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isPrimary => $composableBuilder(
+      column: $table.isPrimary, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TrustedContactEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TrustedContactEntriesTable> {
+  $$TrustedContactEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get contactName => $composableBuilder(
+      column: $table.contactName, builder: (column) => column);
+
+  GeneratedColumn<String> get relationship => $composableBuilder(
+      column: $table.relationship, builder: (column) => column);
+
+  GeneratedColumn<String> get phoneNumber => $composableBuilder(
+      column: $table.phoneNumber, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<bool> get isPrimary =>
+      $composableBuilder(column: $table.isPrimary, builder: (column) => column);
+}
+
+class $$TrustedContactEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $TrustedContactEntriesTable,
+    TrustedContactEntry,
+    $$TrustedContactEntriesTableFilterComposer,
+    $$TrustedContactEntriesTableOrderingComposer,
+    $$TrustedContactEntriesTableAnnotationComposer,
+    $$TrustedContactEntriesTableCreateCompanionBuilder,
+    $$TrustedContactEntriesTableUpdateCompanionBuilder,
+    (
+      TrustedContactEntry,
+      BaseReferences<_$AppDatabase, $TrustedContactEntriesTable,
+          TrustedContactEntry>
+    ),
+    TrustedContactEntry,
+    PrefetchHooks Function()> {
+  $$TrustedContactEntriesTableTableManager(
+      _$AppDatabase db, $TrustedContactEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TrustedContactEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TrustedContactEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TrustedContactEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> contactName = const Value.absent(),
+            Value<String> relationship = const Value.absent(),
+            Value<String> phoneNumber = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<bool> isPrimary = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TrustedContactEntriesCompanion(
+            id: id,
+            userId: userId,
+            contactName: contactName,
+            relationship: relationship,
+            phoneNumber: phoneNumber,
+            notes: notes,
+            isPrimary: isPrimary,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required String contactName,
+            required String relationship,
+            required String phoneNumber,
+            Value<String?> notes = const Value.absent(),
+            required bool isPrimary,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TrustedContactEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            contactName: contactName,
+            relationship: relationship,
+            phoneNumber: phoneNumber,
+            notes: notes,
+            isPrimary: isPrimary,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$TrustedContactEntriesTable,
+                        TrustedContactEntry>(table),
+                    BaseReferences<_$AppDatabase, $TrustedContactEntriesTable,
+                        TrustedContactEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$TrustedContactEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $TrustedContactEntriesTable,
+        TrustedContactEntry,
+        $$TrustedContactEntriesTableFilterComposer,
+        $$TrustedContactEntriesTableOrderingComposer,
+        $$TrustedContactEntriesTableAnnotationComposer,
+        $$TrustedContactEntriesTableCreateCompanionBuilder,
+        $$TrustedContactEntriesTableUpdateCompanionBuilder,
+        (
+          TrustedContactEntry,
+          BaseReferences<_$AppDatabase, $TrustedContactEntriesTable,
+              TrustedContactEntry>
+        ),
+        TrustedContactEntry,
+        PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -18182,4 +23718,20 @@ class $AppDatabaseManager {
       $$MilkStashEntriesTableTableManager(_db, _db.milkStashEntries);
   $$EpdsScreeningEntriesTableTableManager get epdsScreeningEntries =>
       $$EpdsScreeningEntriesTableTableManager(_db, _db.epdsScreeningEntries);
+  $$HotFlashEntriesTableTableManager get hotFlashEntries =>
+      $$HotFlashEntriesTableTableManager(_db, _db.hotFlashEntries);
+  $$CardiometabolicEntriesTableTableManager get cardiometabolicEntries =>
+      $$CardiometabolicEntriesTableTableManager(
+          _db, _db.cardiometabolicEntries);
+  $$VaginalBleedingEntriesTableTableManager get vaginalBleedingEntries =>
+      $$VaginalBleedingEntriesTableTableManager(
+          _db, _db.vaginalBleedingEntries);
+  $$DexaBoneEntriesTableTableManager get dexaBoneEntries =>
+      $$DexaBoneEntriesTableTableManager(_db, _db.dexaBoneEntries);
+  $$FallRiskEntriesTableTableManager get fallRiskEntries =>
+      $$FallRiskEntriesTableTableManager(_db, _db.fallRiskEntries);
+  $$ContinenceEntriesTableTableManager get continenceEntries =>
+      $$ContinenceEntriesTableTableManager(_db, _db.continenceEntries);
+  $$TrustedContactEntriesTableTableManager get trustedContactEntries =>
+      $$TrustedContactEntriesTableTableManager(_db, _db.trustedContactEntries);
 }
