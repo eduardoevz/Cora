@@ -151,7 +151,13 @@ mobile/
 2. `5a27ee3 feat(maternal-care): add postpartum recovery, lactation, milk stash, and EPDS REST endpoints`
 3. `1e0746c feat(mobile-ui): add fourth-trimester recovery tracker, one-hand lactation timer, and EPDS screening`
 4. `70de04e docs(plan): mark phase 07 tasks completed in phase spec and roadmap`
-5. *(Commit de documentación de cierre e índice en `documentacion/`)*
+5. `078e046 docs(documentacion): add phase-07 completion report in documentacion/`
+6. `20faf5b fix(maternal-care): format postpartum unit test imports and assertions for ruff check`
+
+### Evidencia de CI en GitHub Actions (100% Verde / Success)
+- **Backend CI:** Run `42899786907` (`success` en 43s — Pytest & Coverage pgvector + Ruff Linter/Format + Mypy Strict Type Check)
+- **Mobile CI:** Run `42899267564` (`success` en 1m58s — Flutter Analyze & Test)
+- **Security & OpenAPI Contract:** Run `42899786886` (`success` en 15s — 0% contract drift)
 
 ---
 
