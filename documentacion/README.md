@@ -30,7 +30,7 @@ Cada reporte de cierre de fase debe incluir estas 6 secciones:
 | **Fase 04** | [fase-04-salud-ciclica-y-adolescencia.md](./fase-04-salud-ciclica-y-adolescencia.md) | 2026-11-09 | Etapas 1 y 2: Ciclo de 4 fases, Adolescencia + PIN 30s, SOP/Endometriosis y alertas preventivas FIGO. |
 | **Fase 05** | [fase-05-fertilidad-y-concepcion.md](./fase-05-fertilidad-y-concepcion.md) | 2026-11-09 | Etapa 3: Fertilidad sintotérmica (BBT, regla 3 sobre 6, moco cervical, LH) y checklist preconcepcional. |
 | **Fase 06** | [fase-06-embarazo-y-cuidado-materno.md](./fase-06-embarazo-y-cuidado-materno.md) | 2026-11-10 | Etapa 4: Embarazo semanal, alertas ACOG (preeclampsia/DG), contracciones 5-1-1 y patadas Cardiff. |
-| **Fase 07** | *Se generará al cerrar la Fase 07* | Pendiente | Etapa 5: Recuperación posparto, lactancia/banco de leche y tamizaje EPDS. |
+| **Fase 07** | [fase-07-posparto-lactancia-y-salud-mental.md](./fase-07-posparto-lactancia-y-salud-mental.md) | 2026-11-10 | Etapa 5: Recuperación puerperal, loquios, cronómetro ergonómico de lactancia, banco de leche FIFO y tamizaje EPDS con contención inmediata. |
 | **Fase 08** | *Se generará al cerrar la Fase 08* | Pendiente | Etapas 6 y 7: Transición STRAW+10, sofocos, TRH, salud ósea/caídas y tema WCAG AAA. |
 | **Fase 09** | *Se generará al cerrar la Fase 09* | Pendiente | Carpeta Clínica Digital, vacunas, Cloudflare R2 y reportes *Doctor-Ready PDF*. |
 | **Fase 10** | *Se generará al cerrar la Fase 10* | Pendiente | Biblioteca clínica curada, búsqueda `pgvector` HNSW, triaje determinista y chat RAG. |
