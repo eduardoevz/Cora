@@ -47,15 +47,15 @@
   - `LactationSession`, `MilkStashEntry` (con cálculo `expires_at` según `StorageLocation`: `ROOM_TEMP`, `REFRIGERATOR`, `FREEZER`)
   - `EpdsScreeningService.score(responses: EpdsQuestionnaireInput) -> EpdsAssessmentResult`
 
-- [ ] **Step 1: Escribir tests TDD exhaustivos para `EpdsScreeningService` (puntajes `0`, `9`, `11`, `14`, y el caso crítico `total=2` con `item_10_self_harm=1` -> `IMMEDIATE_CRISIS_SUPPORT`), alertas de endometritis/hemorragia/dehiscencia de herida en `PostpartumRecoveryEvaluator` y caducidad de leche extraída**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests TDD exhaustivos para `EpdsScreeningService` (puntajes `0`, `9`, `11`, `14`, y el caso crítico `total=2` con `item_10_self_harm=1` -> `IMMEDIATE_CRISIS_SUPPORT`), alertas de endometritis/hemorragia/dehiscencia de herida en `PostpartumRecoveryEvaluator` y caducidad de leche extraída**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/maternal_care/test_epds_screening_service.py backend/tests/unit/maternal_care/test_postpartum_recovery_and_milk_stash.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar modelos, Value Objects, `PostpartumRecoveryEvaluator` y `EpdsScreeningService`**
-- [ ] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
+- [x] **Step 3: Implementar modelos, Value Objects, `PostpartumRecoveryEvaluator` y `EpdsScreeningService`**
+- [x] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/maternal_care -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/maternal_care/domain backend/tests/unit/maternal_care`
   - `git commit -m "feat(maternal-care): implement postpartum recovery alerts, milk stash expiry, and EPDS screening with TDD"`
 
@@ -80,15 +80,15 @@
   - `IPostpartumRepository`
   - `POST /api/v1/postpartum/recovery-logs`, `POST /api/v1/postpartum/lactation-sessions`, `POST /api/v1/postpartum/milk-stash`, `GET /api/v1/postpartum/milk-stash`, `POST /api/v1/postpartum/epds-screenings`
 
-- [ ] **Step 1: Escribir tests de integración HTTP verificando registro de loquios con fiebre puerperal, alta y consumo FIFO de lote en banco de leche, y envío de cuestionario EPDS sin filtrar respuestas en logs del servidor**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests de integración HTTP verificando registro de loquios con fiebre puerperal, alta y consumo FIFO de lote en banco de leche, y envío de cuestionario EPDS sin filtrar respuestas en logs del servidor**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/maternal_care/test_postpartum_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración `0007`, ORM, repositorio, casos de uso, router y regenerar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar toda la suite backend**
+- [x] **Step 3: Implementar migración `0007`, ORM, repositorio, casos de uso, router y regenerar `contracts/openapi.json`**
+- [x] **Step 4: Verificar toda la suite backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0007_create_postpartum_lactation_epds_tables.py backend/app/modules/maternal_care backend/app/main.py contracts/openapi.json backend/tests/integration/maternal_care/test_postpartum_api.py`
   - `git commit -m "feat(maternal-care): add postpartum recovery, lactation, milk stash, and EPDS REST endpoints"`
 
@@ -110,15 +110,15 @@
 - Consumes: `AppDatabase`, `SyncCoordinator`, `activeUserProfileProvider`
 - Produces: Experiencia móvil completa *Offline-First* de Etapa 5
 
-- [ ] **Step 1: Escribir tests en Flutter verificando: evaluación offline inmediata de EPDS mostrando tarjeta prioritaria de crisis si el ítem 10 `> 0`, sugerencia de último pecho ofrecido en lactancia y alertas de caducidad próxima en banco de leche**
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir tests en Flutter verificando: evaluación offline inmediata de EPDS mostrando tarjeta prioritaria de crisis si el ítem 10 `> 0`, sugerencia de último pecho ofrecido en lactancia y alertas de caducidad próxima en banco de leche**
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/features/postpartum`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift de posparto, calculador local EPDS espejo, UI ergonómica de una mano para lactancia y páginas de recuperación puerperal**
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar tablas Drift de posparto, calculador local EPDS espejo, UI ergonómica de una mano para lactancia y páginas de recuperación puerperal**
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 07**
+- [x] **Step 5: Commits finales y cierre de Fase 07**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add fourth-trimester recovery tracker, one-hand lactation timer, and EPDS screening"`
   - `git add docs/phases/phase-07-postpartum-lactation-mental-health.md docs/phases/README.md`
