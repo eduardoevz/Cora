@@ -7,6 +7,9 @@ import 'package:mobile/features/dashboard/presentation/widgets/module_preference
 import 'package:mobile/features/fertility/presentation/pages/conception_hub_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
+import 'package:mobile/features/postpartum/presentation/pages/epds_mental_health_page.dart';
+import 'package:mobile/features/postpartum/presentation/pages/lactation_and_milk_bank_page.dart';
+import 'package:mobile/features/postpartum/presentation/pages/postpartum_recovery_page.dart';
 import 'package:mobile/features/pregnancy/presentation/pages/pregnancy_weekly_hub_page.dart';
 import 'package:mobile/features/treatments/presentation/pages/pillbox_and_treatments_page.dart';
 import 'package:mobile/features/wellness/presentation/pages/wellness_tracker_page.dart';
@@ -531,6 +534,28 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                                   const PregnancyWeeklyHubPage(),
                             ),
                           );
+                        } else if (moduleKey == 'postpartum_recovery' ||
+                            moduleKey == 'pelvic_floor') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PostpartumRecoveryPage(),
+                            ),
+                          );
+                        } else if (moduleKey == 'breastfeeding_tracker') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const LactationAndMilkBankPage(),
+                            ),
+                          );
+                        } else if (moduleKey == 'epds_screening') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const EpdsMentalHealthPage(),
+                            ),
+                          );
                         }
                       },
                     ),
@@ -596,6 +621,56 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                 ),
               ],
             ),
+            if (profile.currentLifeStage == LifeStage.postpartum) ...[
+              const SizedBox(height: 12),
+              const Divider(height: 1),
+              const SizedBox(height: 12),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ActionChip(
+                      avatar: const Icon(Icons.favorite_outline, size: 16),
+                      label: const Text('Recuperación'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const PostpartumRecoveryPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    ActionChip(
+                      avatar: const Icon(Icons.timer_outlined, size: 16),
+                      label: const Text('Lactancia'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const LactationAndMilkBankPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    ActionChip(
+                      avatar: const Icon(Icons.psychology_outlined, size: 16),
+                      label: const Text('EPDS'),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const EpdsMentalHealthPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ],
         ),
       ),

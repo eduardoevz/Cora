@@ -9783,6 +9783,2462 @@ class PrenatalAppointmentEntriesCompanion
   }
 }
 
+class $PostpartumRecoveryEntriesTable extends PostpartumRecoveryEntries
+    with TableInfo<$PostpartumRecoveryEntriesTable, PostpartumRecoveryEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PostpartumRecoveryEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _loggedAtMeta =
+      const VerificationMeta('loggedAt');
+  @override
+  late final GeneratedColumn<DateTime> loggedAt = GeneratedColumn<DateTime>(
+      'logged_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _daysPostpartumMeta =
+      const VerificationMeta('daysPostpartum');
+  @override
+  late final GeneratedColumn<int> daysPostpartum = GeneratedColumn<int>(
+      'days_postpartum', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lochiaStageMeta =
+      const VerificationMeta('lochiaStage');
+  @override
+  late final GeneratedColumn<String> lochiaStage = GeneratedColumn<String>(
+      'lochia_stage', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _lochiaFlowMeta =
+      const VerificationMeta('lochiaFlow');
+  @override
+  late final GeneratedColumn<String> lochiaFlow = GeneratedColumn<String>(
+      'lochia_flow', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _foulOdorMeta =
+      const VerificationMeta('foulOdor');
+  @override
+  late final GeneratedColumn<bool> foulOdor = GeneratedColumn<bool>(
+      'foul_odor', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("foul_odor" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _maternalTemperatureCMeta =
+      const VerificationMeta('maternalTemperatureC');
+  @override
+  late final GeneratedColumn<double> maternalTemperatureC =
+      GeneratedColumn<double>('maternal_temperature_c', aliasedName, true,
+          type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _perinealWoundStatusMeta =
+      const VerificationMeta('perinealWoundStatus');
+  @override
+  late final GeneratedColumn<String> perinealWoundStatus =
+      GeneratedColumn<String>('perineal_wound_status', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _cesareanWoundStatusMeta =
+      const VerificationMeta('cesareanWoundStatus');
+  @override
+  late final GeneratedColumn<String> cesareanWoundStatus =
+      GeneratedColumn<String>('cesarean_wound_status', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _pelvicFloorSymptomsJsonMeta =
+      const VerificationMeta('pelvicFloorSymptomsJson');
+  @override
+  late final GeneratedColumn<String> pelvicFloorSymptomsJson =
+      GeneratedColumn<String>('pelvic_floor_symptoms_json', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('[]'));
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _alertsJsonMeta =
+      const VerificationMeta('alertsJson');
+  @override
+  late final GeneratedColumn<String> alertsJson = GeneratedColumn<String>(
+      'alerts_json', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('[]'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        loggedAt,
+        daysPostpartum,
+        lochiaStage,
+        lochiaFlow,
+        foulOdor,
+        maternalTemperatureC,
+        perinealWoundStatus,
+        cesareanWoundStatus,
+        pelvicFloorSymptomsJson,
+        notes,
+        alertsJson
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'postpartum_recovery_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<PostpartumRecoveryEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('logged_at')) {
+      context.handle(_loggedAtMeta,
+          loggedAt.isAcceptableOrUnknown(data['logged_at']!, _loggedAtMeta));
+    }
+    if (data.containsKey('days_postpartum')) {
+      context.handle(
+          _daysPostpartumMeta,
+          daysPostpartum.isAcceptableOrUnknown(
+              data['days_postpartum']!, _daysPostpartumMeta));
+    } else if (isInserting) {
+      context.missing(_daysPostpartumMeta);
+    }
+    if (data.containsKey('lochia_stage')) {
+      context.handle(
+          _lochiaStageMeta,
+          lochiaStage.isAcceptableOrUnknown(
+              data['lochia_stage']!, _lochiaStageMeta));
+    } else if (isInserting) {
+      context.missing(_lochiaStageMeta);
+    }
+    if (data.containsKey('lochia_flow')) {
+      context.handle(
+          _lochiaFlowMeta,
+          lochiaFlow.isAcceptableOrUnknown(
+              data['lochia_flow']!, _lochiaFlowMeta));
+    } else if (isInserting) {
+      context.missing(_lochiaFlowMeta);
+    }
+    if (data.containsKey('foul_odor')) {
+      context.handle(_foulOdorMeta,
+          foulOdor.isAcceptableOrUnknown(data['foul_odor']!, _foulOdorMeta));
+    }
+    if (data.containsKey('maternal_temperature_c')) {
+      context.handle(
+          _maternalTemperatureCMeta,
+          maternalTemperatureC.isAcceptableOrUnknown(
+              data['maternal_temperature_c']!, _maternalTemperatureCMeta));
+    }
+    if (data.containsKey('perineal_wound_status')) {
+      context.handle(
+          _perinealWoundStatusMeta,
+          perinealWoundStatus.isAcceptableOrUnknown(
+              data['perineal_wound_status']!, _perinealWoundStatusMeta));
+    }
+    if (data.containsKey('cesarean_wound_status')) {
+      context.handle(
+          _cesareanWoundStatusMeta,
+          cesareanWoundStatus.isAcceptableOrUnknown(
+              data['cesarean_wound_status']!, _cesareanWoundStatusMeta));
+    }
+    if (data.containsKey('pelvic_floor_symptoms_json')) {
+      context.handle(
+          _pelvicFloorSymptomsJsonMeta,
+          pelvicFloorSymptomsJson.isAcceptableOrUnknown(
+              data['pelvic_floor_symptoms_json']!,
+              _pelvicFloorSymptomsJsonMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('alerts_json')) {
+      context.handle(
+          _alertsJsonMeta,
+          alertsJson.isAcceptableOrUnknown(
+              data['alerts_json']!, _alertsJsonMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PostpartumRecoveryEntry map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PostpartumRecoveryEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      loggedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}logged_at'])!,
+      daysPostpartum: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}days_postpartum'])!,
+      lochiaStage: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}lochia_stage'])!,
+      lochiaFlow: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}lochia_flow'])!,
+      foulOdor: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}foul_odor'])!,
+      maternalTemperatureC: attachedDatabase.typeMapping.read(
+          DriftSqlType.double,
+          data['${effectivePrefix}maternal_temperature_c']),
+      perinealWoundStatus: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}perineal_wound_status']),
+      cesareanWoundStatus: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}cesarean_wound_status']),
+      pelvicFloorSymptomsJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}pelvic_floor_symptoms_json'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      alertsJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alerts_json'])!,
+    );
+  }
+
+  @override
+  $PostpartumRecoveryEntriesTable createAlias(String alias) {
+    return $PostpartumRecoveryEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class PostpartumRecoveryEntry extends DataClass
+    implements Insertable<PostpartumRecoveryEntry> {
+  final String id;
+  final String userId;
+  final DateTime loggedAt;
+  final int daysPostpartum;
+  final String lochiaStage;
+  final String lochiaFlow;
+  final bool foulOdor;
+  final double? maternalTemperatureC;
+  final String? perinealWoundStatus;
+  final String? cesareanWoundStatus;
+  final String pelvicFloorSymptomsJson;
+  final String? notes;
+  final String alertsJson;
+  const PostpartumRecoveryEntry(
+      {required this.id,
+      required this.userId,
+      required this.loggedAt,
+      required this.daysPostpartum,
+      required this.lochiaStage,
+      required this.lochiaFlow,
+      required this.foulOdor,
+      this.maternalTemperatureC,
+      this.perinealWoundStatus,
+      this.cesareanWoundStatus,
+      required this.pelvicFloorSymptomsJson,
+      this.notes,
+      required this.alertsJson});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['logged_at'] = Variable<DateTime>(loggedAt);
+    map['days_postpartum'] = Variable<int>(daysPostpartum);
+    map['lochia_stage'] = Variable<String>(lochiaStage);
+    map['lochia_flow'] = Variable<String>(lochiaFlow);
+    map['foul_odor'] = Variable<bool>(foulOdor);
+    if (!nullToAbsent || maternalTemperatureC != null) {
+      map['maternal_temperature_c'] = Variable<double>(maternalTemperatureC);
+    }
+    if (!nullToAbsent || perinealWoundStatus != null) {
+      map['perineal_wound_status'] = Variable<String>(perinealWoundStatus);
+    }
+    if (!nullToAbsent || cesareanWoundStatus != null) {
+      map['cesarean_wound_status'] = Variable<String>(cesareanWoundStatus);
+    }
+    map['pelvic_floor_symptoms_json'] =
+        Variable<String>(pelvicFloorSymptomsJson);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['alerts_json'] = Variable<String>(alertsJson);
+    return map;
+  }
+
+  PostpartumRecoveryEntriesCompanion toCompanion(bool nullToAbsent) {
+    return PostpartumRecoveryEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      loggedAt: Value(loggedAt),
+      daysPostpartum: Value(daysPostpartum),
+      lochiaStage: Value(lochiaStage),
+      lochiaFlow: Value(lochiaFlow),
+      foulOdor: Value(foulOdor),
+      maternalTemperatureC: maternalTemperatureC == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maternalTemperatureC),
+      perinealWoundStatus: perinealWoundStatus == null && nullToAbsent
+          ? const Value.absent()
+          : Value(perinealWoundStatus),
+      cesareanWoundStatus: cesareanWoundStatus == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cesareanWoundStatus),
+      pelvicFloorSymptomsJson: Value(pelvicFloorSymptomsJson),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      alertsJson: Value(alertsJson),
+    );
+  }
+
+  factory PostpartumRecoveryEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PostpartumRecoveryEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      loggedAt: serializer.fromJson<DateTime>(json['loggedAt']),
+      daysPostpartum: serializer.fromJson<int>(json['daysPostpartum']),
+      lochiaStage: serializer.fromJson<String>(json['lochiaStage']),
+      lochiaFlow: serializer.fromJson<String>(json['lochiaFlow']),
+      foulOdor: serializer.fromJson<bool>(json['foulOdor']),
+      maternalTemperatureC:
+          serializer.fromJson<double?>(json['maternalTemperatureC']),
+      perinealWoundStatus:
+          serializer.fromJson<String?>(json['perinealWoundStatus']),
+      cesareanWoundStatus:
+          serializer.fromJson<String?>(json['cesareanWoundStatus']),
+      pelvicFloorSymptomsJson:
+          serializer.fromJson<String>(json['pelvicFloorSymptomsJson']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      alertsJson: serializer.fromJson<String>(json['alertsJson']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'loggedAt': serializer.toJson<DateTime>(loggedAt),
+      'daysPostpartum': serializer.toJson<int>(daysPostpartum),
+      'lochiaStage': serializer.toJson<String>(lochiaStage),
+      'lochiaFlow': serializer.toJson<String>(lochiaFlow),
+      'foulOdor': serializer.toJson<bool>(foulOdor),
+      'maternalTemperatureC': serializer.toJson<double?>(maternalTemperatureC),
+      'perinealWoundStatus': serializer.toJson<String?>(perinealWoundStatus),
+      'cesareanWoundStatus': serializer.toJson<String?>(cesareanWoundStatus),
+      'pelvicFloorSymptomsJson':
+          serializer.toJson<String>(pelvicFloorSymptomsJson),
+      'notes': serializer.toJson<String?>(notes),
+      'alertsJson': serializer.toJson<String>(alertsJson),
+    };
+  }
+
+  PostpartumRecoveryEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? loggedAt,
+          int? daysPostpartum,
+          String? lochiaStage,
+          String? lochiaFlow,
+          bool? foulOdor,
+          Value<double?> maternalTemperatureC = const Value.absent(),
+          Value<String?> perinealWoundStatus = const Value.absent(),
+          Value<String?> cesareanWoundStatus = const Value.absent(),
+          String? pelvicFloorSymptomsJson,
+          Value<String?> notes = const Value.absent(),
+          String? alertsJson}) =>
+      PostpartumRecoveryEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        loggedAt: loggedAt ?? this.loggedAt,
+        daysPostpartum: daysPostpartum ?? this.daysPostpartum,
+        lochiaStage: lochiaStage ?? this.lochiaStage,
+        lochiaFlow: lochiaFlow ?? this.lochiaFlow,
+        foulOdor: foulOdor ?? this.foulOdor,
+        maternalTemperatureC: maternalTemperatureC.present
+            ? maternalTemperatureC.value
+            : this.maternalTemperatureC,
+        perinealWoundStatus: perinealWoundStatus.present
+            ? perinealWoundStatus.value
+            : this.perinealWoundStatus,
+        cesareanWoundStatus: cesareanWoundStatus.present
+            ? cesareanWoundStatus.value
+            : this.cesareanWoundStatus,
+        pelvicFloorSymptomsJson:
+            pelvicFloorSymptomsJson ?? this.pelvicFloorSymptomsJson,
+        notes: notes.present ? notes.value : this.notes,
+        alertsJson: alertsJson ?? this.alertsJson,
+      );
+  PostpartumRecoveryEntry copyWithCompanion(
+      PostpartumRecoveryEntriesCompanion data) {
+    return PostpartumRecoveryEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      loggedAt: data.loggedAt.present ? data.loggedAt.value : this.loggedAt,
+      daysPostpartum: data.daysPostpartum.present
+          ? data.daysPostpartum.value
+          : this.daysPostpartum,
+      lochiaStage:
+          data.lochiaStage.present ? data.lochiaStage.value : this.lochiaStage,
+      lochiaFlow:
+          data.lochiaFlow.present ? data.lochiaFlow.value : this.lochiaFlow,
+      foulOdor: data.foulOdor.present ? data.foulOdor.value : this.foulOdor,
+      maternalTemperatureC: data.maternalTemperatureC.present
+          ? data.maternalTemperatureC.value
+          : this.maternalTemperatureC,
+      perinealWoundStatus: data.perinealWoundStatus.present
+          ? data.perinealWoundStatus.value
+          : this.perinealWoundStatus,
+      cesareanWoundStatus: data.cesareanWoundStatus.present
+          ? data.cesareanWoundStatus.value
+          : this.cesareanWoundStatus,
+      pelvicFloorSymptomsJson: data.pelvicFloorSymptomsJson.present
+          ? data.pelvicFloorSymptomsJson.value
+          : this.pelvicFloorSymptomsJson,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      alertsJson:
+          data.alertsJson.present ? data.alertsJson.value : this.alertsJson,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PostpartumRecoveryEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('loggedAt: $loggedAt, ')
+          ..write('daysPostpartum: $daysPostpartum, ')
+          ..write('lochiaStage: $lochiaStage, ')
+          ..write('lochiaFlow: $lochiaFlow, ')
+          ..write('foulOdor: $foulOdor, ')
+          ..write('maternalTemperatureC: $maternalTemperatureC, ')
+          ..write('perinealWoundStatus: $perinealWoundStatus, ')
+          ..write('cesareanWoundStatus: $cesareanWoundStatus, ')
+          ..write('pelvicFloorSymptomsJson: $pelvicFloorSymptomsJson, ')
+          ..write('notes: $notes, ')
+          ..write('alertsJson: $alertsJson')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      loggedAt,
+      daysPostpartum,
+      lochiaStage,
+      lochiaFlow,
+      foulOdor,
+      maternalTemperatureC,
+      perinealWoundStatus,
+      cesareanWoundStatus,
+      pelvicFloorSymptomsJson,
+      notes,
+      alertsJson);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PostpartumRecoveryEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.loggedAt == this.loggedAt &&
+          other.daysPostpartum == this.daysPostpartum &&
+          other.lochiaStage == this.lochiaStage &&
+          other.lochiaFlow == this.lochiaFlow &&
+          other.foulOdor == this.foulOdor &&
+          other.maternalTemperatureC == this.maternalTemperatureC &&
+          other.perinealWoundStatus == this.perinealWoundStatus &&
+          other.cesareanWoundStatus == this.cesareanWoundStatus &&
+          other.pelvicFloorSymptomsJson == this.pelvicFloorSymptomsJson &&
+          other.notes == this.notes &&
+          other.alertsJson == this.alertsJson);
+}
+
+class PostpartumRecoveryEntriesCompanion
+    extends UpdateCompanion<PostpartumRecoveryEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> loggedAt;
+  final Value<int> daysPostpartum;
+  final Value<String> lochiaStage;
+  final Value<String> lochiaFlow;
+  final Value<bool> foulOdor;
+  final Value<double?> maternalTemperatureC;
+  final Value<String?> perinealWoundStatus;
+  final Value<String?> cesareanWoundStatus;
+  final Value<String> pelvicFloorSymptomsJson;
+  final Value<String?> notes;
+  final Value<String> alertsJson;
+  final Value<int> rowid;
+  const PostpartumRecoveryEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.loggedAt = const Value.absent(),
+    this.daysPostpartum = const Value.absent(),
+    this.lochiaStage = const Value.absent(),
+    this.lochiaFlow = const Value.absent(),
+    this.foulOdor = const Value.absent(),
+    this.maternalTemperatureC = const Value.absent(),
+    this.perinealWoundStatus = const Value.absent(),
+    this.cesareanWoundStatus = const Value.absent(),
+    this.pelvicFloorSymptomsJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.alertsJson = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PostpartumRecoveryEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    this.loggedAt = const Value.absent(),
+    required int daysPostpartum,
+    required String lochiaStage,
+    required String lochiaFlow,
+    this.foulOdor = const Value.absent(),
+    this.maternalTemperatureC = const Value.absent(),
+    this.perinealWoundStatus = const Value.absent(),
+    this.cesareanWoundStatus = const Value.absent(),
+    this.pelvicFloorSymptomsJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.alertsJson = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        daysPostpartum = Value(daysPostpartum),
+        lochiaStage = Value(lochiaStage),
+        lochiaFlow = Value(lochiaFlow);
+  static Insertable<PostpartumRecoveryEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? loggedAt,
+    Expression<int>? daysPostpartum,
+    Expression<String>? lochiaStage,
+    Expression<String>? lochiaFlow,
+    Expression<bool>? foulOdor,
+    Expression<double>? maternalTemperatureC,
+    Expression<String>? perinealWoundStatus,
+    Expression<String>? cesareanWoundStatus,
+    Expression<String>? pelvicFloorSymptomsJson,
+    Expression<String>? notes,
+    Expression<String>? alertsJson,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (loggedAt != null) 'logged_at': loggedAt,
+      if (daysPostpartum != null) 'days_postpartum': daysPostpartum,
+      if (lochiaStage != null) 'lochia_stage': lochiaStage,
+      if (lochiaFlow != null) 'lochia_flow': lochiaFlow,
+      if (foulOdor != null) 'foul_odor': foulOdor,
+      if (maternalTemperatureC != null)
+        'maternal_temperature_c': maternalTemperatureC,
+      if (perinealWoundStatus != null)
+        'perineal_wound_status': perinealWoundStatus,
+      if (cesareanWoundStatus != null)
+        'cesarean_wound_status': cesareanWoundStatus,
+      if (pelvicFloorSymptomsJson != null)
+        'pelvic_floor_symptoms_json': pelvicFloorSymptomsJson,
+      if (notes != null) 'notes': notes,
+      if (alertsJson != null) 'alerts_json': alertsJson,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PostpartumRecoveryEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? loggedAt,
+      Value<int>? daysPostpartum,
+      Value<String>? lochiaStage,
+      Value<String>? lochiaFlow,
+      Value<bool>? foulOdor,
+      Value<double?>? maternalTemperatureC,
+      Value<String?>? perinealWoundStatus,
+      Value<String?>? cesareanWoundStatus,
+      Value<String>? pelvicFloorSymptomsJson,
+      Value<String?>? notes,
+      Value<String>? alertsJson,
+      Value<int>? rowid}) {
+    return PostpartumRecoveryEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      loggedAt: loggedAt ?? this.loggedAt,
+      daysPostpartum: daysPostpartum ?? this.daysPostpartum,
+      lochiaStage: lochiaStage ?? this.lochiaStage,
+      lochiaFlow: lochiaFlow ?? this.lochiaFlow,
+      foulOdor: foulOdor ?? this.foulOdor,
+      maternalTemperatureC: maternalTemperatureC ?? this.maternalTemperatureC,
+      perinealWoundStatus: perinealWoundStatus ?? this.perinealWoundStatus,
+      cesareanWoundStatus: cesareanWoundStatus ?? this.cesareanWoundStatus,
+      pelvicFloorSymptomsJson:
+          pelvicFloorSymptomsJson ?? this.pelvicFloorSymptomsJson,
+      notes: notes ?? this.notes,
+      alertsJson: alertsJson ?? this.alertsJson,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (loggedAt.present) {
+      map['logged_at'] = Variable<DateTime>(loggedAt.value);
+    }
+    if (daysPostpartum.present) {
+      map['days_postpartum'] = Variable<int>(daysPostpartum.value);
+    }
+    if (lochiaStage.present) {
+      map['lochia_stage'] = Variable<String>(lochiaStage.value);
+    }
+    if (lochiaFlow.present) {
+      map['lochia_flow'] = Variable<String>(lochiaFlow.value);
+    }
+    if (foulOdor.present) {
+      map['foul_odor'] = Variable<bool>(foulOdor.value);
+    }
+    if (maternalTemperatureC.present) {
+      map['maternal_temperature_c'] =
+          Variable<double>(maternalTemperatureC.value);
+    }
+    if (perinealWoundStatus.present) {
+      map['perineal_wound_status'] =
+          Variable<String>(perinealWoundStatus.value);
+    }
+    if (cesareanWoundStatus.present) {
+      map['cesarean_wound_status'] =
+          Variable<String>(cesareanWoundStatus.value);
+    }
+    if (pelvicFloorSymptomsJson.present) {
+      map['pelvic_floor_symptoms_json'] =
+          Variable<String>(pelvicFloorSymptomsJson.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (alertsJson.present) {
+      map['alerts_json'] = Variable<String>(alertsJson.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PostpartumRecoveryEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('loggedAt: $loggedAt, ')
+          ..write('daysPostpartum: $daysPostpartum, ')
+          ..write('lochiaStage: $lochiaStage, ')
+          ..write('lochiaFlow: $lochiaFlow, ')
+          ..write('foulOdor: $foulOdor, ')
+          ..write('maternalTemperatureC: $maternalTemperatureC, ')
+          ..write('perinealWoundStatus: $perinealWoundStatus, ')
+          ..write('cesareanWoundStatus: $cesareanWoundStatus, ')
+          ..write('pelvicFloorSymptomsJson: $pelvicFloorSymptomsJson, ')
+          ..write('notes: $notes, ')
+          ..write('alertsJson: $alertsJson, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $LactationSessionEntriesTable extends LactationSessionEntries
+    with TableInfo<$LactationSessionEntriesTable, LactationSessionEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LactationSessionEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _startedAtMeta =
+      const VerificationMeta('startedAt');
+  @override
+  late final GeneratedColumn<DateTime> startedAt = GeneratedColumn<DateTime>(
+      'started_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _endedAtMeta =
+      const VerificationMeta('endedAt');
+  @override
+  late final GeneratedColumn<DateTime> endedAt = GeneratedColumn<DateTime>(
+      'ended_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _leftDurationSecondsMeta =
+      const VerificationMeta('leftDurationSeconds');
+  @override
+  late final GeneratedColumn<int> leftDurationSeconds = GeneratedColumn<int>(
+      'left_duration_seconds', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _rightDurationSecondsMeta =
+      const VerificationMeta('rightDurationSeconds');
+  @override
+  late final GeneratedColumn<int> rightDurationSeconds = GeneratedColumn<int>(
+      'right_duration_seconds', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _totalDurationSecondsMeta =
+      const VerificationMeta('totalDurationSeconds');
+  @override
+  late final GeneratedColumn<int> totalDurationSeconds = GeneratedColumn<int>(
+      'total_duration_seconds', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  static const VerificationMeta _lastOfferedBreastMeta =
+      const VerificationMeta('lastOfferedBreast');
+  @override
+  late final GeneratedColumn<String> lastOfferedBreast =
+      GeneratedColumn<String>('last_offered_breast', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _suggestedNextBreastMeta =
+      const VerificationMeta('suggestedNextBreast');
+  @override
+  late final GeneratedColumn<String> suggestedNextBreast =
+      GeneratedColumn<String>('suggested_next_breast', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _bottleVolumeMlMeta =
+      const VerificationMeta('bottleVolumeMl');
+  @override
+  late final GeneratedColumn<double> bottleVolumeMl = GeneratedColumn<double>(
+      'bottle_volume_ml', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _feedingTypeMeta =
+      const VerificationMeta('feedingType');
+  @override
+  late final GeneratedColumn<String> feedingType = GeneratedColumn<String>(
+      'feeding_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        startedAt,
+        endedAt,
+        leftDurationSeconds,
+        rightDurationSeconds,
+        totalDurationSeconds,
+        lastOfferedBreast,
+        suggestedNextBreast,
+        bottleVolumeMl,
+        feedingType,
+        notes,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'lactation_session_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<LactationSessionEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('started_at')) {
+      context.handle(_startedAtMeta,
+          startedAt.isAcceptableOrUnknown(data['started_at']!, _startedAtMeta));
+    } else if (isInserting) {
+      context.missing(_startedAtMeta);
+    }
+    if (data.containsKey('ended_at')) {
+      context.handle(_endedAtMeta,
+          endedAt.isAcceptableOrUnknown(data['ended_at']!, _endedAtMeta));
+    } else if (isInserting) {
+      context.missing(_endedAtMeta);
+    }
+    if (data.containsKey('left_duration_seconds')) {
+      context.handle(
+          _leftDurationSecondsMeta,
+          leftDurationSeconds.isAcceptableOrUnknown(
+              data['left_duration_seconds']!, _leftDurationSecondsMeta));
+    }
+    if (data.containsKey('right_duration_seconds')) {
+      context.handle(
+          _rightDurationSecondsMeta,
+          rightDurationSeconds.isAcceptableOrUnknown(
+              data['right_duration_seconds']!, _rightDurationSecondsMeta));
+    }
+    if (data.containsKey('total_duration_seconds')) {
+      context.handle(
+          _totalDurationSecondsMeta,
+          totalDurationSeconds.isAcceptableOrUnknown(
+              data['total_duration_seconds']!, _totalDurationSecondsMeta));
+    }
+    if (data.containsKey('last_offered_breast')) {
+      context.handle(
+          _lastOfferedBreastMeta,
+          lastOfferedBreast.isAcceptableOrUnknown(
+              data['last_offered_breast']!, _lastOfferedBreastMeta));
+    } else if (isInserting) {
+      context.missing(_lastOfferedBreastMeta);
+    }
+    if (data.containsKey('suggested_next_breast')) {
+      context.handle(
+          _suggestedNextBreastMeta,
+          suggestedNextBreast.isAcceptableOrUnknown(
+              data['suggested_next_breast']!, _suggestedNextBreastMeta));
+    } else if (isInserting) {
+      context.missing(_suggestedNextBreastMeta);
+    }
+    if (data.containsKey('bottle_volume_ml')) {
+      context.handle(
+          _bottleVolumeMlMeta,
+          bottleVolumeMl.isAcceptableOrUnknown(
+              data['bottle_volume_ml']!, _bottleVolumeMlMeta));
+    }
+    if (data.containsKey('feeding_type')) {
+      context.handle(
+          _feedingTypeMeta,
+          feedingType.isAcceptableOrUnknown(
+              data['feeding_type']!, _feedingTypeMeta));
+    } else if (isInserting) {
+      context.missing(_feedingTypeMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  LactationSessionEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LactationSessionEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      startedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}started_at'])!,
+      endedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}ended_at'])!,
+      leftDurationSeconds: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}left_duration_seconds'])!,
+      rightDurationSeconds: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}right_duration_seconds'])!,
+      totalDurationSeconds: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}total_duration_seconds'])!,
+      lastOfferedBreast: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}last_offered_breast'])!,
+      suggestedNextBreast: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}suggested_next_breast'])!,
+      bottleVolumeMl: attachedDatabase.typeMapping.read(
+          DriftSqlType.double, data['${effectivePrefix}bottle_volume_ml']),
+      feedingType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}feeding_type'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $LactationSessionEntriesTable createAlias(String alias) {
+    return $LactationSessionEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class LactationSessionEntry extends DataClass
+    implements Insertable<LactationSessionEntry> {
+  final String id;
+  final String userId;
+  final DateTime startedAt;
+  final DateTime endedAt;
+  final int leftDurationSeconds;
+  final int rightDurationSeconds;
+  final int totalDurationSeconds;
+  final String lastOfferedBreast;
+  final String suggestedNextBreast;
+  final double? bottleVolumeMl;
+  final String feedingType;
+  final String? notes;
+  final DateTime createdAt;
+  const LactationSessionEntry(
+      {required this.id,
+      required this.userId,
+      required this.startedAt,
+      required this.endedAt,
+      required this.leftDurationSeconds,
+      required this.rightDurationSeconds,
+      required this.totalDurationSeconds,
+      required this.lastOfferedBreast,
+      required this.suggestedNextBreast,
+      this.bottleVolumeMl,
+      required this.feedingType,
+      this.notes,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['started_at'] = Variable<DateTime>(startedAt);
+    map['ended_at'] = Variable<DateTime>(endedAt);
+    map['left_duration_seconds'] = Variable<int>(leftDurationSeconds);
+    map['right_duration_seconds'] = Variable<int>(rightDurationSeconds);
+    map['total_duration_seconds'] = Variable<int>(totalDurationSeconds);
+    map['last_offered_breast'] = Variable<String>(lastOfferedBreast);
+    map['suggested_next_breast'] = Variable<String>(suggestedNextBreast);
+    if (!nullToAbsent || bottleVolumeMl != null) {
+      map['bottle_volume_ml'] = Variable<double>(bottleVolumeMl);
+    }
+    map['feeding_type'] = Variable<String>(feedingType);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  LactationSessionEntriesCompanion toCompanion(bool nullToAbsent) {
+    return LactationSessionEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      startedAt: Value(startedAt),
+      endedAt: Value(endedAt),
+      leftDurationSeconds: Value(leftDurationSeconds),
+      rightDurationSeconds: Value(rightDurationSeconds),
+      totalDurationSeconds: Value(totalDurationSeconds),
+      lastOfferedBreast: Value(lastOfferedBreast),
+      suggestedNextBreast: Value(suggestedNextBreast),
+      bottleVolumeMl: bottleVolumeMl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bottleVolumeMl),
+      feedingType: Value(feedingType),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory LactationSessionEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LactationSessionEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      startedAt: serializer.fromJson<DateTime>(json['startedAt']),
+      endedAt: serializer.fromJson<DateTime>(json['endedAt']),
+      leftDurationSeconds:
+          serializer.fromJson<int>(json['leftDurationSeconds']),
+      rightDurationSeconds:
+          serializer.fromJson<int>(json['rightDurationSeconds']),
+      totalDurationSeconds:
+          serializer.fromJson<int>(json['totalDurationSeconds']),
+      lastOfferedBreast: serializer.fromJson<String>(json['lastOfferedBreast']),
+      suggestedNextBreast:
+          serializer.fromJson<String>(json['suggestedNextBreast']),
+      bottleVolumeMl: serializer.fromJson<double?>(json['bottleVolumeMl']),
+      feedingType: serializer.fromJson<String>(json['feedingType']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'startedAt': serializer.toJson<DateTime>(startedAt),
+      'endedAt': serializer.toJson<DateTime>(endedAt),
+      'leftDurationSeconds': serializer.toJson<int>(leftDurationSeconds),
+      'rightDurationSeconds': serializer.toJson<int>(rightDurationSeconds),
+      'totalDurationSeconds': serializer.toJson<int>(totalDurationSeconds),
+      'lastOfferedBreast': serializer.toJson<String>(lastOfferedBreast),
+      'suggestedNextBreast': serializer.toJson<String>(suggestedNextBreast),
+      'bottleVolumeMl': serializer.toJson<double?>(bottleVolumeMl),
+      'feedingType': serializer.toJson<String>(feedingType),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  LactationSessionEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? startedAt,
+          DateTime? endedAt,
+          int? leftDurationSeconds,
+          int? rightDurationSeconds,
+          int? totalDurationSeconds,
+          String? lastOfferedBreast,
+          String? suggestedNextBreast,
+          Value<double?> bottleVolumeMl = const Value.absent(),
+          String? feedingType,
+          Value<String?> notes = const Value.absent(),
+          DateTime? createdAt}) =>
+      LactationSessionEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        startedAt: startedAt ?? this.startedAt,
+        endedAt: endedAt ?? this.endedAt,
+        leftDurationSeconds: leftDurationSeconds ?? this.leftDurationSeconds,
+        rightDurationSeconds: rightDurationSeconds ?? this.rightDurationSeconds,
+        totalDurationSeconds: totalDurationSeconds ?? this.totalDurationSeconds,
+        lastOfferedBreast: lastOfferedBreast ?? this.lastOfferedBreast,
+        suggestedNextBreast: suggestedNextBreast ?? this.suggestedNextBreast,
+        bottleVolumeMl:
+            bottleVolumeMl.present ? bottleVolumeMl.value : this.bottleVolumeMl,
+        feedingType: feedingType ?? this.feedingType,
+        notes: notes.present ? notes.value : this.notes,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  LactationSessionEntry copyWithCompanion(
+      LactationSessionEntriesCompanion data) {
+    return LactationSessionEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      startedAt: data.startedAt.present ? data.startedAt.value : this.startedAt,
+      endedAt: data.endedAt.present ? data.endedAt.value : this.endedAt,
+      leftDurationSeconds: data.leftDurationSeconds.present
+          ? data.leftDurationSeconds.value
+          : this.leftDurationSeconds,
+      rightDurationSeconds: data.rightDurationSeconds.present
+          ? data.rightDurationSeconds.value
+          : this.rightDurationSeconds,
+      totalDurationSeconds: data.totalDurationSeconds.present
+          ? data.totalDurationSeconds.value
+          : this.totalDurationSeconds,
+      lastOfferedBreast: data.lastOfferedBreast.present
+          ? data.lastOfferedBreast.value
+          : this.lastOfferedBreast,
+      suggestedNextBreast: data.suggestedNextBreast.present
+          ? data.suggestedNextBreast.value
+          : this.suggestedNextBreast,
+      bottleVolumeMl: data.bottleVolumeMl.present
+          ? data.bottleVolumeMl.value
+          : this.bottleVolumeMl,
+      feedingType:
+          data.feedingType.present ? data.feedingType.value : this.feedingType,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LactationSessionEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('endedAt: $endedAt, ')
+          ..write('leftDurationSeconds: $leftDurationSeconds, ')
+          ..write('rightDurationSeconds: $rightDurationSeconds, ')
+          ..write('totalDurationSeconds: $totalDurationSeconds, ')
+          ..write('lastOfferedBreast: $lastOfferedBreast, ')
+          ..write('suggestedNextBreast: $suggestedNextBreast, ')
+          ..write('bottleVolumeMl: $bottleVolumeMl, ')
+          ..write('feedingType: $feedingType, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      startedAt,
+      endedAt,
+      leftDurationSeconds,
+      rightDurationSeconds,
+      totalDurationSeconds,
+      lastOfferedBreast,
+      suggestedNextBreast,
+      bottleVolumeMl,
+      feedingType,
+      notes,
+      createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LactationSessionEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.startedAt == this.startedAt &&
+          other.endedAt == this.endedAt &&
+          other.leftDurationSeconds == this.leftDurationSeconds &&
+          other.rightDurationSeconds == this.rightDurationSeconds &&
+          other.totalDurationSeconds == this.totalDurationSeconds &&
+          other.lastOfferedBreast == this.lastOfferedBreast &&
+          other.suggestedNextBreast == this.suggestedNextBreast &&
+          other.bottleVolumeMl == this.bottleVolumeMl &&
+          other.feedingType == this.feedingType &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt);
+}
+
+class LactationSessionEntriesCompanion
+    extends UpdateCompanion<LactationSessionEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> startedAt;
+  final Value<DateTime> endedAt;
+  final Value<int> leftDurationSeconds;
+  final Value<int> rightDurationSeconds;
+  final Value<int> totalDurationSeconds;
+  final Value<String> lastOfferedBreast;
+  final Value<String> suggestedNextBreast;
+  final Value<double?> bottleVolumeMl;
+  final Value<String> feedingType;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const LactationSessionEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.startedAt = const Value.absent(),
+    this.endedAt = const Value.absent(),
+    this.leftDurationSeconds = const Value.absent(),
+    this.rightDurationSeconds = const Value.absent(),
+    this.totalDurationSeconds = const Value.absent(),
+    this.lastOfferedBreast = const Value.absent(),
+    this.suggestedNextBreast = const Value.absent(),
+    this.bottleVolumeMl = const Value.absent(),
+    this.feedingType = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  LactationSessionEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime startedAt,
+    required DateTime endedAt,
+    this.leftDurationSeconds = const Value.absent(),
+    this.rightDurationSeconds = const Value.absent(),
+    this.totalDurationSeconds = const Value.absent(),
+    required String lastOfferedBreast,
+    required String suggestedNextBreast,
+    this.bottleVolumeMl = const Value.absent(),
+    required String feedingType,
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        startedAt = Value(startedAt),
+        endedAt = Value(endedAt),
+        lastOfferedBreast = Value(lastOfferedBreast),
+        suggestedNextBreast = Value(suggestedNextBreast),
+        feedingType = Value(feedingType);
+  static Insertable<LactationSessionEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? startedAt,
+    Expression<DateTime>? endedAt,
+    Expression<int>? leftDurationSeconds,
+    Expression<int>? rightDurationSeconds,
+    Expression<int>? totalDurationSeconds,
+    Expression<String>? lastOfferedBreast,
+    Expression<String>? suggestedNextBreast,
+    Expression<double>? bottleVolumeMl,
+    Expression<String>? feedingType,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (startedAt != null) 'started_at': startedAt,
+      if (endedAt != null) 'ended_at': endedAt,
+      if (leftDurationSeconds != null)
+        'left_duration_seconds': leftDurationSeconds,
+      if (rightDurationSeconds != null)
+        'right_duration_seconds': rightDurationSeconds,
+      if (totalDurationSeconds != null)
+        'total_duration_seconds': totalDurationSeconds,
+      if (lastOfferedBreast != null) 'last_offered_breast': lastOfferedBreast,
+      if (suggestedNextBreast != null)
+        'suggested_next_breast': suggestedNextBreast,
+      if (bottleVolumeMl != null) 'bottle_volume_ml': bottleVolumeMl,
+      if (feedingType != null) 'feeding_type': feedingType,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  LactationSessionEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? startedAt,
+      Value<DateTime>? endedAt,
+      Value<int>? leftDurationSeconds,
+      Value<int>? rightDurationSeconds,
+      Value<int>? totalDurationSeconds,
+      Value<String>? lastOfferedBreast,
+      Value<String>? suggestedNextBreast,
+      Value<double?>? bottleVolumeMl,
+      Value<String>? feedingType,
+      Value<String?>? notes,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return LactationSessionEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      startedAt: startedAt ?? this.startedAt,
+      endedAt: endedAt ?? this.endedAt,
+      leftDurationSeconds: leftDurationSeconds ?? this.leftDurationSeconds,
+      rightDurationSeconds: rightDurationSeconds ?? this.rightDurationSeconds,
+      totalDurationSeconds: totalDurationSeconds ?? this.totalDurationSeconds,
+      lastOfferedBreast: lastOfferedBreast ?? this.lastOfferedBreast,
+      suggestedNextBreast: suggestedNextBreast ?? this.suggestedNextBreast,
+      bottleVolumeMl: bottleVolumeMl ?? this.bottleVolumeMl,
+      feedingType: feedingType ?? this.feedingType,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (startedAt.present) {
+      map['started_at'] = Variable<DateTime>(startedAt.value);
+    }
+    if (endedAt.present) {
+      map['ended_at'] = Variable<DateTime>(endedAt.value);
+    }
+    if (leftDurationSeconds.present) {
+      map['left_duration_seconds'] = Variable<int>(leftDurationSeconds.value);
+    }
+    if (rightDurationSeconds.present) {
+      map['right_duration_seconds'] = Variable<int>(rightDurationSeconds.value);
+    }
+    if (totalDurationSeconds.present) {
+      map['total_duration_seconds'] = Variable<int>(totalDurationSeconds.value);
+    }
+    if (lastOfferedBreast.present) {
+      map['last_offered_breast'] = Variable<String>(lastOfferedBreast.value);
+    }
+    if (suggestedNextBreast.present) {
+      map['suggested_next_breast'] =
+          Variable<String>(suggestedNextBreast.value);
+    }
+    if (bottleVolumeMl.present) {
+      map['bottle_volume_ml'] = Variable<double>(bottleVolumeMl.value);
+    }
+    if (feedingType.present) {
+      map['feeding_type'] = Variable<String>(feedingType.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LactationSessionEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('endedAt: $endedAt, ')
+          ..write('leftDurationSeconds: $leftDurationSeconds, ')
+          ..write('rightDurationSeconds: $rightDurationSeconds, ')
+          ..write('totalDurationSeconds: $totalDurationSeconds, ')
+          ..write('lastOfferedBreast: $lastOfferedBreast, ')
+          ..write('suggestedNextBreast: $suggestedNextBreast, ')
+          ..write('bottleVolumeMl: $bottleVolumeMl, ')
+          ..write('feedingType: $feedingType, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $MilkStashEntriesTable extends MilkStashEntries
+    with TableInfo<$MilkStashEntriesTable, MilkStashEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MilkStashEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _pumpedAtMeta =
+      const VerificationMeta('pumpedAt');
+  @override
+  late final GeneratedColumn<DateTime> pumpedAt = GeneratedColumn<DateTime>(
+      'pumped_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _volumeMlMeta =
+      const VerificationMeta('volumeMl');
+  @override
+  late final GeneratedColumn<double> volumeMl = GeneratedColumn<double>(
+      'volume_ml', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _storageLocationMeta =
+      const VerificationMeta('storageLocation');
+  @override
+  late final GeneratedColumn<String> storageLocation = GeneratedColumn<String>(
+      'storage_location', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _expiresAtMeta =
+      const VerificationMeta('expiresAt');
+  @override
+  late final GeneratedColumn<DateTime> expiresAt = GeneratedColumn<DateTime>(
+      'expires_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _isConsumedMeta =
+      const VerificationMeta('isConsumed');
+  @override
+  late final GeneratedColumn<bool> isConsumed = GeneratedColumn<bool>(
+      'is_consumed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_consumed" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _consumedAtMeta =
+      const VerificationMeta('consumedAt');
+  @override
+  late final GeneratedColumn<DateTime> consumedAt = GeneratedColumn<DateTime>(
+      'consumed_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        pumpedAt,
+        volumeMl,
+        storageLocation,
+        expiresAt,
+        isConsumed,
+        consumedAt,
+        notes,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'milk_stash_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<MilkStashEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('pumped_at')) {
+      context.handle(_pumpedAtMeta,
+          pumpedAt.isAcceptableOrUnknown(data['pumped_at']!, _pumpedAtMeta));
+    } else if (isInserting) {
+      context.missing(_pumpedAtMeta);
+    }
+    if (data.containsKey('volume_ml')) {
+      context.handle(_volumeMlMeta,
+          volumeMl.isAcceptableOrUnknown(data['volume_ml']!, _volumeMlMeta));
+    } else if (isInserting) {
+      context.missing(_volumeMlMeta);
+    }
+    if (data.containsKey('storage_location')) {
+      context.handle(
+          _storageLocationMeta,
+          storageLocation.isAcceptableOrUnknown(
+              data['storage_location']!, _storageLocationMeta));
+    } else if (isInserting) {
+      context.missing(_storageLocationMeta);
+    }
+    if (data.containsKey('expires_at')) {
+      context.handle(_expiresAtMeta,
+          expiresAt.isAcceptableOrUnknown(data['expires_at']!, _expiresAtMeta));
+    } else if (isInserting) {
+      context.missing(_expiresAtMeta);
+    }
+    if (data.containsKey('is_consumed')) {
+      context.handle(
+          _isConsumedMeta,
+          isConsumed.isAcceptableOrUnknown(
+              data['is_consumed']!, _isConsumedMeta));
+    }
+    if (data.containsKey('consumed_at')) {
+      context.handle(
+          _consumedAtMeta,
+          consumedAt.isAcceptableOrUnknown(
+              data['consumed_at']!, _consumedAtMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MilkStashEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MilkStashEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      pumpedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}pumped_at'])!,
+      volumeMl: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}volume_ml'])!,
+      storageLocation: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}storage_location'])!,
+      expiresAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}expires_at'])!,
+      isConsumed: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_consumed'])!,
+      consumedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}consumed_at']),
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $MilkStashEntriesTable createAlias(String alias) {
+    return $MilkStashEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class MilkStashEntry extends DataClass implements Insertable<MilkStashEntry> {
+  final String id;
+  final String userId;
+  final DateTime pumpedAt;
+  final double volumeMl;
+  final String storageLocation;
+  final DateTime expiresAt;
+  final bool isConsumed;
+  final DateTime? consumedAt;
+  final String? notes;
+  final DateTime createdAt;
+  const MilkStashEntry(
+      {required this.id,
+      required this.userId,
+      required this.pumpedAt,
+      required this.volumeMl,
+      required this.storageLocation,
+      required this.expiresAt,
+      required this.isConsumed,
+      this.consumedAt,
+      this.notes,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['pumped_at'] = Variable<DateTime>(pumpedAt);
+    map['volume_ml'] = Variable<double>(volumeMl);
+    map['storage_location'] = Variable<String>(storageLocation);
+    map['expires_at'] = Variable<DateTime>(expiresAt);
+    map['is_consumed'] = Variable<bool>(isConsumed);
+    if (!nullToAbsent || consumedAt != null) {
+      map['consumed_at'] = Variable<DateTime>(consumedAt);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  MilkStashEntriesCompanion toCompanion(bool nullToAbsent) {
+    return MilkStashEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      pumpedAt: Value(pumpedAt),
+      volumeMl: Value(volumeMl),
+      storageLocation: Value(storageLocation),
+      expiresAt: Value(expiresAt),
+      isConsumed: Value(isConsumed),
+      consumedAt: consumedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(consumedAt),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory MilkStashEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MilkStashEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      pumpedAt: serializer.fromJson<DateTime>(json['pumpedAt']),
+      volumeMl: serializer.fromJson<double>(json['volumeMl']),
+      storageLocation: serializer.fromJson<String>(json['storageLocation']),
+      expiresAt: serializer.fromJson<DateTime>(json['expiresAt']),
+      isConsumed: serializer.fromJson<bool>(json['isConsumed']),
+      consumedAt: serializer.fromJson<DateTime?>(json['consumedAt']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'pumpedAt': serializer.toJson<DateTime>(pumpedAt),
+      'volumeMl': serializer.toJson<double>(volumeMl),
+      'storageLocation': serializer.toJson<String>(storageLocation),
+      'expiresAt': serializer.toJson<DateTime>(expiresAt),
+      'isConsumed': serializer.toJson<bool>(isConsumed),
+      'consumedAt': serializer.toJson<DateTime?>(consumedAt),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  MilkStashEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? pumpedAt,
+          double? volumeMl,
+          String? storageLocation,
+          DateTime? expiresAt,
+          bool? isConsumed,
+          Value<DateTime?> consumedAt = const Value.absent(),
+          Value<String?> notes = const Value.absent(),
+          DateTime? createdAt}) =>
+      MilkStashEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        pumpedAt: pumpedAt ?? this.pumpedAt,
+        volumeMl: volumeMl ?? this.volumeMl,
+        storageLocation: storageLocation ?? this.storageLocation,
+        expiresAt: expiresAt ?? this.expiresAt,
+        isConsumed: isConsumed ?? this.isConsumed,
+        consumedAt: consumedAt.present ? consumedAt.value : this.consumedAt,
+        notes: notes.present ? notes.value : this.notes,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  MilkStashEntry copyWithCompanion(MilkStashEntriesCompanion data) {
+    return MilkStashEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      pumpedAt: data.pumpedAt.present ? data.pumpedAt.value : this.pumpedAt,
+      volumeMl: data.volumeMl.present ? data.volumeMl.value : this.volumeMl,
+      storageLocation: data.storageLocation.present
+          ? data.storageLocation.value
+          : this.storageLocation,
+      expiresAt: data.expiresAt.present ? data.expiresAt.value : this.expiresAt,
+      isConsumed:
+          data.isConsumed.present ? data.isConsumed.value : this.isConsumed,
+      consumedAt:
+          data.consumedAt.present ? data.consumedAt.value : this.consumedAt,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MilkStashEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('pumpedAt: $pumpedAt, ')
+          ..write('volumeMl: $volumeMl, ')
+          ..write('storageLocation: $storageLocation, ')
+          ..write('expiresAt: $expiresAt, ')
+          ..write('isConsumed: $isConsumed, ')
+          ..write('consumedAt: $consumedAt, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, pumpedAt, volumeMl,
+      storageLocation, expiresAt, isConsumed, consumedAt, notes, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MilkStashEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.pumpedAt == this.pumpedAt &&
+          other.volumeMl == this.volumeMl &&
+          other.storageLocation == this.storageLocation &&
+          other.expiresAt == this.expiresAt &&
+          other.isConsumed == this.isConsumed &&
+          other.consumedAt == this.consumedAt &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt);
+}
+
+class MilkStashEntriesCompanion extends UpdateCompanion<MilkStashEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> pumpedAt;
+  final Value<double> volumeMl;
+  final Value<String> storageLocation;
+  final Value<DateTime> expiresAt;
+  final Value<bool> isConsumed;
+  final Value<DateTime?> consumedAt;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const MilkStashEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.pumpedAt = const Value.absent(),
+    this.volumeMl = const Value.absent(),
+    this.storageLocation = const Value.absent(),
+    this.expiresAt = const Value.absent(),
+    this.isConsumed = const Value.absent(),
+    this.consumedAt = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MilkStashEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime pumpedAt,
+    required double volumeMl,
+    required String storageLocation,
+    required DateTime expiresAt,
+    this.isConsumed = const Value.absent(),
+    this.consumedAt = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        pumpedAt = Value(pumpedAt),
+        volumeMl = Value(volumeMl),
+        storageLocation = Value(storageLocation),
+        expiresAt = Value(expiresAt);
+  static Insertable<MilkStashEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? pumpedAt,
+    Expression<double>? volumeMl,
+    Expression<String>? storageLocation,
+    Expression<DateTime>? expiresAt,
+    Expression<bool>? isConsumed,
+    Expression<DateTime>? consumedAt,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (pumpedAt != null) 'pumped_at': pumpedAt,
+      if (volumeMl != null) 'volume_ml': volumeMl,
+      if (storageLocation != null) 'storage_location': storageLocation,
+      if (expiresAt != null) 'expires_at': expiresAt,
+      if (isConsumed != null) 'is_consumed': isConsumed,
+      if (consumedAt != null) 'consumed_at': consumedAt,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MilkStashEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? pumpedAt,
+      Value<double>? volumeMl,
+      Value<String>? storageLocation,
+      Value<DateTime>? expiresAt,
+      Value<bool>? isConsumed,
+      Value<DateTime?>? consumedAt,
+      Value<String?>? notes,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return MilkStashEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      pumpedAt: pumpedAt ?? this.pumpedAt,
+      volumeMl: volumeMl ?? this.volumeMl,
+      storageLocation: storageLocation ?? this.storageLocation,
+      expiresAt: expiresAt ?? this.expiresAt,
+      isConsumed: isConsumed ?? this.isConsumed,
+      consumedAt: consumedAt ?? this.consumedAt,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (pumpedAt.present) {
+      map['pumped_at'] = Variable<DateTime>(pumpedAt.value);
+    }
+    if (volumeMl.present) {
+      map['volume_ml'] = Variable<double>(volumeMl.value);
+    }
+    if (storageLocation.present) {
+      map['storage_location'] = Variable<String>(storageLocation.value);
+    }
+    if (expiresAt.present) {
+      map['expires_at'] = Variable<DateTime>(expiresAt.value);
+    }
+    if (isConsumed.present) {
+      map['is_consumed'] = Variable<bool>(isConsumed.value);
+    }
+    if (consumedAt.present) {
+      map['consumed_at'] = Variable<DateTime>(consumedAt.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MilkStashEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('pumpedAt: $pumpedAt, ')
+          ..write('volumeMl: $volumeMl, ')
+          ..write('storageLocation: $storageLocation, ')
+          ..write('expiresAt: $expiresAt, ')
+          ..write('isConsumed: $isConsumed, ')
+          ..write('consumedAt: $consumedAt, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EpdsScreeningEntriesTable extends EpdsScreeningEntries
+    with TableInfo<$EpdsScreeningEntriesTable, EpdsScreeningEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EpdsScreeningEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _screenedAtMeta =
+      const VerificationMeta('screenedAt');
+  @override
+  late final GeneratedColumn<DateTime> screenedAt = GeneratedColumn<DateTime>(
+      'screened_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _daysPostpartumMeta =
+      const VerificationMeta('daysPostpartum');
+  @override
+  late final GeneratedColumn<int> daysPostpartum = GeneratedColumn<int>(
+      'days_postpartum', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _responsesJsonMeta =
+      const VerificationMeta('responsesJson');
+  @override
+  late final GeneratedColumn<String> responsesJson = GeneratedColumn<String>(
+      'responses_json', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _totalScoreMeta =
+      const VerificationMeta('totalScore');
+  @override
+  late final GeneratedColumn<int> totalScore = GeneratedColumn<int>(
+      'total_score', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _item10ScoreMeta =
+      const VerificationMeta('item10Score');
+  @override
+  late final GeneratedColumn<int> item10Score = GeneratedColumn<int>(
+      'item10_score', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _selfHarmRiskMeta =
+      const VerificationMeta('selfHarmRisk');
+  @override
+  late final GeneratedColumn<bool> selfHarmRisk = GeneratedColumn<bool>(
+      'self_harm_risk', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("self_harm_risk" IN (0, 1))'));
+  static const VerificationMeta _severityMeta =
+      const VerificationMeta('severity');
+  @override
+  late final GeneratedColumn<String> severity = GeneratedColumn<String>(
+      'severity', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _clinicalSummaryMeta =
+      const VerificationMeta('clinicalSummary');
+  @override
+  late final GeneratedColumn<String> clinicalSummary = GeneratedColumn<String>(
+      'clinical_summary', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _actionRecommendedMeta =
+      const VerificationMeta('actionRecommended');
+  @override
+  late final GeneratedColumn<String> actionRecommended =
+      GeneratedColumn<String>('action_recommended', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        screenedAt,
+        daysPostpartum,
+        responsesJson,
+        totalScore,
+        item10Score,
+        selfHarmRisk,
+        severity,
+        clinicalSummary,
+        actionRecommended
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'epds_screening_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<EpdsScreeningEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('screened_at')) {
+      context.handle(
+          _screenedAtMeta,
+          screenedAt.isAcceptableOrUnknown(
+              data['screened_at']!, _screenedAtMeta));
+    }
+    if (data.containsKey('days_postpartum')) {
+      context.handle(
+          _daysPostpartumMeta,
+          daysPostpartum.isAcceptableOrUnknown(
+              data['days_postpartum']!, _daysPostpartumMeta));
+    } else if (isInserting) {
+      context.missing(_daysPostpartumMeta);
+    }
+    if (data.containsKey('responses_json')) {
+      context.handle(
+          _responsesJsonMeta,
+          responsesJson.isAcceptableOrUnknown(
+              data['responses_json']!, _responsesJsonMeta));
+    } else if (isInserting) {
+      context.missing(_responsesJsonMeta);
+    }
+    if (data.containsKey('total_score')) {
+      context.handle(
+          _totalScoreMeta,
+          totalScore.isAcceptableOrUnknown(
+              data['total_score']!, _totalScoreMeta));
+    } else if (isInserting) {
+      context.missing(_totalScoreMeta);
+    }
+    if (data.containsKey('item10_score')) {
+      context.handle(
+          _item10ScoreMeta,
+          item10Score.isAcceptableOrUnknown(
+              data['item10_score']!, _item10ScoreMeta));
+    } else if (isInserting) {
+      context.missing(_item10ScoreMeta);
+    }
+    if (data.containsKey('self_harm_risk')) {
+      context.handle(
+          _selfHarmRiskMeta,
+          selfHarmRisk.isAcceptableOrUnknown(
+              data['self_harm_risk']!, _selfHarmRiskMeta));
+    } else if (isInserting) {
+      context.missing(_selfHarmRiskMeta);
+    }
+    if (data.containsKey('severity')) {
+      context.handle(_severityMeta,
+          severity.isAcceptableOrUnknown(data['severity']!, _severityMeta));
+    } else if (isInserting) {
+      context.missing(_severityMeta);
+    }
+    if (data.containsKey('clinical_summary')) {
+      context.handle(
+          _clinicalSummaryMeta,
+          clinicalSummary.isAcceptableOrUnknown(
+              data['clinical_summary']!, _clinicalSummaryMeta));
+    } else if (isInserting) {
+      context.missing(_clinicalSummaryMeta);
+    }
+    if (data.containsKey('action_recommended')) {
+      context.handle(
+          _actionRecommendedMeta,
+          actionRecommended.isAcceptableOrUnknown(
+              data['action_recommended']!, _actionRecommendedMeta));
+    } else if (isInserting) {
+      context.missing(_actionRecommendedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  EpdsScreeningEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return EpdsScreeningEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      screenedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}screened_at'])!,
+      daysPostpartum: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}days_postpartum'])!,
+      responsesJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}responses_json'])!,
+      totalScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}total_score'])!,
+      item10Score: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}item10_score'])!,
+      selfHarmRisk: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}self_harm_risk'])!,
+      severity: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}severity'])!,
+      clinicalSummary: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}clinical_summary'])!,
+      actionRecommended: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}action_recommended'])!,
+    );
+  }
+
+  @override
+  $EpdsScreeningEntriesTable createAlias(String alias) {
+    return $EpdsScreeningEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class EpdsScreeningEntry extends DataClass
+    implements Insertable<EpdsScreeningEntry> {
+  final String id;
+  final String userId;
+  final DateTime screenedAt;
+  final int daysPostpartum;
+  final String responsesJson;
+  final int totalScore;
+  final int item10Score;
+  final bool selfHarmRisk;
+  final String severity;
+  final String clinicalSummary;
+  final String actionRecommended;
+  const EpdsScreeningEntry(
+      {required this.id,
+      required this.userId,
+      required this.screenedAt,
+      required this.daysPostpartum,
+      required this.responsesJson,
+      required this.totalScore,
+      required this.item10Score,
+      required this.selfHarmRisk,
+      required this.severity,
+      required this.clinicalSummary,
+      required this.actionRecommended});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['screened_at'] = Variable<DateTime>(screenedAt);
+    map['days_postpartum'] = Variable<int>(daysPostpartum);
+    map['responses_json'] = Variable<String>(responsesJson);
+    map['total_score'] = Variable<int>(totalScore);
+    map['item10_score'] = Variable<int>(item10Score);
+    map['self_harm_risk'] = Variable<bool>(selfHarmRisk);
+    map['severity'] = Variable<String>(severity);
+    map['clinical_summary'] = Variable<String>(clinicalSummary);
+    map['action_recommended'] = Variable<String>(actionRecommended);
+    return map;
+  }
+
+  EpdsScreeningEntriesCompanion toCompanion(bool nullToAbsent) {
+    return EpdsScreeningEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      screenedAt: Value(screenedAt),
+      daysPostpartum: Value(daysPostpartum),
+      responsesJson: Value(responsesJson),
+      totalScore: Value(totalScore),
+      item10Score: Value(item10Score),
+      selfHarmRisk: Value(selfHarmRisk),
+      severity: Value(severity),
+      clinicalSummary: Value(clinicalSummary),
+      actionRecommended: Value(actionRecommended),
+    );
+  }
+
+  factory EpdsScreeningEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return EpdsScreeningEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      screenedAt: serializer.fromJson<DateTime>(json['screenedAt']),
+      daysPostpartum: serializer.fromJson<int>(json['daysPostpartum']),
+      responsesJson: serializer.fromJson<String>(json['responsesJson']),
+      totalScore: serializer.fromJson<int>(json['totalScore']),
+      item10Score: serializer.fromJson<int>(json['item10Score']),
+      selfHarmRisk: serializer.fromJson<bool>(json['selfHarmRisk']),
+      severity: serializer.fromJson<String>(json['severity']),
+      clinicalSummary: serializer.fromJson<String>(json['clinicalSummary']),
+      actionRecommended: serializer.fromJson<String>(json['actionRecommended']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'screenedAt': serializer.toJson<DateTime>(screenedAt),
+      'daysPostpartum': serializer.toJson<int>(daysPostpartum),
+      'responsesJson': serializer.toJson<String>(responsesJson),
+      'totalScore': serializer.toJson<int>(totalScore),
+      'item10Score': serializer.toJson<int>(item10Score),
+      'selfHarmRisk': serializer.toJson<bool>(selfHarmRisk),
+      'severity': serializer.toJson<String>(severity),
+      'clinicalSummary': serializer.toJson<String>(clinicalSummary),
+      'actionRecommended': serializer.toJson<String>(actionRecommended),
+    };
+  }
+
+  EpdsScreeningEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? screenedAt,
+          int? daysPostpartum,
+          String? responsesJson,
+          int? totalScore,
+          int? item10Score,
+          bool? selfHarmRisk,
+          String? severity,
+          String? clinicalSummary,
+          String? actionRecommended}) =>
+      EpdsScreeningEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        screenedAt: screenedAt ?? this.screenedAt,
+        daysPostpartum: daysPostpartum ?? this.daysPostpartum,
+        responsesJson: responsesJson ?? this.responsesJson,
+        totalScore: totalScore ?? this.totalScore,
+        item10Score: item10Score ?? this.item10Score,
+        selfHarmRisk: selfHarmRisk ?? this.selfHarmRisk,
+        severity: severity ?? this.severity,
+        clinicalSummary: clinicalSummary ?? this.clinicalSummary,
+        actionRecommended: actionRecommended ?? this.actionRecommended,
+      );
+  EpdsScreeningEntry copyWithCompanion(EpdsScreeningEntriesCompanion data) {
+    return EpdsScreeningEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      screenedAt:
+          data.screenedAt.present ? data.screenedAt.value : this.screenedAt,
+      daysPostpartum: data.daysPostpartum.present
+          ? data.daysPostpartum.value
+          : this.daysPostpartum,
+      responsesJson: data.responsesJson.present
+          ? data.responsesJson.value
+          : this.responsesJson,
+      totalScore:
+          data.totalScore.present ? data.totalScore.value : this.totalScore,
+      item10Score:
+          data.item10Score.present ? data.item10Score.value : this.item10Score,
+      selfHarmRisk: data.selfHarmRisk.present
+          ? data.selfHarmRisk.value
+          : this.selfHarmRisk,
+      severity: data.severity.present ? data.severity.value : this.severity,
+      clinicalSummary: data.clinicalSummary.present
+          ? data.clinicalSummary.value
+          : this.clinicalSummary,
+      actionRecommended: data.actionRecommended.present
+          ? data.actionRecommended.value
+          : this.actionRecommended,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EpdsScreeningEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('screenedAt: $screenedAt, ')
+          ..write('daysPostpartum: $daysPostpartum, ')
+          ..write('responsesJson: $responsesJson, ')
+          ..write('totalScore: $totalScore, ')
+          ..write('item10Score: $item10Score, ')
+          ..write('selfHarmRisk: $selfHarmRisk, ')
+          ..write('severity: $severity, ')
+          ..write('clinicalSummary: $clinicalSummary, ')
+          ..write('actionRecommended: $actionRecommended')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      screenedAt,
+      daysPostpartum,
+      responsesJson,
+      totalScore,
+      item10Score,
+      selfHarmRisk,
+      severity,
+      clinicalSummary,
+      actionRecommended);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EpdsScreeningEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.screenedAt == this.screenedAt &&
+          other.daysPostpartum == this.daysPostpartum &&
+          other.responsesJson == this.responsesJson &&
+          other.totalScore == this.totalScore &&
+          other.item10Score == this.item10Score &&
+          other.selfHarmRisk == this.selfHarmRisk &&
+          other.severity == this.severity &&
+          other.clinicalSummary == this.clinicalSummary &&
+          other.actionRecommended == this.actionRecommended);
+}
+
+class EpdsScreeningEntriesCompanion
+    extends UpdateCompanion<EpdsScreeningEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> screenedAt;
+  final Value<int> daysPostpartum;
+  final Value<String> responsesJson;
+  final Value<int> totalScore;
+  final Value<int> item10Score;
+  final Value<bool> selfHarmRisk;
+  final Value<String> severity;
+  final Value<String> clinicalSummary;
+  final Value<String> actionRecommended;
+  final Value<int> rowid;
+  const EpdsScreeningEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.screenedAt = const Value.absent(),
+    this.daysPostpartum = const Value.absent(),
+    this.responsesJson = const Value.absent(),
+    this.totalScore = const Value.absent(),
+    this.item10Score = const Value.absent(),
+    this.selfHarmRisk = const Value.absent(),
+    this.severity = const Value.absent(),
+    this.clinicalSummary = const Value.absent(),
+    this.actionRecommended = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  EpdsScreeningEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    this.screenedAt = const Value.absent(),
+    required int daysPostpartum,
+    required String responsesJson,
+    required int totalScore,
+    required int item10Score,
+    required bool selfHarmRisk,
+    required String severity,
+    required String clinicalSummary,
+    required String actionRecommended,
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        daysPostpartum = Value(daysPostpartum),
+        responsesJson = Value(responsesJson),
+        totalScore = Value(totalScore),
+        item10Score = Value(item10Score),
+        selfHarmRisk = Value(selfHarmRisk),
+        severity = Value(severity),
+        clinicalSummary = Value(clinicalSummary),
+        actionRecommended = Value(actionRecommended);
+  static Insertable<EpdsScreeningEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? screenedAt,
+    Expression<int>? daysPostpartum,
+    Expression<String>? responsesJson,
+    Expression<int>? totalScore,
+    Expression<int>? item10Score,
+    Expression<bool>? selfHarmRisk,
+    Expression<String>? severity,
+    Expression<String>? clinicalSummary,
+    Expression<String>? actionRecommended,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (screenedAt != null) 'screened_at': screenedAt,
+      if (daysPostpartum != null) 'days_postpartum': daysPostpartum,
+      if (responsesJson != null) 'responses_json': responsesJson,
+      if (totalScore != null) 'total_score': totalScore,
+      if (item10Score != null) 'item10_score': item10Score,
+      if (selfHarmRisk != null) 'self_harm_risk': selfHarmRisk,
+      if (severity != null) 'severity': severity,
+      if (clinicalSummary != null) 'clinical_summary': clinicalSummary,
+      if (actionRecommended != null) 'action_recommended': actionRecommended,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  EpdsScreeningEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? screenedAt,
+      Value<int>? daysPostpartum,
+      Value<String>? responsesJson,
+      Value<int>? totalScore,
+      Value<int>? item10Score,
+      Value<bool>? selfHarmRisk,
+      Value<String>? severity,
+      Value<String>? clinicalSummary,
+      Value<String>? actionRecommended,
+      Value<int>? rowid}) {
+    return EpdsScreeningEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      screenedAt: screenedAt ?? this.screenedAt,
+      daysPostpartum: daysPostpartum ?? this.daysPostpartum,
+      responsesJson: responsesJson ?? this.responsesJson,
+      totalScore: totalScore ?? this.totalScore,
+      item10Score: item10Score ?? this.item10Score,
+      selfHarmRisk: selfHarmRisk ?? this.selfHarmRisk,
+      severity: severity ?? this.severity,
+      clinicalSummary: clinicalSummary ?? this.clinicalSummary,
+      actionRecommended: actionRecommended ?? this.actionRecommended,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (screenedAt.present) {
+      map['screened_at'] = Variable<DateTime>(screenedAt.value);
+    }
+    if (daysPostpartum.present) {
+      map['days_postpartum'] = Variable<int>(daysPostpartum.value);
+    }
+    if (responsesJson.present) {
+      map['responses_json'] = Variable<String>(responsesJson.value);
+    }
+    if (totalScore.present) {
+      map['total_score'] = Variable<int>(totalScore.value);
+    }
+    if (item10Score.present) {
+      map['item10_score'] = Variable<int>(item10Score.value);
+    }
+    if (selfHarmRisk.present) {
+      map['self_harm_risk'] = Variable<bool>(selfHarmRisk.value);
+    }
+    if (severity.present) {
+      map['severity'] = Variable<String>(severity.value);
+    }
+    if (clinicalSummary.present) {
+      map['clinical_summary'] = Variable<String>(clinicalSummary.value);
+    }
+    if (actionRecommended.present) {
+      map['action_recommended'] = Variable<String>(actionRecommended.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EpdsScreeningEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('screenedAt: $screenedAt, ')
+          ..write('daysPostpartum: $daysPostpartum, ')
+          ..write('responsesJson: $responsesJson, ')
+          ..write('totalScore: $totalScore, ')
+          ..write('item10Score: $item10Score, ')
+          ..write('selfHarmRisk: $selfHarmRisk, ')
+          ..write('severity: $severity, ')
+          ..write('clinicalSummary: $clinicalSummary, ')
+          ..write('actionRecommended: $actionRecommended, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -9818,6 +12274,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $BirthPlanEntriesTable(this);
   late final $PrenatalAppointmentEntriesTable prenatalAppointmentEntries =
       $PrenatalAppointmentEntriesTable(this);
+  late final $PostpartumRecoveryEntriesTable postpartumRecoveryEntries =
+      $PostpartumRecoveryEntriesTable(this);
+  late final $LactationSessionEntriesTable lactationSessionEntries =
+      $LactationSessionEntriesTable(this);
+  late final $MilkStashEntriesTable milkStashEntries =
+      $MilkStashEntriesTable(this);
+  late final $EpdsScreeningEntriesTable epdsScreeningEntries =
+      $EpdsScreeningEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -9838,7 +12302,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         contractionSessionEntries,
         kickSessionEntries,
         birthPlanEntries,
-        prenatalAppointmentEntries
+        prenatalAppointmentEntries,
+        postpartumRecoveryEntries,
+        lactationSessionEntries,
+        milkStashEntries,
+        epdsScreeningEntries
       ];
 }
 
@@ -14488,6 +16956,1177 @@ typedef $$PrenatalAppointmentEntriesTableProcessedTableManager
         ),
         PrenatalAppointmentEntry,
         PrefetchHooks Function()>;
+typedef $$PostpartumRecoveryEntriesTableCreateCompanionBuilder
+    = PostpartumRecoveryEntriesCompanion Function({
+  required String id,
+  required String userId,
+  Value<DateTime> loggedAt,
+  required int daysPostpartum,
+  required String lochiaStage,
+  required String lochiaFlow,
+  Value<bool> foulOdor,
+  Value<double?> maternalTemperatureC,
+  Value<String?> perinealWoundStatus,
+  Value<String?> cesareanWoundStatus,
+  Value<String> pelvicFloorSymptomsJson,
+  Value<String?> notes,
+  Value<String> alertsJson,
+  Value<int> rowid,
+});
+typedef $$PostpartumRecoveryEntriesTableUpdateCompanionBuilder
+    = PostpartumRecoveryEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> loggedAt,
+  Value<int> daysPostpartum,
+  Value<String> lochiaStage,
+  Value<String> lochiaFlow,
+  Value<bool> foulOdor,
+  Value<double?> maternalTemperatureC,
+  Value<String?> perinealWoundStatus,
+  Value<String?> cesareanWoundStatus,
+  Value<String> pelvicFloorSymptomsJson,
+  Value<String?> notes,
+  Value<String> alertsJson,
+  Value<int> rowid,
+});
+
+class $$PostpartumRecoveryEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $PostpartumRecoveryEntriesTable> {
+  $$PostpartumRecoveryEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get loggedAt => $composableBuilder(
+      column: $table.loggedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get daysPostpartum => $composableBuilder(
+      column: $table.daysPostpartum,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lochiaStage => $composableBuilder(
+      column: $table.lochiaStage, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lochiaFlow => $composableBuilder(
+      column: $table.lochiaFlow, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get foulOdor => $composableBuilder(
+      column: $table.foulOdor, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get maternalTemperatureC => $composableBuilder(
+      column: $table.maternalTemperatureC,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get perinealWoundStatus => $composableBuilder(
+      column: $table.perinealWoundStatus,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get cesareanWoundStatus => $composableBuilder(
+      column: $table.cesareanWoundStatus,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pelvicFloorSymptomsJson => $composableBuilder(
+      column: $table.pelvicFloorSymptomsJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get alertsJson => $composableBuilder(
+      column: $table.alertsJson, builder: (column) => ColumnFilters(column));
+}
+
+class $$PostpartumRecoveryEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $PostpartumRecoveryEntriesTable> {
+  $$PostpartumRecoveryEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get loggedAt => $composableBuilder(
+      column: $table.loggedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get daysPostpartum => $composableBuilder(
+      column: $table.daysPostpartum,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lochiaStage => $composableBuilder(
+      column: $table.lochiaStage, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lochiaFlow => $composableBuilder(
+      column: $table.lochiaFlow, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get foulOdor => $composableBuilder(
+      column: $table.foulOdor, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get maternalTemperatureC => $composableBuilder(
+      column: $table.maternalTemperatureC,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get perinealWoundStatus => $composableBuilder(
+      column: $table.perinealWoundStatus,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get cesareanWoundStatus => $composableBuilder(
+      column: $table.cesareanWoundStatus,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pelvicFloorSymptomsJson => $composableBuilder(
+      column: $table.pelvicFloorSymptomsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get alertsJson => $composableBuilder(
+      column: $table.alertsJson, builder: (column) => ColumnOrderings(column));
+}
+
+class $$PostpartumRecoveryEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PostpartumRecoveryEntriesTable> {
+  $$PostpartumRecoveryEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get loggedAt =>
+      $composableBuilder(column: $table.loggedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get daysPostpartum => $composableBuilder(
+      column: $table.daysPostpartum, builder: (column) => column);
+
+  GeneratedColumn<String> get lochiaStage => $composableBuilder(
+      column: $table.lochiaStage, builder: (column) => column);
+
+  GeneratedColumn<String> get lochiaFlow => $composableBuilder(
+      column: $table.lochiaFlow, builder: (column) => column);
+
+  GeneratedColumn<bool> get foulOdor =>
+      $composableBuilder(column: $table.foulOdor, builder: (column) => column);
+
+  GeneratedColumn<double> get maternalTemperatureC => $composableBuilder(
+      column: $table.maternalTemperatureC, builder: (column) => column);
+
+  GeneratedColumn<String> get perinealWoundStatus => $composableBuilder(
+      column: $table.perinealWoundStatus, builder: (column) => column);
+
+  GeneratedColumn<String> get cesareanWoundStatus => $composableBuilder(
+      column: $table.cesareanWoundStatus, builder: (column) => column);
+
+  GeneratedColumn<String> get pelvicFloorSymptomsJson => $composableBuilder(
+      column: $table.pelvicFloorSymptomsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get alertsJson => $composableBuilder(
+      column: $table.alertsJson, builder: (column) => column);
+}
+
+class $$PostpartumRecoveryEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PostpartumRecoveryEntriesTable,
+    PostpartumRecoveryEntry,
+    $$PostpartumRecoveryEntriesTableFilterComposer,
+    $$PostpartumRecoveryEntriesTableOrderingComposer,
+    $$PostpartumRecoveryEntriesTableAnnotationComposer,
+    $$PostpartumRecoveryEntriesTableCreateCompanionBuilder,
+    $$PostpartumRecoveryEntriesTableUpdateCompanionBuilder,
+    (
+      PostpartumRecoveryEntry,
+      BaseReferences<_$AppDatabase, $PostpartumRecoveryEntriesTable,
+          PostpartumRecoveryEntry>
+    ),
+    PostpartumRecoveryEntry,
+    PrefetchHooks Function()> {
+  $$PostpartumRecoveryEntriesTableTableManager(
+      _$AppDatabase db, $PostpartumRecoveryEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PostpartumRecoveryEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PostpartumRecoveryEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PostpartumRecoveryEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> loggedAt = const Value.absent(),
+            Value<int> daysPostpartum = const Value.absent(),
+            Value<String> lochiaStage = const Value.absent(),
+            Value<String> lochiaFlow = const Value.absent(),
+            Value<bool> foulOdor = const Value.absent(),
+            Value<double?> maternalTemperatureC = const Value.absent(),
+            Value<String?> perinealWoundStatus = const Value.absent(),
+            Value<String?> cesareanWoundStatus = const Value.absent(),
+            Value<String> pelvicFloorSymptomsJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<String> alertsJson = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PostpartumRecoveryEntriesCompanion(
+            id: id,
+            userId: userId,
+            loggedAt: loggedAt,
+            daysPostpartum: daysPostpartum,
+            lochiaStage: lochiaStage,
+            lochiaFlow: lochiaFlow,
+            foulOdor: foulOdor,
+            maternalTemperatureC: maternalTemperatureC,
+            perinealWoundStatus: perinealWoundStatus,
+            cesareanWoundStatus: cesareanWoundStatus,
+            pelvicFloorSymptomsJson: pelvicFloorSymptomsJson,
+            notes: notes,
+            alertsJson: alertsJson,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            Value<DateTime> loggedAt = const Value.absent(),
+            required int daysPostpartum,
+            required String lochiaStage,
+            required String lochiaFlow,
+            Value<bool> foulOdor = const Value.absent(),
+            Value<double?> maternalTemperatureC = const Value.absent(),
+            Value<String?> perinealWoundStatus = const Value.absent(),
+            Value<String?> cesareanWoundStatus = const Value.absent(),
+            Value<String> pelvicFloorSymptomsJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<String> alertsJson = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PostpartumRecoveryEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            loggedAt: loggedAt,
+            daysPostpartum: daysPostpartum,
+            lochiaStage: lochiaStage,
+            lochiaFlow: lochiaFlow,
+            foulOdor: foulOdor,
+            maternalTemperatureC: maternalTemperatureC,
+            perinealWoundStatus: perinealWoundStatus,
+            cesareanWoundStatus: cesareanWoundStatus,
+            pelvicFloorSymptomsJson: pelvicFloorSymptomsJson,
+            notes: notes,
+            alertsJson: alertsJson,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$PostpartumRecoveryEntriesTable,
+                        PostpartumRecoveryEntry>(table),
+                    BaseReferences<
+                        _$AppDatabase,
+                        $PostpartumRecoveryEntriesTable,
+                        PostpartumRecoveryEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$PostpartumRecoveryEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $PostpartumRecoveryEntriesTable,
+        PostpartumRecoveryEntry,
+        $$PostpartumRecoveryEntriesTableFilterComposer,
+        $$PostpartumRecoveryEntriesTableOrderingComposer,
+        $$PostpartumRecoveryEntriesTableAnnotationComposer,
+        $$PostpartumRecoveryEntriesTableCreateCompanionBuilder,
+        $$PostpartumRecoveryEntriesTableUpdateCompanionBuilder,
+        (
+          PostpartumRecoveryEntry,
+          BaseReferences<_$AppDatabase, $PostpartumRecoveryEntriesTable,
+              PostpartumRecoveryEntry>
+        ),
+        PostpartumRecoveryEntry,
+        PrefetchHooks Function()>;
+typedef $$LactationSessionEntriesTableCreateCompanionBuilder
+    = LactationSessionEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime startedAt,
+  required DateTime endedAt,
+  Value<int> leftDurationSeconds,
+  Value<int> rightDurationSeconds,
+  Value<int> totalDurationSeconds,
+  required String lastOfferedBreast,
+  required String suggestedNextBreast,
+  Value<double?> bottleVolumeMl,
+  required String feedingType,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$LactationSessionEntriesTableUpdateCompanionBuilder
+    = LactationSessionEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> startedAt,
+  Value<DateTime> endedAt,
+  Value<int> leftDurationSeconds,
+  Value<int> rightDurationSeconds,
+  Value<int> totalDurationSeconds,
+  Value<String> lastOfferedBreast,
+  Value<String> suggestedNextBreast,
+  Value<double?> bottleVolumeMl,
+  Value<String> feedingType,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$LactationSessionEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $LactationSessionEntriesTable> {
+  $$LactationSessionEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get endedAt => $composableBuilder(
+      column: $table.endedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get leftDurationSeconds => $composableBuilder(
+      column: $table.leftDurationSeconds,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get rightDurationSeconds => $composableBuilder(
+      column: $table.rightDurationSeconds,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get totalDurationSeconds => $composableBuilder(
+      column: $table.totalDurationSeconds,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lastOfferedBreast => $composableBuilder(
+      column: $table.lastOfferedBreast,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get suggestedNextBreast => $composableBuilder(
+      column: $table.suggestedNextBreast,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get bottleVolumeMl => $composableBuilder(
+      column: $table.bottleVolumeMl,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get feedingType => $composableBuilder(
+      column: $table.feedingType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$LactationSessionEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $LactationSessionEntriesTable> {
+  $$LactationSessionEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get endedAt => $composableBuilder(
+      column: $table.endedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get leftDurationSeconds => $composableBuilder(
+      column: $table.leftDurationSeconds,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get rightDurationSeconds => $composableBuilder(
+      column: $table.rightDurationSeconds,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get totalDurationSeconds => $composableBuilder(
+      column: $table.totalDurationSeconds,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lastOfferedBreast => $composableBuilder(
+      column: $table.lastOfferedBreast,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get suggestedNextBreast => $composableBuilder(
+      column: $table.suggestedNextBreast,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get bottleVolumeMl => $composableBuilder(
+      column: $table.bottleVolumeMl,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get feedingType => $composableBuilder(
+      column: $table.feedingType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$LactationSessionEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $LactationSessionEntriesTable> {
+  $$LactationSessionEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get startedAt =>
+      $composableBuilder(column: $table.startedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get endedAt =>
+      $composableBuilder(column: $table.endedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get leftDurationSeconds => $composableBuilder(
+      column: $table.leftDurationSeconds, builder: (column) => column);
+
+  GeneratedColumn<int> get rightDurationSeconds => $composableBuilder(
+      column: $table.rightDurationSeconds, builder: (column) => column);
+
+  GeneratedColumn<int> get totalDurationSeconds => $composableBuilder(
+      column: $table.totalDurationSeconds, builder: (column) => column);
+
+  GeneratedColumn<String> get lastOfferedBreast => $composableBuilder(
+      column: $table.lastOfferedBreast, builder: (column) => column);
+
+  GeneratedColumn<String> get suggestedNextBreast => $composableBuilder(
+      column: $table.suggestedNextBreast, builder: (column) => column);
+
+  GeneratedColumn<double> get bottleVolumeMl => $composableBuilder(
+      column: $table.bottleVolumeMl, builder: (column) => column);
+
+  GeneratedColumn<String> get feedingType => $composableBuilder(
+      column: $table.feedingType, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$LactationSessionEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $LactationSessionEntriesTable,
+    LactationSessionEntry,
+    $$LactationSessionEntriesTableFilterComposer,
+    $$LactationSessionEntriesTableOrderingComposer,
+    $$LactationSessionEntriesTableAnnotationComposer,
+    $$LactationSessionEntriesTableCreateCompanionBuilder,
+    $$LactationSessionEntriesTableUpdateCompanionBuilder,
+    (
+      LactationSessionEntry,
+      BaseReferences<_$AppDatabase, $LactationSessionEntriesTable,
+          LactationSessionEntry>
+    ),
+    LactationSessionEntry,
+    PrefetchHooks Function()> {
+  $$LactationSessionEntriesTableTableManager(
+      _$AppDatabase db, $LactationSessionEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$LactationSessionEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LactationSessionEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LactationSessionEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> startedAt = const Value.absent(),
+            Value<DateTime> endedAt = const Value.absent(),
+            Value<int> leftDurationSeconds = const Value.absent(),
+            Value<int> rightDurationSeconds = const Value.absent(),
+            Value<int> totalDurationSeconds = const Value.absent(),
+            Value<String> lastOfferedBreast = const Value.absent(),
+            Value<String> suggestedNextBreast = const Value.absent(),
+            Value<double?> bottleVolumeMl = const Value.absent(),
+            Value<String> feedingType = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              LactationSessionEntriesCompanion(
+            id: id,
+            userId: userId,
+            startedAt: startedAt,
+            endedAt: endedAt,
+            leftDurationSeconds: leftDurationSeconds,
+            rightDurationSeconds: rightDurationSeconds,
+            totalDurationSeconds: totalDurationSeconds,
+            lastOfferedBreast: lastOfferedBreast,
+            suggestedNextBreast: suggestedNextBreast,
+            bottleVolumeMl: bottleVolumeMl,
+            feedingType: feedingType,
+            notes: notes,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime startedAt,
+            required DateTime endedAt,
+            Value<int> leftDurationSeconds = const Value.absent(),
+            Value<int> rightDurationSeconds = const Value.absent(),
+            Value<int> totalDurationSeconds = const Value.absent(),
+            required String lastOfferedBreast,
+            required String suggestedNextBreast,
+            Value<double?> bottleVolumeMl = const Value.absent(),
+            required String feedingType,
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              LactationSessionEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            startedAt: startedAt,
+            endedAt: endedAt,
+            leftDurationSeconds: leftDurationSeconds,
+            rightDurationSeconds: rightDurationSeconds,
+            totalDurationSeconds: totalDurationSeconds,
+            lastOfferedBreast: lastOfferedBreast,
+            suggestedNextBreast: suggestedNextBreast,
+            bottleVolumeMl: bottleVolumeMl,
+            feedingType: feedingType,
+            notes: notes,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$LactationSessionEntriesTable,
+                        LactationSessionEntry>(table),
+                    BaseReferences<_$AppDatabase, $LactationSessionEntriesTable,
+                        LactationSessionEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$LactationSessionEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $LactationSessionEntriesTable,
+        LactationSessionEntry,
+        $$LactationSessionEntriesTableFilterComposer,
+        $$LactationSessionEntriesTableOrderingComposer,
+        $$LactationSessionEntriesTableAnnotationComposer,
+        $$LactationSessionEntriesTableCreateCompanionBuilder,
+        $$LactationSessionEntriesTableUpdateCompanionBuilder,
+        (
+          LactationSessionEntry,
+          BaseReferences<_$AppDatabase, $LactationSessionEntriesTable,
+              LactationSessionEntry>
+        ),
+        LactationSessionEntry,
+        PrefetchHooks Function()>;
+typedef $$MilkStashEntriesTableCreateCompanionBuilder
+    = MilkStashEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime pumpedAt,
+  required double volumeMl,
+  required String storageLocation,
+  required DateTime expiresAt,
+  Value<bool> isConsumed,
+  Value<DateTime?> consumedAt,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$MilkStashEntriesTableUpdateCompanionBuilder
+    = MilkStashEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> pumpedAt,
+  Value<double> volumeMl,
+  Value<String> storageLocation,
+  Value<DateTime> expiresAt,
+  Value<bool> isConsumed,
+  Value<DateTime?> consumedAt,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$MilkStashEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $MilkStashEntriesTable> {
+  $$MilkStashEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get pumpedAt => $composableBuilder(
+      column: $table.pumpedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get volumeMl => $composableBuilder(
+      column: $table.volumeMl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get storageLocation => $composableBuilder(
+      column: $table.storageLocation,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get expiresAt => $composableBuilder(
+      column: $table.expiresAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isConsumed => $composableBuilder(
+      column: $table.isConsumed, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get consumedAt => $composableBuilder(
+      column: $table.consumedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$MilkStashEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $MilkStashEntriesTable> {
+  $$MilkStashEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get pumpedAt => $composableBuilder(
+      column: $table.pumpedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get volumeMl => $composableBuilder(
+      column: $table.volumeMl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get storageLocation => $composableBuilder(
+      column: $table.storageLocation,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get expiresAt => $composableBuilder(
+      column: $table.expiresAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isConsumed => $composableBuilder(
+      column: $table.isConsumed, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get consumedAt => $composableBuilder(
+      column: $table.consumedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$MilkStashEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MilkStashEntriesTable> {
+  $$MilkStashEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get pumpedAt =>
+      $composableBuilder(column: $table.pumpedAt, builder: (column) => column);
+
+  GeneratedColumn<double> get volumeMl =>
+      $composableBuilder(column: $table.volumeMl, builder: (column) => column);
+
+  GeneratedColumn<String> get storageLocation => $composableBuilder(
+      column: $table.storageLocation, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get expiresAt =>
+      $composableBuilder(column: $table.expiresAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get isConsumed => $composableBuilder(
+      column: $table.isConsumed, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get consumedAt => $composableBuilder(
+      column: $table.consumedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$MilkStashEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $MilkStashEntriesTable,
+    MilkStashEntry,
+    $$MilkStashEntriesTableFilterComposer,
+    $$MilkStashEntriesTableOrderingComposer,
+    $$MilkStashEntriesTableAnnotationComposer,
+    $$MilkStashEntriesTableCreateCompanionBuilder,
+    $$MilkStashEntriesTableUpdateCompanionBuilder,
+    (
+      MilkStashEntry,
+      BaseReferences<_$AppDatabase, $MilkStashEntriesTable, MilkStashEntry>
+    ),
+    MilkStashEntry,
+    PrefetchHooks Function()> {
+  $$MilkStashEntriesTableTableManager(
+      _$AppDatabase db, $MilkStashEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MilkStashEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MilkStashEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MilkStashEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> pumpedAt = const Value.absent(),
+            Value<double> volumeMl = const Value.absent(),
+            Value<String> storageLocation = const Value.absent(),
+            Value<DateTime> expiresAt = const Value.absent(),
+            Value<bool> isConsumed = const Value.absent(),
+            Value<DateTime?> consumedAt = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MilkStashEntriesCompanion(
+            id: id,
+            userId: userId,
+            pumpedAt: pumpedAt,
+            volumeMl: volumeMl,
+            storageLocation: storageLocation,
+            expiresAt: expiresAt,
+            isConsumed: isConsumed,
+            consumedAt: consumedAt,
+            notes: notes,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime pumpedAt,
+            required double volumeMl,
+            required String storageLocation,
+            required DateTime expiresAt,
+            Value<bool> isConsumed = const Value.absent(),
+            Value<DateTime?> consumedAt = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MilkStashEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            pumpedAt: pumpedAt,
+            volumeMl: volumeMl,
+            storageLocation: storageLocation,
+            expiresAt: expiresAt,
+            isConsumed: isConsumed,
+            consumedAt: consumedAt,
+            notes: notes,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$MilkStashEntriesTable, MilkStashEntry>(table),
+                    BaseReferences<_$AppDatabase, $MilkStashEntriesTable,
+                        MilkStashEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$MilkStashEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $MilkStashEntriesTable,
+    MilkStashEntry,
+    $$MilkStashEntriesTableFilterComposer,
+    $$MilkStashEntriesTableOrderingComposer,
+    $$MilkStashEntriesTableAnnotationComposer,
+    $$MilkStashEntriesTableCreateCompanionBuilder,
+    $$MilkStashEntriesTableUpdateCompanionBuilder,
+    (
+      MilkStashEntry,
+      BaseReferences<_$AppDatabase, $MilkStashEntriesTable, MilkStashEntry>
+    ),
+    MilkStashEntry,
+    PrefetchHooks Function()>;
+typedef $$EpdsScreeningEntriesTableCreateCompanionBuilder
+    = EpdsScreeningEntriesCompanion Function({
+  required String id,
+  required String userId,
+  Value<DateTime> screenedAt,
+  required int daysPostpartum,
+  required String responsesJson,
+  required int totalScore,
+  required int item10Score,
+  required bool selfHarmRisk,
+  required String severity,
+  required String clinicalSummary,
+  required String actionRecommended,
+  Value<int> rowid,
+});
+typedef $$EpdsScreeningEntriesTableUpdateCompanionBuilder
+    = EpdsScreeningEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> screenedAt,
+  Value<int> daysPostpartum,
+  Value<String> responsesJson,
+  Value<int> totalScore,
+  Value<int> item10Score,
+  Value<bool> selfHarmRisk,
+  Value<String> severity,
+  Value<String> clinicalSummary,
+  Value<String> actionRecommended,
+  Value<int> rowid,
+});
+
+class $$EpdsScreeningEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $EpdsScreeningEntriesTable> {
+  $$EpdsScreeningEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get screenedAt => $composableBuilder(
+      column: $table.screenedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get daysPostpartum => $composableBuilder(
+      column: $table.daysPostpartum,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get responsesJson => $composableBuilder(
+      column: $table.responsesJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get totalScore => $composableBuilder(
+      column: $table.totalScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get item10Score => $composableBuilder(
+      column: $table.item10Score, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get selfHarmRisk => $composableBuilder(
+      column: $table.selfHarmRisk, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get severity => $composableBuilder(
+      column: $table.severity, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get clinicalSummary => $composableBuilder(
+      column: $table.clinicalSummary,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get actionRecommended => $composableBuilder(
+      column: $table.actionRecommended,
+      builder: (column) => ColumnFilters(column));
+}
+
+class $$EpdsScreeningEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $EpdsScreeningEntriesTable> {
+  $$EpdsScreeningEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get screenedAt => $composableBuilder(
+      column: $table.screenedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get daysPostpartum => $composableBuilder(
+      column: $table.daysPostpartum,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get responsesJson => $composableBuilder(
+      column: $table.responsesJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get totalScore => $composableBuilder(
+      column: $table.totalScore, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get item10Score => $composableBuilder(
+      column: $table.item10Score, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get selfHarmRisk => $composableBuilder(
+      column: $table.selfHarmRisk,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get severity => $composableBuilder(
+      column: $table.severity, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get clinicalSummary => $composableBuilder(
+      column: $table.clinicalSummary,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get actionRecommended => $composableBuilder(
+      column: $table.actionRecommended,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$EpdsScreeningEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EpdsScreeningEntriesTable> {
+  $$EpdsScreeningEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get screenedAt => $composableBuilder(
+      column: $table.screenedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get daysPostpartum => $composableBuilder(
+      column: $table.daysPostpartum, builder: (column) => column);
+
+  GeneratedColumn<String> get responsesJson => $composableBuilder(
+      column: $table.responsesJson, builder: (column) => column);
+
+  GeneratedColumn<int> get totalScore => $composableBuilder(
+      column: $table.totalScore, builder: (column) => column);
+
+  GeneratedColumn<int> get item10Score => $composableBuilder(
+      column: $table.item10Score, builder: (column) => column);
+
+  GeneratedColumn<bool> get selfHarmRisk => $composableBuilder(
+      column: $table.selfHarmRisk, builder: (column) => column);
+
+  GeneratedColumn<String> get severity =>
+      $composableBuilder(column: $table.severity, builder: (column) => column);
+
+  GeneratedColumn<String> get clinicalSummary => $composableBuilder(
+      column: $table.clinicalSummary, builder: (column) => column);
+
+  GeneratedColumn<String> get actionRecommended => $composableBuilder(
+      column: $table.actionRecommended, builder: (column) => column);
+}
+
+class $$EpdsScreeningEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $EpdsScreeningEntriesTable,
+    EpdsScreeningEntry,
+    $$EpdsScreeningEntriesTableFilterComposer,
+    $$EpdsScreeningEntriesTableOrderingComposer,
+    $$EpdsScreeningEntriesTableAnnotationComposer,
+    $$EpdsScreeningEntriesTableCreateCompanionBuilder,
+    $$EpdsScreeningEntriesTableUpdateCompanionBuilder,
+    (
+      EpdsScreeningEntry,
+      BaseReferences<_$AppDatabase, $EpdsScreeningEntriesTable,
+          EpdsScreeningEntry>
+    ),
+    EpdsScreeningEntry,
+    PrefetchHooks Function()> {
+  $$EpdsScreeningEntriesTableTableManager(
+      _$AppDatabase db, $EpdsScreeningEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EpdsScreeningEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EpdsScreeningEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EpdsScreeningEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> screenedAt = const Value.absent(),
+            Value<int> daysPostpartum = const Value.absent(),
+            Value<String> responsesJson = const Value.absent(),
+            Value<int> totalScore = const Value.absent(),
+            Value<int> item10Score = const Value.absent(),
+            Value<bool> selfHarmRisk = const Value.absent(),
+            Value<String> severity = const Value.absent(),
+            Value<String> clinicalSummary = const Value.absent(),
+            Value<String> actionRecommended = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              EpdsScreeningEntriesCompanion(
+            id: id,
+            userId: userId,
+            screenedAt: screenedAt,
+            daysPostpartum: daysPostpartum,
+            responsesJson: responsesJson,
+            totalScore: totalScore,
+            item10Score: item10Score,
+            selfHarmRisk: selfHarmRisk,
+            severity: severity,
+            clinicalSummary: clinicalSummary,
+            actionRecommended: actionRecommended,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            Value<DateTime> screenedAt = const Value.absent(),
+            required int daysPostpartum,
+            required String responsesJson,
+            required int totalScore,
+            required int item10Score,
+            required bool selfHarmRisk,
+            required String severity,
+            required String clinicalSummary,
+            required String actionRecommended,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              EpdsScreeningEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            screenedAt: screenedAt,
+            daysPostpartum: daysPostpartum,
+            responsesJson: responsesJson,
+            totalScore: totalScore,
+            item10Score: item10Score,
+            selfHarmRisk: selfHarmRisk,
+            severity: severity,
+            clinicalSummary: clinicalSummary,
+            actionRecommended: actionRecommended,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$EpdsScreeningEntriesTable, EpdsScreeningEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $EpdsScreeningEntriesTable,
+                        EpdsScreeningEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$EpdsScreeningEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $EpdsScreeningEntriesTable,
+        EpdsScreeningEntry,
+        $$EpdsScreeningEntriesTableFilterComposer,
+        $$EpdsScreeningEntriesTableOrderingComposer,
+        $$EpdsScreeningEntriesTableAnnotationComposer,
+        $$EpdsScreeningEntriesTableCreateCompanionBuilder,
+        $$EpdsScreeningEntriesTableUpdateCompanionBuilder,
+        (
+          EpdsScreeningEntry,
+          BaseReferences<_$AppDatabase, $EpdsScreeningEntriesTable,
+              EpdsScreeningEntry>
+        ),
+        EpdsScreeningEntry,
+        PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -14533,4 +18172,14 @@ class $AppDatabaseManager {
       get prenatalAppointmentEntries =>
           $$PrenatalAppointmentEntriesTableTableManager(
               _db, _db.prenatalAppointmentEntries);
+  $$PostpartumRecoveryEntriesTableTableManager get postpartumRecoveryEntries =>
+      $$PostpartumRecoveryEntriesTableTableManager(
+          _db, _db.postpartumRecoveryEntries);
+  $$LactationSessionEntriesTableTableManager get lactationSessionEntries =>
+      $$LactationSessionEntriesTableTableManager(
+          _db, _db.lactationSessionEntries);
+  $$MilkStashEntriesTableTableManager get milkStashEntries =>
+      $$MilkStashEntriesTableTableManager(_db, _db.milkStashEntries);
+  $$EpdsScreeningEntriesTableTableManager get epdsScreeningEntries =>
+      $$EpdsScreeningEntriesTableTableManager(_db, _db.epdsScreeningEntries);
 }

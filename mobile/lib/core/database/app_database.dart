@@ -325,6 +325,81 @@ class PrenatalAppointmentEntries extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class PostpartumRecoveryEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get loggedAt => dateTime().withDefault(currentDateAndTime)();
+  IntColumn get daysPostpartum => integer()();
+  TextColumn get lochiaStage => text()();
+  TextColumn get lochiaFlow => text()();
+  BoolColumn get foulOdor => boolean().withDefault(const Constant(false))();
+  RealColumn get maternalTemperatureC => real().nullable()();
+  TextColumn get perinealWoundStatus => text().nullable()();
+  TextColumn get cesareanWoundStatus => text().nullable()();
+  TextColumn get pelvicFloorSymptomsJson =>
+      text().withDefault(const Constant('[]'))();
+  TextColumn get notes => text().nullable()();
+  TextColumn get alertsJson => text().withDefault(const Constant('[]'))();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class LactationSessionEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get startedAt => dateTime()();
+  DateTimeColumn get endedAt => dateTime()();
+  IntColumn get leftDurationSeconds =>
+      integer().withDefault(const Constant(0))();
+  IntColumn get rightDurationSeconds =>
+      integer().withDefault(const Constant(0))();
+  IntColumn get totalDurationSeconds =>
+      integer().withDefault(const Constant(0))();
+  TextColumn get lastOfferedBreast => text()();
+  TextColumn get suggestedNextBreast => text()();
+  RealColumn get bottleVolumeMl => real().nullable()();
+  TextColumn get feedingType => text()();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class MilkStashEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get pumpedAt => dateTime()();
+  RealColumn get volumeMl => real()();
+  TextColumn get storageLocation => text()();
+  DateTimeColumn get expiresAt => dateTime()();
+  BoolColumn get isConsumed => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get consumedAt => dateTime().nullable()();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class EpdsScreeningEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get screenedAt => dateTime().withDefault(currentDateAndTime)();
+  IntColumn get daysPostpartum => integer()();
+  TextColumn get responsesJson => text()();
+  IntColumn get totalScore => integer()();
+  IntColumn get item10Score => integer()();
+  BoolColumn get selfHarmRisk => boolean()();
+  TextColumn get severity => text()();
+  TextColumn get clinicalSummary => text()();
+  TextColumn get actionRecommended => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
@@ -342,6 +417,10 @@ class PrenatalAppointmentEntries extends Table {
   KickSessionEntries,
   BirthPlanEntries,
   PrenatalAppointmentEntries,
+  PostpartumRecoveryEntries,
+  LactationSessionEntries,
+  MilkStashEntries,
+  EpdsScreeningEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -349,7 +428,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -381,6 +460,12 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(kickSessionEntries);
             await m.createTable(birthPlanEntries);
             await m.createTable(prenatalAppointmentEntries);
+          }
+          if (from < 7) {
+            await m.createTable(postpartumRecoveryEntries);
+            await m.createTable(lactationSessionEntries);
+            await m.createTable(milkStashEntries);
+            await m.createTable(epdsScreeningEntries);
           }
         },
       );
