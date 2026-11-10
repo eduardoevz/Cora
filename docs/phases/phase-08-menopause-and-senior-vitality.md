@@ -44,15 +44,15 @@
   - `DexaBoneResult` (`t_score: Decimal`, `classification: NORMAL | OSTEOPENIA | OSTEOPOROSIS`), `FallRiskAssessment`, `ContinenceAndPelvicLog`, `TrustedSupportContact`
   - `MenopauseTransitionService` y `SeniorVitalityEvaluator`
 
-- [ ] **Step 1: Escribir tests TDD parametrizados cubriendo: clasificación STRAW+10 temprana/tardía/posmenopausia, disparo obligatorio de `POSTMENOPAUSAL_BLEEDING_ALERT` tras `400` días de amenorrea, clasificación OMS de `T-score` (`-0.8`, `-1.8`, `-2.7`), puntaje de riesgo de caídas y frecuencia de episodios de incontinencia de esfuerzo vs urgencia**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests TDD parametrizados cubriendo: clasificación STRAW+10 temprana/tardía/posmenopausia, disparo obligatorio de `POSTMENOPAUSAL_BLEEDING_ALERT` tras `400` días de amenorrea, clasificación OMS de `T-score` (`-0.8`, `-1.8`, `-2.7`), puntaje de riesgo de caídas y frecuencia de episodios de incontinencia de esfuerzo vs urgencia**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/mature_health -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar los Value Objects, entidades y servicios deterministas en `mature_health/domain/`**
-- [ ] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
+- [x] **Step 3: Implementar los Value Objects, entidades y servicios deterministas en `mature_health/domain/`**
+- [x] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/mature_health -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/mature_health/domain backend/tests/unit/mature_health`
   - `git commit -m "feat(mature-health): implement STRAW+10 menopause engine, postmenopausal bleeding alert, and senior bone/fall evaluators"`
 
@@ -77,15 +77,15 @@
   - `IMatureHealthRepository` (reutilizado en Fase 9 PDF y Fase 10 RAG)
   - `POST /api/v1/mature-health/hot-flashes`, `GET /api/v1/mature-health/menopause-summary`, `POST /api/v1/mature-health/cardiometabolic-panels`, `POST /api/v1/mature-health/bone-and-fall-assessments`, `POST /api/v1/mature-health/continence-logs`, `PUT /api/v1/mature-health/support-contact`
 
-- [ ] **Step 1: Escribir tests de integración HTTP verificando mapa semanal de sofocos diurnos/nocturnos, alerta ante sangrado posmenopáusico, registro de `T-score` y configuración de contacto familiar**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests de integración HTTP verificando mapa semanal de sofocos diurnos/nocturnos, alerta ante sangrado posmenopáusico, registro de `T-score` y configuración de contacto familiar**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/mature_health/test_mature_health_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración `0008`, ORM, repositorio Postgres, casos de uso, router y exportar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar suite completa backend**
+- [x] **Step 3: Implementar migración `0008`, ORM, repositorio Postgres, casos de uso, router y exportar `contracts/openapi.json`**
+- [x] **Step 4: Verificar suite completa backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0008_create_mature_health_tables.py backend/app/modules/mature_health backend/app/main.py contracts/openapi.json backend/tests/integration/mature_health/test_mature_health_api.py`
   - `git commit -m "feat(mature-health): add menopause, cardiometabolic, bone health, and urogynecology REST APIs"`
 
@@ -110,16 +110,16 @@
 - Consumes: `CoraTheme.highLegibility()`, `AppDatabase`, `SyncCoordinator`, `activeUserProfileProvider`
 - Produces: Experiencia móvil completa de Etapas 6 y 7
 
-- [ ] **Step 1: Escribir widget/unit tests verificando: registro rápido de sofoco en 2 toques, renderizado WCAG AAA con `TextScaler.linear(2.0)` sin overflow ni truncamiento de alertas en `SeniorVitalityHubPage`, y confirmación accesible de 2 pasos en `TrustedContactQuickActionCard`**
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir widget/unit tests verificando: registro rápido de sofoco en 2 toques, renderizado WCAG AAA con `TextScaler.linear(2.0)` sin overflow ni truncamiento de alertas en `SeniorVitalityHubPage`, y confirmación accesible de 2 pasos en `TrustedContactQuickActionCard`**
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/features/menopause test/features/senior_vitality`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift de menopausia y plenitud, repositorios *Offline-First* y pantallas adaptadas conectadas al *Home Dashboard***
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar tablas Drift de menopausia y plenitud, repositorios *Offline-First* y pantallas adaptadas conectadas al *Home Dashboard***
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 08**
+- [x] **Step 5: Commits finales y cierre de Fase 08**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add menopause hot-flash tracker, WCAG AAA senior vitality hub, and family support button"`
   - `git add docs/phases/phase-08-menopause-and-senior-vitality.md docs/phases/README.md`
-  - `git commit -m "docs(plan): mark phase 08 tasks completed"`
+  - `git commit -m "docs(plan): mark phase 08 tasks completed in phase spec and roadmap"`
