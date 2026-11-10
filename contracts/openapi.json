@@ -50,6 +50,98 @@
         "title": "AlertSeverity",
         "type": "string"
       },
+      "BirthPlanRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "companion_preferences": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Companion Preferences",
+            "type": "array"
+          },
+          "delivery_environment": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Delivery Environment",
+            "type": "array"
+          },
+          "immediate_postpartum": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Immediate Postpartum",
+            "type": "array"
+          },
+          "pain_management": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Pain Management",
+            "type": "array"
+          },
+          "special_requests": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Special Requests"
+          }
+        },
+        "title": "BirthPlanRequest",
+        "type": "object"
+      },
+      "BirthPlanResponse": {
+        "properties": {
+          "companion_preferences": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Companion Preferences",
+            "type": "array"
+          },
+          "delivery_environment": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Delivery Environment",
+            "type": "array"
+          },
+          "immediate_postpartum": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Immediate Postpartum",
+            "type": "array"
+          },
+          "pain_management": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Pain Management",
+            "type": "array"
+          },
+          "special_requests": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Special Requests"
+          }
+        },
+        "title": "BirthPlanResponse",
+        "type": "object"
+      },
       "BleedingFlow": {
         "description": "Menstrual flow intensity classification.",
         "enum": [
@@ -97,6 +189,239 @@
           "recommendation_es"
         ],
         "title": "ClinicalPatternAlertResponse",
+        "type": "object"
+      },
+      "ContractionEventItem": {
+        "additionalProperties": false,
+        "properties": {
+          "duration_seconds": {
+            "description": "Duraci\u00f3n en segundos",
+            "maximum": 300.0,
+            "minimum": 5.0,
+            "title": "Duration Seconds",
+            "type": "integer"
+          },
+          "intensity": {
+            "default": "moderate",
+            "description": "mild | moderate | strong",
+            "title": "Intensity",
+            "type": "string"
+          },
+          "started_at": {
+            "description": "Timestamp ISO-8601 del inicio de la contracci\u00f3n",
+            "title": "Started At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "started_at",
+          "duration_seconds"
+        ],
+        "title": "ContractionEventItem",
+        "type": "object"
+      },
+      "ContractionSessionResponse": {
+        "properties": {
+          "alert": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MaternalAlertItem"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "assessment": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assessment"
+          },
+          "avg_duration_seconds": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Duration Seconds"
+          },
+          "avg_interval_seconds": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Interval Seconds"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "ended_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ended At"
+          },
+          "events": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "gestational_weeks": {
+            "title": "Gestational Weeks",
+            "type": "integer"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "pattern": {
+            "title": "Pattern",
+            "type": "string"
+          },
+          "pregnancy_episode_id": {
+            "format": "uuid",
+            "title": "Pregnancy Episode Id",
+            "type": "string"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "total_contractions": {
+            "title": "Total Contractions",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "pregnancy_episode_id",
+          "started_at",
+          "gestational_weeks",
+          "pattern",
+          "total_contractions",
+          "created_at"
+        ],
+        "title": "ContractionSessionResponse",
+        "type": "object"
+      },
+      "CreatePregnancyEpisodeRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "clinical_edd": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Fecha probable de parto cl\u00ednica manual",
+            "title": "Clinical Edd"
+          },
+          "last_menstrual_period": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Fecha de la \u00faltima menstruaci\u00f3n (FUM) en formato YYYY-MM-DD",
+            "title": "Last Menstrual Period"
+          },
+          "ultrasound_edd": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Fecha probable de parto estimada por ecograf\u00eda de 1er trimestre",
+            "title": "Ultrasound Edd"
+          }
+        },
+        "title": "CreatePregnancyEpisodeRequest",
+        "type": "object"
+      },
+      "CreatePrenatalAppointmentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "doctor_or_clinic": {
+            "maxLength": 255,
+            "title": "Doctor Or Clinic",
+            "type": "string"
+          },
+          "gestational_week": {
+            "maximum": 42.0,
+            "minimum": 4.0,
+            "title": "Gestational Week",
+            "type": "integer"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "topics_to_discuss": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Topics To Discuss",
+            "type": "array"
+          }
+        },
+        "required": [
+          "scheduled_at",
+          "doctor_or_clinic",
+          "gestational_week"
+        ],
+        "title": "CreatePrenatalAppointmentRequest",
         "type": "object"
       },
       "CreateTreatmentRegimenRequest": {
@@ -1163,6 +1488,51 @@
         "title": "FertilityCycleChartResponse",
         "type": "object"
       },
+      "FetalMilestoneResponse": {
+        "properties": {
+          "anatomical_highlights": {
+            "title": "Anatomical Highlights",
+            "type": "string"
+          },
+          "approximate_length_cm": {
+            "title": "Approximate Length Cm",
+            "type": "number"
+          },
+          "approximate_weight_grams": {
+            "title": "Approximate Weight Grams",
+            "type": "number"
+          },
+          "clinical_recommendations": {
+            "title": "Clinical Recommendations",
+            "type": "string"
+          },
+          "fruit_comparison": {
+            "title": "Fruit Comparison",
+            "type": "string"
+          },
+          "suggested_tests": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Suggested Tests",
+            "type": "array"
+          },
+          "week": {
+            "title": "Week",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "week",
+          "fruit_comparison",
+          "approximate_length_cm",
+          "approximate_weight_grams",
+          "anatomical_highlights",
+          "clinical_recommendations"
+        ],
+        "title": "FetalMilestoneResponse",
+        "type": "object"
+      },
       "FigoAlertType": {
         "description": "FIGO standard classification for atypical uterine bleeding patterns.",
         "enum": [
@@ -1283,6 +1653,84 @@
           "requires_backup_contraception"
         ],
         "title": "IntakeAssessmentResponse",
+        "type": "object"
+      },
+      "KickSessionResponse": {
+        "properties": {
+          "alert": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MaternalAlertItem"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "duration_minutes": {
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "gestational_weeks": {
+            "title": "Gestational Weeks",
+            "type": "integer"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_reassuring": {
+            "title": "Is Reassuring",
+            "type": "boolean"
+          },
+          "kicks_count": {
+            "title": "Kicks Count",
+            "type": "integer"
+          },
+          "pregnancy_episode_id": {
+            "format": "uuid",
+            "title": "Pregnancy Episode Id",
+            "type": "string"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "target_reached": {
+            "title": "Target Reached",
+            "type": "boolean"
+          },
+          "target_reached_at_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Reached At Minutes"
+          }
+        },
+        "required": [
+          "id",
+          "pregnancy_episode_id",
+          "started_at",
+          "duration_minutes",
+          "gestational_weeks",
+          "kicks_count",
+          "target_reached",
+          "is_reassuring",
+          "created_at"
+        ],
+        "title": "KickSessionResponse",
         "type": "object"
       },
       "LarcAlertResponse": {
@@ -1489,6 +1937,36 @@
         "title": "LogBleedingAndSymptomsRequest",
         "type": "object"
       },
+      "LogContractionSessionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "ended_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ended At"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/ContractionEventItem"
+            },
+            "minItems": 1,
+            "title": "Events",
+            "type": "array"
+          }
+        },
+        "required": [
+          "events"
+        ],
+        "title": "LogContractionSessionRequest",
+        "type": "object"
+      },
       "LogDoseIntakeRequest": {
         "properties": {
           "client_mutation_id": {
@@ -1547,6 +2025,330 @@
           "scheduled_for"
         ],
         "title": "LogDoseIntakeRequest",
+        "type": "object"
+      },
+      "LogKickSessionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "duration_minutes": {
+            "description": "Duraci\u00f3n de la sesi\u00f3n en minutos",
+            "maximum": 240.0,
+            "minimum": 1.0,
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "kicks_count": {
+            "description": "N\u00famero de patadas contadas",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Kicks Count",
+            "type": "integer"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "target_reached_at_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Minuto en que se alcanzaron 10 movimientos",
+            "title": "Target Reached At Minutes"
+          }
+        },
+        "required": [
+          "kicks_count",
+          "duration_minutes"
+        ],
+        "title": "LogKickSessionRequest",
+        "type": "object"
+      },
+      "LogMaternalVitalsRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "diastolic_mmhg": {
+            "anyOf": [
+              {
+                "maximum": 160.0,
+                "minimum": 30.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Presi\u00f3n arterial diast\u00f3lica en mmHg",
+            "title": "Diastolic Mmhg"
+          },
+          "glucose_mg_dl": {
+            "anyOf": [
+              {
+                "maximum": 600.0,
+                "minimum": 30.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Glucosa capilar en mg/dL",
+            "title": "Glucose Mg Dl"
+          },
+          "glucose_timing": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "fasting | postprandial_1h | postprandial_2h | random",
+            "title": "Glucose Timing"
+          },
+          "measured_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Fecha y hora de la medici\u00f3n",
+            "title": "Measured At"
+          },
+          "symptoms": {
+            "description": "Lista de s\u00edntomas percibidos",
+            "items": {
+              "$ref": "#/components/schemas/MaternalSymptomItem"
+            },
+            "title": "Symptoms",
+            "type": "array"
+          },
+          "systolic_mmhg": {
+            "anyOf": [
+              {
+                "maximum": 260.0,
+                "minimum": 60.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Presi\u00f3n arterial sist\u00f3lica en mmHg",
+            "title": "Systolic Mmhg"
+          },
+          "weight_kg": {
+            "anyOf": [
+              {
+                "maximum": 250.0,
+                "minimum": 30.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Peso materno en kg",
+            "title": "Weight Kg"
+          }
+        },
+        "title": "LogMaternalVitalsRequest",
+        "type": "object"
+      },
+      "MaternalAlertItem": {
+        "properties": {
+          "action_recommended": {
+            "title": "Action Recommended",
+            "type": "string"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "severity": {
+            "title": "Severity",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "severity",
+          "category",
+          "title",
+          "message",
+          "action_recommended"
+        ],
+        "title": "MaternalAlertItem",
+        "type": "object"
+      },
+      "MaternalSymptomItem": {
+        "additionalProperties": false,
+        "properties": {
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "symptom_type": {
+            "description": "persistent_severe_headache | scotomas_visual_blur | epigastric_ruq_pain | sudden_facial_hand_edema | nausea_vomiting | decreased_fetal_movement | vaginal_bleeding | amniotic_fluid_leak | pelvic_pressure",
+            "title": "Symptom Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "symptom_type"
+        ],
+        "title": "MaternalSymptomItem",
+        "type": "object"
+      },
+      "MaternalVitalsResponse": {
+        "properties": {
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/MaternalAlertItem"
+            },
+            "title": "Alerts",
+            "type": "array"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "diastolic_mmhg": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diastolic Mmhg"
+          },
+          "gestational_weeks": {
+            "title": "Gestational Weeks",
+            "type": "integer"
+          },
+          "glucose_mg_dl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Glucose Mg Dl"
+          },
+          "glucose_timing": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Glucose Timing"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "measured_at": {
+            "format": "date-time",
+            "title": "Measured At",
+            "type": "string"
+          },
+          "pregnancy_episode_id": {
+            "format": "uuid",
+            "title": "Pregnancy Episode Id",
+            "type": "string"
+          },
+          "symptoms": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Symptoms",
+            "type": "array"
+          },
+          "systolic_mmhg": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Systolic Mmhg"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "weight_kg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weight Kg"
+          }
+        },
+        "required": [
+          "id",
+          "pregnancy_episode_id",
+          "user_id",
+          "measured_at",
+          "gestational_weeks",
+          "created_at"
+        ],
+        "title": "MaternalVitalsResponse",
         "type": "object"
       },
       "MenstrualCycleResponse": {
@@ -1834,6 +2636,233 @@
         "title": "PreconceptionChecklistResponse",
         "type": "object"
       },
+      "PregnancyEpisodeResponse": {
+        "properties": {
+          "clinical_edd": {
+            "format": "date",
+            "title": "Clinical Edd",
+            "type": "string"
+          },
+          "ended_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ended At"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "last_menstrual_period": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Menstrual Period"
+          },
+          "recalibration_history": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Recalibration History",
+            "type": "array"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          },
+          "ultrasound_edd": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ultrasound Edd"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "clinical_edd",
+          "is_active",
+          "started_at"
+        ],
+        "title": "PregnancyEpisodeResponse",
+        "type": "object"
+      },
+      "PregnancySummaryResponse": {
+        "properties": {
+          "clinical_edd": {
+            "format": "date",
+            "title": "Clinical Edd",
+            "type": "string"
+          },
+          "days_to_edd": {
+            "title": "Days To Edd",
+            "type": "integer"
+          },
+          "episode_id": {
+            "format": "uuid",
+            "title": "Episode Id",
+            "type": "string"
+          },
+          "gestational_age_formatted": {
+            "title": "Gestational Age Formatted",
+            "type": "string"
+          },
+          "gestational_days": {
+            "title": "Gestational Days",
+            "type": "integer"
+          },
+          "gestational_weeks": {
+            "title": "Gestational Weeks",
+            "type": "integer"
+          },
+          "last_menstrual_period": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Menstrual Period"
+          },
+          "milestone": {
+            "$ref": "#/components/schemas/FetalMilestoneResponse"
+          },
+          "recent_vitals": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Recent Vitals",
+            "type": "array"
+          },
+          "trimester": {
+            "title": "Trimester",
+            "type": "integer"
+          },
+          "ultrasound_edd": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ultrasound Edd"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "episode_id",
+          "user_id",
+          "clinical_edd",
+          "gestational_weeks",
+          "gestational_days",
+          "gestational_age_formatted",
+          "trimester",
+          "days_to_edd",
+          "milestone"
+        ],
+        "title": "PregnancySummaryResponse",
+        "type": "object"
+      },
+      "PrenatalAppointmentResponse": {
+        "properties": {
+          "doctor_or_clinic": {
+            "title": "Doctor Or Clinic",
+            "type": "string"
+          },
+          "gestational_week": {
+            "title": "Gestational Week",
+            "type": "integer"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_completed": {
+            "title": "Is Completed",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "pregnancy_episode_id": {
+            "format": "uuid",
+            "title": "Pregnancy Episode Id",
+            "type": "string"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "topics_to_discuss": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Topics To Discuss",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "pregnancy_episode_id",
+          "scheduled_at",
+          "doctor_or_clinic",
+          "gestational_week",
+          "is_completed"
+        ],
+        "title": "PrenatalAppointmentResponse",
+        "type": "object"
+      },
       "PrimaryIntent": {
         "description": "User primary wellness and health priorities in Cora.",
         "enum": [
@@ -1883,6 +2912,20 @@
           "reason"
         ],
         "title": "SwitchLifeStageRequest",
+        "type": "object"
+      },
+      "ToggleAppointmentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "is_completed": {
+            "title": "Is Completed",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "is_completed"
+        ],
+        "title": "ToggleAppointmentRequest",
         "type": "object"
       },
       "TransitionReason": {
@@ -2937,6 +3980,621 @@
         "summary": "Complete 3-Layer Onboarding",
         "tags": [
           "Identity"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/active": {
+      "get": {
+        "operationId": "get_active_pregnancy_summary_api_v1_pregnancy_active_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PregnancySummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Obtener resumen del embarazo activo",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/appointments": {
+      "get": {
+        "operationId": "list_prenatal_appointments_api_v1_pregnancy_appointments_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PrenatalAppointmentResponse"
+                  },
+                  "title": "Response List Prenatal Appointments Api V1 Pregnancy Appointments Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar citas de la agenda prenatal",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      },
+      "post": {
+        "operationId": "create_prenatal_appointment_api_v1_pregnancy_appointments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePrenatalAppointmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrenatalAppointmentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Agendar una nueva cita prenatal",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/appointments/{appointment_id}/toggle": {
+      "patch": {
+        "operationId": "toggle_appointment_completion_api_v1_pregnancy_appointments__appointment_id__toggle_patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ToggleAppointmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrenatalAppointmentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Marcar cita prenatal como completada o pendiente",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/birth-plan": {
+      "get": {
+        "operationId": "get_birth_plan_api_v1_pregnancy_birth_plan_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BirthPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Consultar preferencias del plan de parto",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      },
+      "put": {
+        "operationId": "update_birth_plan_api_v1_pregnancy_birth_plan_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BirthPlanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BirthPlanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Actualizar preferencias del plan de parto",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/contractions/history": {
+      "get": {
+        "operationId": "get_contraction_history_api_v1_pregnancy_contractions_history_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ContractionSessionResponse"
+                  },
+                  "title": "Response Get Contraction History Api V1 Pregnancy Contractions History Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Historial de sesiones de contracciones",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/contractions/sessions": {
+      "post": {
+        "operationId": "record_contraction_session_api_v1_pregnancy_contractions_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogContractionSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractionSessionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Guardar sesi\u00f3n de contracciones con an\u00e1lisis de patr\u00f3n 5-1-1 o pret\u00e9rmino",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/episodes": {
+      "post": {
+        "operationId": "create_pregnancy_episode_api_v1_pregnancy_episodes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePregnancyEpisodeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PregnancyEpisodeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Crear o activar episodio de embarazo",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/kick-sessions": {
+      "post": {
+        "operationId": "record_kick_session_api_v1_pregnancy_kick_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogKickSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KickSessionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Guardar sesi\u00f3n de monitor de patadas fetales (Cardiff)",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/kick-sessions/history": {
+      "get": {
+        "operationId": "get_kick_sessions_history_api_v1_pregnancy_kick_sessions_history_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/KickSessionResponse"
+                  },
+                  "title": "Response Get Kick Sessions History Api V1 Pregnancy Kick Sessions History Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Historial de sesiones de patadas fetales",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/milestone/{week}": {
+      "get": {
+        "operationId": "get_fetal_milestone_api_v1_pregnancy_milestone__week__get",
+        "parameters": [
+          {
+            "description": "Semana de gestaci\u00f3n",
+            "in": "path",
+            "name": "week",
+            "required": true,
+            "schema": {
+              "description": "Semana de gestaci\u00f3n",
+              "maximum": 42,
+              "minimum": 4,
+              "title": "Week",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FetalMilestoneResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Consultar hito fetal de una semana espec\u00edfica (4-42)",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/vitals": {
+      "post": {
+        "operationId": "log_maternal_vitals_api_v1_pregnancy_vitals_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogMaternalVitalsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaternalVitalsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar signos vitales maternos con evaluaci\u00f3n ACOG",
+        "tags": [
+          "Maternal Care & Pregnancy"
+        ]
+      }
+    },
+    "/api/v1/pregnancy/vitals/history": {
+      "get": {
+        "operationId": "get_vitals_history_api_v1_pregnancy_vitals_history_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MaternalVitalsResponse"
+                  },
+                  "title": "Response Get Vitals History Api V1 Pregnancy Vitals History Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Historial de signos vitales maternos",
+        "tags": [
+          "Maternal Care & Pregnancy"
         ]
       }
     },
