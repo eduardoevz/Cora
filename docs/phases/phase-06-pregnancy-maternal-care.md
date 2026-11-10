@@ -48,15 +48,15 @@
   - `MaternalRiskEvaluator.evaluate_vitals(...) -> list[MaternalClinicalAlert]`
   - `ContractionAndKickAnalyzer`
 
-- [ ] **Step 1: Escribir tests TDD parametrizados cubriendo: invariantes de `BloodPressure`, umbrales ACOG (`138/88` normal, `142/92` consulta prioritaria, `145/95` + escotomas urgencia inmediata, `162/112` urgencia inmediata), glucemia en ayunas/posprandial, regla `5-1-1` (`>= 37w`) vs pretérmino (`< 37w`) y conteo Cardiff de patadas (`< 10` en `2h`)**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests TDD parametrizados cubriendo: invariantes de `BloodPressure`, umbrales ACOG (`138/88` normal, `142/92` consulta prioritaria, `145/95` + escotomas urgencia inmediata, `162/112` urgencia inmediata), glucemia en ayunas/posprandial, regla `5-1-1` (`>= 37w`) vs pretérmino (`< 37w`) y conteo Cardiff de patadas (`< 10` en `2h`)**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/maternal_care -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar los Value Objects, `PregnancyEpisode`, catálogo de hitos fetales (`4–42` semanas), `MaternalRiskEvaluator` y `ContractionAndKickAnalyzer`**
-- [ ] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
+- [x] **Step 3: Implementar los Value Objects, `PregnancyEpisode`, catálogo de hitos fetales (`4–42` semanas), `MaternalRiskEvaluator` y `ContractionAndKickAnalyzer`**
+- [x] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/maternal_care -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/maternal_care/domain backend/tests/unit/maternal_care`
   - `git commit -m "feat(maternal-care): implement ACOG preeclampsia/GDM risk evaluator, contractions, and fetal tracking domain"`
 
@@ -81,15 +81,15 @@
   - `IPregnancyRepository` (reutilizado en Fase 7 para transición a posparto, Fase 9 PDF y Fase 11 *Partner View*)
   - `POST /api/v1/pregnancy/episodes`, `GET /api/v1/pregnancy/active`, `POST /api/v1/pregnancy/vitals`, `POST /api/v1/pregnancy/contractions/sessions`, `POST /api/v1/pregnancy/kick-sessions`, `PUT /api/v1/pregnancy/birth-plan`
 
-- [ ] **Step 1: Escribir tests de integración HTTP probando alta de embarazo, consulta de hito fetal semanal, disparo de alerta urgente ante PA `165/110`, guardado de sesión de patadas y plan de parto**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests de integración HTTP probando alta de embarazo, consulta de hito fetal semanal, disparo de alerta urgente ante PA `165/110`, guardado de sesión de patadas y plan de parto**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/maternal_care/test_pregnancy_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración `0006`, ORM, repositorio Postgres, casos de uso, router y actualizar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar suite completa backend**
+- [x] **Step 3: Implementar migración `0006`, ORM, repositorio Postgres, casos de uso, router y actualizar `contracts/openapi.json`**
+- [x] **Step 4: Verificar suite completa backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0006_create_pregnancy_maternal_care_tables.py backend/app/modules/maternal_care backend/app/main.py contracts/openapi.json backend/tests/integration/maternal_care/test_pregnancy_api.py`
   - `git commit -m "feat(maternal-care): add pregnancy persistence, ACOG vitals API, and birth plan endpoints"`
 
@@ -112,16 +112,16 @@
 - Consumes: `AppDatabase`, `SyncCoordinator`, `activeUserProfileProvider`
 - Produces: Flujo móvil completo *Offline-First* de Etapa 4
 
-- [ ] **Step 1: Escribir tests en Flutter verificando: alerta inmediata offline si la usuaria ingresa `160/110` sin esperar al servidor, restauración exacta de una contracción en curso desde `started_at` en Drift, y plan de parto editable offline**
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir tests en Flutter verificando: alerta inmediata offline si la usuaria ingresa `160/110` sin esperar al servidor, restauración exacta de una contracción en curso desde `started_at` en Drift, y plan de parto editable offline**
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/features/pregnancy`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift de gestación, evaluación local espejo de signos de alarma obstétrica, cronómetros resilientes y pantallas de embarazo integradas al *Home Dashboard***
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar tablas Drift de gestación, evaluación local espejo de signos de alarma obstétrica, cronómetros resilientes y pantallas de embarazo integradas al *Home Dashboard***
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 06**
+- [x] **Step 5: Commits finales y cierre de Fase 06**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): build weekly fetal tracker, offline ACOG vitals alerts, and contraction/kick timers"`
   - `git add docs/phases/phase-06-pregnancy-maternal-care.md docs/phases/README.md`
-  - `git commit -m "docs(plan): mark phase 06 tasks completed"`
+  - `git commit -m "docs(plan): mark phase 06 tasks completed in phase spec and roadmap"`
