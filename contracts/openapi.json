@@ -195,6 +195,261 @@
         "title": "BleedingFlow",
         "type": "string"
       },
+      "CardiometabolicRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "diastolic_bp": {
+            "anyOf": [
+              {
+                "maximum": 180.0,
+                "minimum": 30.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Presi\u00f3n diast\u00f3lica en mmHg",
+            "title": "Diastolic Bp"
+          },
+          "fasting_glucose_mg_dl": {
+            "anyOf": [
+              {
+                "maximum": 600.0,
+                "minimum": 30.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Glucosa en ayuno en mg/dL",
+            "title": "Fasting Glucose Mg Dl"
+          },
+          "hdl_cholesterol_mg_dl": {
+            "anyOf": [
+              {
+                "maximum": 200.0,
+                "minimum": 10.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Colesterol HDL en mg/dL",
+            "title": "Hdl Cholesterol Mg Dl"
+          },
+          "ldl_cholesterol_mg_dl": {
+            "anyOf": [
+              {
+                "maximum": 500.0,
+                "minimum": 10.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Colesterol LDL en mg/dL",
+            "title": "Ldl Cholesterol Mg Dl"
+          },
+          "measurement_date": {
+            "description": "Fecha de toma de la muestra o medici\u00f3n",
+            "format": "date",
+            "title": "Measurement Date",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "systolic_bp": {
+            "anyOf": [
+              {
+                "maximum": 280.0,
+                "minimum": 50.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Presi\u00f3n sist\u00f3lica en mmHg",
+            "title": "Systolic Bp"
+          },
+          "total_cholesterol_mg_dl": {
+            "anyOf": [
+              {
+                "maximum": 800.0,
+                "minimum": 50.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Colesterol total en mg/dL",
+            "title": "Total Cholesterol Mg Dl"
+          },
+          "triglycerides_mg_dl": {
+            "anyOf": [
+              {
+                "maximum": 2000.0,
+                "minimum": 20.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Triglic\u00e9ridos en mg/dL",
+            "title": "Triglycerides Mg Dl"
+          }
+        },
+        "required": [
+          "measurement_date"
+        ],
+        "title": "CardiometabolicRequest",
+        "type": "object"
+      },
+      "CardiometabolicResponse": {
+        "properties": {
+          "diastolic_bp": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diastolic Bp"
+          },
+          "fasting_glucose_mg_dl": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fasting Glucose Mg Dl"
+          },
+          "flagged_parameters": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Flagged Parameters",
+            "type": "array"
+          },
+          "hdl_cholesterol_mg_dl": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hdl Cholesterol Mg Dl"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "ldl_cholesterol_mg_dl": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ldl Cholesterol Mg Dl"
+          },
+          "measurement_date": {
+            "format": "date",
+            "title": "Measurement Date",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "risk_level": {
+            "title": "Risk Level",
+            "type": "string"
+          },
+          "systolic_bp": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Systolic Bp"
+          },
+          "total_cholesterol_mg_dl": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Cholesterol Mg Dl"
+          },
+          "triglycerides_mg_dl": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Triglycerides Mg Dl"
+          }
+        },
+        "required": [
+          "id",
+          "measurement_date",
+          "systolic_bp",
+          "diastolic_bp",
+          "total_cholesterol_mg_dl",
+          "ldl_cholesterol_mg_dl",
+          "hdl_cholesterol_mg_dl",
+          "triglycerides_mg_dl",
+          "fasting_glucose_mg_dl",
+          "risk_level",
+          "flagged_parameters",
+          "notes"
+        ],
+        "title": "CardiometabolicResponse",
+        "type": "object"
+      },
       "ClinicalPatternAlertResponse": {
         "description": "Preventative FIGO alert or clinical finding.",
         "properties": {
@@ -1202,6 +1457,115 @@
         "title": "DailyWellnessLogResponse",
         "type": "object"
       },
+      "DexaScanRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "anatomical_site": {
+            "description": "Sitio anat\u00f3mico explorado",
+            "pattern": "^(LUMBAR_SPINE|FEMORAL_NECK|TOTAL_HIP|DISTAL_RADIUS)$",
+            "title": "Anatomical Site",
+            "type": "string"
+          },
+          "bmd_g_cm2": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Densidad mineral en g/cm2",
+            "title": "Bmd G Cm2"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "previous_fragility_fracture": {
+            "default": false,
+            "description": "Antecedente de fractura por fragilidad previa",
+            "title": "Previous Fragility Fracture",
+            "type": "boolean"
+          },
+          "scan_date": {
+            "description": "Fecha del estudio DXA",
+            "format": "date",
+            "title": "Scan Date",
+            "type": "string"
+          },
+          "t_score": {
+            "description": "T-score del informe DXA",
+            "maximum": 10.0,
+            "minimum": -10.0,
+            "title": "T Score",
+            "type": "number"
+          },
+          "z_score": {
+            "anyOf": [
+              {
+                "maximum": 10.0,
+                "minimum": -10.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z Score"
+          }
+        },
+        "required": [
+          "scan_date",
+          "anatomical_site",
+          "t_score"
+        ],
+        "title": "DexaScanRequest",
+        "type": "object"
+      },
+      "DexaScanResponse": {
+        "properties": {
+          "anatomical_site": {
+            "title": "Anatomical Site",
+            "type": "string"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "clinical_summary": {
+            "title": "Clinical Summary",
+            "type": "string"
+          },
+          "scan_id": {
+            "format": "uuid",
+            "title": "Scan Id",
+            "type": "string"
+          },
+          "t_score": {
+            "title": "T Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "scan_id",
+          "category",
+          "t_score",
+          "anatomical_site",
+          "clinical_summary"
+        ],
+        "title": "DexaScanResponse",
+        "type": "object"
+      },
       "DiagnosedCondition": {
         "description": "Pre-existing clinical conditions that calibrate cycle and health algorithms.",
         "enum": [
@@ -1473,6 +1837,106 @@
           "responses"
         ],
         "title": "EvaluateEpdsRequest",
+        "type": "object"
+      },
+      "FallAssessmentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "assessment_date": {
+            "description": "Fecha de evaluaci\u00f3n",
+            "format": "date",
+            "title": "Assessment Date",
+            "type": "string"
+          },
+          "environmental_hazards_identified": {
+            "description": "Riesgos identificados en casa",
+            "items": {
+              "type": "string"
+            },
+            "title": "Environmental Hazards Identified",
+            "type": "array"
+          },
+          "falls_past_year": {
+            "description": "N\u00famero de ca\u00eddas en los \u00faltimos 12 meses",
+            "minimum": 0.0,
+            "title": "Falls Past Year",
+            "type": "integer"
+          },
+          "has_gait_unsteadiness": {
+            "default": false,
+            "description": "Inestabilidad o balanceo al caminar",
+            "title": "Has Gait Unsteadiness",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "timed_up_and_go_seconds": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Segundos en prueba TUG",
+            "title": "Timed Up And Go Seconds"
+          },
+          "uses_walking_aid": {
+            "default": false,
+            "description": "Uso de bast\u00f3n, andador o apoyo",
+            "title": "Uses Walking Aid",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "assessment_date",
+          "falls_past_year"
+        ],
+        "title": "FallAssessmentRequest",
+        "type": "object"
+      },
+      "FallAssessmentResponse": {
+        "properties": {
+          "assessment_id": {
+            "format": "uuid",
+            "title": "Assessment Id",
+            "type": "string"
+          },
+          "composite_score": {
+            "title": "Composite Score",
+            "type": "integer"
+          },
+          "preventive_actions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Preventive Actions",
+            "type": "array"
+          },
+          "risk_level": {
+            "title": "Risk Level",
+            "type": "string"
+          }
+        },
+        "required": [
+          "assessment_id",
+          "risk_level",
+          "composite_score",
+          "preventive_actions"
+        ],
+        "title": "FallAssessmentResponse",
         "type": "object"
       },
       "FertilityChartEntryResponse": {
@@ -1841,6 +2305,144 @@
         ],
         "title": "HormonalMethod",
         "type": "string"
+      },
+      "HotFlashRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "associated_with_hrt": {
+            "default": false,
+            "description": "Si la usuaria est\u00e1 bajo esquema activo de TRH",
+            "title": "Associated With Hrt",
+            "type": "boolean"
+          },
+          "duration_minutes": {
+            "description": "Duraci\u00f3n estimada en minutos",
+            "maximum": 1440.0,
+            "minimum": 0.0,
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "flash_type": {
+            "description": "DAYTIME o NIGHT_SWEATS",
+            "pattern": "^(DAYTIME|NIGHT_SWEATS)$",
+            "title": "Flash Type",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "occurred_at": {
+            "description": "Timestamp de cuando ocurri\u00f3 el episodio de sofoco",
+            "format": "date-time",
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "severity": {
+            "description": "Intensidad de 1 (leve) a 4 (muy severo)",
+            "maximum": 4.0,
+            "minimum": 1.0,
+            "title": "Severity",
+            "type": "integer"
+          },
+          "sleep_disruption_level": {
+            "default": 0,
+            "description": "Impacto en el sue\u00f1o (0 a 3)",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Sleep Disruption Level",
+            "type": "integer"
+          },
+          "triggers": {
+            "description": "Factores desencadenantes identificados",
+            "items": {
+              "type": "string"
+            },
+            "title": "Triggers",
+            "type": "array"
+          }
+        },
+        "required": [
+          "occurred_at",
+          "severity",
+          "flash_type",
+          "duration_minutes"
+        ],
+        "title": "HotFlashRequest",
+        "type": "object"
+      },
+      "HotFlashResponse": {
+        "properties": {
+          "associated_with_hrt": {
+            "title": "Associated With Hrt",
+            "type": "boolean"
+          },
+          "duration_minutes": {
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "flash_type": {
+            "title": "Flash Type",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "occurred_at": {
+            "format": "date-time",
+            "title": "Occurred At",
+            "type": "string"
+          },
+          "severity": {
+            "title": "Severity",
+            "type": "integer"
+          },
+          "sleep_disruption_level": {
+            "title": "Sleep Disruption Level",
+            "type": "integer"
+          },
+          "triggers": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Triggers",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "occurred_at",
+          "severity",
+          "flash_type",
+          "duration_minutes",
+          "triggers",
+          "sleep_disruption_level",
+          "associated_with_hrt",
+          "notes"
+        ],
+        "title": "HotFlashResponse",
+        "type": "object"
       },
       "IntakeAssessmentResponse": {
         "properties": {
@@ -2735,6 +3337,41 @@
         "title": "MaternalVitalsResponse",
         "type": "object"
       },
+      "MenopauseSummaryResponse": {
+        "properties": {
+          "active_alerts_count": {
+            "title": "Active Alerts Count",
+            "type": "integer"
+          },
+          "hot_flashes_count_last_30_days": {
+            "title": "Hot Flashes Count Last 30 Days",
+            "type": "integer"
+          },
+          "latest_cardiometabolic_risk_level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Cardiometabolic Risk Level"
+          },
+          "straw10_stage": {
+            "title": "Straw10 Stage",
+            "type": "string"
+          }
+        },
+        "required": [
+          "straw10_stage",
+          "hot_flashes_count_last_30_days",
+          "latest_cardiometabolic_risk_level",
+          "active_alerts_count"
+        ],
+        "title": "MenopauseSummaryResponse",
+        "type": "object"
+      },
       "MenstrualCycleResponse": {
         "description": "Response model for a menstrual cycle aggregate.",
         "properties": {
@@ -3011,6 +3648,95 @@
           "primary_intents"
         ],
         "title": "OnboardingRequest",
+        "type": "object"
+      },
+      "PelvicLogRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "daily_pad_count": {
+            "default": 0,
+            "description": "Protectores o toallas utilizadas por d\u00eda",
+            "minimum": 0.0,
+            "title": "Daily Pad Count",
+            "type": "integer"
+          },
+          "has_dyspareunia": {
+            "default": false,
+            "description": "Molestia o dolor en relaciones sexuales",
+            "title": "Has Dyspareunia",
+            "type": "boolean"
+          },
+          "has_pelvic_heaviness": {
+            "default": false,
+            "description": "Sensaci\u00f3n de peso p\u00e9lvico o prolapso",
+            "title": "Has Pelvic Heaviness",
+            "type": "boolean"
+          },
+          "incontinence_type": {
+            "description": "Tipo de incontinencia urinaria reportada",
+            "pattern": "^(NONE|STRESS|URGE|MIXED|OVERFLOW)$",
+            "title": "Incontinence Type",
+            "type": "string"
+          },
+          "log_date": {
+            "description": "Fecha de registro",
+            "format": "date",
+            "title": "Log Date",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "vaginal_dryness_level": {
+            "default": 0,
+            "description": "Sequedad vaginal de 0 a 3",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Vaginal Dryness Level",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "log_date",
+          "incontinence_type"
+        ],
+        "title": "PelvicLogRequest",
+        "type": "object"
+      },
+      "PelvicLogResponse": {
+        "properties": {
+          "log_id": {
+            "format": "uuid",
+            "title": "Log Id",
+            "type": "string"
+          },
+          "requires_urogynecology_consult": {
+            "title": "Requires Urogynecology Consult",
+            "type": "boolean"
+          },
+          "supportive_tips": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Supportive Tips",
+            "type": "array"
+          }
+        },
+        "required": [
+          "log_id",
+          "requires_urogynecology_consult",
+          "supportive_tips"
+        ],
+        "title": "PelvicLogResponse",
         "type": "object"
       },
       "PostpartumAlertItem": {
@@ -3568,6 +4294,165 @@
         "title": "RecordPostpartumRecoveryRequest",
         "type": "object"
       },
+      "SeniorVitalitySummaryResponse": {
+        "properties": {
+          "has_fracture_alert": {
+            "title": "Has Fracture Alert",
+            "type": "boolean"
+          },
+          "latest_bone_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Bone Category"
+          },
+          "latest_fall_risk_level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Fall Risk Level"
+          },
+          "requires_urogynecology_consult": {
+            "title": "Requires Urogynecology Consult",
+            "type": "boolean"
+          },
+          "trusted_contact_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trusted Contact Name"
+          },
+          "trusted_contact_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trusted Contact Phone"
+          }
+        },
+        "required": [
+          "latest_bone_category",
+          "latest_fall_risk_level",
+          "has_fracture_alert",
+          "requires_urogynecology_consult",
+          "trusted_contact_name",
+          "trusted_contact_phone"
+        ],
+        "title": "SeniorVitalitySummaryResponse",
+        "type": "object"
+      },
+      "SupportContactRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "contact_name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Contact Name",
+            "type": "string"
+          },
+          "is_primary": {
+            "default": true,
+            "title": "Is Primary",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "phone_number": {
+            "maxLength": 32,
+            "minLength": 3,
+            "title": "Phone Number",
+            "type": "string"
+          },
+          "relationship": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Relationship",
+            "type": "string"
+          }
+        },
+        "required": [
+          "contact_name",
+          "relationship",
+          "phone_number"
+        ],
+        "title": "SupportContactRequest",
+        "type": "object"
+      },
+      "SupportContactResponse": {
+        "properties": {
+          "contact_name": {
+            "title": "Contact Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_primary": {
+            "title": "Is Primary",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "phone_number": {
+            "title": "Phone Number",
+            "type": "string"
+          },
+          "relationship": {
+            "title": "Relationship",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "contact_name",
+          "relationship",
+          "phone_number",
+          "notes",
+          "is_primary"
+        ],
+        "title": "SupportContactResponse",
+        "type": "object"
+      },
       "SwitchLifeStageRequest": {
         "description": "Payload to transition between biological life stages.",
         "properties": {
@@ -4059,6 +4944,108 @@
           "updated_at"
         ],
         "title": "UserProfileResponse",
+        "type": "object"
+      },
+      "VaginalBleedingRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "days_of_prior_amenorrhea": {
+            "description": "D\u00edas previos transcurridos sin menstruaci\u00f3n",
+            "minimum": 0.0,
+            "title": "Days Of Prior Amenorrhea",
+            "type": "integer"
+          },
+          "flow_intensity": {
+            "default": "LIGHT",
+            "description": "LIGHT | MEDIUM | HEAVY",
+            "title": "Flow Intensity",
+            "type": "string"
+          },
+          "has_cramping": {
+            "default": false,
+            "description": "Presencia de c\u00f3lico o dolor p\u00e9lvico",
+            "title": "Has Cramping",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "observation_date": {
+            "description": "Fecha del sangrado",
+            "format": "date",
+            "title": "Observation Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "observation_date",
+          "days_of_prior_amenorrhea"
+        ],
+        "title": "VaginalBleedingRequest",
+        "type": "object"
+      },
+      "VaginalBleedingResponse": {
+        "properties": {
+          "alert_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Code"
+          },
+          "alert_guidance": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Guidance"
+          },
+          "alert_severity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Severity"
+          },
+          "is_alert_triggered": {
+            "title": "Is Alert Triggered",
+            "type": "boolean"
+          },
+          "observation_id": {
+            "format": "uuid",
+            "title": "Observation Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "observation_id",
+          "is_alert_triggered",
+          "alert_code",
+          "alert_severity",
+          "alert_guidance"
+        ],
+        "title": "VaginalBleedingResponse",
         "type": "object"
       },
       "ValidationError": {
@@ -4672,6 +5659,464 @@
         "summary": "Complete 3-Layer Onboarding",
         "tags": [
           "Identity"
+        ]
+      }
+    },
+    "/api/v1/mature-health/cardiometabolic": {
+      "post": {
+        "operationId": "record_cardiometabolic_api_v1_mature_health_cardiometabolic_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardiometabolicRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardiometabolicResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar panel lip\u00eddico, glucosa y presi\u00f3n arterial",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/dexa-scans": {
+      "post": {
+        "operationId": "record_dexa_scan_api_v1_mature_health_dexa_scans_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DexaScanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DexaScanResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar densitometr\u00eda \u00f3sea DXA y clasificar seg\u00fan OMS",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/fall-assessments": {
+      "post": {
+        "operationId": "record_fall_assessment_api_v1_mature_health_fall_assessments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FallAssessmentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FallAssessmentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar tamizaje de riesgo de ca\u00eddas en adulto mayor",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/hot-flashes": {
+      "get": {
+        "operationId": "list_hot_flashes_api_v1_mature_health_hot_flashes_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HotFlashResponse"
+                  },
+                  "title": "Response List Hot Flashes Api V1 Mature Health Hot Flashes Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar episodios recientes de sofocos",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      },
+      "post": {
+        "operationId": "record_hot_flash_api_v1_mature_health_hot_flashes_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HotFlashRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HotFlashResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar episodio de sofoco o sudores nocturnos",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/menopause/summary": {
+      "get": {
+        "operationId": "get_menopause_summary_api_v1_mature_health_menopause_summary_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MenopauseSummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Consultar resumen y estadificaci\u00f3n STRAW+10 para perimenopausia",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/pelvic-logs": {
+      "post": {
+        "operationId": "record_pelvic_log_api_v1_mature_health_pelvic_logs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PelvicLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PelvicLogResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar diario uroginecol\u00f3gico y de suelo p\u00e9lvico",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/senior-vitality/summary": {
+      "get": {
+        "operationId": "get_senior_vitality_summary_api_v1_mature_health_senior_vitality_summary_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeniorVitalitySummaryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Consultar resumen integral de plenitud y vitalidad s\u00e9nior",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/support-contact": {
+      "get": {
+        "operationId": "get_support_contact_api_v1_mature_health_support_contact_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/SupportContactResponse"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Support Contact Api V1 Mature Health Support Contact Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Consultar contacto familiar de apoyo prioritario",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      },
+      "post": {
+        "operationId": "save_support_contact_api_v1_mature_health_support_contact_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupportContactRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportContactResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Configurar contacto familiar de apoyo prioritario",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/mature-health/vaginal-bleeding": {
+      "post": {
+        "operationId": "record_vaginal_bleeding_api_v1_mature_health_vaginal_bleeding_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaginalBleedingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaginalBleedingResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar observaci\u00f3n de sangrado y evaluar alerta posmenop\u00e1usica",
+        "tags": [
+          "Mature Health - Menopause & Senior Vitality"
         ]
       }
     },
