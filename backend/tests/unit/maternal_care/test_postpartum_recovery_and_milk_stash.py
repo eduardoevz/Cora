@@ -1,5 +1,4 @@
-from datetime import datetime, timedelta, timezone
-import pytest
+from datetime import UTC, datetime, timedelta
 
 from app.modules.maternal_care.domain.models.lactation_and_milk_stash import (
     FeedingType,
@@ -54,7 +53,11 @@ def test_secondary_postpartum_hemorrhage_triggers_urgent_emergency() -> None:
     )
 
     alerts = evaluator.evaluate(obs)
-    assert any(a.severity == PostpartumAlertSeverity.URGENT_EMERGENCY and "hemorragia" in a.title.lower() for a in alerts)
+    assert any(
+        a.severity == PostpartumAlertSeverity.URGENT_EMERGENCY
+        and "hemorragia" in a.title.lower()
+        for a in alerts
+    )
 
 
 def test_large_clots_trigger_urgent_emergency() -> None:
@@ -88,7 +91,11 @@ def test_puerperal_endometritis_with_foul_odor_triggers_urgent_emergency() -> No
     )
 
     alerts = evaluator.evaluate(obs)
-    assert any(a.severity == PostpartumAlertSeverity.URGENT_EMERGENCY and ("infección" in a.title.lower() or "endometritis" in a.title.lower()) for a in alerts)
+    assert any(
+        a.severity == PostpartumAlertSeverity.URGENT_EMERGENCY
+        and ("infección" in a.title.lower() or "endometritis" in a.title.lower())
+        for a in alerts
+    )
 
 
 def test_atypical_lochia_regression_after_14_days_triggers_priority_consult() -> None:
@@ -106,7 +113,11 @@ def test_atypical_lochia_regression_after_14_days_triggers_priority_consult() ->
     )
 
     alerts = evaluator.evaluate(obs)
-    assert any(a.severity == PostpartumAlertSeverity.PRIORITY_CONSULT and "regresión" in a.title.lower() for a in alerts)
+    assert any(
+        a.severity == PostpartumAlertSeverity.PRIORITY_CONSULT
+        and "regresión" in a.title.lower()
+        for a in alerts
+    )
 
 
 def test_cesarean_wound_purulent_drainage_triggers_urgent_emergency() -> None:
@@ -123,7 +134,11 @@ def test_cesarean_wound_purulent_drainage_triggers_urgent_emergency() -> None:
     )
 
     alerts = evaluator.evaluate(obs)
-    assert any(a.severity == PostpartumAlertSeverity.URGENT_EMERGENCY and "quirúrgica" in a.title.lower() for a in alerts)
+    assert any(
+        a.severity == PostpartumAlertSeverity.URGENT_EMERGENCY
+        and "quirúrgica" in a.title.lower()
+        for a in alerts
+    )
 
 
 def test_perineal_wound_erythema_edema_triggers_priority_consult() -> None:
@@ -144,7 +159,7 @@ def test_perineal_wound_erythema_edema_triggers_priority_consult() -> None:
 
 
 def test_milk_stash_expiration_calculation_per_cdc_who() -> None:
-    now = datetime(2026, 11, 10, 10, 0, tzinfo=timezone.utc)
+    now = datetime(2026, 11, 10, 10, 0, tzinfo=UTC)
 
     # 1. Room temp: 4 hours
     room_stash = MilkStashEntry.create(
@@ -175,7 +190,7 @@ def test_milk_stash_expiration_calculation_per_cdc_who() -> None:
 
 
 def test_lactation_session_creation_and_next_breast_suggestion() -> None:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     session = LactationSession(
         id="lact_01",
         user_id="usr_123",
