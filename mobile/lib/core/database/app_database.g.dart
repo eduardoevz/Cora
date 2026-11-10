@@ -6185,6 +6185,3604 @@ class PreconceptionChecklistEntriesCompanion
   }
 }
 
+class $PregnancyEpisodeEntriesTable extends PregnancyEpisodeEntries
+    with TableInfo<$PregnancyEpisodeEntriesTable, PregnancyEpisodeEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PregnancyEpisodeEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _clinicalEddMeta =
+      const VerificationMeta('clinicalEdd');
+  @override
+  late final GeneratedColumn<DateTime> clinicalEdd = GeneratedColumn<DateTime>(
+      'clinical_edd', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _lastMenstrualPeriodMeta =
+      const VerificationMeta('lastMenstrualPeriod');
+  @override
+  late final GeneratedColumn<DateTime> lastMenstrualPeriod =
+      GeneratedColumn<DateTime>('last_menstrual_period', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _ultrasoundEddMeta =
+      const VerificationMeta('ultrasoundEdd');
+  @override
+  late final GeneratedColumn<DateTime> ultrasoundEdd =
+      GeneratedColumn<DateTime>('ultrasound_edd', aliasedName, true,
+          type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  static const VerificationMeta _startedAtMeta =
+      const VerificationMeta('startedAt');
+  @override
+  late final GeneratedColumn<DateTime> startedAt = GeneratedColumn<DateTime>(
+      'started_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _endedAtMeta =
+      const VerificationMeta('endedAt');
+  @override
+  late final GeneratedColumn<DateTime> endedAt = GeneratedColumn<DateTime>(
+      'ended_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _recalibrationHistoryJsonMeta =
+      const VerificationMeta('recalibrationHistoryJson');
+  @override
+  late final GeneratedColumn<String> recalibrationHistoryJson =
+      GeneratedColumn<String>('recalibration_history_json', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('[]'));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        clinicalEdd,
+        lastMenstrualPeriod,
+        ultrasoundEdd,
+        isActive,
+        startedAt,
+        endedAt,
+        recalibrationHistoryJson,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'pregnancy_episode_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<PregnancyEpisodeEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('clinical_edd')) {
+      context.handle(
+          _clinicalEddMeta,
+          clinicalEdd.isAcceptableOrUnknown(
+              data['clinical_edd']!, _clinicalEddMeta));
+    } else if (isInserting) {
+      context.missing(_clinicalEddMeta);
+    }
+    if (data.containsKey('last_menstrual_period')) {
+      context.handle(
+          _lastMenstrualPeriodMeta,
+          lastMenstrualPeriod.isAcceptableOrUnknown(
+              data['last_menstrual_period']!, _lastMenstrualPeriodMeta));
+    }
+    if (data.containsKey('ultrasound_edd')) {
+      context.handle(
+          _ultrasoundEddMeta,
+          ultrasoundEdd.isAcceptableOrUnknown(
+              data['ultrasound_edd']!, _ultrasoundEddMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    if (data.containsKey('started_at')) {
+      context.handle(_startedAtMeta,
+          startedAt.isAcceptableOrUnknown(data['started_at']!, _startedAtMeta));
+    }
+    if (data.containsKey('ended_at')) {
+      context.handle(_endedAtMeta,
+          endedAt.isAcceptableOrUnknown(data['ended_at']!, _endedAtMeta));
+    }
+    if (data.containsKey('recalibration_history_json')) {
+      context.handle(
+          _recalibrationHistoryJsonMeta,
+          recalibrationHistoryJson.isAcceptableOrUnknown(
+              data['recalibration_history_json']!,
+              _recalibrationHistoryJsonMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PregnancyEpisodeEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PregnancyEpisodeEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      clinicalEdd: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}clinical_edd'])!,
+      lastMenstrualPeriod: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime,
+          data['${effectivePrefix}last_menstrual_period']),
+      ultrasoundEdd: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}ultrasound_edd']),
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      startedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}started_at'])!,
+      endedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}ended_at']),
+      recalibrationHistoryJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}recalibration_history_json'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $PregnancyEpisodeEntriesTable createAlias(String alias) {
+    return $PregnancyEpisodeEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class PregnancyEpisodeEntry extends DataClass
+    implements Insertable<PregnancyEpisodeEntry> {
+  final String id;
+  final String userId;
+  final DateTime clinicalEdd;
+  final DateTime? lastMenstrualPeriod;
+  final DateTime? ultrasoundEdd;
+  final bool isActive;
+  final DateTime startedAt;
+  final DateTime? endedAt;
+  final String recalibrationHistoryJson;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const PregnancyEpisodeEntry(
+      {required this.id,
+      required this.userId,
+      required this.clinicalEdd,
+      this.lastMenstrualPeriod,
+      this.ultrasoundEdd,
+      required this.isActive,
+      required this.startedAt,
+      this.endedAt,
+      required this.recalibrationHistoryJson,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['clinical_edd'] = Variable<DateTime>(clinicalEdd);
+    if (!nullToAbsent || lastMenstrualPeriod != null) {
+      map['last_menstrual_period'] = Variable<DateTime>(lastMenstrualPeriod);
+    }
+    if (!nullToAbsent || ultrasoundEdd != null) {
+      map['ultrasound_edd'] = Variable<DateTime>(ultrasoundEdd);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    map['started_at'] = Variable<DateTime>(startedAt);
+    if (!nullToAbsent || endedAt != null) {
+      map['ended_at'] = Variable<DateTime>(endedAt);
+    }
+    map['recalibration_history_json'] =
+        Variable<String>(recalibrationHistoryJson);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  PregnancyEpisodeEntriesCompanion toCompanion(bool nullToAbsent) {
+    return PregnancyEpisodeEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      clinicalEdd: Value(clinicalEdd),
+      lastMenstrualPeriod: lastMenstrualPeriod == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastMenstrualPeriod),
+      ultrasoundEdd: ultrasoundEdd == null && nullToAbsent
+          ? const Value.absent()
+          : Value(ultrasoundEdd),
+      isActive: Value(isActive),
+      startedAt: Value(startedAt),
+      endedAt: endedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endedAt),
+      recalibrationHistoryJson: Value(recalibrationHistoryJson),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory PregnancyEpisodeEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PregnancyEpisodeEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      clinicalEdd: serializer.fromJson<DateTime>(json['clinicalEdd']),
+      lastMenstrualPeriod:
+          serializer.fromJson<DateTime?>(json['lastMenstrualPeriod']),
+      ultrasoundEdd: serializer.fromJson<DateTime?>(json['ultrasoundEdd']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      startedAt: serializer.fromJson<DateTime>(json['startedAt']),
+      endedAt: serializer.fromJson<DateTime?>(json['endedAt']),
+      recalibrationHistoryJson:
+          serializer.fromJson<String>(json['recalibrationHistoryJson']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'clinicalEdd': serializer.toJson<DateTime>(clinicalEdd),
+      'lastMenstrualPeriod': serializer.toJson<DateTime?>(lastMenstrualPeriod),
+      'ultrasoundEdd': serializer.toJson<DateTime?>(ultrasoundEdd),
+      'isActive': serializer.toJson<bool>(isActive),
+      'startedAt': serializer.toJson<DateTime>(startedAt),
+      'endedAt': serializer.toJson<DateTime?>(endedAt),
+      'recalibrationHistoryJson':
+          serializer.toJson<String>(recalibrationHistoryJson),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  PregnancyEpisodeEntry copyWith(
+          {String? id,
+          String? userId,
+          DateTime? clinicalEdd,
+          Value<DateTime?> lastMenstrualPeriod = const Value.absent(),
+          Value<DateTime?> ultrasoundEdd = const Value.absent(),
+          bool? isActive,
+          DateTime? startedAt,
+          Value<DateTime?> endedAt = const Value.absent(),
+          String? recalibrationHistoryJson,
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      PregnancyEpisodeEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        clinicalEdd: clinicalEdd ?? this.clinicalEdd,
+        lastMenstrualPeriod: lastMenstrualPeriod.present
+            ? lastMenstrualPeriod.value
+            : this.lastMenstrualPeriod,
+        ultrasoundEdd:
+            ultrasoundEdd.present ? ultrasoundEdd.value : this.ultrasoundEdd,
+        isActive: isActive ?? this.isActive,
+        startedAt: startedAt ?? this.startedAt,
+        endedAt: endedAt.present ? endedAt.value : this.endedAt,
+        recalibrationHistoryJson:
+            recalibrationHistoryJson ?? this.recalibrationHistoryJson,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  PregnancyEpisodeEntry copyWithCompanion(
+      PregnancyEpisodeEntriesCompanion data) {
+    return PregnancyEpisodeEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      clinicalEdd:
+          data.clinicalEdd.present ? data.clinicalEdd.value : this.clinicalEdd,
+      lastMenstrualPeriod: data.lastMenstrualPeriod.present
+          ? data.lastMenstrualPeriod.value
+          : this.lastMenstrualPeriod,
+      ultrasoundEdd: data.ultrasoundEdd.present
+          ? data.ultrasoundEdd.value
+          : this.ultrasoundEdd,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      startedAt: data.startedAt.present ? data.startedAt.value : this.startedAt,
+      endedAt: data.endedAt.present ? data.endedAt.value : this.endedAt,
+      recalibrationHistoryJson: data.recalibrationHistoryJson.present
+          ? data.recalibrationHistoryJson.value
+          : this.recalibrationHistoryJson,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PregnancyEpisodeEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('clinicalEdd: $clinicalEdd, ')
+          ..write('lastMenstrualPeriod: $lastMenstrualPeriod, ')
+          ..write('ultrasoundEdd: $ultrasoundEdd, ')
+          ..write('isActive: $isActive, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('endedAt: $endedAt, ')
+          ..write('recalibrationHistoryJson: $recalibrationHistoryJson, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      clinicalEdd,
+      lastMenstrualPeriod,
+      ultrasoundEdd,
+      isActive,
+      startedAt,
+      endedAt,
+      recalibrationHistoryJson,
+      createdAt,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PregnancyEpisodeEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.clinicalEdd == this.clinicalEdd &&
+          other.lastMenstrualPeriod == this.lastMenstrualPeriod &&
+          other.ultrasoundEdd == this.ultrasoundEdd &&
+          other.isActive == this.isActive &&
+          other.startedAt == this.startedAt &&
+          other.endedAt == this.endedAt &&
+          other.recalibrationHistoryJson == this.recalibrationHistoryJson &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class PregnancyEpisodeEntriesCompanion
+    extends UpdateCompanion<PregnancyEpisodeEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<DateTime> clinicalEdd;
+  final Value<DateTime?> lastMenstrualPeriod;
+  final Value<DateTime?> ultrasoundEdd;
+  final Value<bool> isActive;
+  final Value<DateTime> startedAt;
+  final Value<DateTime?> endedAt;
+  final Value<String> recalibrationHistoryJson;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const PregnancyEpisodeEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.clinicalEdd = const Value.absent(),
+    this.lastMenstrualPeriod = const Value.absent(),
+    this.ultrasoundEdd = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.startedAt = const Value.absent(),
+    this.endedAt = const Value.absent(),
+    this.recalibrationHistoryJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PregnancyEpisodeEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required DateTime clinicalEdd,
+    this.lastMenstrualPeriod = const Value.absent(),
+    this.ultrasoundEdd = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.startedAt = const Value.absent(),
+    this.endedAt = const Value.absent(),
+    this.recalibrationHistoryJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        clinicalEdd = Value(clinicalEdd);
+  static Insertable<PregnancyEpisodeEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<DateTime>? clinicalEdd,
+    Expression<DateTime>? lastMenstrualPeriod,
+    Expression<DateTime>? ultrasoundEdd,
+    Expression<bool>? isActive,
+    Expression<DateTime>? startedAt,
+    Expression<DateTime>? endedAt,
+    Expression<String>? recalibrationHistoryJson,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (clinicalEdd != null) 'clinical_edd': clinicalEdd,
+      if (lastMenstrualPeriod != null)
+        'last_menstrual_period': lastMenstrualPeriod,
+      if (ultrasoundEdd != null) 'ultrasound_edd': ultrasoundEdd,
+      if (isActive != null) 'is_active': isActive,
+      if (startedAt != null) 'started_at': startedAt,
+      if (endedAt != null) 'ended_at': endedAt,
+      if (recalibrationHistoryJson != null)
+        'recalibration_history_json': recalibrationHistoryJson,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PregnancyEpisodeEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<DateTime>? clinicalEdd,
+      Value<DateTime?>? lastMenstrualPeriod,
+      Value<DateTime?>? ultrasoundEdd,
+      Value<bool>? isActive,
+      Value<DateTime>? startedAt,
+      Value<DateTime?>? endedAt,
+      Value<String>? recalibrationHistoryJson,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return PregnancyEpisodeEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      clinicalEdd: clinicalEdd ?? this.clinicalEdd,
+      lastMenstrualPeriod: lastMenstrualPeriod ?? this.lastMenstrualPeriod,
+      ultrasoundEdd: ultrasoundEdd ?? this.ultrasoundEdd,
+      isActive: isActive ?? this.isActive,
+      startedAt: startedAt ?? this.startedAt,
+      endedAt: endedAt ?? this.endedAt,
+      recalibrationHistoryJson:
+          recalibrationHistoryJson ?? this.recalibrationHistoryJson,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (clinicalEdd.present) {
+      map['clinical_edd'] = Variable<DateTime>(clinicalEdd.value);
+    }
+    if (lastMenstrualPeriod.present) {
+      map['last_menstrual_period'] =
+          Variable<DateTime>(lastMenstrualPeriod.value);
+    }
+    if (ultrasoundEdd.present) {
+      map['ultrasound_edd'] = Variable<DateTime>(ultrasoundEdd.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (startedAt.present) {
+      map['started_at'] = Variable<DateTime>(startedAt.value);
+    }
+    if (endedAt.present) {
+      map['ended_at'] = Variable<DateTime>(endedAt.value);
+    }
+    if (recalibrationHistoryJson.present) {
+      map['recalibration_history_json'] =
+          Variable<String>(recalibrationHistoryJson.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PregnancyEpisodeEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('clinicalEdd: $clinicalEdd, ')
+          ..write('lastMenstrualPeriod: $lastMenstrualPeriod, ')
+          ..write('ultrasoundEdd: $ultrasoundEdd, ')
+          ..write('isActive: $isActive, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('endedAt: $endedAt, ')
+          ..write('recalibrationHistoryJson: $recalibrationHistoryJson, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $MaternalVitalsEntriesTable extends MaternalVitalsEntries
+    with TableInfo<$MaternalVitalsEntriesTable, MaternalVitalsEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MaternalVitalsEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _pregnancyEpisodeIdMeta =
+      const VerificationMeta('pregnancyEpisodeId');
+  @override
+  late final GeneratedColumn<String> pregnancyEpisodeId =
+      GeneratedColumn<String>('pregnancy_episode_id', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _measuredAtMeta =
+      const VerificationMeta('measuredAt');
+  @override
+  late final GeneratedColumn<DateTime> measuredAt = GeneratedColumn<DateTime>(
+      'measured_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _gestationalWeeksMeta =
+      const VerificationMeta('gestationalWeeks');
+  @override
+  late final GeneratedColumn<int> gestationalWeeks = GeneratedColumn<int>(
+      'gestational_weeks', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _systolicMmhgMeta =
+      const VerificationMeta('systolicMmhg');
+  @override
+  late final GeneratedColumn<int> systolicMmhg = GeneratedColumn<int>(
+      'systolic_mmhg', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _diastolicMmhgMeta =
+      const VerificationMeta('diastolicMmhg');
+  @override
+  late final GeneratedColumn<int> diastolicMmhg = GeneratedColumn<int>(
+      'diastolic_mmhg', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _glucoseMgDlMeta =
+      const VerificationMeta('glucoseMgDl');
+  @override
+  late final GeneratedColumn<double> glucoseMgDl = GeneratedColumn<double>(
+      'glucose_mg_dl', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _glucoseTimingMeta =
+      const VerificationMeta('glucoseTiming');
+  @override
+  late final GeneratedColumn<String> glucoseTiming = GeneratedColumn<String>(
+      'glucose_timing', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _weightKgMeta =
+      const VerificationMeta('weightKg');
+  @override
+  late final GeneratedColumn<double> weightKg = GeneratedColumn<double>(
+      'weight_kg', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _symptomsJsonMeta =
+      const VerificationMeta('symptomsJson');
+  @override
+  late final GeneratedColumn<String> symptomsJson = GeneratedColumn<String>(
+      'symptoms_json', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('[]'));
+  static const VerificationMeta _alertsJsonMeta =
+      const VerificationMeta('alertsJson');
+  @override
+  late final GeneratedColumn<String> alertsJson = GeneratedColumn<String>(
+      'alerts_json', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('[]'));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        pregnancyEpisodeId,
+        userId,
+        measuredAt,
+        gestationalWeeks,
+        systolicMmhg,
+        diastolicMmhg,
+        glucoseMgDl,
+        glucoseTiming,
+        weightKg,
+        symptomsJson,
+        alertsJson,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'maternal_vitals_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<MaternalVitalsEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('pregnancy_episode_id')) {
+      context.handle(
+          _pregnancyEpisodeIdMeta,
+          pregnancyEpisodeId.isAcceptableOrUnknown(
+              data['pregnancy_episode_id']!, _pregnancyEpisodeIdMeta));
+    } else if (isInserting) {
+      context.missing(_pregnancyEpisodeIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('measured_at')) {
+      context.handle(
+          _measuredAtMeta,
+          measuredAt.isAcceptableOrUnknown(
+              data['measured_at']!, _measuredAtMeta));
+    }
+    if (data.containsKey('gestational_weeks')) {
+      context.handle(
+          _gestationalWeeksMeta,
+          gestationalWeeks.isAcceptableOrUnknown(
+              data['gestational_weeks']!, _gestationalWeeksMeta));
+    } else if (isInserting) {
+      context.missing(_gestationalWeeksMeta);
+    }
+    if (data.containsKey('systolic_mmhg')) {
+      context.handle(
+          _systolicMmhgMeta,
+          systolicMmhg.isAcceptableOrUnknown(
+              data['systolic_mmhg']!, _systolicMmhgMeta));
+    }
+    if (data.containsKey('diastolic_mmhg')) {
+      context.handle(
+          _diastolicMmhgMeta,
+          diastolicMmhg.isAcceptableOrUnknown(
+              data['diastolic_mmhg']!, _diastolicMmhgMeta));
+    }
+    if (data.containsKey('glucose_mg_dl')) {
+      context.handle(
+          _glucoseMgDlMeta,
+          glucoseMgDl.isAcceptableOrUnknown(
+              data['glucose_mg_dl']!, _glucoseMgDlMeta));
+    }
+    if (data.containsKey('glucose_timing')) {
+      context.handle(
+          _glucoseTimingMeta,
+          glucoseTiming.isAcceptableOrUnknown(
+              data['glucose_timing']!, _glucoseTimingMeta));
+    }
+    if (data.containsKey('weight_kg')) {
+      context.handle(_weightKgMeta,
+          weightKg.isAcceptableOrUnknown(data['weight_kg']!, _weightKgMeta));
+    }
+    if (data.containsKey('symptoms_json')) {
+      context.handle(
+          _symptomsJsonMeta,
+          symptomsJson.isAcceptableOrUnknown(
+              data['symptoms_json']!, _symptomsJsonMeta));
+    }
+    if (data.containsKey('alerts_json')) {
+      context.handle(
+          _alertsJsonMeta,
+          alertsJson.isAcceptableOrUnknown(
+              data['alerts_json']!, _alertsJsonMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MaternalVitalsEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MaternalVitalsEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      pregnancyEpisodeId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}pregnancy_episode_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      measuredAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}measured_at'])!,
+      gestationalWeeks: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}gestational_weeks'])!,
+      systolicMmhg: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}systolic_mmhg']),
+      diastolicMmhg: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}diastolic_mmhg']),
+      glucoseMgDl: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}glucose_mg_dl']),
+      glucoseTiming: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}glucose_timing']),
+      weightKg: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}weight_kg']),
+      symptomsJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}symptoms_json'])!,
+      alertsJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alerts_json'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $MaternalVitalsEntriesTable createAlias(String alias) {
+    return $MaternalVitalsEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class MaternalVitalsEntry extends DataClass
+    implements Insertable<MaternalVitalsEntry> {
+  final String id;
+  final String pregnancyEpisodeId;
+  final String userId;
+  final DateTime measuredAt;
+  final int gestationalWeeks;
+  final int? systolicMmhg;
+  final int? diastolicMmhg;
+  final double? glucoseMgDl;
+  final String? glucoseTiming;
+  final double? weightKg;
+  final String symptomsJson;
+  final String alertsJson;
+  final DateTime createdAt;
+  const MaternalVitalsEntry(
+      {required this.id,
+      required this.pregnancyEpisodeId,
+      required this.userId,
+      required this.measuredAt,
+      required this.gestationalWeeks,
+      this.systolicMmhg,
+      this.diastolicMmhg,
+      this.glucoseMgDl,
+      this.glucoseTiming,
+      this.weightKg,
+      required this.symptomsJson,
+      required this.alertsJson,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId);
+    map['user_id'] = Variable<String>(userId);
+    map['measured_at'] = Variable<DateTime>(measuredAt);
+    map['gestational_weeks'] = Variable<int>(gestationalWeeks);
+    if (!nullToAbsent || systolicMmhg != null) {
+      map['systolic_mmhg'] = Variable<int>(systolicMmhg);
+    }
+    if (!nullToAbsent || diastolicMmhg != null) {
+      map['diastolic_mmhg'] = Variable<int>(diastolicMmhg);
+    }
+    if (!nullToAbsent || glucoseMgDl != null) {
+      map['glucose_mg_dl'] = Variable<double>(glucoseMgDl);
+    }
+    if (!nullToAbsent || glucoseTiming != null) {
+      map['glucose_timing'] = Variable<String>(glucoseTiming);
+    }
+    if (!nullToAbsent || weightKg != null) {
+      map['weight_kg'] = Variable<double>(weightKg);
+    }
+    map['symptoms_json'] = Variable<String>(symptomsJson);
+    map['alerts_json'] = Variable<String>(alertsJson);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  MaternalVitalsEntriesCompanion toCompanion(bool nullToAbsent) {
+    return MaternalVitalsEntriesCompanion(
+      id: Value(id),
+      pregnancyEpisodeId: Value(pregnancyEpisodeId),
+      userId: Value(userId),
+      measuredAt: Value(measuredAt),
+      gestationalWeeks: Value(gestationalWeeks),
+      systolicMmhg: systolicMmhg == null && nullToAbsent
+          ? const Value.absent()
+          : Value(systolicMmhg),
+      diastolicMmhg: diastolicMmhg == null && nullToAbsent
+          ? const Value.absent()
+          : Value(diastolicMmhg),
+      glucoseMgDl: glucoseMgDl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(glucoseMgDl),
+      glucoseTiming: glucoseTiming == null && nullToAbsent
+          ? const Value.absent()
+          : Value(glucoseTiming),
+      weightKg: weightKg == null && nullToAbsent
+          ? const Value.absent()
+          : Value(weightKg),
+      symptomsJson: Value(symptomsJson),
+      alertsJson: Value(alertsJson),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory MaternalVitalsEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MaternalVitalsEntry(
+      id: serializer.fromJson<String>(json['id']),
+      pregnancyEpisodeId:
+          serializer.fromJson<String>(json['pregnancyEpisodeId']),
+      userId: serializer.fromJson<String>(json['userId']),
+      measuredAt: serializer.fromJson<DateTime>(json['measuredAt']),
+      gestationalWeeks: serializer.fromJson<int>(json['gestationalWeeks']),
+      systolicMmhg: serializer.fromJson<int?>(json['systolicMmhg']),
+      diastolicMmhg: serializer.fromJson<int?>(json['diastolicMmhg']),
+      glucoseMgDl: serializer.fromJson<double?>(json['glucoseMgDl']),
+      glucoseTiming: serializer.fromJson<String?>(json['glucoseTiming']),
+      weightKg: serializer.fromJson<double?>(json['weightKg']),
+      symptomsJson: serializer.fromJson<String>(json['symptomsJson']),
+      alertsJson: serializer.fromJson<String>(json['alertsJson']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'pregnancyEpisodeId': serializer.toJson<String>(pregnancyEpisodeId),
+      'userId': serializer.toJson<String>(userId),
+      'measuredAt': serializer.toJson<DateTime>(measuredAt),
+      'gestationalWeeks': serializer.toJson<int>(gestationalWeeks),
+      'systolicMmhg': serializer.toJson<int?>(systolicMmhg),
+      'diastolicMmhg': serializer.toJson<int?>(diastolicMmhg),
+      'glucoseMgDl': serializer.toJson<double?>(glucoseMgDl),
+      'glucoseTiming': serializer.toJson<String?>(glucoseTiming),
+      'weightKg': serializer.toJson<double?>(weightKg),
+      'symptomsJson': serializer.toJson<String>(symptomsJson),
+      'alertsJson': serializer.toJson<String>(alertsJson),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  MaternalVitalsEntry copyWith(
+          {String? id,
+          String? pregnancyEpisodeId,
+          String? userId,
+          DateTime? measuredAt,
+          int? gestationalWeeks,
+          Value<int?> systolicMmhg = const Value.absent(),
+          Value<int?> diastolicMmhg = const Value.absent(),
+          Value<double?> glucoseMgDl = const Value.absent(),
+          Value<String?> glucoseTiming = const Value.absent(),
+          Value<double?> weightKg = const Value.absent(),
+          String? symptomsJson,
+          String? alertsJson,
+          DateTime? createdAt}) =>
+      MaternalVitalsEntry(
+        id: id ?? this.id,
+        pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+        userId: userId ?? this.userId,
+        measuredAt: measuredAt ?? this.measuredAt,
+        gestationalWeeks: gestationalWeeks ?? this.gestationalWeeks,
+        systolicMmhg:
+            systolicMmhg.present ? systolicMmhg.value : this.systolicMmhg,
+        diastolicMmhg:
+            diastolicMmhg.present ? diastolicMmhg.value : this.diastolicMmhg,
+        glucoseMgDl: glucoseMgDl.present ? glucoseMgDl.value : this.glucoseMgDl,
+        glucoseTiming:
+            glucoseTiming.present ? glucoseTiming.value : this.glucoseTiming,
+        weightKg: weightKg.present ? weightKg.value : this.weightKg,
+        symptomsJson: symptomsJson ?? this.symptomsJson,
+        alertsJson: alertsJson ?? this.alertsJson,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  MaternalVitalsEntry copyWithCompanion(MaternalVitalsEntriesCompanion data) {
+    return MaternalVitalsEntry(
+      id: data.id.present ? data.id.value : this.id,
+      pregnancyEpisodeId: data.pregnancyEpisodeId.present
+          ? data.pregnancyEpisodeId.value
+          : this.pregnancyEpisodeId,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      measuredAt:
+          data.measuredAt.present ? data.measuredAt.value : this.measuredAt,
+      gestationalWeeks: data.gestationalWeeks.present
+          ? data.gestationalWeeks.value
+          : this.gestationalWeeks,
+      systolicMmhg: data.systolicMmhg.present
+          ? data.systolicMmhg.value
+          : this.systolicMmhg,
+      diastolicMmhg: data.diastolicMmhg.present
+          ? data.diastolicMmhg.value
+          : this.diastolicMmhg,
+      glucoseMgDl:
+          data.glucoseMgDl.present ? data.glucoseMgDl.value : this.glucoseMgDl,
+      glucoseTiming: data.glucoseTiming.present
+          ? data.glucoseTiming.value
+          : this.glucoseTiming,
+      weightKg: data.weightKg.present ? data.weightKg.value : this.weightKg,
+      symptomsJson: data.symptomsJson.present
+          ? data.symptomsJson.value
+          : this.symptomsJson,
+      alertsJson:
+          data.alertsJson.present ? data.alertsJson.value : this.alertsJson,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MaternalVitalsEntry(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('measuredAt: $measuredAt, ')
+          ..write('gestationalWeeks: $gestationalWeeks, ')
+          ..write('systolicMmhg: $systolicMmhg, ')
+          ..write('diastolicMmhg: $diastolicMmhg, ')
+          ..write('glucoseMgDl: $glucoseMgDl, ')
+          ..write('glucoseTiming: $glucoseTiming, ')
+          ..write('weightKg: $weightKg, ')
+          ..write('symptomsJson: $symptomsJson, ')
+          ..write('alertsJson: $alertsJson, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      pregnancyEpisodeId,
+      userId,
+      measuredAt,
+      gestationalWeeks,
+      systolicMmhg,
+      diastolicMmhg,
+      glucoseMgDl,
+      glucoseTiming,
+      weightKg,
+      symptomsJson,
+      alertsJson,
+      createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MaternalVitalsEntry &&
+          other.id == this.id &&
+          other.pregnancyEpisodeId == this.pregnancyEpisodeId &&
+          other.userId == this.userId &&
+          other.measuredAt == this.measuredAt &&
+          other.gestationalWeeks == this.gestationalWeeks &&
+          other.systolicMmhg == this.systolicMmhg &&
+          other.diastolicMmhg == this.diastolicMmhg &&
+          other.glucoseMgDl == this.glucoseMgDl &&
+          other.glucoseTiming == this.glucoseTiming &&
+          other.weightKg == this.weightKg &&
+          other.symptomsJson == this.symptomsJson &&
+          other.alertsJson == this.alertsJson &&
+          other.createdAt == this.createdAt);
+}
+
+class MaternalVitalsEntriesCompanion
+    extends UpdateCompanion<MaternalVitalsEntry> {
+  final Value<String> id;
+  final Value<String> pregnancyEpisodeId;
+  final Value<String> userId;
+  final Value<DateTime> measuredAt;
+  final Value<int> gestationalWeeks;
+  final Value<int?> systolicMmhg;
+  final Value<int?> diastolicMmhg;
+  final Value<double?> glucoseMgDl;
+  final Value<String?> glucoseTiming;
+  final Value<double?> weightKg;
+  final Value<String> symptomsJson;
+  final Value<String> alertsJson;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const MaternalVitalsEntriesCompanion({
+    this.id = const Value.absent(),
+    this.pregnancyEpisodeId = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.measuredAt = const Value.absent(),
+    this.gestationalWeeks = const Value.absent(),
+    this.systolicMmhg = const Value.absent(),
+    this.diastolicMmhg = const Value.absent(),
+    this.glucoseMgDl = const Value.absent(),
+    this.glucoseTiming = const Value.absent(),
+    this.weightKg = const Value.absent(),
+    this.symptomsJson = const Value.absent(),
+    this.alertsJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MaternalVitalsEntriesCompanion.insert({
+    required String id,
+    required String pregnancyEpisodeId,
+    required String userId,
+    this.measuredAt = const Value.absent(),
+    required int gestationalWeeks,
+    this.systolicMmhg = const Value.absent(),
+    this.diastolicMmhg = const Value.absent(),
+    this.glucoseMgDl = const Value.absent(),
+    this.glucoseTiming = const Value.absent(),
+    this.weightKg = const Value.absent(),
+    this.symptomsJson = const Value.absent(),
+    this.alertsJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        pregnancyEpisodeId = Value(pregnancyEpisodeId),
+        userId = Value(userId),
+        gestationalWeeks = Value(gestationalWeeks);
+  static Insertable<MaternalVitalsEntry> custom({
+    Expression<String>? id,
+    Expression<String>? pregnancyEpisodeId,
+    Expression<String>? userId,
+    Expression<DateTime>? measuredAt,
+    Expression<int>? gestationalWeeks,
+    Expression<int>? systolicMmhg,
+    Expression<int>? diastolicMmhg,
+    Expression<double>? glucoseMgDl,
+    Expression<String>? glucoseTiming,
+    Expression<double>? weightKg,
+    Expression<String>? symptomsJson,
+    Expression<String>? alertsJson,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (pregnancyEpisodeId != null)
+        'pregnancy_episode_id': pregnancyEpisodeId,
+      if (userId != null) 'user_id': userId,
+      if (measuredAt != null) 'measured_at': measuredAt,
+      if (gestationalWeeks != null) 'gestational_weeks': gestationalWeeks,
+      if (systolicMmhg != null) 'systolic_mmhg': systolicMmhg,
+      if (diastolicMmhg != null) 'diastolic_mmhg': diastolicMmhg,
+      if (glucoseMgDl != null) 'glucose_mg_dl': glucoseMgDl,
+      if (glucoseTiming != null) 'glucose_timing': glucoseTiming,
+      if (weightKg != null) 'weight_kg': weightKg,
+      if (symptomsJson != null) 'symptoms_json': symptomsJson,
+      if (alertsJson != null) 'alerts_json': alertsJson,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MaternalVitalsEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? pregnancyEpisodeId,
+      Value<String>? userId,
+      Value<DateTime>? measuredAt,
+      Value<int>? gestationalWeeks,
+      Value<int?>? systolicMmhg,
+      Value<int?>? diastolicMmhg,
+      Value<double?>? glucoseMgDl,
+      Value<String?>? glucoseTiming,
+      Value<double?>? weightKg,
+      Value<String>? symptomsJson,
+      Value<String>? alertsJson,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return MaternalVitalsEntriesCompanion(
+      id: id ?? this.id,
+      pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+      userId: userId ?? this.userId,
+      measuredAt: measuredAt ?? this.measuredAt,
+      gestationalWeeks: gestationalWeeks ?? this.gestationalWeeks,
+      systolicMmhg: systolicMmhg ?? this.systolicMmhg,
+      diastolicMmhg: diastolicMmhg ?? this.diastolicMmhg,
+      glucoseMgDl: glucoseMgDl ?? this.glucoseMgDl,
+      glucoseTiming: glucoseTiming ?? this.glucoseTiming,
+      weightKg: weightKg ?? this.weightKg,
+      symptomsJson: symptomsJson ?? this.symptomsJson,
+      alertsJson: alertsJson ?? this.alertsJson,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (pregnancyEpisodeId.present) {
+      map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (measuredAt.present) {
+      map['measured_at'] = Variable<DateTime>(measuredAt.value);
+    }
+    if (gestationalWeeks.present) {
+      map['gestational_weeks'] = Variable<int>(gestationalWeeks.value);
+    }
+    if (systolicMmhg.present) {
+      map['systolic_mmhg'] = Variable<int>(systolicMmhg.value);
+    }
+    if (diastolicMmhg.present) {
+      map['diastolic_mmhg'] = Variable<int>(diastolicMmhg.value);
+    }
+    if (glucoseMgDl.present) {
+      map['glucose_mg_dl'] = Variable<double>(glucoseMgDl.value);
+    }
+    if (glucoseTiming.present) {
+      map['glucose_timing'] = Variable<String>(glucoseTiming.value);
+    }
+    if (weightKg.present) {
+      map['weight_kg'] = Variable<double>(weightKg.value);
+    }
+    if (symptomsJson.present) {
+      map['symptoms_json'] = Variable<String>(symptomsJson.value);
+    }
+    if (alertsJson.present) {
+      map['alerts_json'] = Variable<String>(alertsJson.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MaternalVitalsEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('measuredAt: $measuredAt, ')
+          ..write('gestationalWeeks: $gestationalWeeks, ')
+          ..write('systolicMmhg: $systolicMmhg, ')
+          ..write('diastolicMmhg: $diastolicMmhg, ')
+          ..write('glucoseMgDl: $glucoseMgDl, ')
+          ..write('glucoseTiming: $glucoseTiming, ')
+          ..write('weightKg: $weightKg, ')
+          ..write('symptomsJson: $symptomsJson, ')
+          ..write('alertsJson: $alertsJson, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ContractionSessionEntriesTable extends ContractionSessionEntries
+    with TableInfo<$ContractionSessionEntriesTable, ContractionSessionEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ContractionSessionEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _pregnancyEpisodeIdMeta =
+      const VerificationMeta('pregnancyEpisodeId');
+  @override
+  late final GeneratedColumn<String> pregnancyEpisodeId =
+      GeneratedColumn<String>('pregnancy_episode_id', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _startedAtMeta =
+      const VerificationMeta('startedAt');
+  @override
+  late final GeneratedColumn<DateTime> startedAt = GeneratedColumn<DateTime>(
+      'started_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _endedAtMeta =
+      const VerificationMeta('endedAt');
+  @override
+  late final GeneratedColumn<DateTime> endedAt = GeneratedColumn<DateTime>(
+      'ended_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _gestationalWeeksMeta =
+      const VerificationMeta('gestationalWeeks');
+  @override
+  late final GeneratedColumn<int> gestationalWeeks = GeneratedColumn<int>(
+      'gestational_weeks', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _patternMeta =
+      const VerificationMeta('pattern');
+  @override
+  late final GeneratedColumn<String> pattern = GeneratedColumn<String>(
+      'pattern', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _totalContractionsMeta =
+      const VerificationMeta('totalContractions');
+  @override
+  late final GeneratedColumn<int> totalContractions = GeneratedColumn<int>(
+      'total_contractions', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _avgIntervalSecondsMeta =
+      const VerificationMeta('avgIntervalSeconds');
+  @override
+  late final GeneratedColumn<double> avgIntervalSeconds =
+      GeneratedColumn<double>('avg_interval_seconds', aliasedName, true,
+          type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _avgDurationSecondsMeta =
+      const VerificationMeta('avgDurationSeconds');
+  @override
+  late final GeneratedColumn<double> avgDurationSeconds =
+      GeneratedColumn<double>('avg_duration_seconds', aliasedName, true,
+          type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _eventsJsonMeta =
+      const VerificationMeta('eventsJson');
+  @override
+  late final GeneratedColumn<String> eventsJson = GeneratedColumn<String>(
+      'events_json', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('[]'));
+  static const VerificationMeta _alertJsonMeta =
+      const VerificationMeta('alertJson');
+  @override
+  late final GeneratedColumn<String> alertJson = GeneratedColumn<String>(
+      'alert_json', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        pregnancyEpisodeId,
+        userId,
+        startedAt,
+        endedAt,
+        gestationalWeeks,
+        pattern,
+        totalContractions,
+        avgIntervalSeconds,
+        avgDurationSeconds,
+        eventsJson,
+        alertJson,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'contraction_session_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ContractionSessionEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('pregnancy_episode_id')) {
+      context.handle(
+          _pregnancyEpisodeIdMeta,
+          pregnancyEpisodeId.isAcceptableOrUnknown(
+              data['pregnancy_episode_id']!, _pregnancyEpisodeIdMeta));
+    } else if (isInserting) {
+      context.missing(_pregnancyEpisodeIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('started_at')) {
+      context.handle(_startedAtMeta,
+          startedAt.isAcceptableOrUnknown(data['started_at']!, _startedAtMeta));
+    } else if (isInserting) {
+      context.missing(_startedAtMeta);
+    }
+    if (data.containsKey('ended_at')) {
+      context.handle(_endedAtMeta,
+          endedAt.isAcceptableOrUnknown(data['ended_at']!, _endedAtMeta));
+    }
+    if (data.containsKey('gestational_weeks')) {
+      context.handle(
+          _gestationalWeeksMeta,
+          gestationalWeeks.isAcceptableOrUnknown(
+              data['gestational_weeks']!, _gestationalWeeksMeta));
+    } else if (isInserting) {
+      context.missing(_gestationalWeeksMeta);
+    }
+    if (data.containsKey('pattern')) {
+      context.handle(_patternMeta,
+          pattern.isAcceptableOrUnknown(data['pattern']!, _patternMeta));
+    } else if (isInserting) {
+      context.missing(_patternMeta);
+    }
+    if (data.containsKey('total_contractions')) {
+      context.handle(
+          _totalContractionsMeta,
+          totalContractions.isAcceptableOrUnknown(
+              data['total_contractions']!, _totalContractionsMeta));
+    } else if (isInserting) {
+      context.missing(_totalContractionsMeta);
+    }
+    if (data.containsKey('avg_interval_seconds')) {
+      context.handle(
+          _avgIntervalSecondsMeta,
+          avgIntervalSeconds.isAcceptableOrUnknown(
+              data['avg_interval_seconds']!, _avgIntervalSecondsMeta));
+    }
+    if (data.containsKey('avg_duration_seconds')) {
+      context.handle(
+          _avgDurationSecondsMeta,
+          avgDurationSeconds.isAcceptableOrUnknown(
+              data['avg_duration_seconds']!, _avgDurationSecondsMeta));
+    }
+    if (data.containsKey('events_json')) {
+      context.handle(
+          _eventsJsonMeta,
+          eventsJson.isAcceptableOrUnknown(
+              data['events_json']!, _eventsJsonMeta));
+    }
+    if (data.containsKey('alert_json')) {
+      context.handle(_alertJsonMeta,
+          alertJson.isAcceptableOrUnknown(data['alert_json']!, _alertJsonMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ContractionSessionEntry map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ContractionSessionEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      pregnancyEpisodeId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}pregnancy_episode_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      startedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}started_at'])!,
+      endedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}ended_at']),
+      gestationalWeeks: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}gestational_weeks'])!,
+      pattern: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}pattern'])!,
+      totalContractions: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}total_contractions'])!,
+      avgIntervalSeconds: attachedDatabase.typeMapping.read(
+          DriftSqlType.double, data['${effectivePrefix}avg_interval_seconds']),
+      avgDurationSeconds: attachedDatabase.typeMapping.read(
+          DriftSqlType.double, data['${effectivePrefix}avg_duration_seconds']),
+      eventsJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}events_json'])!,
+      alertJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alert_json']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $ContractionSessionEntriesTable createAlias(String alias) {
+    return $ContractionSessionEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class ContractionSessionEntry extends DataClass
+    implements Insertable<ContractionSessionEntry> {
+  final String id;
+  final String pregnancyEpisodeId;
+  final String userId;
+  final DateTime startedAt;
+  final DateTime? endedAt;
+  final int gestationalWeeks;
+  final String pattern;
+  final int totalContractions;
+  final double? avgIntervalSeconds;
+  final double? avgDurationSeconds;
+  final String eventsJson;
+  final String? alertJson;
+  final DateTime createdAt;
+  const ContractionSessionEntry(
+      {required this.id,
+      required this.pregnancyEpisodeId,
+      required this.userId,
+      required this.startedAt,
+      this.endedAt,
+      required this.gestationalWeeks,
+      required this.pattern,
+      required this.totalContractions,
+      this.avgIntervalSeconds,
+      this.avgDurationSeconds,
+      required this.eventsJson,
+      this.alertJson,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId);
+    map['user_id'] = Variable<String>(userId);
+    map['started_at'] = Variable<DateTime>(startedAt);
+    if (!nullToAbsent || endedAt != null) {
+      map['ended_at'] = Variable<DateTime>(endedAt);
+    }
+    map['gestational_weeks'] = Variable<int>(gestationalWeeks);
+    map['pattern'] = Variable<String>(pattern);
+    map['total_contractions'] = Variable<int>(totalContractions);
+    if (!nullToAbsent || avgIntervalSeconds != null) {
+      map['avg_interval_seconds'] = Variable<double>(avgIntervalSeconds);
+    }
+    if (!nullToAbsent || avgDurationSeconds != null) {
+      map['avg_duration_seconds'] = Variable<double>(avgDurationSeconds);
+    }
+    map['events_json'] = Variable<String>(eventsJson);
+    if (!nullToAbsent || alertJson != null) {
+      map['alert_json'] = Variable<String>(alertJson);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  ContractionSessionEntriesCompanion toCompanion(bool nullToAbsent) {
+    return ContractionSessionEntriesCompanion(
+      id: Value(id),
+      pregnancyEpisodeId: Value(pregnancyEpisodeId),
+      userId: Value(userId),
+      startedAt: Value(startedAt),
+      endedAt: endedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endedAt),
+      gestationalWeeks: Value(gestationalWeeks),
+      pattern: Value(pattern),
+      totalContractions: Value(totalContractions),
+      avgIntervalSeconds: avgIntervalSeconds == null && nullToAbsent
+          ? const Value.absent()
+          : Value(avgIntervalSeconds),
+      avgDurationSeconds: avgDurationSeconds == null && nullToAbsent
+          ? const Value.absent()
+          : Value(avgDurationSeconds),
+      eventsJson: Value(eventsJson),
+      alertJson: alertJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(alertJson),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory ContractionSessionEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ContractionSessionEntry(
+      id: serializer.fromJson<String>(json['id']),
+      pregnancyEpisodeId:
+          serializer.fromJson<String>(json['pregnancyEpisodeId']),
+      userId: serializer.fromJson<String>(json['userId']),
+      startedAt: serializer.fromJson<DateTime>(json['startedAt']),
+      endedAt: serializer.fromJson<DateTime?>(json['endedAt']),
+      gestationalWeeks: serializer.fromJson<int>(json['gestationalWeeks']),
+      pattern: serializer.fromJson<String>(json['pattern']),
+      totalContractions: serializer.fromJson<int>(json['totalContractions']),
+      avgIntervalSeconds:
+          serializer.fromJson<double?>(json['avgIntervalSeconds']),
+      avgDurationSeconds:
+          serializer.fromJson<double?>(json['avgDurationSeconds']),
+      eventsJson: serializer.fromJson<String>(json['eventsJson']),
+      alertJson: serializer.fromJson<String?>(json['alertJson']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'pregnancyEpisodeId': serializer.toJson<String>(pregnancyEpisodeId),
+      'userId': serializer.toJson<String>(userId),
+      'startedAt': serializer.toJson<DateTime>(startedAt),
+      'endedAt': serializer.toJson<DateTime?>(endedAt),
+      'gestationalWeeks': serializer.toJson<int>(gestationalWeeks),
+      'pattern': serializer.toJson<String>(pattern),
+      'totalContractions': serializer.toJson<int>(totalContractions),
+      'avgIntervalSeconds': serializer.toJson<double?>(avgIntervalSeconds),
+      'avgDurationSeconds': serializer.toJson<double?>(avgDurationSeconds),
+      'eventsJson': serializer.toJson<String>(eventsJson),
+      'alertJson': serializer.toJson<String?>(alertJson),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  ContractionSessionEntry copyWith(
+          {String? id,
+          String? pregnancyEpisodeId,
+          String? userId,
+          DateTime? startedAt,
+          Value<DateTime?> endedAt = const Value.absent(),
+          int? gestationalWeeks,
+          String? pattern,
+          int? totalContractions,
+          Value<double?> avgIntervalSeconds = const Value.absent(),
+          Value<double?> avgDurationSeconds = const Value.absent(),
+          String? eventsJson,
+          Value<String?> alertJson = const Value.absent(),
+          DateTime? createdAt}) =>
+      ContractionSessionEntry(
+        id: id ?? this.id,
+        pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+        userId: userId ?? this.userId,
+        startedAt: startedAt ?? this.startedAt,
+        endedAt: endedAt.present ? endedAt.value : this.endedAt,
+        gestationalWeeks: gestationalWeeks ?? this.gestationalWeeks,
+        pattern: pattern ?? this.pattern,
+        totalContractions: totalContractions ?? this.totalContractions,
+        avgIntervalSeconds: avgIntervalSeconds.present
+            ? avgIntervalSeconds.value
+            : this.avgIntervalSeconds,
+        avgDurationSeconds: avgDurationSeconds.present
+            ? avgDurationSeconds.value
+            : this.avgDurationSeconds,
+        eventsJson: eventsJson ?? this.eventsJson,
+        alertJson: alertJson.present ? alertJson.value : this.alertJson,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  ContractionSessionEntry copyWithCompanion(
+      ContractionSessionEntriesCompanion data) {
+    return ContractionSessionEntry(
+      id: data.id.present ? data.id.value : this.id,
+      pregnancyEpisodeId: data.pregnancyEpisodeId.present
+          ? data.pregnancyEpisodeId.value
+          : this.pregnancyEpisodeId,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      startedAt: data.startedAt.present ? data.startedAt.value : this.startedAt,
+      endedAt: data.endedAt.present ? data.endedAt.value : this.endedAt,
+      gestationalWeeks: data.gestationalWeeks.present
+          ? data.gestationalWeeks.value
+          : this.gestationalWeeks,
+      pattern: data.pattern.present ? data.pattern.value : this.pattern,
+      totalContractions: data.totalContractions.present
+          ? data.totalContractions.value
+          : this.totalContractions,
+      avgIntervalSeconds: data.avgIntervalSeconds.present
+          ? data.avgIntervalSeconds.value
+          : this.avgIntervalSeconds,
+      avgDurationSeconds: data.avgDurationSeconds.present
+          ? data.avgDurationSeconds.value
+          : this.avgDurationSeconds,
+      eventsJson:
+          data.eventsJson.present ? data.eventsJson.value : this.eventsJson,
+      alertJson: data.alertJson.present ? data.alertJson.value : this.alertJson,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContractionSessionEntry(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('endedAt: $endedAt, ')
+          ..write('gestationalWeeks: $gestationalWeeks, ')
+          ..write('pattern: $pattern, ')
+          ..write('totalContractions: $totalContractions, ')
+          ..write('avgIntervalSeconds: $avgIntervalSeconds, ')
+          ..write('avgDurationSeconds: $avgDurationSeconds, ')
+          ..write('eventsJson: $eventsJson, ')
+          ..write('alertJson: $alertJson, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      pregnancyEpisodeId,
+      userId,
+      startedAt,
+      endedAt,
+      gestationalWeeks,
+      pattern,
+      totalContractions,
+      avgIntervalSeconds,
+      avgDurationSeconds,
+      eventsJson,
+      alertJson,
+      createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ContractionSessionEntry &&
+          other.id == this.id &&
+          other.pregnancyEpisodeId == this.pregnancyEpisodeId &&
+          other.userId == this.userId &&
+          other.startedAt == this.startedAt &&
+          other.endedAt == this.endedAt &&
+          other.gestationalWeeks == this.gestationalWeeks &&
+          other.pattern == this.pattern &&
+          other.totalContractions == this.totalContractions &&
+          other.avgIntervalSeconds == this.avgIntervalSeconds &&
+          other.avgDurationSeconds == this.avgDurationSeconds &&
+          other.eventsJson == this.eventsJson &&
+          other.alertJson == this.alertJson &&
+          other.createdAt == this.createdAt);
+}
+
+class ContractionSessionEntriesCompanion
+    extends UpdateCompanion<ContractionSessionEntry> {
+  final Value<String> id;
+  final Value<String> pregnancyEpisodeId;
+  final Value<String> userId;
+  final Value<DateTime> startedAt;
+  final Value<DateTime?> endedAt;
+  final Value<int> gestationalWeeks;
+  final Value<String> pattern;
+  final Value<int> totalContractions;
+  final Value<double?> avgIntervalSeconds;
+  final Value<double?> avgDurationSeconds;
+  final Value<String> eventsJson;
+  final Value<String?> alertJson;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const ContractionSessionEntriesCompanion({
+    this.id = const Value.absent(),
+    this.pregnancyEpisodeId = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.startedAt = const Value.absent(),
+    this.endedAt = const Value.absent(),
+    this.gestationalWeeks = const Value.absent(),
+    this.pattern = const Value.absent(),
+    this.totalContractions = const Value.absent(),
+    this.avgIntervalSeconds = const Value.absent(),
+    this.avgDurationSeconds = const Value.absent(),
+    this.eventsJson = const Value.absent(),
+    this.alertJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ContractionSessionEntriesCompanion.insert({
+    required String id,
+    required String pregnancyEpisodeId,
+    required String userId,
+    required DateTime startedAt,
+    this.endedAt = const Value.absent(),
+    required int gestationalWeeks,
+    required String pattern,
+    required int totalContractions,
+    this.avgIntervalSeconds = const Value.absent(),
+    this.avgDurationSeconds = const Value.absent(),
+    this.eventsJson = const Value.absent(),
+    this.alertJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        pregnancyEpisodeId = Value(pregnancyEpisodeId),
+        userId = Value(userId),
+        startedAt = Value(startedAt),
+        gestationalWeeks = Value(gestationalWeeks),
+        pattern = Value(pattern),
+        totalContractions = Value(totalContractions);
+  static Insertable<ContractionSessionEntry> custom({
+    Expression<String>? id,
+    Expression<String>? pregnancyEpisodeId,
+    Expression<String>? userId,
+    Expression<DateTime>? startedAt,
+    Expression<DateTime>? endedAt,
+    Expression<int>? gestationalWeeks,
+    Expression<String>? pattern,
+    Expression<int>? totalContractions,
+    Expression<double>? avgIntervalSeconds,
+    Expression<double>? avgDurationSeconds,
+    Expression<String>? eventsJson,
+    Expression<String>? alertJson,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (pregnancyEpisodeId != null)
+        'pregnancy_episode_id': pregnancyEpisodeId,
+      if (userId != null) 'user_id': userId,
+      if (startedAt != null) 'started_at': startedAt,
+      if (endedAt != null) 'ended_at': endedAt,
+      if (gestationalWeeks != null) 'gestational_weeks': gestationalWeeks,
+      if (pattern != null) 'pattern': pattern,
+      if (totalContractions != null) 'total_contractions': totalContractions,
+      if (avgIntervalSeconds != null)
+        'avg_interval_seconds': avgIntervalSeconds,
+      if (avgDurationSeconds != null)
+        'avg_duration_seconds': avgDurationSeconds,
+      if (eventsJson != null) 'events_json': eventsJson,
+      if (alertJson != null) 'alert_json': alertJson,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ContractionSessionEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? pregnancyEpisodeId,
+      Value<String>? userId,
+      Value<DateTime>? startedAt,
+      Value<DateTime?>? endedAt,
+      Value<int>? gestationalWeeks,
+      Value<String>? pattern,
+      Value<int>? totalContractions,
+      Value<double?>? avgIntervalSeconds,
+      Value<double?>? avgDurationSeconds,
+      Value<String>? eventsJson,
+      Value<String?>? alertJson,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return ContractionSessionEntriesCompanion(
+      id: id ?? this.id,
+      pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+      userId: userId ?? this.userId,
+      startedAt: startedAt ?? this.startedAt,
+      endedAt: endedAt ?? this.endedAt,
+      gestationalWeeks: gestationalWeeks ?? this.gestationalWeeks,
+      pattern: pattern ?? this.pattern,
+      totalContractions: totalContractions ?? this.totalContractions,
+      avgIntervalSeconds: avgIntervalSeconds ?? this.avgIntervalSeconds,
+      avgDurationSeconds: avgDurationSeconds ?? this.avgDurationSeconds,
+      eventsJson: eventsJson ?? this.eventsJson,
+      alertJson: alertJson ?? this.alertJson,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (pregnancyEpisodeId.present) {
+      map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (startedAt.present) {
+      map['started_at'] = Variable<DateTime>(startedAt.value);
+    }
+    if (endedAt.present) {
+      map['ended_at'] = Variable<DateTime>(endedAt.value);
+    }
+    if (gestationalWeeks.present) {
+      map['gestational_weeks'] = Variable<int>(gestationalWeeks.value);
+    }
+    if (pattern.present) {
+      map['pattern'] = Variable<String>(pattern.value);
+    }
+    if (totalContractions.present) {
+      map['total_contractions'] = Variable<int>(totalContractions.value);
+    }
+    if (avgIntervalSeconds.present) {
+      map['avg_interval_seconds'] = Variable<double>(avgIntervalSeconds.value);
+    }
+    if (avgDurationSeconds.present) {
+      map['avg_duration_seconds'] = Variable<double>(avgDurationSeconds.value);
+    }
+    if (eventsJson.present) {
+      map['events_json'] = Variable<String>(eventsJson.value);
+    }
+    if (alertJson.present) {
+      map['alert_json'] = Variable<String>(alertJson.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ContractionSessionEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('endedAt: $endedAt, ')
+          ..write('gestationalWeeks: $gestationalWeeks, ')
+          ..write('pattern: $pattern, ')
+          ..write('totalContractions: $totalContractions, ')
+          ..write('avgIntervalSeconds: $avgIntervalSeconds, ')
+          ..write('avgDurationSeconds: $avgDurationSeconds, ')
+          ..write('eventsJson: $eventsJson, ')
+          ..write('alertJson: $alertJson, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $KickSessionEntriesTable extends KickSessionEntries
+    with TableInfo<$KickSessionEntriesTable, KickSessionEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $KickSessionEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _pregnancyEpisodeIdMeta =
+      const VerificationMeta('pregnancyEpisodeId');
+  @override
+  late final GeneratedColumn<String> pregnancyEpisodeId =
+      GeneratedColumn<String>('pregnancy_episode_id', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _startedAtMeta =
+      const VerificationMeta('startedAt');
+  @override
+  late final GeneratedColumn<DateTime> startedAt = GeneratedColumn<DateTime>(
+      'started_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _durationMinutesMeta =
+      const VerificationMeta('durationMinutes');
+  @override
+  late final GeneratedColumn<int> durationMinutes = GeneratedColumn<int>(
+      'duration_minutes', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _gestationalWeeksMeta =
+      const VerificationMeta('gestationalWeeks');
+  @override
+  late final GeneratedColumn<int> gestationalWeeks = GeneratedColumn<int>(
+      'gestational_weeks', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _kicksCountMeta =
+      const VerificationMeta('kicksCount');
+  @override
+  late final GeneratedColumn<int> kicksCount = GeneratedColumn<int>(
+      'kicks_count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _targetReachedMeta =
+      const VerificationMeta('targetReached');
+  @override
+  late final GeneratedColumn<bool> targetReached = GeneratedColumn<bool>(
+      'target_reached', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("target_reached" IN (0, 1))'));
+  static const VerificationMeta _targetReachedAtMinutesMeta =
+      const VerificationMeta('targetReachedAtMinutes');
+  @override
+  late final GeneratedColumn<int> targetReachedAtMinutes = GeneratedColumn<int>(
+      'target_reached_at_minutes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _isReassuringMeta =
+      const VerificationMeta('isReassuring');
+  @override
+  late final GeneratedColumn<bool> isReassuring = GeneratedColumn<bool>(
+      'is_reassuring', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_reassuring" IN (0, 1))'));
+  static const VerificationMeta _alertJsonMeta =
+      const VerificationMeta('alertJson');
+  @override
+  late final GeneratedColumn<String> alertJson = GeneratedColumn<String>(
+      'alert_json', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        pregnancyEpisodeId,
+        userId,
+        startedAt,
+        durationMinutes,
+        gestationalWeeks,
+        kicksCount,
+        targetReached,
+        targetReachedAtMinutes,
+        isReassuring,
+        alertJson,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'kick_session_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<KickSessionEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('pregnancy_episode_id')) {
+      context.handle(
+          _pregnancyEpisodeIdMeta,
+          pregnancyEpisodeId.isAcceptableOrUnknown(
+              data['pregnancy_episode_id']!, _pregnancyEpisodeIdMeta));
+    } else if (isInserting) {
+      context.missing(_pregnancyEpisodeIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('started_at')) {
+      context.handle(_startedAtMeta,
+          startedAt.isAcceptableOrUnknown(data['started_at']!, _startedAtMeta));
+    } else if (isInserting) {
+      context.missing(_startedAtMeta);
+    }
+    if (data.containsKey('duration_minutes')) {
+      context.handle(
+          _durationMinutesMeta,
+          durationMinutes.isAcceptableOrUnknown(
+              data['duration_minutes']!, _durationMinutesMeta));
+    } else if (isInserting) {
+      context.missing(_durationMinutesMeta);
+    }
+    if (data.containsKey('gestational_weeks')) {
+      context.handle(
+          _gestationalWeeksMeta,
+          gestationalWeeks.isAcceptableOrUnknown(
+              data['gestational_weeks']!, _gestationalWeeksMeta));
+    } else if (isInserting) {
+      context.missing(_gestationalWeeksMeta);
+    }
+    if (data.containsKey('kicks_count')) {
+      context.handle(
+          _kicksCountMeta,
+          kicksCount.isAcceptableOrUnknown(
+              data['kicks_count']!, _kicksCountMeta));
+    } else if (isInserting) {
+      context.missing(_kicksCountMeta);
+    }
+    if (data.containsKey('target_reached')) {
+      context.handle(
+          _targetReachedMeta,
+          targetReached.isAcceptableOrUnknown(
+              data['target_reached']!, _targetReachedMeta));
+    } else if (isInserting) {
+      context.missing(_targetReachedMeta);
+    }
+    if (data.containsKey('target_reached_at_minutes')) {
+      context.handle(
+          _targetReachedAtMinutesMeta,
+          targetReachedAtMinutes.isAcceptableOrUnknown(
+              data['target_reached_at_minutes']!, _targetReachedAtMinutesMeta));
+    }
+    if (data.containsKey('is_reassuring')) {
+      context.handle(
+          _isReassuringMeta,
+          isReassuring.isAcceptableOrUnknown(
+              data['is_reassuring']!, _isReassuringMeta));
+    } else if (isInserting) {
+      context.missing(_isReassuringMeta);
+    }
+    if (data.containsKey('alert_json')) {
+      context.handle(_alertJsonMeta,
+          alertJson.isAcceptableOrUnknown(data['alert_json']!, _alertJsonMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  KickSessionEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return KickSessionEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      pregnancyEpisodeId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}pregnancy_episode_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      startedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}started_at'])!,
+      durationMinutes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}duration_minutes'])!,
+      gestationalWeeks: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}gestational_weeks'])!,
+      kicksCount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}kicks_count'])!,
+      targetReached: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}target_reached'])!,
+      targetReachedAtMinutes: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}target_reached_at_minutes']),
+      isReassuring: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_reassuring'])!,
+      alertJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}alert_json']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $KickSessionEntriesTable createAlias(String alias) {
+    return $KickSessionEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class KickSessionEntry extends DataClass
+    implements Insertable<KickSessionEntry> {
+  final String id;
+  final String pregnancyEpisodeId;
+  final String userId;
+  final DateTime startedAt;
+  final int durationMinutes;
+  final int gestationalWeeks;
+  final int kicksCount;
+  final bool targetReached;
+  final int? targetReachedAtMinutes;
+  final bool isReassuring;
+  final String? alertJson;
+  final DateTime createdAt;
+  const KickSessionEntry(
+      {required this.id,
+      required this.pregnancyEpisodeId,
+      required this.userId,
+      required this.startedAt,
+      required this.durationMinutes,
+      required this.gestationalWeeks,
+      required this.kicksCount,
+      required this.targetReached,
+      this.targetReachedAtMinutes,
+      required this.isReassuring,
+      this.alertJson,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId);
+    map['user_id'] = Variable<String>(userId);
+    map['started_at'] = Variable<DateTime>(startedAt);
+    map['duration_minutes'] = Variable<int>(durationMinutes);
+    map['gestational_weeks'] = Variable<int>(gestationalWeeks);
+    map['kicks_count'] = Variable<int>(kicksCount);
+    map['target_reached'] = Variable<bool>(targetReached);
+    if (!nullToAbsent || targetReachedAtMinutes != null) {
+      map['target_reached_at_minutes'] = Variable<int>(targetReachedAtMinutes);
+    }
+    map['is_reassuring'] = Variable<bool>(isReassuring);
+    if (!nullToAbsent || alertJson != null) {
+      map['alert_json'] = Variable<String>(alertJson);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  KickSessionEntriesCompanion toCompanion(bool nullToAbsent) {
+    return KickSessionEntriesCompanion(
+      id: Value(id),
+      pregnancyEpisodeId: Value(pregnancyEpisodeId),
+      userId: Value(userId),
+      startedAt: Value(startedAt),
+      durationMinutes: Value(durationMinutes),
+      gestationalWeeks: Value(gestationalWeeks),
+      kicksCount: Value(kicksCount),
+      targetReached: Value(targetReached),
+      targetReachedAtMinutes: targetReachedAtMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(targetReachedAtMinutes),
+      isReassuring: Value(isReassuring),
+      alertJson: alertJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(alertJson),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory KickSessionEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return KickSessionEntry(
+      id: serializer.fromJson<String>(json['id']),
+      pregnancyEpisodeId:
+          serializer.fromJson<String>(json['pregnancyEpisodeId']),
+      userId: serializer.fromJson<String>(json['userId']),
+      startedAt: serializer.fromJson<DateTime>(json['startedAt']),
+      durationMinutes: serializer.fromJson<int>(json['durationMinutes']),
+      gestationalWeeks: serializer.fromJson<int>(json['gestationalWeeks']),
+      kicksCount: serializer.fromJson<int>(json['kicksCount']),
+      targetReached: serializer.fromJson<bool>(json['targetReached']),
+      targetReachedAtMinutes:
+          serializer.fromJson<int?>(json['targetReachedAtMinutes']),
+      isReassuring: serializer.fromJson<bool>(json['isReassuring']),
+      alertJson: serializer.fromJson<String?>(json['alertJson']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'pregnancyEpisodeId': serializer.toJson<String>(pregnancyEpisodeId),
+      'userId': serializer.toJson<String>(userId),
+      'startedAt': serializer.toJson<DateTime>(startedAt),
+      'durationMinutes': serializer.toJson<int>(durationMinutes),
+      'gestationalWeeks': serializer.toJson<int>(gestationalWeeks),
+      'kicksCount': serializer.toJson<int>(kicksCount),
+      'targetReached': serializer.toJson<bool>(targetReached),
+      'targetReachedAtMinutes': serializer.toJson<int?>(targetReachedAtMinutes),
+      'isReassuring': serializer.toJson<bool>(isReassuring),
+      'alertJson': serializer.toJson<String?>(alertJson),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  KickSessionEntry copyWith(
+          {String? id,
+          String? pregnancyEpisodeId,
+          String? userId,
+          DateTime? startedAt,
+          int? durationMinutes,
+          int? gestationalWeeks,
+          int? kicksCount,
+          bool? targetReached,
+          Value<int?> targetReachedAtMinutes = const Value.absent(),
+          bool? isReassuring,
+          Value<String?> alertJson = const Value.absent(),
+          DateTime? createdAt}) =>
+      KickSessionEntry(
+        id: id ?? this.id,
+        pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+        userId: userId ?? this.userId,
+        startedAt: startedAt ?? this.startedAt,
+        durationMinutes: durationMinutes ?? this.durationMinutes,
+        gestationalWeeks: gestationalWeeks ?? this.gestationalWeeks,
+        kicksCount: kicksCount ?? this.kicksCount,
+        targetReached: targetReached ?? this.targetReached,
+        targetReachedAtMinutes: targetReachedAtMinutes.present
+            ? targetReachedAtMinutes.value
+            : this.targetReachedAtMinutes,
+        isReassuring: isReassuring ?? this.isReassuring,
+        alertJson: alertJson.present ? alertJson.value : this.alertJson,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  KickSessionEntry copyWithCompanion(KickSessionEntriesCompanion data) {
+    return KickSessionEntry(
+      id: data.id.present ? data.id.value : this.id,
+      pregnancyEpisodeId: data.pregnancyEpisodeId.present
+          ? data.pregnancyEpisodeId.value
+          : this.pregnancyEpisodeId,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      startedAt: data.startedAt.present ? data.startedAt.value : this.startedAt,
+      durationMinutes: data.durationMinutes.present
+          ? data.durationMinutes.value
+          : this.durationMinutes,
+      gestationalWeeks: data.gestationalWeeks.present
+          ? data.gestationalWeeks.value
+          : this.gestationalWeeks,
+      kicksCount:
+          data.kicksCount.present ? data.kicksCount.value : this.kicksCount,
+      targetReached: data.targetReached.present
+          ? data.targetReached.value
+          : this.targetReached,
+      targetReachedAtMinutes: data.targetReachedAtMinutes.present
+          ? data.targetReachedAtMinutes.value
+          : this.targetReachedAtMinutes,
+      isReassuring: data.isReassuring.present
+          ? data.isReassuring.value
+          : this.isReassuring,
+      alertJson: data.alertJson.present ? data.alertJson.value : this.alertJson,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('KickSessionEntry(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('durationMinutes: $durationMinutes, ')
+          ..write('gestationalWeeks: $gestationalWeeks, ')
+          ..write('kicksCount: $kicksCount, ')
+          ..write('targetReached: $targetReached, ')
+          ..write('targetReachedAtMinutes: $targetReachedAtMinutes, ')
+          ..write('isReassuring: $isReassuring, ')
+          ..write('alertJson: $alertJson, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      pregnancyEpisodeId,
+      userId,
+      startedAt,
+      durationMinutes,
+      gestationalWeeks,
+      kicksCount,
+      targetReached,
+      targetReachedAtMinutes,
+      isReassuring,
+      alertJson,
+      createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is KickSessionEntry &&
+          other.id == this.id &&
+          other.pregnancyEpisodeId == this.pregnancyEpisodeId &&
+          other.userId == this.userId &&
+          other.startedAt == this.startedAt &&
+          other.durationMinutes == this.durationMinutes &&
+          other.gestationalWeeks == this.gestationalWeeks &&
+          other.kicksCount == this.kicksCount &&
+          other.targetReached == this.targetReached &&
+          other.targetReachedAtMinutes == this.targetReachedAtMinutes &&
+          other.isReassuring == this.isReassuring &&
+          other.alertJson == this.alertJson &&
+          other.createdAt == this.createdAt);
+}
+
+class KickSessionEntriesCompanion extends UpdateCompanion<KickSessionEntry> {
+  final Value<String> id;
+  final Value<String> pregnancyEpisodeId;
+  final Value<String> userId;
+  final Value<DateTime> startedAt;
+  final Value<int> durationMinutes;
+  final Value<int> gestationalWeeks;
+  final Value<int> kicksCount;
+  final Value<bool> targetReached;
+  final Value<int?> targetReachedAtMinutes;
+  final Value<bool> isReassuring;
+  final Value<String?> alertJson;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const KickSessionEntriesCompanion({
+    this.id = const Value.absent(),
+    this.pregnancyEpisodeId = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.startedAt = const Value.absent(),
+    this.durationMinutes = const Value.absent(),
+    this.gestationalWeeks = const Value.absent(),
+    this.kicksCount = const Value.absent(),
+    this.targetReached = const Value.absent(),
+    this.targetReachedAtMinutes = const Value.absent(),
+    this.isReassuring = const Value.absent(),
+    this.alertJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  KickSessionEntriesCompanion.insert({
+    required String id,
+    required String pregnancyEpisodeId,
+    required String userId,
+    required DateTime startedAt,
+    required int durationMinutes,
+    required int gestationalWeeks,
+    required int kicksCount,
+    required bool targetReached,
+    this.targetReachedAtMinutes = const Value.absent(),
+    required bool isReassuring,
+    this.alertJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        pregnancyEpisodeId = Value(pregnancyEpisodeId),
+        userId = Value(userId),
+        startedAt = Value(startedAt),
+        durationMinutes = Value(durationMinutes),
+        gestationalWeeks = Value(gestationalWeeks),
+        kicksCount = Value(kicksCount),
+        targetReached = Value(targetReached),
+        isReassuring = Value(isReassuring);
+  static Insertable<KickSessionEntry> custom({
+    Expression<String>? id,
+    Expression<String>? pregnancyEpisodeId,
+    Expression<String>? userId,
+    Expression<DateTime>? startedAt,
+    Expression<int>? durationMinutes,
+    Expression<int>? gestationalWeeks,
+    Expression<int>? kicksCount,
+    Expression<bool>? targetReached,
+    Expression<int>? targetReachedAtMinutes,
+    Expression<bool>? isReassuring,
+    Expression<String>? alertJson,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (pregnancyEpisodeId != null)
+        'pregnancy_episode_id': pregnancyEpisodeId,
+      if (userId != null) 'user_id': userId,
+      if (startedAt != null) 'started_at': startedAt,
+      if (durationMinutes != null) 'duration_minutes': durationMinutes,
+      if (gestationalWeeks != null) 'gestational_weeks': gestationalWeeks,
+      if (kicksCount != null) 'kicks_count': kicksCount,
+      if (targetReached != null) 'target_reached': targetReached,
+      if (targetReachedAtMinutes != null)
+        'target_reached_at_minutes': targetReachedAtMinutes,
+      if (isReassuring != null) 'is_reassuring': isReassuring,
+      if (alertJson != null) 'alert_json': alertJson,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  KickSessionEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? pregnancyEpisodeId,
+      Value<String>? userId,
+      Value<DateTime>? startedAt,
+      Value<int>? durationMinutes,
+      Value<int>? gestationalWeeks,
+      Value<int>? kicksCount,
+      Value<bool>? targetReached,
+      Value<int?>? targetReachedAtMinutes,
+      Value<bool>? isReassuring,
+      Value<String?>? alertJson,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return KickSessionEntriesCompanion(
+      id: id ?? this.id,
+      pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+      userId: userId ?? this.userId,
+      startedAt: startedAt ?? this.startedAt,
+      durationMinutes: durationMinutes ?? this.durationMinutes,
+      gestationalWeeks: gestationalWeeks ?? this.gestationalWeeks,
+      kicksCount: kicksCount ?? this.kicksCount,
+      targetReached: targetReached ?? this.targetReached,
+      targetReachedAtMinutes:
+          targetReachedAtMinutes ?? this.targetReachedAtMinutes,
+      isReassuring: isReassuring ?? this.isReassuring,
+      alertJson: alertJson ?? this.alertJson,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (pregnancyEpisodeId.present) {
+      map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (startedAt.present) {
+      map['started_at'] = Variable<DateTime>(startedAt.value);
+    }
+    if (durationMinutes.present) {
+      map['duration_minutes'] = Variable<int>(durationMinutes.value);
+    }
+    if (gestationalWeeks.present) {
+      map['gestational_weeks'] = Variable<int>(gestationalWeeks.value);
+    }
+    if (kicksCount.present) {
+      map['kicks_count'] = Variable<int>(kicksCount.value);
+    }
+    if (targetReached.present) {
+      map['target_reached'] = Variable<bool>(targetReached.value);
+    }
+    if (targetReachedAtMinutes.present) {
+      map['target_reached_at_minutes'] =
+          Variable<int>(targetReachedAtMinutes.value);
+    }
+    if (isReassuring.present) {
+      map['is_reassuring'] = Variable<bool>(isReassuring.value);
+    }
+    if (alertJson.present) {
+      map['alert_json'] = Variable<String>(alertJson.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('KickSessionEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('startedAt: $startedAt, ')
+          ..write('durationMinutes: $durationMinutes, ')
+          ..write('gestationalWeeks: $gestationalWeeks, ')
+          ..write('kicksCount: $kicksCount, ')
+          ..write('targetReached: $targetReached, ')
+          ..write('targetReachedAtMinutes: $targetReachedAtMinutes, ')
+          ..write('isReassuring: $isReassuring, ')
+          ..write('alertJson: $alertJson, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $BirthPlanEntriesTable extends BirthPlanEntries
+    with TableInfo<$BirthPlanEntriesTable, BirthPlanEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BirthPlanEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _pregnancyEpisodeIdMeta =
+      const VerificationMeta('pregnancyEpisodeId');
+  @override
+  late final GeneratedColumn<String> pregnancyEpisodeId =
+      GeneratedColumn<String>('pregnancy_episode_id', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _companionPreferencesJsonMeta =
+      const VerificationMeta('companionPreferencesJson');
+  @override
+  late final GeneratedColumn<String> companionPreferencesJson =
+      GeneratedColumn<String>('companion_preferences_json', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('[]'));
+  static const VerificationMeta _painManagementJsonMeta =
+      const VerificationMeta('painManagementJson');
+  @override
+  late final GeneratedColumn<String> painManagementJson =
+      GeneratedColumn<String>('pain_management_json', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('[]'));
+  static const VerificationMeta _deliveryEnvironmentJsonMeta =
+      const VerificationMeta('deliveryEnvironmentJson');
+  @override
+  late final GeneratedColumn<String> deliveryEnvironmentJson =
+      GeneratedColumn<String>('delivery_environment_json', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('[]'));
+  static const VerificationMeta _immediatePostpartumJsonMeta =
+      const VerificationMeta('immediatePostpartumJson');
+  @override
+  late final GeneratedColumn<String> immediatePostpartumJson =
+      GeneratedColumn<String>('immediate_postpartum_json', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('[]'));
+  static const VerificationMeta _specialRequestsMeta =
+      const VerificationMeta('specialRequests');
+  @override
+  late final GeneratedColumn<String> specialRequests = GeneratedColumn<String>(
+      'special_requests', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        pregnancyEpisodeId,
+        userId,
+        companionPreferencesJson,
+        painManagementJson,
+        deliveryEnvironmentJson,
+        immediatePostpartumJson,
+        specialRequests,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'birth_plan_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<BirthPlanEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('pregnancy_episode_id')) {
+      context.handle(
+          _pregnancyEpisodeIdMeta,
+          pregnancyEpisodeId.isAcceptableOrUnknown(
+              data['pregnancy_episode_id']!, _pregnancyEpisodeIdMeta));
+    } else if (isInserting) {
+      context.missing(_pregnancyEpisodeIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('companion_preferences_json')) {
+      context.handle(
+          _companionPreferencesJsonMeta,
+          companionPreferencesJson.isAcceptableOrUnknown(
+              data['companion_preferences_json']!,
+              _companionPreferencesJsonMeta));
+    }
+    if (data.containsKey('pain_management_json')) {
+      context.handle(
+          _painManagementJsonMeta,
+          painManagementJson.isAcceptableOrUnknown(
+              data['pain_management_json']!, _painManagementJsonMeta));
+    }
+    if (data.containsKey('delivery_environment_json')) {
+      context.handle(
+          _deliveryEnvironmentJsonMeta,
+          deliveryEnvironmentJson.isAcceptableOrUnknown(
+              data['delivery_environment_json']!,
+              _deliveryEnvironmentJsonMeta));
+    }
+    if (data.containsKey('immediate_postpartum_json')) {
+      context.handle(
+          _immediatePostpartumJsonMeta,
+          immediatePostpartumJson.isAcceptableOrUnknown(
+              data['immediate_postpartum_json']!,
+              _immediatePostpartumJsonMeta));
+    }
+    if (data.containsKey('special_requests')) {
+      context.handle(
+          _specialRequestsMeta,
+          specialRequests.isAcceptableOrUnknown(
+              data['special_requests']!, _specialRequestsMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {pregnancyEpisodeId};
+  @override
+  BirthPlanEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BirthPlanEntry(
+      pregnancyEpisodeId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}pregnancy_episode_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      companionPreferencesJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}companion_preferences_json'])!,
+      painManagementJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}pain_management_json'])!,
+      deliveryEnvironmentJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}delivery_environment_json'])!,
+      immediatePostpartumJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}immediate_postpartum_json'])!,
+      specialRequests: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}special_requests']),
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $BirthPlanEntriesTable createAlias(String alias) {
+    return $BirthPlanEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class BirthPlanEntry extends DataClass implements Insertable<BirthPlanEntry> {
+  final String pregnancyEpisodeId;
+  final String userId;
+  final String companionPreferencesJson;
+  final String painManagementJson;
+  final String deliveryEnvironmentJson;
+  final String immediatePostpartumJson;
+  final String? specialRequests;
+  final DateTime updatedAt;
+  const BirthPlanEntry(
+      {required this.pregnancyEpisodeId,
+      required this.userId,
+      required this.companionPreferencesJson,
+      required this.painManagementJson,
+      required this.deliveryEnvironmentJson,
+      required this.immediatePostpartumJson,
+      this.specialRequests,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId);
+    map['user_id'] = Variable<String>(userId);
+    map['companion_preferences_json'] =
+        Variable<String>(companionPreferencesJson);
+    map['pain_management_json'] = Variable<String>(painManagementJson);
+    map['delivery_environment_json'] =
+        Variable<String>(deliveryEnvironmentJson);
+    map['immediate_postpartum_json'] =
+        Variable<String>(immediatePostpartumJson);
+    if (!nullToAbsent || specialRequests != null) {
+      map['special_requests'] = Variable<String>(specialRequests);
+    }
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  BirthPlanEntriesCompanion toCompanion(bool nullToAbsent) {
+    return BirthPlanEntriesCompanion(
+      pregnancyEpisodeId: Value(pregnancyEpisodeId),
+      userId: Value(userId),
+      companionPreferencesJson: Value(companionPreferencesJson),
+      painManagementJson: Value(painManagementJson),
+      deliveryEnvironmentJson: Value(deliveryEnvironmentJson),
+      immediatePostpartumJson: Value(immediatePostpartumJson),
+      specialRequests: specialRequests == null && nullToAbsent
+          ? const Value.absent()
+          : Value(specialRequests),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory BirthPlanEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BirthPlanEntry(
+      pregnancyEpisodeId:
+          serializer.fromJson<String>(json['pregnancyEpisodeId']),
+      userId: serializer.fromJson<String>(json['userId']),
+      companionPreferencesJson:
+          serializer.fromJson<String>(json['companionPreferencesJson']),
+      painManagementJson:
+          serializer.fromJson<String>(json['painManagementJson']),
+      deliveryEnvironmentJson:
+          serializer.fromJson<String>(json['deliveryEnvironmentJson']),
+      immediatePostpartumJson:
+          serializer.fromJson<String>(json['immediatePostpartumJson']),
+      specialRequests: serializer.fromJson<String?>(json['specialRequests']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'pregnancyEpisodeId': serializer.toJson<String>(pregnancyEpisodeId),
+      'userId': serializer.toJson<String>(userId),
+      'companionPreferencesJson':
+          serializer.toJson<String>(companionPreferencesJson),
+      'painManagementJson': serializer.toJson<String>(painManagementJson),
+      'deliveryEnvironmentJson':
+          serializer.toJson<String>(deliveryEnvironmentJson),
+      'immediatePostpartumJson':
+          serializer.toJson<String>(immediatePostpartumJson),
+      'specialRequests': serializer.toJson<String?>(specialRequests),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  BirthPlanEntry copyWith(
+          {String? pregnancyEpisodeId,
+          String? userId,
+          String? companionPreferencesJson,
+          String? painManagementJson,
+          String? deliveryEnvironmentJson,
+          String? immediatePostpartumJson,
+          Value<String?> specialRequests = const Value.absent(),
+          DateTime? updatedAt}) =>
+      BirthPlanEntry(
+        pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+        userId: userId ?? this.userId,
+        companionPreferencesJson:
+            companionPreferencesJson ?? this.companionPreferencesJson,
+        painManagementJson: painManagementJson ?? this.painManagementJson,
+        deliveryEnvironmentJson:
+            deliveryEnvironmentJson ?? this.deliveryEnvironmentJson,
+        immediatePostpartumJson:
+            immediatePostpartumJson ?? this.immediatePostpartumJson,
+        specialRequests: specialRequests.present
+            ? specialRequests.value
+            : this.specialRequests,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  BirthPlanEntry copyWithCompanion(BirthPlanEntriesCompanion data) {
+    return BirthPlanEntry(
+      pregnancyEpisodeId: data.pregnancyEpisodeId.present
+          ? data.pregnancyEpisodeId.value
+          : this.pregnancyEpisodeId,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      companionPreferencesJson: data.companionPreferencesJson.present
+          ? data.companionPreferencesJson.value
+          : this.companionPreferencesJson,
+      painManagementJson: data.painManagementJson.present
+          ? data.painManagementJson.value
+          : this.painManagementJson,
+      deliveryEnvironmentJson: data.deliveryEnvironmentJson.present
+          ? data.deliveryEnvironmentJson.value
+          : this.deliveryEnvironmentJson,
+      immediatePostpartumJson: data.immediatePostpartumJson.present
+          ? data.immediatePostpartumJson.value
+          : this.immediatePostpartumJson,
+      specialRequests: data.specialRequests.present
+          ? data.specialRequests.value
+          : this.specialRequests,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BirthPlanEntry(')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('companionPreferencesJson: $companionPreferencesJson, ')
+          ..write('painManagementJson: $painManagementJson, ')
+          ..write('deliveryEnvironmentJson: $deliveryEnvironmentJson, ')
+          ..write('immediatePostpartumJson: $immediatePostpartumJson, ')
+          ..write('specialRequests: $specialRequests, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      pregnancyEpisodeId,
+      userId,
+      companionPreferencesJson,
+      painManagementJson,
+      deliveryEnvironmentJson,
+      immediatePostpartumJson,
+      specialRequests,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BirthPlanEntry &&
+          other.pregnancyEpisodeId == this.pregnancyEpisodeId &&
+          other.userId == this.userId &&
+          other.companionPreferencesJson == this.companionPreferencesJson &&
+          other.painManagementJson == this.painManagementJson &&
+          other.deliveryEnvironmentJson == this.deliveryEnvironmentJson &&
+          other.immediatePostpartumJson == this.immediatePostpartumJson &&
+          other.specialRequests == this.specialRequests &&
+          other.updatedAt == this.updatedAt);
+}
+
+class BirthPlanEntriesCompanion extends UpdateCompanion<BirthPlanEntry> {
+  final Value<String> pregnancyEpisodeId;
+  final Value<String> userId;
+  final Value<String> companionPreferencesJson;
+  final Value<String> painManagementJson;
+  final Value<String> deliveryEnvironmentJson;
+  final Value<String> immediatePostpartumJson;
+  final Value<String?> specialRequests;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const BirthPlanEntriesCompanion({
+    this.pregnancyEpisodeId = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.companionPreferencesJson = const Value.absent(),
+    this.painManagementJson = const Value.absent(),
+    this.deliveryEnvironmentJson = const Value.absent(),
+    this.immediatePostpartumJson = const Value.absent(),
+    this.specialRequests = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  BirthPlanEntriesCompanion.insert({
+    required String pregnancyEpisodeId,
+    required String userId,
+    this.companionPreferencesJson = const Value.absent(),
+    this.painManagementJson = const Value.absent(),
+    this.deliveryEnvironmentJson = const Value.absent(),
+    this.immediatePostpartumJson = const Value.absent(),
+    this.specialRequests = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : pregnancyEpisodeId = Value(pregnancyEpisodeId),
+        userId = Value(userId);
+  static Insertable<BirthPlanEntry> custom({
+    Expression<String>? pregnancyEpisodeId,
+    Expression<String>? userId,
+    Expression<String>? companionPreferencesJson,
+    Expression<String>? painManagementJson,
+    Expression<String>? deliveryEnvironmentJson,
+    Expression<String>? immediatePostpartumJson,
+    Expression<String>? specialRequests,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (pregnancyEpisodeId != null)
+        'pregnancy_episode_id': pregnancyEpisodeId,
+      if (userId != null) 'user_id': userId,
+      if (companionPreferencesJson != null)
+        'companion_preferences_json': companionPreferencesJson,
+      if (painManagementJson != null)
+        'pain_management_json': painManagementJson,
+      if (deliveryEnvironmentJson != null)
+        'delivery_environment_json': deliveryEnvironmentJson,
+      if (immediatePostpartumJson != null)
+        'immediate_postpartum_json': immediatePostpartumJson,
+      if (specialRequests != null) 'special_requests': specialRequests,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  BirthPlanEntriesCompanion copyWith(
+      {Value<String>? pregnancyEpisodeId,
+      Value<String>? userId,
+      Value<String>? companionPreferencesJson,
+      Value<String>? painManagementJson,
+      Value<String>? deliveryEnvironmentJson,
+      Value<String>? immediatePostpartumJson,
+      Value<String?>? specialRequests,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return BirthPlanEntriesCompanion(
+      pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+      userId: userId ?? this.userId,
+      companionPreferencesJson:
+          companionPreferencesJson ?? this.companionPreferencesJson,
+      painManagementJson: painManagementJson ?? this.painManagementJson,
+      deliveryEnvironmentJson:
+          deliveryEnvironmentJson ?? this.deliveryEnvironmentJson,
+      immediatePostpartumJson:
+          immediatePostpartumJson ?? this.immediatePostpartumJson,
+      specialRequests: specialRequests ?? this.specialRequests,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (pregnancyEpisodeId.present) {
+      map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (companionPreferencesJson.present) {
+      map['companion_preferences_json'] =
+          Variable<String>(companionPreferencesJson.value);
+    }
+    if (painManagementJson.present) {
+      map['pain_management_json'] = Variable<String>(painManagementJson.value);
+    }
+    if (deliveryEnvironmentJson.present) {
+      map['delivery_environment_json'] =
+          Variable<String>(deliveryEnvironmentJson.value);
+    }
+    if (immediatePostpartumJson.present) {
+      map['immediate_postpartum_json'] =
+          Variable<String>(immediatePostpartumJson.value);
+    }
+    if (specialRequests.present) {
+      map['special_requests'] = Variable<String>(specialRequests.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BirthPlanEntriesCompanion(')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('companionPreferencesJson: $companionPreferencesJson, ')
+          ..write('painManagementJson: $painManagementJson, ')
+          ..write('deliveryEnvironmentJson: $deliveryEnvironmentJson, ')
+          ..write('immediatePostpartumJson: $immediatePostpartumJson, ')
+          ..write('specialRequests: $specialRequests, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PrenatalAppointmentEntriesTable extends PrenatalAppointmentEntries
+    with TableInfo<$PrenatalAppointmentEntriesTable, PrenatalAppointmentEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PrenatalAppointmentEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _pregnancyEpisodeIdMeta =
+      const VerificationMeta('pregnancyEpisodeId');
+  @override
+  late final GeneratedColumn<String> pregnancyEpisodeId =
+      GeneratedColumn<String>('pregnancy_episode_id', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _scheduledAtMeta =
+      const VerificationMeta('scheduledAt');
+  @override
+  late final GeneratedColumn<DateTime> scheduledAt = GeneratedColumn<DateTime>(
+      'scheduled_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _doctorOrClinicMeta =
+      const VerificationMeta('doctorOrClinic');
+  @override
+  late final GeneratedColumn<String> doctorOrClinic = GeneratedColumn<String>(
+      'doctor_or_clinic', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _gestationalWeekMeta =
+      const VerificationMeta('gestationalWeek');
+  @override
+  late final GeneratedColumn<int> gestationalWeek = GeneratedColumn<int>(
+      'gestational_week', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _topicsToDiscussJsonMeta =
+      const VerificationMeta('topicsToDiscussJson');
+  @override
+  late final GeneratedColumn<String> topicsToDiscussJson =
+      GeneratedColumn<String>('topics_to_discuss_json', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('[]'));
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _isCompletedMeta =
+      const VerificationMeta('isCompleted');
+  @override
+  late final GeneratedColumn<bool> isCompleted = GeneratedColumn<bool>(
+      'is_completed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_completed" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        pregnancyEpisodeId,
+        userId,
+        scheduledAt,
+        doctorOrClinic,
+        gestationalWeek,
+        topicsToDiscussJson,
+        notes,
+        isCompleted,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'prenatal_appointment_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<PrenatalAppointmentEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('pregnancy_episode_id')) {
+      context.handle(
+          _pregnancyEpisodeIdMeta,
+          pregnancyEpisodeId.isAcceptableOrUnknown(
+              data['pregnancy_episode_id']!, _pregnancyEpisodeIdMeta));
+    } else if (isInserting) {
+      context.missing(_pregnancyEpisodeIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('scheduled_at')) {
+      context.handle(
+          _scheduledAtMeta,
+          scheduledAt.isAcceptableOrUnknown(
+              data['scheduled_at']!, _scheduledAtMeta));
+    } else if (isInserting) {
+      context.missing(_scheduledAtMeta);
+    }
+    if (data.containsKey('doctor_or_clinic')) {
+      context.handle(
+          _doctorOrClinicMeta,
+          doctorOrClinic.isAcceptableOrUnknown(
+              data['doctor_or_clinic']!, _doctorOrClinicMeta));
+    } else if (isInserting) {
+      context.missing(_doctorOrClinicMeta);
+    }
+    if (data.containsKey('gestational_week')) {
+      context.handle(
+          _gestationalWeekMeta,
+          gestationalWeek.isAcceptableOrUnknown(
+              data['gestational_week']!, _gestationalWeekMeta));
+    } else if (isInserting) {
+      context.missing(_gestationalWeekMeta);
+    }
+    if (data.containsKey('topics_to_discuss_json')) {
+      context.handle(
+          _topicsToDiscussJsonMeta,
+          topicsToDiscussJson.isAcceptableOrUnknown(
+              data['topics_to_discuss_json']!, _topicsToDiscussJsonMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('is_completed')) {
+      context.handle(
+          _isCompletedMeta,
+          isCompleted.isAcceptableOrUnknown(
+              data['is_completed']!, _isCompletedMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PrenatalAppointmentEntry map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PrenatalAppointmentEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      pregnancyEpisodeId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}pregnancy_episode_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      scheduledAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}scheduled_at'])!,
+      doctorOrClinic: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}doctor_or_clinic'])!,
+      gestationalWeek: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}gestational_week'])!,
+      topicsToDiscussJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}topics_to_discuss_json'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      isCompleted: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $PrenatalAppointmentEntriesTable createAlias(String alias) {
+    return $PrenatalAppointmentEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class PrenatalAppointmentEntry extends DataClass
+    implements Insertable<PrenatalAppointmentEntry> {
+  final String id;
+  final String pregnancyEpisodeId;
+  final String userId;
+  final DateTime scheduledAt;
+  final String doctorOrClinic;
+  final int gestationalWeek;
+  final String topicsToDiscussJson;
+  final String? notes;
+  final bool isCompleted;
+  final DateTime updatedAt;
+  const PrenatalAppointmentEntry(
+      {required this.id,
+      required this.pregnancyEpisodeId,
+      required this.userId,
+      required this.scheduledAt,
+      required this.doctorOrClinic,
+      required this.gestationalWeek,
+      required this.topicsToDiscussJson,
+      this.notes,
+      required this.isCompleted,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId);
+    map['user_id'] = Variable<String>(userId);
+    map['scheduled_at'] = Variable<DateTime>(scheduledAt);
+    map['doctor_or_clinic'] = Variable<String>(doctorOrClinic);
+    map['gestational_week'] = Variable<int>(gestationalWeek);
+    map['topics_to_discuss_json'] = Variable<String>(topicsToDiscussJson);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['is_completed'] = Variable<bool>(isCompleted);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  PrenatalAppointmentEntriesCompanion toCompanion(bool nullToAbsent) {
+    return PrenatalAppointmentEntriesCompanion(
+      id: Value(id),
+      pregnancyEpisodeId: Value(pregnancyEpisodeId),
+      userId: Value(userId),
+      scheduledAt: Value(scheduledAt),
+      doctorOrClinic: Value(doctorOrClinic),
+      gestationalWeek: Value(gestationalWeek),
+      topicsToDiscussJson: Value(topicsToDiscussJson),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      isCompleted: Value(isCompleted),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory PrenatalAppointmentEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PrenatalAppointmentEntry(
+      id: serializer.fromJson<String>(json['id']),
+      pregnancyEpisodeId:
+          serializer.fromJson<String>(json['pregnancyEpisodeId']),
+      userId: serializer.fromJson<String>(json['userId']),
+      scheduledAt: serializer.fromJson<DateTime>(json['scheduledAt']),
+      doctorOrClinic: serializer.fromJson<String>(json['doctorOrClinic']),
+      gestationalWeek: serializer.fromJson<int>(json['gestationalWeek']),
+      topicsToDiscussJson:
+          serializer.fromJson<String>(json['topicsToDiscussJson']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      isCompleted: serializer.fromJson<bool>(json['isCompleted']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'pregnancyEpisodeId': serializer.toJson<String>(pregnancyEpisodeId),
+      'userId': serializer.toJson<String>(userId),
+      'scheduledAt': serializer.toJson<DateTime>(scheduledAt),
+      'doctorOrClinic': serializer.toJson<String>(doctorOrClinic),
+      'gestationalWeek': serializer.toJson<int>(gestationalWeek),
+      'topicsToDiscussJson': serializer.toJson<String>(topicsToDiscussJson),
+      'notes': serializer.toJson<String?>(notes),
+      'isCompleted': serializer.toJson<bool>(isCompleted),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  PrenatalAppointmentEntry copyWith(
+          {String? id,
+          String? pregnancyEpisodeId,
+          String? userId,
+          DateTime? scheduledAt,
+          String? doctorOrClinic,
+          int? gestationalWeek,
+          String? topicsToDiscussJson,
+          Value<String?> notes = const Value.absent(),
+          bool? isCompleted,
+          DateTime? updatedAt}) =>
+      PrenatalAppointmentEntry(
+        id: id ?? this.id,
+        pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+        userId: userId ?? this.userId,
+        scheduledAt: scheduledAt ?? this.scheduledAt,
+        doctorOrClinic: doctorOrClinic ?? this.doctorOrClinic,
+        gestationalWeek: gestationalWeek ?? this.gestationalWeek,
+        topicsToDiscussJson: topicsToDiscussJson ?? this.topicsToDiscussJson,
+        notes: notes.present ? notes.value : this.notes,
+        isCompleted: isCompleted ?? this.isCompleted,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  PrenatalAppointmentEntry copyWithCompanion(
+      PrenatalAppointmentEntriesCompanion data) {
+    return PrenatalAppointmentEntry(
+      id: data.id.present ? data.id.value : this.id,
+      pregnancyEpisodeId: data.pregnancyEpisodeId.present
+          ? data.pregnancyEpisodeId.value
+          : this.pregnancyEpisodeId,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      scheduledAt:
+          data.scheduledAt.present ? data.scheduledAt.value : this.scheduledAt,
+      doctorOrClinic: data.doctorOrClinic.present
+          ? data.doctorOrClinic.value
+          : this.doctorOrClinic,
+      gestationalWeek: data.gestationalWeek.present
+          ? data.gestationalWeek.value
+          : this.gestationalWeek,
+      topicsToDiscussJson: data.topicsToDiscussJson.present
+          ? data.topicsToDiscussJson.value
+          : this.topicsToDiscussJson,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      isCompleted:
+          data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PrenatalAppointmentEntry(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('scheduledAt: $scheduledAt, ')
+          ..write('doctorOrClinic: $doctorOrClinic, ')
+          ..write('gestationalWeek: $gestationalWeek, ')
+          ..write('topicsToDiscussJson: $topicsToDiscussJson, ')
+          ..write('notes: $notes, ')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      pregnancyEpisodeId,
+      userId,
+      scheduledAt,
+      doctorOrClinic,
+      gestationalWeek,
+      topicsToDiscussJson,
+      notes,
+      isCompleted,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PrenatalAppointmentEntry &&
+          other.id == this.id &&
+          other.pregnancyEpisodeId == this.pregnancyEpisodeId &&
+          other.userId == this.userId &&
+          other.scheduledAt == this.scheduledAt &&
+          other.doctorOrClinic == this.doctorOrClinic &&
+          other.gestationalWeek == this.gestationalWeek &&
+          other.topicsToDiscussJson == this.topicsToDiscussJson &&
+          other.notes == this.notes &&
+          other.isCompleted == this.isCompleted &&
+          other.updatedAt == this.updatedAt);
+}
+
+class PrenatalAppointmentEntriesCompanion
+    extends UpdateCompanion<PrenatalAppointmentEntry> {
+  final Value<String> id;
+  final Value<String> pregnancyEpisodeId;
+  final Value<String> userId;
+  final Value<DateTime> scheduledAt;
+  final Value<String> doctorOrClinic;
+  final Value<int> gestationalWeek;
+  final Value<String> topicsToDiscussJson;
+  final Value<String?> notes;
+  final Value<bool> isCompleted;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const PrenatalAppointmentEntriesCompanion({
+    this.id = const Value.absent(),
+    this.pregnancyEpisodeId = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.scheduledAt = const Value.absent(),
+    this.doctorOrClinic = const Value.absent(),
+    this.gestationalWeek = const Value.absent(),
+    this.topicsToDiscussJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isCompleted = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PrenatalAppointmentEntriesCompanion.insert({
+    required String id,
+    required String pregnancyEpisodeId,
+    required String userId,
+    required DateTime scheduledAt,
+    required String doctorOrClinic,
+    required int gestationalWeek,
+    this.topicsToDiscussJson = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isCompleted = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        pregnancyEpisodeId = Value(pregnancyEpisodeId),
+        userId = Value(userId),
+        scheduledAt = Value(scheduledAt),
+        doctorOrClinic = Value(doctorOrClinic),
+        gestationalWeek = Value(gestationalWeek);
+  static Insertable<PrenatalAppointmentEntry> custom({
+    Expression<String>? id,
+    Expression<String>? pregnancyEpisodeId,
+    Expression<String>? userId,
+    Expression<DateTime>? scheduledAt,
+    Expression<String>? doctorOrClinic,
+    Expression<int>? gestationalWeek,
+    Expression<String>? topicsToDiscussJson,
+    Expression<String>? notes,
+    Expression<bool>? isCompleted,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (pregnancyEpisodeId != null)
+        'pregnancy_episode_id': pregnancyEpisodeId,
+      if (userId != null) 'user_id': userId,
+      if (scheduledAt != null) 'scheduled_at': scheduledAt,
+      if (doctorOrClinic != null) 'doctor_or_clinic': doctorOrClinic,
+      if (gestationalWeek != null) 'gestational_week': gestationalWeek,
+      if (topicsToDiscussJson != null)
+        'topics_to_discuss_json': topicsToDiscussJson,
+      if (notes != null) 'notes': notes,
+      if (isCompleted != null) 'is_completed': isCompleted,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PrenatalAppointmentEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? pregnancyEpisodeId,
+      Value<String>? userId,
+      Value<DateTime>? scheduledAt,
+      Value<String>? doctorOrClinic,
+      Value<int>? gestationalWeek,
+      Value<String>? topicsToDiscussJson,
+      Value<String?>? notes,
+      Value<bool>? isCompleted,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return PrenatalAppointmentEntriesCompanion(
+      id: id ?? this.id,
+      pregnancyEpisodeId: pregnancyEpisodeId ?? this.pregnancyEpisodeId,
+      userId: userId ?? this.userId,
+      scheduledAt: scheduledAt ?? this.scheduledAt,
+      doctorOrClinic: doctorOrClinic ?? this.doctorOrClinic,
+      gestationalWeek: gestationalWeek ?? this.gestationalWeek,
+      topicsToDiscussJson: topicsToDiscussJson ?? this.topicsToDiscussJson,
+      notes: notes ?? this.notes,
+      isCompleted: isCompleted ?? this.isCompleted,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (pregnancyEpisodeId.present) {
+      map['pregnancy_episode_id'] = Variable<String>(pregnancyEpisodeId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (scheduledAt.present) {
+      map['scheduled_at'] = Variable<DateTime>(scheduledAt.value);
+    }
+    if (doctorOrClinic.present) {
+      map['doctor_or_clinic'] = Variable<String>(doctorOrClinic.value);
+    }
+    if (gestationalWeek.present) {
+      map['gestational_week'] = Variable<int>(gestationalWeek.value);
+    }
+    if (topicsToDiscussJson.present) {
+      map['topics_to_discuss_json'] =
+          Variable<String>(topicsToDiscussJson.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (isCompleted.present) {
+      map['is_completed'] = Variable<bool>(isCompleted.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PrenatalAppointmentEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('pregnancyEpisodeId: $pregnancyEpisodeId, ')
+          ..write('userId: $userId, ')
+          ..write('scheduledAt: $scheduledAt, ')
+          ..write('doctorOrClinic: $doctorOrClinic, ')
+          ..write('gestationalWeek: $gestationalWeek, ')
+          ..write('topicsToDiscussJson: $topicsToDiscussJson, ')
+          ..write('notes: $notes, ')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -6208,6 +9806,18 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $DailyFertilityEntriesTable(this);
   late final $PreconceptionChecklistEntriesTable preconceptionChecklistEntries =
       $PreconceptionChecklistEntriesTable(this);
+  late final $PregnancyEpisodeEntriesTable pregnancyEpisodeEntries =
+      $PregnancyEpisodeEntriesTable(this);
+  late final $MaternalVitalsEntriesTable maternalVitalsEntries =
+      $MaternalVitalsEntriesTable(this);
+  late final $ContractionSessionEntriesTable contractionSessionEntries =
+      $ContractionSessionEntriesTable(this);
+  late final $KickSessionEntriesTable kickSessionEntries =
+      $KickSessionEntriesTable(this);
+  late final $BirthPlanEntriesTable birthPlanEntries =
+      $BirthPlanEntriesTable(this);
+  late final $PrenatalAppointmentEntriesTable prenatalAppointmentEntries =
+      $PrenatalAppointmentEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -6222,7 +9832,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         menstrualCycleEntries,
         cycleSymptomEntries,
         dailyFertilityEntries,
-        preconceptionChecklistEntries
+        preconceptionChecklistEntries,
+        pregnancyEpisodeEntries,
+        maternalVitalsEntries,
+        contractionSessionEntries,
+        kickSessionEntries,
+        birthPlanEntries,
+        prenatalAppointmentEntries
       ];
 }
 
@@ -9162,6 +12778,1716 @@ typedef $$PreconceptionChecklistEntriesTableProcessedTableManager
         ),
         PreconceptionChecklistEntry,
         PrefetchHooks Function()>;
+typedef $$PregnancyEpisodeEntriesTableCreateCompanionBuilder
+    = PregnancyEpisodeEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required DateTime clinicalEdd,
+  Value<DateTime?> lastMenstrualPeriod,
+  Value<DateTime?> ultrasoundEdd,
+  Value<bool> isActive,
+  Value<DateTime> startedAt,
+  Value<DateTime?> endedAt,
+  Value<String> recalibrationHistoryJson,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$PregnancyEpisodeEntriesTableUpdateCompanionBuilder
+    = PregnancyEpisodeEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<DateTime> clinicalEdd,
+  Value<DateTime?> lastMenstrualPeriod,
+  Value<DateTime?> ultrasoundEdd,
+  Value<bool> isActive,
+  Value<DateTime> startedAt,
+  Value<DateTime?> endedAt,
+  Value<String> recalibrationHistoryJson,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$PregnancyEpisodeEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $PregnancyEpisodeEntriesTable> {
+  $$PregnancyEpisodeEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get clinicalEdd => $composableBuilder(
+      column: $table.clinicalEdd, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastMenstrualPeriod => $composableBuilder(
+      column: $table.lastMenstrualPeriod,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get ultrasoundEdd => $composableBuilder(
+      column: $table.ultrasoundEdd, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get endedAt => $composableBuilder(
+      column: $table.endedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get recalibrationHistoryJson => $composableBuilder(
+      column: $table.recalibrationHistoryJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$PregnancyEpisodeEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $PregnancyEpisodeEntriesTable> {
+  $$PregnancyEpisodeEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get clinicalEdd => $composableBuilder(
+      column: $table.clinicalEdd, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastMenstrualPeriod => $composableBuilder(
+      column: $table.lastMenstrualPeriod,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get ultrasoundEdd => $composableBuilder(
+      column: $table.ultrasoundEdd,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get endedAt => $composableBuilder(
+      column: $table.endedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get recalibrationHistoryJson => $composableBuilder(
+      column: $table.recalibrationHistoryJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$PregnancyEpisodeEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PregnancyEpisodeEntriesTable> {
+  $$PregnancyEpisodeEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get clinicalEdd => $composableBuilder(
+      column: $table.clinicalEdd, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastMenstrualPeriod => $composableBuilder(
+      column: $table.lastMenstrualPeriod, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get ultrasoundEdd => $composableBuilder(
+      column: $table.ultrasoundEdd, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get startedAt =>
+      $composableBuilder(column: $table.startedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get endedAt =>
+      $composableBuilder(column: $table.endedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get recalibrationHistoryJson => $composableBuilder(
+      column: $table.recalibrationHistoryJson, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$PregnancyEpisodeEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PregnancyEpisodeEntriesTable,
+    PregnancyEpisodeEntry,
+    $$PregnancyEpisodeEntriesTableFilterComposer,
+    $$PregnancyEpisodeEntriesTableOrderingComposer,
+    $$PregnancyEpisodeEntriesTableAnnotationComposer,
+    $$PregnancyEpisodeEntriesTableCreateCompanionBuilder,
+    $$PregnancyEpisodeEntriesTableUpdateCompanionBuilder,
+    (
+      PregnancyEpisodeEntry,
+      BaseReferences<_$AppDatabase, $PregnancyEpisodeEntriesTable,
+          PregnancyEpisodeEntry>
+    ),
+    PregnancyEpisodeEntry,
+    PrefetchHooks Function()> {
+  $$PregnancyEpisodeEntriesTableTableManager(
+      _$AppDatabase db, $PregnancyEpisodeEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PregnancyEpisodeEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PregnancyEpisodeEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PregnancyEpisodeEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> clinicalEdd = const Value.absent(),
+            Value<DateTime?> lastMenstrualPeriod = const Value.absent(),
+            Value<DateTime?> ultrasoundEdd = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<DateTime> startedAt = const Value.absent(),
+            Value<DateTime?> endedAt = const Value.absent(),
+            Value<String> recalibrationHistoryJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PregnancyEpisodeEntriesCompanion(
+            id: id,
+            userId: userId,
+            clinicalEdd: clinicalEdd,
+            lastMenstrualPeriod: lastMenstrualPeriod,
+            ultrasoundEdd: ultrasoundEdd,
+            isActive: isActive,
+            startedAt: startedAt,
+            endedAt: endedAt,
+            recalibrationHistoryJson: recalibrationHistoryJson,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required DateTime clinicalEdd,
+            Value<DateTime?> lastMenstrualPeriod = const Value.absent(),
+            Value<DateTime?> ultrasoundEdd = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<DateTime> startedAt = const Value.absent(),
+            Value<DateTime?> endedAt = const Value.absent(),
+            Value<String> recalibrationHistoryJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PregnancyEpisodeEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            clinicalEdd: clinicalEdd,
+            lastMenstrualPeriod: lastMenstrualPeriod,
+            ultrasoundEdd: ultrasoundEdd,
+            isActive: isActive,
+            startedAt: startedAt,
+            endedAt: endedAt,
+            recalibrationHistoryJson: recalibrationHistoryJson,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$PregnancyEpisodeEntriesTable,
+                        PregnancyEpisodeEntry>(table),
+                    BaseReferences<_$AppDatabase, $PregnancyEpisodeEntriesTable,
+                        PregnancyEpisodeEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$PregnancyEpisodeEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $PregnancyEpisodeEntriesTable,
+        PregnancyEpisodeEntry,
+        $$PregnancyEpisodeEntriesTableFilterComposer,
+        $$PregnancyEpisodeEntriesTableOrderingComposer,
+        $$PregnancyEpisodeEntriesTableAnnotationComposer,
+        $$PregnancyEpisodeEntriesTableCreateCompanionBuilder,
+        $$PregnancyEpisodeEntriesTableUpdateCompanionBuilder,
+        (
+          PregnancyEpisodeEntry,
+          BaseReferences<_$AppDatabase, $PregnancyEpisodeEntriesTable,
+              PregnancyEpisodeEntry>
+        ),
+        PregnancyEpisodeEntry,
+        PrefetchHooks Function()>;
+typedef $$MaternalVitalsEntriesTableCreateCompanionBuilder
+    = MaternalVitalsEntriesCompanion Function({
+  required String id,
+  required String pregnancyEpisodeId,
+  required String userId,
+  Value<DateTime> measuredAt,
+  required int gestationalWeeks,
+  Value<int?> systolicMmhg,
+  Value<int?> diastolicMmhg,
+  Value<double?> glucoseMgDl,
+  Value<String?> glucoseTiming,
+  Value<double?> weightKg,
+  Value<String> symptomsJson,
+  Value<String> alertsJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$MaternalVitalsEntriesTableUpdateCompanionBuilder
+    = MaternalVitalsEntriesCompanion Function({
+  Value<String> id,
+  Value<String> pregnancyEpisodeId,
+  Value<String> userId,
+  Value<DateTime> measuredAt,
+  Value<int> gestationalWeeks,
+  Value<int?> systolicMmhg,
+  Value<int?> diastolicMmhg,
+  Value<double?> glucoseMgDl,
+  Value<String?> glucoseTiming,
+  Value<double?> weightKg,
+  Value<String> symptomsJson,
+  Value<String> alertsJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$MaternalVitalsEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $MaternalVitalsEntriesTable> {
+  $$MaternalVitalsEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get measuredAt => $composableBuilder(
+      column: $table.measuredAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get systolicMmhg => $composableBuilder(
+      column: $table.systolicMmhg, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get diastolicMmhg => $composableBuilder(
+      column: $table.diastolicMmhg, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get glucoseMgDl => $composableBuilder(
+      column: $table.glucoseMgDl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get glucoseTiming => $composableBuilder(
+      column: $table.glucoseTiming, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get weightKg => $composableBuilder(
+      column: $table.weightKg, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get symptomsJson => $composableBuilder(
+      column: $table.symptomsJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get alertsJson => $composableBuilder(
+      column: $table.alertsJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$MaternalVitalsEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $MaternalVitalsEntriesTable> {
+  $$MaternalVitalsEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get measuredAt => $composableBuilder(
+      column: $table.measuredAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get systolicMmhg => $composableBuilder(
+      column: $table.systolicMmhg,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get diastolicMmhg => $composableBuilder(
+      column: $table.diastolicMmhg,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get glucoseMgDl => $composableBuilder(
+      column: $table.glucoseMgDl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get glucoseTiming => $composableBuilder(
+      column: $table.glucoseTiming,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get weightKg => $composableBuilder(
+      column: $table.weightKg, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get symptomsJson => $composableBuilder(
+      column: $table.symptomsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get alertsJson => $composableBuilder(
+      column: $table.alertsJson, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$MaternalVitalsEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MaternalVitalsEntriesTable> {
+  $$MaternalVitalsEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get measuredAt => $composableBuilder(
+      column: $table.measuredAt, builder: (column) => column);
+
+  GeneratedColumn<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks, builder: (column) => column);
+
+  GeneratedColumn<int> get systolicMmhg => $composableBuilder(
+      column: $table.systolicMmhg, builder: (column) => column);
+
+  GeneratedColumn<int> get diastolicMmhg => $composableBuilder(
+      column: $table.diastolicMmhg, builder: (column) => column);
+
+  GeneratedColumn<double> get glucoseMgDl => $composableBuilder(
+      column: $table.glucoseMgDl, builder: (column) => column);
+
+  GeneratedColumn<String> get glucoseTiming => $composableBuilder(
+      column: $table.glucoseTiming, builder: (column) => column);
+
+  GeneratedColumn<double> get weightKg =>
+      $composableBuilder(column: $table.weightKg, builder: (column) => column);
+
+  GeneratedColumn<String> get symptomsJson => $composableBuilder(
+      column: $table.symptomsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get alertsJson => $composableBuilder(
+      column: $table.alertsJson, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$MaternalVitalsEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $MaternalVitalsEntriesTable,
+    MaternalVitalsEntry,
+    $$MaternalVitalsEntriesTableFilterComposer,
+    $$MaternalVitalsEntriesTableOrderingComposer,
+    $$MaternalVitalsEntriesTableAnnotationComposer,
+    $$MaternalVitalsEntriesTableCreateCompanionBuilder,
+    $$MaternalVitalsEntriesTableUpdateCompanionBuilder,
+    (
+      MaternalVitalsEntry,
+      BaseReferences<_$AppDatabase, $MaternalVitalsEntriesTable,
+          MaternalVitalsEntry>
+    ),
+    MaternalVitalsEntry,
+    PrefetchHooks Function()> {
+  $$MaternalVitalsEntriesTableTableManager(
+      _$AppDatabase db, $MaternalVitalsEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MaternalVitalsEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MaternalVitalsEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MaternalVitalsEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> pregnancyEpisodeId = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> measuredAt = const Value.absent(),
+            Value<int> gestationalWeeks = const Value.absent(),
+            Value<int?> systolicMmhg = const Value.absent(),
+            Value<int?> diastolicMmhg = const Value.absent(),
+            Value<double?> glucoseMgDl = const Value.absent(),
+            Value<String?> glucoseTiming = const Value.absent(),
+            Value<double?> weightKg = const Value.absent(),
+            Value<String> symptomsJson = const Value.absent(),
+            Value<String> alertsJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MaternalVitalsEntriesCompanion(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            measuredAt: measuredAt,
+            gestationalWeeks: gestationalWeeks,
+            systolicMmhg: systolicMmhg,
+            diastolicMmhg: diastolicMmhg,
+            glucoseMgDl: glucoseMgDl,
+            glucoseTiming: glucoseTiming,
+            weightKg: weightKg,
+            symptomsJson: symptomsJson,
+            alertsJson: alertsJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String pregnancyEpisodeId,
+            required String userId,
+            Value<DateTime> measuredAt = const Value.absent(),
+            required int gestationalWeeks,
+            Value<int?> systolicMmhg = const Value.absent(),
+            Value<int?> diastolicMmhg = const Value.absent(),
+            Value<double?> glucoseMgDl = const Value.absent(),
+            Value<String?> glucoseTiming = const Value.absent(),
+            Value<double?> weightKg = const Value.absent(),
+            Value<String> symptomsJson = const Value.absent(),
+            Value<String> alertsJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MaternalVitalsEntriesCompanion.insert(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            measuredAt: measuredAt,
+            gestationalWeeks: gestationalWeeks,
+            systolicMmhg: systolicMmhg,
+            diastolicMmhg: diastolicMmhg,
+            glucoseMgDl: glucoseMgDl,
+            glucoseTiming: glucoseTiming,
+            weightKg: weightKg,
+            symptomsJson: symptomsJson,
+            alertsJson: alertsJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$MaternalVitalsEntriesTable,
+                        MaternalVitalsEntry>(table),
+                    BaseReferences<_$AppDatabase, $MaternalVitalsEntriesTable,
+                        MaternalVitalsEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$MaternalVitalsEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $MaternalVitalsEntriesTable,
+        MaternalVitalsEntry,
+        $$MaternalVitalsEntriesTableFilterComposer,
+        $$MaternalVitalsEntriesTableOrderingComposer,
+        $$MaternalVitalsEntriesTableAnnotationComposer,
+        $$MaternalVitalsEntriesTableCreateCompanionBuilder,
+        $$MaternalVitalsEntriesTableUpdateCompanionBuilder,
+        (
+          MaternalVitalsEntry,
+          BaseReferences<_$AppDatabase, $MaternalVitalsEntriesTable,
+              MaternalVitalsEntry>
+        ),
+        MaternalVitalsEntry,
+        PrefetchHooks Function()>;
+typedef $$ContractionSessionEntriesTableCreateCompanionBuilder
+    = ContractionSessionEntriesCompanion Function({
+  required String id,
+  required String pregnancyEpisodeId,
+  required String userId,
+  required DateTime startedAt,
+  Value<DateTime?> endedAt,
+  required int gestationalWeeks,
+  required String pattern,
+  required int totalContractions,
+  Value<double?> avgIntervalSeconds,
+  Value<double?> avgDurationSeconds,
+  Value<String> eventsJson,
+  Value<String?> alertJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$ContractionSessionEntriesTableUpdateCompanionBuilder
+    = ContractionSessionEntriesCompanion Function({
+  Value<String> id,
+  Value<String> pregnancyEpisodeId,
+  Value<String> userId,
+  Value<DateTime> startedAt,
+  Value<DateTime?> endedAt,
+  Value<int> gestationalWeeks,
+  Value<String> pattern,
+  Value<int> totalContractions,
+  Value<double?> avgIntervalSeconds,
+  Value<double?> avgDurationSeconds,
+  Value<String> eventsJson,
+  Value<String?> alertJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$ContractionSessionEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $ContractionSessionEntriesTable> {
+  $$ContractionSessionEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get endedAt => $composableBuilder(
+      column: $table.endedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pattern => $composableBuilder(
+      column: $table.pattern, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get totalContractions => $composableBuilder(
+      column: $table.totalContractions,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get avgIntervalSeconds => $composableBuilder(
+      column: $table.avgIntervalSeconds,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get avgDurationSeconds => $composableBuilder(
+      column: $table.avgDurationSeconds,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get eventsJson => $composableBuilder(
+      column: $table.eventsJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get alertJson => $composableBuilder(
+      column: $table.alertJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$ContractionSessionEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ContractionSessionEntriesTable> {
+  $$ContractionSessionEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get endedAt => $composableBuilder(
+      column: $table.endedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pattern => $composableBuilder(
+      column: $table.pattern, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get totalContractions => $composableBuilder(
+      column: $table.totalContractions,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get avgIntervalSeconds => $composableBuilder(
+      column: $table.avgIntervalSeconds,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get avgDurationSeconds => $composableBuilder(
+      column: $table.avgDurationSeconds,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get eventsJson => $composableBuilder(
+      column: $table.eventsJson, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get alertJson => $composableBuilder(
+      column: $table.alertJson, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ContractionSessionEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ContractionSessionEntriesTable> {
+  $$ContractionSessionEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get startedAt =>
+      $composableBuilder(column: $table.startedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get endedAt =>
+      $composableBuilder(column: $table.endedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks, builder: (column) => column);
+
+  GeneratedColumn<String> get pattern =>
+      $composableBuilder(column: $table.pattern, builder: (column) => column);
+
+  GeneratedColumn<int> get totalContractions => $composableBuilder(
+      column: $table.totalContractions, builder: (column) => column);
+
+  GeneratedColumn<double> get avgIntervalSeconds => $composableBuilder(
+      column: $table.avgIntervalSeconds, builder: (column) => column);
+
+  GeneratedColumn<double> get avgDurationSeconds => $composableBuilder(
+      column: $table.avgDurationSeconds, builder: (column) => column);
+
+  GeneratedColumn<String> get eventsJson => $composableBuilder(
+      column: $table.eventsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get alertJson =>
+      $composableBuilder(column: $table.alertJson, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$ContractionSessionEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ContractionSessionEntriesTable,
+    ContractionSessionEntry,
+    $$ContractionSessionEntriesTableFilterComposer,
+    $$ContractionSessionEntriesTableOrderingComposer,
+    $$ContractionSessionEntriesTableAnnotationComposer,
+    $$ContractionSessionEntriesTableCreateCompanionBuilder,
+    $$ContractionSessionEntriesTableUpdateCompanionBuilder,
+    (
+      ContractionSessionEntry,
+      BaseReferences<_$AppDatabase, $ContractionSessionEntriesTable,
+          ContractionSessionEntry>
+    ),
+    ContractionSessionEntry,
+    PrefetchHooks Function()> {
+  $$ContractionSessionEntriesTableTableManager(
+      _$AppDatabase db, $ContractionSessionEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ContractionSessionEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ContractionSessionEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ContractionSessionEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> pregnancyEpisodeId = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> startedAt = const Value.absent(),
+            Value<DateTime?> endedAt = const Value.absent(),
+            Value<int> gestationalWeeks = const Value.absent(),
+            Value<String> pattern = const Value.absent(),
+            Value<int> totalContractions = const Value.absent(),
+            Value<double?> avgIntervalSeconds = const Value.absent(),
+            Value<double?> avgDurationSeconds = const Value.absent(),
+            Value<String> eventsJson = const Value.absent(),
+            Value<String?> alertJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ContractionSessionEntriesCompanion(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            startedAt: startedAt,
+            endedAt: endedAt,
+            gestationalWeeks: gestationalWeeks,
+            pattern: pattern,
+            totalContractions: totalContractions,
+            avgIntervalSeconds: avgIntervalSeconds,
+            avgDurationSeconds: avgDurationSeconds,
+            eventsJson: eventsJson,
+            alertJson: alertJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String pregnancyEpisodeId,
+            required String userId,
+            required DateTime startedAt,
+            Value<DateTime?> endedAt = const Value.absent(),
+            required int gestationalWeeks,
+            required String pattern,
+            required int totalContractions,
+            Value<double?> avgIntervalSeconds = const Value.absent(),
+            Value<double?> avgDurationSeconds = const Value.absent(),
+            Value<String> eventsJson = const Value.absent(),
+            Value<String?> alertJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ContractionSessionEntriesCompanion.insert(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            startedAt: startedAt,
+            endedAt: endedAt,
+            gestationalWeeks: gestationalWeeks,
+            pattern: pattern,
+            totalContractions: totalContractions,
+            avgIntervalSeconds: avgIntervalSeconds,
+            avgDurationSeconds: avgDurationSeconds,
+            eventsJson: eventsJson,
+            alertJson: alertJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$ContractionSessionEntriesTable,
+                        ContractionSessionEntry>(table),
+                    BaseReferences<
+                        _$AppDatabase,
+                        $ContractionSessionEntriesTable,
+                        ContractionSessionEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ContractionSessionEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $ContractionSessionEntriesTable,
+        ContractionSessionEntry,
+        $$ContractionSessionEntriesTableFilterComposer,
+        $$ContractionSessionEntriesTableOrderingComposer,
+        $$ContractionSessionEntriesTableAnnotationComposer,
+        $$ContractionSessionEntriesTableCreateCompanionBuilder,
+        $$ContractionSessionEntriesTableUpdateCompanionBuilder,
+        (
+          ContractionSessionEntry,
+          BaseReferences<_$AppDatabase, $ContractionSessionEntriesTable,
+              ContractionSessionEntry>
+        ),
+        ContractionSessionEntry,
+        PrefetchHooks Function()>;
+typedef $$KickSessionEntriesTableCreateCompanionBuilder
+    = KickSessionEntriesCompanion Function({
+  required String id,
+  required String pregnancyEpisodeId,
+  required String userId,
+  required DateTime startedAt,
+  required int durationMinutes,
+  required int gestationalWeeks,
+  required int kicksCount,
+  required bool targetReached,
+  Value<int?> targetReachedAtMinutes,
+  required bool isReassuring,
+  Value<String?> alertJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$KickSessionEntriesTableUpdateCompanionBuilder
+    = KickSessionEntriesCompanion Function({
+  Value<String> id,
+  Value<String> pregnancyEpisodeId,
+  Value<String> userId,
+  Value<DateTime> startedAt,
+  Value<int> durationMinutes,
+  Value<int> gestationalWeeks,
+  Value<int> kicksCount,
+  Value<bool> targetReached,
+  Value<int?> targetReachedAtMinutes,
+  Value<bool> isReassuring,
+  Value<String?> alertJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$KickSessionEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $KickSessionEntriesTable> {
+  $$KickSessionEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get durationMinutes => $composableBuilder(
+      column: $table.durationMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get kicksCount => $composableBuilder(
+      column: $table.kicksCount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get targetReached => $composableBuilder(
+      column: $table.targetReached, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get targetReachedAtMinutes => $composableBuilder(
+      column: $table.targetReachedAtMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isReassuring => $composableBuilder(
+      column: $table.isReassuring, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get alertJson => $composableBuilder(
+      column: $table.alertJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$KickSessionEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $KickSessionEntriesTable> {
+  $$KickSessionEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get startedAt => $composableBuilder(
+      column: $table.startedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get durationMinutes => $composableBuilder(
+      column: $table.durationMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get kicksCount => $composableBuilder(
+      column: $table.kicksCount, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get targetReached => $composableBuilder(
+      column: $table.targetReached,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get targetReachedAtMinutes => $composableBuilder(
+      column: $table.targetReachedAtMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isReassuring => $composableBuilder(
+      column: $table.isReassuring,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get alertJson => $composableBuilder(
+      column: $table.alertJson, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$KickSessionEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $KickSessionEntriesTable> {
+  $$KickSessionEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get startedAt =>
+      $composableBuilder(column: $table.startedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get durationMinutes => $composableBuilder(
+      column: $table.durationMinutes, builder: (column) => column);
+
+  GeneratedColumn<int> get gestationalWeeks => $composableBuilder(
+      column: $table.gestationalWeeks, builder: (column) => column);
+
+  GeneratedColumn<int> get kicksCount => $composableBuilder(
+      column: $table.kicksCount, builder: (column) => column);
+
+  GeneratedColumn<bool> get targetReached => $composableBuilder(
+      column: $table.targetReached, builder: (column) => column);
+
+  GeneratedColumn<int> get targetReachedAtMinutes => $composableBuilder(
+      column: $table.targetReachedAtMinutes, builder: (column) => column);
+
+  GeneratedColumn<bool> get isReassuring => $composableBuilder(
+      column: $table.isReassuring, builder: (column) => column);
+
+  GeneratedColumn<String> get alertJson =>
+      $composableBuilder(column: $table.alertJson, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$KickSessionEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $KickSessionEntriesTable,
+    KickSessionEntry,
+    $$KickSessionEntriesTableFilterComposer,
+    $$KickSessionEntriesTableOrderingComposer,
+    $$KickSessionEntriesTableAnnotationComposer,
+    $$KickSessionEntriesTableCreateCompanionBuilder,
+    $$KickSessionEntriesTableUpdateCompanionBuilder,
+    (
+      KickSessionEntry,
+      BaseReferences<_$AppDatabase, $KickSessionEntriesTable, KickSessionEntry>
+    ),
+    KickSessionEntry,
+    PrefetchHooks Function()> {
+  $$KickSessionEntriesTableTableManager(
+      _$AppDatabase db, $KickSessionEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$KickSessionEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$KickSessionEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$KickSessionEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> pregnancyEpisodeId = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> startedAt = const Value.absent(),
+            Value<int> durationMinutes = const Value.absent(),
+            Value<int> gestationalWeeks = const Value.absent(),
+            Value<int> kicksCount = const Value.absent(),
+            Value<bool> targetReached = const Value.absent(),
+            Value<int?> targetReachedAtMinutes = const Value.absent(),
+            Value<bool> isReassuring = const Value.absent(),
+            Value<String?> alertJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              KickSessionEntriesCompanion(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            startedAt: startedAt,
+            durationMinutes: durationMinutes,
+            gestationalWeeks: gestationalWeeks,
+            kicksCount: kicksCount,
+            targetReached: targetReached,
+            targetReachedAtMinutes: targetReachedAtMinutes,
+            isReassuring: isReassuring,
+            alertJson: alertJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String pregnancyEpisodeId,
+            required String userId,
+            required DateTime startedAt,
+            required int durationMinutes,
+            required int gestationalWeeks,
+            required int kicksCount,
+            required bool targetReached,
+            Value<int?> targetReachedAtMinutes = const Value.absent(),
+            required bool isReassuring,
+            Value<String?> alertJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              KickSessionEntriesCompanion.insert(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            startedAt: startedAt,
+            durationMinutes: durationMinutes,
+            gestationalWeeks: gestationalWeeks,
+            kicksCount: kicksCount,
+            targetReached: targetReached,
+            targetReachedAtMinutes: targetReachedAtMinutes,
+            isReassuring: isReassuring,
+            alertJson: alertJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$KickSessionEntriesTable, KickSessionEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $KickSessionEntriesTable,
+                        KickSessionEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$KickSessionEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $KickSessionEntriesTable,
+    KickSessionEntry,
+    $$KickSessionEntriesTableFilterComposer,
+    $$KickSessionEntriesTableOrderingComposer,
+    $$KickSessionEntriesTableAnnotationComposer,
+    $$KickSessionEntriesTableCreateCompanionBuilder,
+    $$KickSessionEntriesTableUpdateCompanionBuilder,
+    (
+      KickSessionEntry,
+      BaseReferences<_$AppDatabase, $KickSessionEntriesTable, KickSessionEntry>
+    ),
+    KickSessionEntry,
+    PrefetchHooks Function()>;
+typedef $$BirthPlanEntriesTableCreateCompanionBuilder
+    = BirthPlanEntriesCompanion Function({
+  required String pregnancyEpisodeId,
+  required String userId,
+  Value<String> companionPreferencesJson,
+  Value<String> painManagementJson,
+  Value<String> deliveryEnvironmentJson,
+  Value<String> immediatePostpartumJson,
+  Value<String?> specialRequests,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$BirthPlanEntriesTableUpdateCompanionBuilder
+    = BirthPlanEntriesCompanion Function({
+  Value<String> pregnancyEpisodeId,
+  Value<String> userId,
+  Value<String> companionPreferencesJson,
+  Value<String> painManagementJson,
+  Value<String> deliveryEnvironmentJson,
+  Value<String> immediatePostpartumJson,
+  Value<String?> specialRequests,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$BirthPlanEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $BirthPlanEntriesTable> {
+  $$BirthPlanEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get companionPreferencesJson => $composableBuilder(
+      column: $table.companionPreferencesJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get painManagementJson => $composableBuilder(
+      column: $table.painManagementJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get deliveryEnvironmentJson => $composableBuilder(
+      column: $table.deliveryEnvironmentJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get immediatePostpartumJson => $composableBuilder(
+      column: $table.immediatePostpartumJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get specialRequests => $composableBuilder(
+      column: $table.specialRequests,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$BirthPlanEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $BirthPlanEntriesTable> {
+  $$BirthPlanEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get companionPreferencesJson => $composableBuilder(
+      column: $table.companionPreferencesJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get painManagementJson => $composableBuilder(
+      column: $table.painManagementJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get deliveryEnvironmentJson => $composableBuilder(
+      column: $table.deliveryEnvironmentJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get immediatePostpartumJson => $composableBuilder(
+      column: $table.immediatePostpartumJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get specialRequests => $composableBuilder(
+      column: $table.specialRequests,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$BirthPlanEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $BirthPlanEntriesTable> {
+  $$BirthPlanEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get companionPreferencesJson => $composableBuilder(
+      column: $table.companionPreferencesJson, builder: (column) => column);
+
+  GeneratedColumn<String> get painManagementJson => $composableBuilder(
+      column: $table.painManagementJson, builder: (column) => column);
+
+  GeneratedColumn<String> get deliveryEnvironmentJson => $composableBuilder(
+      column: $table.deliveryEnvironmentJson, builder: (column) => column);
+
+  GeneratedColumn<String> get immediatePostpartumJson => $composableBuilder(
+      column: $table.immediatePostpartumJson, builder: (column) => column);
+
+  GeneratedColumn<String> get specialRequests => $composableBuilder(
+      column: $table.specialRequests, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$BirthPlanEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $BirthPlanEntriesTable,
+    BirthPlanEntry,
+    $$BirthPlanEntriesTableFilterComposer,
+    $$BirthPlanEntriesTableOrderingComposer,
+    $$BirthPlanEntriesTableAnnotationComposer,
+    $$BirthPlanEntriesTableCreateCompanionBuilder,
+    $$BirthPlanEntriesTableUpdateCompanionBuilder,
+    (
+      BirthPlanEntry,
+      BaseReferences<_$AppDatabase, $BirthPlanEntriesTable, BirthPlanEntry>
+    ),
+    BirthPlanEntry,
+    PrefetchHooks Function()> {
+  $$BirthPlanEntriesTableTableManager(
+      _$AppDatabase db, $BirthPlanEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BirthPlanEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BirthPlanEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BirthPlanEntriesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> pregnancyEpisodeId = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> companionPreferencesJson = const Value.absent(),
+            Value<String> painManagementJson = const Value.absent(),
+            Value<String> deliveryEnvironmentJson = const Value.absent(),
+            Value<String> immediatePostpartumJson = const Value.absent(),
+            Value<String?> specialRequests = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              BirthPlanEntriesCompanion(
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            companionPreferencesJson: companionPreferencesJson,
+            painManagementJson: painManagementJson,
+            deliveryEnvironmentJson: deliveryEnvironmentJson,
+            immediatePostpartumJson: immediatePostpartumJson,
+            specialRequests: specialRequests,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String pregnancyEpisodeId,
+            required String userId,
+            Value<String> companionPreferencesJson = const Value.absent(),
+            Value<String> painManagementJson = const Value.absent(),
+            Value<String> deliveryEnvironmentJson = const Value.absent(),
+            Value<String> immediatePostpartumJson = const Value.absent(),
+            Value<String?> specialRequests = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              BirthPlanEntriesCompanion.insert(
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            companionPreferencesJson: companionPreferencesJson,
+            painManagementJson: painManagementJson,
+            deliveryEnvironmentJson: deliveryEnvironmentJson,
+            immediatePostpartumJson: immediatePostpartumJson,
+            specialRequests: specialRequests,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$BirthPlanEntriesTable, BirthPlanEntry>(table),
+                    BaseReferences<_$AppDatabase, $BirthPlanEntriesTable,
+                        BirthPlanEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$BirthPlanEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $BirthPlanEntriesTable,
+    BirthPlanEntry,
+    $$BirthPlanEntriesTableFilterComposer,
+    $$BirthPlanEntriesTableOrderingComposer,
+    $$BirthPlanEntriesTableAnnotationComposer,
+    $$BirthPlanEntriesTableCreateCompanionBuilder,
+    $$BirthPlanEntriesTableUpdateCompanionBuilder,
+    (
+      BirthPlanEntry,
+      BaseReferences<_$AppDatabase, $BirthPlanEntriesTable, BirthPlanEntry>
+    ),
+    BirthPlanEntry,
+    PrefetchHooks Function()>;
+typedef $$PrenatalAppointmentEntriesTableCreateCompanionBuilder
+    = PrenatalAppointmentEntriesCompanion Function({
+  required String id,
+  required String pregnancyEpisodeId,
+  required String userId,
+  required DateTime scheduledAt,
+  required String doctorOrClinic,
+  required int gestationalWeek,
+  Value<String> topicsToDiscussJson,
+  Value<String?> notes,
+  Value<bool> isCompleted,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$PrenatalAppointmentEntriesTableUpdateCompanionBuilder
+    = PrenatalAppointmentEntriesCompanion Function({
+  Value<String> id,
+  Value<String> pregnancyEpisodeId,
+  Value<String> userId,
+  Value<DateTime> scheduledAt,
+  Value<String> doctorOrClinic,
+  Value<int> gestationalWeek,
+  Value<String> topicsToDiscussJson,
+  Value<String?> notes,
+  Value<bool> isCompleted,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$PrenatalAppointmentEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $PrenatalAppointmentEntriesTable> {
+  $$PrenatalAppointmentEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get scheduledAt => $composableBuilder(
+      column: $table.scheduledAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get doctorOrClinic => $composableBuilder(
+      column: $table.doctorOrClinic,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get gestationalWeek => $composableBuilder(
+      column: $table.gestationalWeek,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get topicsToDiscussJson => $composableBuilder(
+      column: $table.topicsToDiscussJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$PrenatalAppointmentEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $PrenatalAppointmentEntriesTable> {
+  $$PrenatalAppointmentEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get scheduledAt => $composableBuilder(
+      column: $table.scheduledAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get doctorOrClinic => $composableBuilder(
+      column: $table.doctorOrClinic,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get gestationalWeek => $composableBuilder(
+      column: $table.gestationalWeek,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get topicsToDiscussJson => $composableBuilder(
+      column: $table.topicsToDiscussJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$PrenatalAppointmentEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PrenatalAppointmentEntriesTable> {
+  $$PrenatalAppointmentEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get pregnancyEpisodeId => $composableBuilder(
+      column: $table.pregnancyEpisodeId, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get scheduledAt => $composableBuilder(
+      column: $table.scheduledAt, builder: (column) => column);
+
+  GeneratedColumn<String> get doctorOrClinic => $composableBuilder(
+      column: $table.doctorOrClinic, builder: (column) => column);
+
+  GeneratedColumn<int> get gestationalWeek => $composableBuilder(
+      column: $table.gestationalWeek, builder: (column) => column);
+
+  GeneratedColumn<String> get topicsToDiscussJson => $composableBuilder(
+      column: $table.topicsToDiscussJson, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$PrenatalAppointmentEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PrenatalAppointmentEntriesTable,
+    PrenatalAppointmentEntry,
+    $$PrenatalAppointmentEntriesTableFilterComposer,
+    $$PrenatalAppointmentEntriesTableOrderingComposer,
+    $$PrenatalAppointmentEntriesTableAnnotationComposer,
+    $$PrenatalAppointmentEntriesTableCreateCompanionBuilder,
+    $$PrenatalAppointmentEntriesTableUpdateCompanionBuilder,
+    (
+      PrenatalAppointmentEntry,
+      BaseReferences<_$AppDatabase, $PrenatalAppointmentEntriesTable,
+          PrenatalAppointmentEntry>
+    ),
+    PrenatalAppointmentEntry,
+    PrefetchHooks Function()> {
+  $$PrenatalAppointmentEntriesTableTableManager(
+      _$AppDatabase db, $PrenatalAppointmentEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PrenatalAppointmentEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PrenatalAppointmentEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PrenatalAppointmentEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> pregnancyEpisodeId = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<DateTime> scheduledAt = const Value.absent(),
+            Value<String> doctorOrClinic = const Value.absent(),
+            Value<int> gestationalWeek = const Value.absent(),
+            Value<String> topicsToDiscussJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PrenatalAppointmentEntriesCompanion(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            scheduledAt: scheduledAt,
+            doctorOrClinic: doctorOrClinic,
+            gestationalWeek: gestationalWeek,
+            topicsToDiscussJson: topicsToDiscussJson,
+            notes: notes,
+            isCompleted: isCompleted,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String pregnancyEpisodeId,
+            required String userId,
+            required DateTime scheduledAt,
+            required String doctorOrClinic,
+            required int gestationalWeek,
+            Value<String> topicsToDiscussJson = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              PrenatalAppointmentEntriesCompanion.insert(
+            id: id,
+            pregnancyEpisodeId: pregnancyEpisodeId,
+            userId: userId,
+            scheduledAt: scheduledAt,
+            doctorOrClinic: doctorOrClinic,
+            gestationalWeek: gestationalWeek,
+            topicsToDiscussJson: topicsToDiscussJson,
+            notes: notes,
+            isCompleted: isCompleted,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$PrenatalAppointmentEntriesTable,
+                        PrenatalAppointmentEntry>(table),
+                    BaseReferences<
+                        _$AppDatabase,
+                        $PrenatalAppointmentEntriesTable,
+                        PrenatalAppointmentEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$PrenatalAppointmentEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $PrenatalAppointmentEntriesTable,
+        PrenatalAppointmentEntry,
+        $$PrenatalAppointmentEntriesTableFilterComposer,
+        $$PrenatalAppointmentEntriesTableOrderingComposer,
+        $$PrenatalAppointmentEntriesTableAnnotationComposer,
+        $$PrenatalAppointmentEntriesTableCreateCompanionBuilder,
+        $$PrenatalAppointmentEntriesTableUpdateCompanionBuilder,
+        (
+          PrenatalAppointmentEntry,
+          BaseReferences<_$AppDatabase, $PrenatalAppointmentEntriesTable,
+              PrenatalAppointmentEntry>
+        ),
+        PrenatalAppointmentEntry,
+        PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -9191,4 +14517,20 @@ class $AppDatabaseManager {
       get preconceptionChecklistEntries =>
           $$PreconceptionChecklistEntriesTableTableManager(
               _db, _db.preconceptionChecklistEntries);
+  $$PregnancyEpisodeEntriesTableTableManager get pregnancyEpisodeEntries =>
+      $$PregnancyEpisodeEntriesTableTableManager(
+          _db, _db.pregnancyEpisodeEntries);
+  $$MaternalVitalsEntriesTableTableManager get maternalVitalsEntries =>
+      $$MaternalVitalsEntriesTableTableManager(_db, _db.maternalVitalsEntries);
+  $$ContractionSessionEntriesTableTableManager get contractionSessionEntries =>
+      $$ContractionSessionEntriesTableTableManager(
+          _db, _db.contractionSessionEntries);
+  $$KickSessionEntriesTableTableManager get kickSessionEntries =>
+      $$KickSessionEntriesTableTableManager(_db, _db.kickSessionEntries);
+  $$BirthPlanEntriesTableTableManager get birthPlanEntries =>
+      $$BirthPlanEntriesTableTableManager(_db, _db.birthPlanEntries);
+  $$PrenatalAppointmentEntriesTableTableManager
+      get prenatalAppointmentEntries =>
+          $$PrenatalAppointmentEntriesTableTableManager(
+              _db, _db.prenatalAppointmentEntries);
 }

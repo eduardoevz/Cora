@@ -216,6 +216,115 @@ class PreconceptionChecklistEntries extends Table {
   Set<Column> get primaryKey => {userId};
 }
 
+class PregnancyEpisodeEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get clinicalEdd => dateTime()();
+  DateTimeColumn get lastMenstrualPeriod => dateTime().nullable()();
+  DateTimeColumn get ultrasoundEdd => dateTime().nullable()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+  DateTimeColumn get startedAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get endedAt => dateTime().nullable()();
+  TextColumn get recalibrationHistoryJson =>
+      text().withDefault(const Constant('[]'))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class MaternalVitalsEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get pregnancyEpisodeId => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get measuredAt => dateTime().withDefault(currentDateAndTime)();
+  IntColumn get gestationalWeeks => integer()();
+  IntColumn get systolicMmhg => integer().nullable()();
+  IntColumn get diastolicMmhg => integer().nullable()();
+  RealColumn get glucoseMgDl => real().nullable()();
+  TextColumn get glucoseTiming => text().nullable()();
+  RealColumn get weightKg => real().nullable()();
+  TextColumn get symptomsJson => text().withDefault(const Constant('[]'))();
+  TextColumn get alertsJson => text().withDefault(const Constant('[]'))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class ContractionSessionEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get pregnancyEpisodeId => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get startedAt => dateTime()();
+  DateTimeColumn get endedAt => dateTime().nullable()();
+  IntColumn get gestationalWeeks => integer()();
+  TextColumn get pattern => text()();
+  IntColumn get totalContractions => integer()();
+  RealColumn get avgIntervalSeconds => real().nullable()();
+  RealColumn get avgDurationSeconds => real().nullable()();
+  TextColumn get eventsJson => text().withDefault(const Constant('[]'))();
+  TextColumn get alertJson => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class KickSessionEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get pregnancyEpisodeId => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get startedAt => dateTime()();
+  IntColumn get durationMinutes => integer()();
+  IntColumn get gestationalWeeks => integer()();
+  IntColumn get kicksCount => integer()();
+  BoolColumn get targetReached => boolean()();
+  IntColumn get targetReachedAtMinutes => integer().nullable()();
+  BoolColumn get isReassuring => boolean()();
+  TextColumn get alertJson => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class BirthPlanEntries extends Table {
+  TextColumn get pregnancyEpisodeId => text()();
+  TextColumn get userId => text()();
+  TextColumn get companionPreferencesJson =>
+      text().withDefault(const Constant('[]'))();
+  TextColumn get painManagementJson =>
+      text().withDefault(const Constant('[]'))();
+  TextColumn get deliveryEnvironmentJson =>
+      text().withDefault(const Constant('[]'))();
+  TextColumn get immediatePostpartumJson =>
+      text().withDefault(const Constant('[]'))();
+  TextColumn get specialRequests => text().nullable()();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {pregnancyEpisodeId};
+}
+
+class PrenatalAppointmentEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get pregnancyEpisodeId => text()();
+  TextColumn get userId => text()();
+  DateTimeColumn get scheduledAt => dateTime()();
+  TextColumn get doctorOrClinic => text()();
+  IntColumn get gestationalWeek => integer()();
+  TextColumn get topicsToDiscussJson =>
+      text().withDefault(const Constant('[]'))();
+  TextColumn get notes => text().nullable()();
+  BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
@@ -227,6 +336,12 @@ class PreconceptionChecklistEntries extends Table {
   CycleSymptomEntries,
   DailyFertilityEntries,
   PreconceptionChecklistEntries,
+  PregnancyEpisodeEntries,
+  MaternalVitalsEntries,
+  ContractionSessionEntries,
+  KickSessionEntries,
+  BirthPlanEntries,
+  PrenatalAppointmentEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -234,7 +349,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -258,6 +373,14 @@ class AppDatabase extends _$AppDatabase {
           if (from < 5) {
             await m.createTable(dailyFertilityEntries);
             await m.createTable(preconceptionChecklistEntries);
+          }
+          if (from < 6) {
+            await m.createTable(pregnancyEpisodeEntries);
+            await m.createTable(maternalVitalsEntries);
+            await m.createTable(contractionSessionEntries);
+            await m.createTable(kickSessionEntries);
+            await m.createTable(birthPlanEntries);
+            await m.createTable(prenatalAppointmentEntries);
           }
         },
       );

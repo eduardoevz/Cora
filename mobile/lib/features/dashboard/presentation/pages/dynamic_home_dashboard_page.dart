@@ -7,6 +7,7 @@ import 'package:mobile/features/dashboard/presentation/widgets/module_preference
 import 'package:mobile/features/fertility/presentation/pages/conception_hub_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
+import 'package:mobile/features/pregnancy/presentation/pages/pregnancy_weekly_hub_page.dart';
 import 'package:mobile/features/treatments/presentation/pages/pillbox_and_treatments_page.dart';
 import 'package:mobile/features/wellness/presentation/pages/wellness_tracker_page.dart';
 
@@ -296,6 +297,42 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                 const SizedBox(height: 12),
               ],
 
+              // Pregnancy Hub Quick Card
+              if (profile.currentLifeStage == LifeStage.pregnancy) ...[
+                Card(
+                  key: const Key('dashboard_pregnancy_hub_card'),
+                  elevation: 0,
+                  color: const Color(0xFFFDF2F8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Color(0xFFFBCFE8)),
+                  ),
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: const CircleAvatar(
+                      backgroundColor: Color(0xFFDB2777),
+                      child: Icon(Icons.pregnant_woman, color: Colors.white),
+                    ),
+                    title: const Text(
+                      'Mi Embarazo Semana a Semana',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: const Text(
+                        'Desarrollo fetal, tensión arterial ACOG y cronómetro 5-1-1.'),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const PregnancyWeeklyHubPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+
               // Transversal Quick Access Row
               Row(
                 children: [
@@ -482,6 +519,16 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const ConceptionHubPage(),
+                            ),
+                          );
+                        } else if (moduleKey == 'fetal_development' ||
+                            moduleKey == 'maternal_vitals' ||
+                            moduleKey == 'kick_counter' ||
+                            moduleKey == 'birth_plan') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PregnancyWeeklyHubPage(),
                             ),
                           );
                         }
