@@ -91,6 +91,34 @@
         "title": "AlertSeverity",
         "type": "string"
       },
+      "AttachmentSpecSchema": {
+        "properties": {
+          "file_name": {
+            "title": "File Name",
+            "type": "string"
+          },
+          "mime_type": {
+            "title": "Mime Type",
+            "type": "string"
+          },
+          "size_bytes": {
+            "title": "Size Bytes",
+            "type": "integer"
+          },
+          "storage_key": {
+            "title": "Storage Key",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file_name",
+          "mime_type",
+          "size_bytes",
+          "storage_key"
+        ],
+        "title": "AttachmentSpecSchema",
+        "type": "object"
+      },
       "BirthPlanRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1578,6 +1606,31 @@
         "title": "DiagnosedCondition",
         "type": "string"
       },
+      "DoctorReportPdfRequest": {
+        "properties": {
+          "reporting_window_months": {
+            "default": 6,
+            "maximum": 24.0,
+            "minimum": 1.0,
+            "title": "Reporting Window Months",
+            "type": "integer"
+          },
+          "specialist_notes": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Specialist Notes"
+          }
+        },
+        "title": "DoctorReportPdfRequest",
+        "type": "object"
+      },
       "DoseIntakeLogResponse": {
         "properties": {
           "assessment": {
@@ -1838,6 +1891,21 @@
         ],
         "title": "EvaluateEpdsRequest",
         "type": "object"
+      },
+      "ExamType": {
+        "enum": [
+          "pap_smear",
+          "hpv_test",
+          "pelvic_ultrasound",
+          "breast_ultrasound",
+          "mammogram",
+          "bone_densitometry_dexa",
+          "blood_panel",
+          "prenatal_ultrasound",
+          "other"
+        ],
+        "title": "ExamType",
+        "type": "string"
       },
       "FallAssessmentRequest": {
         "additionalProperties": false,
@@ -3337,6 +3405,133 @@
         "title": "MaternalVitalsResponse",
         "type": "object"
       },
+      "MedicalExamRequest": {
+        "properties": {
+          "clinic_or_lab": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clinic Or Lab"
+          },
+          "exam_type": {
+            "$ref": "#/components/schemas/ExamType"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "performed_at": {
+            "format": "date",
+            "title": "Performed At",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 200,
+            "minLength": 2,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "exam_type",
+          "title",
+          "performed_at"
+        ],
+        "title": "MedicalExamRequest",
+        "type": "object"
+      },
+      "MedicalExamResponse": {
+        "properties": {
+          "attachment": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AttachmentSpecSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "clinic_or_lab": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clinic Or Lab"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "exam_type": {
+            "$ref": "#/components/schemas/ExamType"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "performed_at": {
+            "format": "date",
+            "title": "Performed At",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "exam_type",
+          "title",
+          "performed_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MedicalExamResponse",
+        "type": "object"
+      },
       "MenopauseSummaryResponse": {
         "properties": {
           "active_alerts_count": {
@@ -4188,6 +4383,131 @@
         "title": "PrenatalAppointmentResponse",
         "type": "object"
       },
+      "PresignedDownloadUrlResponseSchema": {
+        "properties": {
+          "download_url": {
+            "title": "Download Url",
+            "type": "string"
+          },
+          "expires_in_seconds": {
+            "default": 900,
+            "title": "Expires In Seconds",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "download_url"
+        ],
+        "title": "PresignedDownloadUrlResponseSchema",
+        "type": "object"
+      },
+      "PresignedUploadUrlResponseSchema": {
+        "properties": {
+          "expires_in_seconds": {
+            "title": "Expires In Seconds",
+            "type": "integer"
+          },
+          "required_headers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Required Headers",
+            "type": "object"
+          },
+          "storage_key": {
+            "title": "Storage Key",
+            "type": "string"
+          },
+          "upload_url": {
+            "title": "Upload Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "upload_url",
+          "storage_key",
+          "expires_in_seconds"
+        ],
+        "title": "PresignedUploadUrlResponseSchema",
+        "type": "object"
+      },
+      "PreventiveCalendarResponse": {
+        "properties": {
+          "screenings": {
+            "items": {
+              "$ref": "#/components/schemas/PreventiveScreeningItemSchema"
+            },
+            "title": "Screenings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "screenings"
+        ],
+        "title": "PreventiveCalendarResponse",
+        "type": "object"
+      },
+      "PreventiveScreeningItemSchema": {
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "due_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due Date"
+          },
+          "frequency_guideline": {
+            "title": "Frequency Guideline",
+            "type": "string"
+          },
+          "last_performed_at": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Performed At"
+          },
+          "recommended_age_range": {
+            "title": "Recommended Age Range",
+            "type": "string"
+          },
+          "screening_code": {
+            "title": "Screening Code",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "urgency": {
+            "$ref": "#/components/schemas/ScreeningUrgency"
+          }
+        },
+        "required": [
+          "screening_code",
+          "title",
+          "description",
+          "recommended_age_range",
+          "frequency_guideline",
+          "urgency"
+        ],
+        "title": "PreventiveScreeningItemSchema",
+        "type": "object"
+      },
       "PrimaryIntent": {
         "description": "User primary wellness and health priorities in Cora.",
         "enum": [
@@ -4294,6 +4614,44 @@
         "title": "RecordPostpartumRecoveryRequest",
         "type": "object"
       },
+      "RequestUploadUrlRequest": {
+        "properties": {
+          "file_name": {
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "File Name",
+            "type": "string"
+          },
+          "mime_type": {
+            "maxLength": 100,
+            "minLength": 3,
+            "title": "Mime Type",
+            "type": "string"
+          },
+          "size_bytes": {
+            "exclusiveMinimum": 0.0,
+            "maximum": 15728640.0,
+            "title": "Size Bytes",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "file_name",
+          "mime_type",
+          "size_bytes"
+        ],
+        "title": "RequestUploadUrlRequest",
+        "type": "object"
+      },
+      "ScreeningUrgency": {
+        "enum": [
+          "due_now",
+          "upcoming",
+          "up_to_date"
+        ],
+        "title": "ScreeningUrgency",
+        "type": "string"
+      },
       "SeniorVitalitySummaryResponse": {
         "properties": {
           "has_fracture_alert": {
@@ -4359,6 +4717,176 @@
         ],
         "title": "SeniorVitalitySummaryResponse",
         "type": "object"
+      },
+      "SpecialistContactRequest": {
+        "properties": {
+          "clinic_name": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clinic Name"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "full_name": {
+            "maxLength": 150,
+            "minLength": 2,
+            "title": "Full Name",
+            "type": "string"
+          },
+          "is_favorite": {
+            "default": false,
+            "title": "Is Favorite",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "phone_number": {
+            "anyOf": [
+              {
+                "maxLength": 50,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone Number"
+          },
+          "specialty": {
+            "$ref": "#/components/schemas/SpecialtyType"
+          }
+        },
+        "required": [
+          "full_name",
+          "specialty"
+        ],
+        "title": "SpecialistContactRequest",
+        "type": "object"
+      },
+      "SpecialistContactResponse": {
+        "properties": {
+          "clinic_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clinic Name"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "full_name": {
+            "title": "Full Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_favorite": {
+            "default": false,
+            "title": "Is Favorite",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "phone_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone Number"
+          },
+          "specialty": {
+            "$ref": "#/components/schemas/SpecialtyType"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "full_name",
+          "specialty",
+          "created_at"
+        ],
+        "title": "SpecialistContactResponse",
+        "type": "object"
+      },
+      "SpecialtyType": {
+        "enum": [
+          "gynecology",
+          "obstetrics",
+          "urology",
+          "endocrinology",
+          "general_medicine",
+          "nutrition",
+          "psychology",
+          "geriatrics",
+          "other"
+        ],
+        "title": "SpecialtyType",
+        "type": "string"
       },
       "SupportContactRequest": {
         "additionalProperties": false,
@@ -4945,6 +5473,154 @@
         ],
         "title": "UserProfileResponse",
         "type": "object"
+      },
+      "VaccinationEntryRequest": {
+        "properties": {
+          "administered_at": {
+            "format": "date",
+            "title": "Administered At",
+            "type": "string"
+          },
+          "administrator_clinic": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Administrator Clinic"
+          },
+          "dose_number": {
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Dose Number",
+            "type": "integer"
+          },
+          "lot_number": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lot Number"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "vaccine_type": {
+            "$ref": "#/components/schemas/VaccineType"
+          }
+        },
+        "required": [
+          "vaccine_type",
+          "dose_number",
+          "administered_at"
+        ],
+        "title": "VaccinationEntryRequest",
+        "type": "object"
+      },
+      "VaccinationEntryResponse": {
+        "properties": {
+          "administered_at": {
+            "format": "date",
+            "title": "Administered At",
+            "type": "string"
+          },
+          "administrator_clinic": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Administrator Clinic"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "dose_number": {
+            "title": "Dose Number",
+            "type": "integer"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "lot_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lot Number"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "user_id": {
+            "format": "uuid",
+            "title": "User Id",
+            "type": "string"
+          },
+          "vaccine_type": {
+            "$ref": "#/components/schemas/VaccineType"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "vaccine_type",
+          "dose_number",
+          "administered_at",
+          "created_at"
+        ],
+        "title": "VaccinationEntryResponse",
+        "type": "object"
+      },
+      "VaccineType": {
+        "enum": [
+          "hpv",
+          "tdap",
+          "rubella_mmr",
+          "influenza",
+          "shingles_zoster",
+          "hepatitis_b",
+          "covid19",
+          "other"
+        ],
+        "title": "VaccineType",
+        "type": "string"
       },
       "VaginalBleedingRequest": {
         "additionalProperties": false,
@@ -6117,6 +6793,563 @@
         "summary": "Registrar observaci\u00f3n de sangrado y evaluar alerta posmenop\u00e1usica",
         "tags": [
           "Mature Health - Menopause & Senior Vitality"
+        ]
+      }
+    },
+    "/api/v1/medical-records/doctor-report/pdf": {
+      "post": {
+        "operationId": "generate_doctor_ready_pdf_api_v1_medical_records_doctor_report_pdf_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DoctorReportPdfRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "application/pdf": {}
+            },
+            "description": "Documento PDF binario de 1 a 2 p\u00e1ginas A4 listo para consulta m\u00e9dica."
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Generar y descargar reporte cl\u00ednico paginado Doctor-Ready PDF (A4)",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/exams": {
+      "get": {
+        "operationId": "list_medical_exams_api_v1_medical_records_exams_get",
+        "parameters": [
+          {
+            "description": "Filtrar por tipo de estudio",
+            "in": "query",
+            "name": "exam_type",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ExamType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filtrar por tipo de estudio",
+              "title": "Exam Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MedicalExamResponse"
+                  },
+                  "title": "Response List Medical Exams Api V1 Medical Records Exams Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar estudios m\u00e9dicos registrados por la usuaria",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      },
+      "post": {
+        "operationId": "create_medical_exam_api_v1_medical_records_exams_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MedicalExamRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MedicalExamResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar un nuevo estudio o examen cl\u00ednico en la carpeta",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/exams/{exam_id}": {
+      "delete": {
+        "operationId": "delete_medical_exam_api_v1_medical_records_exams__exam_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "exam_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Exam Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Eliminar un estudio m\u00e9dico de la carpeta",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      },
+      "get": {
+        "operationId": "get_medical_exam_detail_api_v1_medical_records_exams__exam_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "exam_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Exam Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MedicalExamResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Obtener detalle de un estudio m\u00e9dico espec\u00edfico",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/exams/{exam_id}/download-url": {
+      "get": {
+        "operationId": "get_exam_download_url_api_v1_medical_records_exams__exam_id__download_url_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "exam_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Exam Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresignedDownloadUrlResponseSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Solicitar URL de descarga temporal prefirmada con protecci\u00f3n anti-IDOR",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/exams/{exam_id}/upload-url": {
+      "post": {
+        "operationId": "get_exam_upload_url_api_v1_medical_records_exams__exam_id__upload_url_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "exam_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Exam Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestUploadUrlRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresignedUploadUrlResponseSchema"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Solicitar URL prefirmada para carga segura a Cloudflare R2 (\u2264 15 MB)",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/preventive-calendar": {
+      "get": {
+        "operationId": "get_preventive_calendar_api_v1_medical_records_preventive_calendar_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreventiveCalendarResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Calendario preventivo cl\u00ednico proyectado seg\u00fan edad, etapa y antecedentes",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/specialists": {
+      "get": {
+        "operationId": "list_specialists_api_v1_medical_records_specialists_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SpecialistContactResponse"
+                  },
+                  "title": "Response List Specialists Api V1 Medical Records Specialists Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar directorio de especialistas m\u00e9dicos de la usuaria",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      },
+      "post": {
+        "operationId": "save_specialist_api_v1_medical_records_specialists_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistContactRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistContactResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Guardar contacto de especialista m\u00e9dico de confianza",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/specialists/{specialist_id}": {
+      "delete": {
+        "operationId": "delete_specialist_api_v1_medical_records_specialists__specialist_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "specialist_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Specialist Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Eliminar contacto de especialista m\u00e9dico",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/medical-records/vaccinations": {
+      "get": {
+        "operationId": "list_vaccinations_api_v1_medical_records_vaccinations_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/VaccinationEntryResponse"
+                  },
+                  "title": "Response List Vaccinations Api V1 Medical Records Vaccinations Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar cartilla de vacunaci\u00f3n de la usuaria",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      },
+      "post": {
+        "operationId": "record_vaccination_api_v1_medical_records_vaccinations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccinationEntryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccinationEntryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Registrar dosis de vacuna administrada",
+        "tags": [
+          "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
         ]
       }
     },
