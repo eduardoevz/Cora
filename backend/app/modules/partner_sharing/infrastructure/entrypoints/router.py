@@ -37,6 +37,7 @@ CreatePartnerInvitationUseCase = partner_uc.CreatePartnerInvitationUseCase
 RedeemPartnerInvitationUseCase = partner_uc.RedeemPartnerInvitationUseCase
 UpdatePartnerPermissionsUseCase = partner_uc.UpdatePartnerPermissionsUseCase
 RevokePartnerLinkUseCase = partner_uc.RevokePartnerLinkUseCase
+GetSharedPartnerViewUseCase = partner_uc.GetSharedPartnerViewUseCase
 router = APIRouter(prefix="/partner-sharing", tags=["Partner Sharing"])
 
 
