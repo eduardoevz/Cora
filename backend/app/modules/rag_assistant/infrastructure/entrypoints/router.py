@@ -87,6 +87,7 @@ async def _assemble_user_clinical_memory(
     hormonal_method = (
         profile.onboarding_context.hormonal_method.value
         if profile.onboarding_context
+        and profile.onboarding_context.hormonal_method is not None
         else "none"
     )
 
