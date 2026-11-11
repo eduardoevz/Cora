@@ -35,7 +35,7 @@ Al finalizar cada sesión:
 | **Fase 9** | [phase-09-medical-records-r2-pdf.md](./phase-09-medical-records-r2-pdf.md) | Módulo `medical_records`: Carpeta Clínica Digital, vacunas, calendario preventivo por edad, **Cloudflare R2** (`IFileStorage`) y **Doctor-Ready PDF** (`WeasyPrint`). | Fase 3, 4 | ✅ Completada |
 | **Fase 10** | [phase-10-education-and-clinical-rag.md](./phase-10-education-and-clinical-rag.md) | Módulos `education_content` + `rag_assistant`: biblioteca clínica curada, ingesta HNSW en `pgvector` (`gemini-embedding-2`), `DeterministicSafetyInterceptor` y chat (`gemini-3.8-flash`, `store=False`). | Fase 4, 6, 8, 9 | ✅ Completada |
 | **Fase 11** | [phase-11-partner-view-privacy-gdpr.md](./phase-11-partner-view-privacy-gdpr.md) | Módulo `partner_sharing` (*Partner View* selectivo/revocable), bloqueo biométrico, icono camuflable, notificaciones neutras, exportación total y purga irreversible GDPR. | Fase 6, 9, 10 | ✅ Completada |
-| **Fase 12** | [phase-12-qa-e2e-security-release.md](./phase-12-qa-e2e-security-release.md) | Suite E2E completa, pruebas de carga, auditoría OWASP/prompt-injection clínico, accesibilidad integral y activación de pipeline CD de lanzamiento. | Fases 1–11 | ⏳ Pendiente |
+| **Fase 12** | [phase-12-qa-e2e-security-release.md](./phase-12-qa-e2e-security-release.md) | Suite E2E completa, pruebas de carga, auditoría OWASP/prompt-injection clínico, accesibilidad integral y activación de pipeline CD de lanzamiento. | Fases 1–11 | ✅ Completada |
 
 ---
 

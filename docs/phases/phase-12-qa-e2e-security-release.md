@@ -38,13 +38,13 @@
 - Consumes: Todos los routers `/api/v1/*` de los 9 módulos
 - Produces: Evidencia automatizada de seguridad clínica y aislamiento de datos ejecutada en CI
 
-- [ ] **Step 1: Escribir `test_multi_tenant_bola_matrix.py` iterando sobre recursos de Usuaria A (ciclos, embarazo, posparto, menopausia, tratamientos, exámenes R2, conversaciones RAG y vínculos) e intentando leerlos/modificarlos/borrarlos con el token de Usuaria B (`403`/`404` obligatorio en el 100%)**
-- [ ] **Step 2: Escribir `test_rag_prompt_injection_and_safety.py` (intentos de jailbreak, solicitud de dosis de medicamentos controlados, emergencias camufladas y verificación de `store=False`) y `test_zero_phi_logging_audit.py` (inspección de `caplog` ante errores `400`/`422`/`500`)**
-- [ ] **Step 3: Corregir cualquier brecha de índices, filtros por `user_id` o sanitización de logs detectada por la suite**
-- [ ] **Step 4: Ejecutar la suite de seguridad completa**
+- [x] **Step 1: Escribir `test_multi_tenant_bola_matrix.py` iterando sobre recursos de Usuaria A (ciclos, embarazo, posparto, menopausia, tratamientos, exámenes R2, conversaciones RAG y vínculos) e intentando leerlos/modificarlos/borrarlos con el token de Usuaria B (`403`/`404` obligatorio en el 100%)**
+- [x] **Step 2: Escribir `test_rag_prompt_injection_and_safety.py` (intentos de jailbreak, solicitud de dosis de medicamentos controlados, emergencias camufladas y verificación de `store=False`) y `test_zero_phi_logging_audit.py` (inspección de `caplog` ante errores `400`/`422`/`500`)**
+- [x] **Step 3: Corregir cualquier brecha de índices, filtros por `user_id` o sanitización de logs detectada por la suite**
+- [x] **Step 4: Ejecutar la suite de seguridad completa**
   - Run: `pytest backend/tests/security -v`
   - Expected: PASS (`0` fallos)
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/tests/security backend/app`
   - `git commit -m "test(security): add multi-tenant BOLA matrix, clinical RAG prompt-injection, and zero-PHI log audits"`
 
@@ -61,12 +61,12 @@
 - Consumes: Esquema PostgreSQL completo (`0001`–`0012`)
 - Produces: Índices compuestos óptimos `(user_id, log_date DESC)` y verificación automatizada de tiempos de respuesta
 
-- [ ] **Step 1: Escribir `test_query_latency_and_concurrency.py` sembrando `3` años de historial longitudinal sintético (`~1,100` logs diarios, `36` ciclos, vacunas, tratamientos y `200` chunks vectoriales) y midiendo p95 de overview, ensamblaje de memoria RAG, interceptor (`< 5 ms`) y generación de PDF**
-- [ ] **Step 2: Crear migración `0013_optimize_composite_indexes.py` ajustando índices compuestos y parámetros HNSW si alguna consulta excede el presupuesto**
-- [ ] **Step 3: Ejecutar migración y benchmarks**
+- [x] **Step 1: Escribir `test_query_latency_and_concurrency.py` sembrando `3` años de historial longitudinal sintético (`~1,100` logs diarios, `36` ciclos, vacunas, tratamientos y `200` chunks vectoriales) y midiendo p95 de overview, ensamblaje de memoria RAG, interceptor (`< 5 ms`) y generación de PDF**
+- [x] **Step 2: Crear migración `0013_optimize_composite_indexes.py` ajustando índices compuestos y parámetros HNSW si alguna consulta excede el presupuesto**
+- [x] **Step 3: Ejecutar migración y benchmarks**
   - Run: `alembic -c backend/alembic.ini upgrade head && pytest backend/tests/performance/test_query_latency_and_concurrency.py -v`
   - Expected: PASS
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
   - `git add backend/alembic/versions/0013_optimize_composite_indexes.py backend/tests/performance`
   - `git commit -m "perf(backend): optimize longitudinal composite indexes and add latency benchmarks"`
 
@@ -82,12 +82,12 @@
 - Consumes: Aplicación Flutter completa + Backend local/test harness
 - Produces: Certificación automatizada de flujos críticos Offline-First y accesibilidad en las 7 etapas
 
-- [ ] **Step 1: Implementar `wcag_all_stages_audit_test.dart` recorriendo las pantallas principales de las 7 etapas con `androidTapTargetGuideline`, `iOSTapTargetGuideline`, `textContrastGuideline` y `TextScaler.linear(2.0)`**
-- [ ] **Step 2: Implementar `longitudinal_journey_e2e_test.dart` validando: Onboarding -> Registro Offline de bienestar/ciclo/tratamiento -> Reconexión y Sync -> Transición a Embarazo y alerta PA -> Exportación PDF / *Partner View* -> Purga total de cuenta**
-- [ ] **Step 3: Ejecutar suites de accesibilidad y pruebas móviles completas**
+- [x] **Step 1: Implementar `wcag_all_stages_audit_test.dart` recorriendo las pantallas principales de las 7 etapas con `androidTapTargetGuideline`, `iOSTapTargetGuideline`, `textContrastGuideline` y `TextScaler.linear(2.0)`**
+- [x] **Step 2: Implementar `longitudinal_journey_e2e_test.dart` validando: Onboarding -> Registro Offline de bienestar/ciclo/tratamiento -> Reconexión y Sync -> Transición a Embarazo y alerta PA -> Exportación PDF / *Partner View* -> Purga total de cuenta**
+- [x] **Step 3: Ejecutar suites de accesibilidad y pruebas móviles completas**
   - Run: `cd mobile && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
   - `git add mobile/integration_test mobile/test/accessibility mobile/lib`
   - `git commit -m "test(mobile-ui): add longitudinal offline-first E2E journey and WCAG accessibility audit"`
 
@@ -109,12 +109,12 @@
 - Consumes: Todo el monorepo Cora (Fases 1–12)
 - Produces: Plataforma lista para despliegue productivo (`v1.0.0`) con CI/CD íntegro en verde
 
-- [ ] **Step 1: Verificar que `backend/Dockerfile` ejecuta con usuario sin privilegios (`USER cora`), `HEALTHCHECK` activo e imagen limpia, e integrar `tests/security` y umbral de cobertura en `.github/workflows/ci-backend.yml`**
-- [ ] **Step 2: Redactar `docs/DEPLOYMENT_AND_RELEASE.md` detallando configuración de Neon PostgreSQL (`pgvector`), Firebase Auth, bucket privado Cloudflare R2, clave Gemini API y activación de secrets en GitHub Actions para despliegue continuo**
-- [ ] **Step 3: Ejecutar verificación integral final de todo el repositorio**
+- [x] **Step 1: Verificar que `backend/Dockerfile` ejecuta con usuario sin privilegios (`USER cora`), `HEALTHCHECK` activo e imagen limpia, e integrar `tests/security` y umbral de cobertura en `.github/workflows/ci-backend.yml`**
+- [x] **Step 2: Redactar `docs/DEPLOYMENT_AND_RELEASE.md` detallando configuración de Neon PostgreSQL (`pgvector`), Firebase Auth, bucket privado Cloudflare R2, clave Gemini API y activación de secrets en GitHub Actions para despliegue continuo**
+- [x] **Step 3: Ejecutar verificación integral final de todo el repositorio**
   - Run: `ruff check backend && mypy --strict backend/app && pytest backend/tests --cov=backend/app --cov-fail-under=85 -v && cd mobile && flutter analyze --fatal-infos && flutter test --coverage`
   - Expected: PASS (`100%` de suites en verde)
-- [ ] **Step 4: Commits finales del proyecto y cierre del roadmap**
+- [x] **Step 4: Commits finales del proyecto y cierre del roadmap**
   - `git add backend/Dockerfile .github/workflows docs/DEPLOYMENT_AND_RELEASE.md README.md`
   - `git commit -m "ci(release): harden production container, enforce security suite in CI, and add deployment guide"`
   - `git add docs/phases/phase-12-qa-e2e-security-release.md docs/phases/README.md`
