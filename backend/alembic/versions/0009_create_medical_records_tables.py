@@ -9,6 +9,7 @@ Create Date: 2026-11-10 20:30:00.000000
 from collections.abc import Sequence
 
 import sqlalchemy as sa
+
 from alembic import op
 
 revision: str = "0009"
@@ -89,7 +90,12 @@ def upgrade() -> None:
         sa.Column("phone_number", sa.String(50), nullable=True),
         sa.Column("email", sa.String(150), nullable=True),
         sa.Column("notes", sa.Text(), nullable=True),
-        sa.Column("is_favorite", sa.Boolean(), nullable=False, server_default=sa.text("false")),
+        sa.Column(
+            "is_favorite",
+            sa.Boolean(),
+            nullable=False,
+            server_default=sa.text("false"),
+        ),
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
     )
     op.create_index(
@@ -100,9 +106,18 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_index("ix_specialist_contacts_user_favorite", table_name="specialist_contacts")
+    op.drop_index(
+        "ix_specialist_contacts_user_favorite",
+        table_name="specialist_contacts",
+    )
     op.drop_table("specialist_contacts")
-    op.drop_index("ix_vaccination_entries_user_administered", table_name="vaccination_entries")
+    op.drop_index(
+        "ix_vaccination_entries_user_administered",
+        table_name="vaccination_entries",
+    )
     op.drop_table("vaccination_entries")
-    op.drop_index("ix_medical_exam_records_user_performed", table_name="medical_exam_records")
+    op.drop_index(
+        "ix_medical_exam_records_user_performed",
+        table_name="medical_exam_records",
+    )
     op.drop_table("medical_exam_records")

@@ -23,9 +23,7 @@ class MedicalExamRecordOrm(Base):
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     attachment_file_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    attachment_mime_type: Mapped[str | None] = mapped_column(
-        String(100), nullable=True
-    )
+    attachment_mime_type: Mapped[str | None] = mapped_column(String(100), nullable=True)
     attachment_size_bytes: Mapped[int | None] = mapped_column(Integer, nullable=True)
     attachment_storage_key: Mapped[str | None] = mapped_column(
         String(500), nullable=True
@@ -82,9 +80,7 @@ class SpecialistContactOrm(Base):
     phone_number: Mapped[str | None] = mapped_column(String(50), nullable=True)
     email: Mapped[str | None] = mapped_column(String(150), nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
-    is_favorite: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, default=False
-    )
+    is_favorite: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False
     )

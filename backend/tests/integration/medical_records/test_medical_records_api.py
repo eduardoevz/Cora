@@ -129,9 +129,7 @@ async def test_medical_exam_lifecycle_and_upload_url(
     assert "records" in down_data["download_url"]
 
     # 4. List Exams
-    list_resp = await async_client.get(
-        "/api/v1/medical-records/exams", headers=headers
-    )
+    list_resp = await async_client.get("/api/v1/medical-records/exams", headers=headers)
     assert list_resp.status_code == 200
     items = list_resp.json()
     assert len(items) >= 1
@@ -142,12 +140,8 @@ async def test_medical_exam_lifecycle_and_upload_url(
 async def test_anti_idor_protection_on_download_url(
     async_client: AsyncClient,
 ) -> None:
-    headers_1 = await _create_test_user(
-        async_client, uid=f"user1_{uuid4().hex[:8]}"
-    )
-    headers_2 = await _create_test_user(
-        async_client, uid=f"user2_{uuid4().hex[:8]}"
-    )
+    headers_1 = await _create_test_user(async_client, uid=f"user1_{uuid4().hex[:8]}")
+    headers_2 = await _create_test_user(async_client, uid=f"user2_{uuid4().hex[:8]}")
 
     # User 1 registers an exam
     exam_resp = await async_client.post(
@@ -206,9 +200,7 @@ async def test_preventive_calendar_endpoint(
 async def test_vaccination_and_specialist_endpoints(
     async_client: AsyncClient,
 ) -> None:
-    headers = await _create_test_user(
-        async_client, uid=f"user_vax_{uuid4().hex[:8]}"
-    )
+    headers = await _create_test_user(async_client, uid=f"user_vax_{uuid4().hex[:8]}")
 
     # 1. Vaccination
     vax_resp = await async_client.post(
@@ -267,9 +259,7 @@ async def test_vaccination_and_specialist_endpoints(
 async def test_generate_doctor_ready_pdf_endpoint(
     async_client: AsyncClient,
 ) -> None:
-    headers = await _create_test_user(
-        async_client, uid=f"user_pdf_{uuid4().hex[:8]}"
-    )
+    headers = await _create_test_user(async_client, uid=f"user_pdf_{uuid4().hex[:8]}")
 
     pdf_req = {
         "reporting_window_months": 6,

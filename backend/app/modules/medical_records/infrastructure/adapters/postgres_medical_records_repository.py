@@ -58,9 +58,7 @@ class PostgresMedicalRecordsRepository(IMedicalRecordsRepository):
             updated_at=orm.updated_at,
         )
 
-    async def save_medical_exam(
-        self, exam: MedicalExamRecord
-    ) -> MedicalExamRecord:
+    async def save_medical_exam(self, exam: MedicalExamRecord) -> MedicalExamRecord:
         orm = MedicalExamRecordOrm(
             id=exam.id,
             user_id=exam.user_id,
@@ -69,12 +67,8 @@ class PostgresMedicalRecordsRepository(IMedicalRecordsRepository):
             performed_at=exam.performed_at,
             clinic_or_lab=exam.clinic_or_lab,
             notes=exam.notes,
-            attachment_file_name=exam.attachment.file_name
-            if exam.attachment
-            else None,
-            attachment_mime_type=exam.attachment.mime_type
-            if exam.attachment
-            else None,
+            attachment_file_name=exam.attachment.file_name if exam.attachment else None,
+            attachment_mime_type=exam.attachment.mime_type if exam.attachment else None,
             attachment_size_bytes=exam.attachment.size_bytes
             if exam.attachment
             else None,
@@ -127,9 +121,7 @@ class PostgresMedicalRecordsRepository(IMedicalRecordsRepository):
         await self._session.commit()
         return True
 
-    async def save_vaccination(
-        self, vaccination: VaccinationEntry
-    ) -> VaccinationEntry:
+    async def save_vaccination(self, vaccination: VaccinationEntry) -> VaccinationEntry:
         orm = VaccinationEntryOrm(
             id=vaccination.id,
             user_id=vaccination.user_id,
@@ -145,9 +137,7 @@ class PostgresMedicalRecordsRepository(IMedicalRecordsRepository):
         await self._session.commit()
         return vaccination
 
-    async def list_vaccinations(
-        self, user_id: UUID
-    ) -> list[VaccinationEntry]:
+    async def list_vaccinations(self, user_id: UUID) -> list[VaccinationEntry]:
         stmt = (
             select(VaccinationEntryOrm)
             .where(VaccinationEntryOrm.user_id == user_id)
@@ -170,9 +160,7 @@ class PostgresMedicalRecordsRepository(IMedicalRecordsRepository):
             for r in records
         ]
 
-    async def save_specialist(
-        self, specialist: SpecialistContact
-    ) -> SpecialistContact:
+    async def save_specialist(self, specialist: SpecialistContact) -> SpecialistContact:
         orm = SpecialistContactOrm(
             id=specialist.id,
             user_id=specialist.user_id,
@@ -189,9 +177,7 @@ class PostgresMedicalRecordsRepository(IMedicalRecordsRepository):
         await self._session.commit()
         return specialist
 
-    async def list_specialists(
-        self, user_id: UUID
-    ) -> list[SpecialistContact]:
+    async def list_specialists(self, user_id: UUID) -> list[SpecialistContact]:
         stmt = (
             select(SpecialistContactOrm)
             .where(SpecialistContactOrm.user_id == user_id)
@@ -242,9 +228,7 @@ class PostgresMedicalRecordsRepository(IMedicalRecordsRepository):
             created_at=record.created_at,
         )
 
-    async def delete_specialist(
-        self, specialist_id: UUID, user_id: UUID
-    ) -> bool:
+    async def delete_specialist(self, specialist_id: UUID, user_id: UUID) -> bool:
         stmt = select(SpecialistContactOrm).where(
             SpecialistContactOrm.id == specialist_id,
             SpecialistContactOrm.user_id == user_id,

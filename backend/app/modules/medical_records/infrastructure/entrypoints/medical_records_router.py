@@ -151,9 +151,7 @@ async def list_medical_exams(
         Query(description="Filtrar por tipo de estudio"),
     ] = None,
 ) -> list[MedicalExamResponse]:
-    exams = await use_cases.list_medical_exams(
-        user_id=profile.id, exam_type=exam_type
-    )
+    exams = await use_cases.list_medical_exams(user_id=profile.id, exam_type=exam_type)
     return [MedicalExamResponse.model_validate(e) for e in exams]
 
 
@@ -170,9 +168,7 @@ async def get_medical_exam_detail(
         MedicalRecordsUseCases, Depends(get_medical_records_use_cases)
     ],
 ) -> MedicalExamResponse:
-    exam = await use_cases.get_medical_exam(
-        user_id=profile.id, exam_id=exam_id
-    )
+    exam = await use_cases.get_medical_exam(user_id=profile.id, exam_id=exam_id)
     return MedicalExamResponse.model_validate(exam)
 
 
@@ -271,9 +267,7 @@ async def get_preventive_calendar(
         diagnosed_conditions=conditions,
     )
     return PreventiveCalendarResponse(
-        screenings=[
-            PreventiveScreeningItemSchema.model_validate(s) for s in screenings
-        ]
+        screenings=[PreventiveScreeningItemSchema.model_validate(s) for s in screenings]
     )
 
 
@@ -378,9 +372,7 @@ async def delete_specialist(
         MedicalRecordsUseCases, Depends(get_medical_records_use_cases)
     ],
 ) -> Response:
-    await use_cases.delete_specialist(
-        user_id=profile.id, specialist_id=specialist_id
-    )
+    await use_cases.delete_specialist(user_id=profile.id, specialist_id=specialist_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
@@ -395,8 +387,7 @@ async def delete_specialist(
         200: {
             "content": {"application/pdf": {}},
             "description": (
-                "Documento PDF binario de 1 a 2 páginas A4 listo "
-                "para consulta médica."
+                "Documento PDF binario de 1 a 2 páginas A4 listo para consulta médica."
             ),
         }
     },
