@@ -46,15 +46,15 @@
 - Produces:
   - `POST /api/v1/partner-sharing/invitations`, `POST /api/v1/partner-sharing/invitations/redeem`, `PATCH /api/v1/partner-sharing/links/{link_id}/permissions`, `DELETE /api/v1/partner-sharing/links/{link_id}`, `GET /api/v1/partner-sharing/shared-with-me`
 
-- [ ] **Step 1: Escribir tests TDD unitarios y de integración verificando expiración a las `24h`, rechazo de auto-vinculación, proyección estricta campo por campo según `SharingScopeMask`, ausencia absoluta de datos de `medical_records`/`EPDS`, y bloqueo instantáneo tras revocación**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests TDD unitarios y de integración verificando expiración a las `24h`, rechazo de auto-vinculación, proyección estricta campo por campo según `SharingScopeMask`, ausencia absoluta de datos de `medical_records`/`EPDS`, y bloqueo instantáneo tras revocación**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/partner_sharing backend/tests/integration/partner_sharing -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar dominio, migración `0012`, ORM, repositorio, casos de uso y router de `partner_sharing`**
-- [ ] **Step 4: Verificar tests y `mypy --strict`**
+- [x] **Step 3: Implementar dominio, migración `0012`, ORM, repositorio, casos de uso y router de `partner_sharing`**
+- [x] **Step 4: Verificar tests y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/partner_sharing backend/tests/integration/partner_sharing -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0012_create_partner_sharing_tables.py backend/app/modules/partner_sharing backend/tests/unit/partner_sharing backend/tests/integration/partner_sharing`
   - `git commit -m "feat(partner-sharing): implement selective bidirectional partner links with instant revocation"`
 
@@ -76,15 +76,15 @@
   - `POST /api/v1/identity/me/data-export` (archivo ZIP estructurado con JSON clínicos y manifiesto de documentos)
   - `DELETE /api/v1/identity/me` (con header/body de confirmación explícita `confirm_phrase="ELIMINAR MI CUENTA CORA"`)
 
-- [ ] **Step 1: Escribir test de integración poblando datos en todos los módulos (perfil, ciclos, embarazo, tratamientos, exámenes en R2 mock, conversaciones RAG y vínculo de pareja), verificando que `/data-export` los incluye todos y que `DELETE /me` deja exactamente `0` registros del usuario en todas las tablas y `0` objetos en R2 sin afectar a otra usuaria vecina**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir test de integración poblando datos en todos los módulos (perfil, ciclos, embarazo, tratamientos, exámenes en R2 mock, conversaciones RAG y vínculo de pareja), verificando que `/data-export` los incluye todos y que `DELETE /me` deja exactamente `0` registros del usuario en todas las tablas y `0` objetos en R2 sin afectar a otra usuaria vecina**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/identity/test_data_export_and_irreversible_purge.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `ExportAllUserDataUseCase`, `PurgeAccountIrreversiblyUseCase`, rutas en `identity` y actualizar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar toda la suite backend**
+- [x] **Step 3: Implementar `ExportAllUserDataUseCase`, `PurgeAccountIrreversiblyUseCase`, rutas en `identity` y actualizar `contracts/openapi.json`**
+- [x] **Step 4: Verificar toda la suite backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/identity backend/app/main.py contracts/openapi.json backend/tests/integration/identity/test_data_export_and_irreversible_purge.py`
   - `git commit -m "feat(identity): add portable full data export and cascading irreversible account purge"`
 
@@ -108,15 +108,15 @@
 - Consumes: `local_auth`, `flutter_secure_storage`, endpoints `/api/v1/partner-sharing/*` y `/api/v1/identity/me/*`
 - Produces: Cifrado local en reposo, Modo Discreto integral y pantallas de Pareja/Privacidad
 
-- [ ] **Step 1: Escribir tests en Flutter verificando: activación inmediata del overlay opaco al pasar a `AppLifecycleState.inactive`/`paused`, solicitud biométrica al reanudar, selector de icono camuflado (ej. icono neutro de Calendario/Notas), switches granulares de *Partner View* y confirmación de borrado total con limpieza de Drift + SecureStorage**
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir tests en Flutter verificando: activación inmediata del overlay opaco al pasar a `AppLifecycleState.inactive`/`paused`, solicitud biométrica al reanudar, selector de icono camuflado (ej. icono neutro de Calendario/Notas), switches granulares de *Partner View* y confirmación de borrado total con limpieza de Drift + SecureStorage**
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/core/privacy_lifecycle_and_biometric_gate_test.dart test/features/partner`
   - Expected: FAIL
-- [ ] **Step 3: Configurar clave cifrada SQLCipher en `AppDatabase`, implementar `BiometricLockService`, `PrivacyLifecycleGate`, configuración nativa de iconos alternativos Android/iOS y páginas de *Partner View* y Soberanía de Datos**
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Configurar clave cifrada SQLCipher en `AppDatabase`, implementar `BiometricLockService`, `PrivacyLifecycleGate`, configuración nativa de iconos alternativos Android/iOS y páginas de *Partner View* y Soberanía de Datos**
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 11**
+- [x] **Step 5: Commits finales y cierre de Fase 11**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add SQLCipher encryption, biometric lock, camouflage icon mode, and Partner View"`
   - `git add docs/phases/phase-11-partner-view-privacy-gdpr.md docs/phases/README.md`
