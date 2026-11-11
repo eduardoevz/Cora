@@ -33,6 +33,6 @@ Cada reporte de cierre de fase debe incluir estas 6 secciones:
 | **Fase 07** | [fase-07-posparto-lactancia-y-salud-mental.md](./fase-07-posparto-lactancia-y-salud-mental.md) | 2026-11-10 | Etapa 5: Recuperación puerperal, loquios, cronómetro ergonómico de lactancia, banco de leche FIFO y tamizaje EPDS con contención inmediata. |
 | **Fase 08** | [fase-08-menopausia-y-plenitud-adulta-mayor.md](./fase-08-menopausia-y-plenitud-adulta-mayor.md) | 2026-11-10 | Etapas 6 y 7: Transición STRAW+10, sofocos, TRH, salud ósea/caídas, suelo pélvico, tema WCAG AAA y contacto familiar. |
 | **Fase 09** | [fase-09-carpeta-clinica-r2-y-doctor-ready-pdf.md](./fase-09-carpeta-clinica-r2-y-doctor-ready-pdf.md) | 2026-11-10 | Carpeta Clínica Digital, vacunas, directorio médico, Cloudflare R2 con defensa anti-IDOR y reportes *Doctor-Ready PDF*. |
-| **Fase 10** | *Se generará al cerrar la Fase 10* | Pendiente | Biblioteca clínica curada, búsqueda `pgvector` HNSW, triaje determinista y chat RAG. |
+| **Fase 10** | [fase-10-biblioteca-clinica-y-asistente-rag.md](./fase-10-biblioteca-clinica-y-asistente-rag.md) | 2026-11-10 | Biblioteca clínica curada, búsqueda `pgvector` HNSW (`gemini-embedding-2`), triaje determinista (`< 5 ms`) y chat RAG (`gemini-3.8-flash`, `store=False`). |
 | **Fase 11** | *Se generará al cerrar la Fase 11* | Pendiente | *Partner View* selectivo, SQLCipher, biometría, icono camuflable y purga GDPR. |
 | **Fase 12** | *Se generará al cerrar la Fase 12* | Pendiente | Suite E2E completa, auditoría de seguridad BOLA/RAG, benchmarks y Release CD. |
