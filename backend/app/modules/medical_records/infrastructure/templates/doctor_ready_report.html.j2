@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte Clínico Cora — Doctor-Ready PDF</title>
+  <style>
+    {{ inline_css | safe }}
+  </style>
+</head>
+<body>
+  <div class="report-header">
+    <div>
+      <h1 class="brand-title">Cora</h1>
+      <div class="brand-subtitle">Reporte Longitudinal de Salud Femenina • Doctor-Ready</div>
+    </div>
+    <div class="header-meta">
+      <div><strong>Emisión:</strong> {{ report.generated_at.strftime('%d/%m/%Y %H:%M') }} UTC</div>
+      <div><strong>Ventana:</strong> Últimos {{ report.reporting_window_months }} meses</div>
+    </div>
+  </div>
+
+  <div class="patient-card">
+    <div class="patient-row">
+      <div class="patient-cell" style="width: 45%;">
+        <div class="patient-label">Paciente</div>
+        <div class="patient-val">{{ report.patient_name }}</div>
+      </div>
+      <div class="patient-cell" style="width: 20%;">
+        <div class="patient-label">Edad</div>
+        <div class="patient-val">{{ report.patient_age }} años</div>
+      </div>
+      <div class="patient-cell" style="width: 35%;">
+        <div class="patient-label">Etapa Biológica Activa</div>
+        <div class="patient-val">{{ report.life_stage.value | replace('_', ' ') | title }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. SALUD CÍCLICA Y GINECOLÓGICA -->
+  <div class="section-card">
+    <div class="section-title">1. Salud Cíclica y Ginecológica Longitudinal</div>
+    {% if report.cycle_summary %}
+      <table class="clinical-table">
+        <thead>
+          <tr>
+            <th>Ciclos Analizados</th>
+            <th>Duración Promedio</th>
+            <th>Rango (Mín / Máx)</th>
+            <th>Variabilidad</th>
+            <th>Clasificación</th>
+            <th>Última Menstruación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ report.cycle_summary.total_cycles_logged }}</td>
+            <td><strong>{{ report.cycle_summary.average_length_days }} días</strong></td>
+            <td>{{ report.cycle_summary.min_length_days }} – {{ report.cycle_summary.max_length_days }} días</td>
+            <td>±{{ report.cycle_summary.variability_days }} días</td>
+            <td>
+              {% if report.cycle_summary.is_regular %}
+                <span class="status-badge badge-green">Regular (FIGO)</span>
+              {% else %}
+                <span class="status-badge badge-amber">Variable / Irregular</span>
+              {% endif %}
+            </td>
+            <td>{{ report.cycle_summary.last_period_date.strftime('%d/%m/%Y') if report.cycle_summary.last_period_date else 'N/D' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      {% if report.cycle_summary.atypical_alerts_detected %}
+        <div class="notes-box" style="margin-top: 4px;">
+          <strong>Patrones Acompañantes / Alertas Detectadas:</strong>
+          {{ report.cycle_summary.atypical_alerts_detected | join(', ') }}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="sparse-notice">Sin registros de ciclos suficientes en el período analizado.</div>
+    {% endif %}
+  </div>
+
+  <!-- 2. TRATAMIENTOS FARMACOLÓGICOS Y ADHERENCIA -->
+  <div class="section-card">
+    <div class="section-title">2. Tratamientos Activos y Adherencia Farmacológica</div>
+    {% if report.treatment_summary %}
+      <table class="clinical-table">
+        <thead>
+          <tr>
+            <th>Fármaco / Suplemento</th>
+            <th>Dosis</th>
+            <th>Frecuencia</th>
+            <th>Adherencia</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in report.treatment_summary %}
+            <tr>
+              <td><strong>{{ t.medication_name }}</strong></td>
+              <td>{{ t.dosage }}</td>
+              <td>{{ t.frequency }}</td>
+              <td>
+                <span class="status-badge {{ 'badge-green' if t.adherence_percentage >= 80 else 'badge-amber' }}">
+                  {{ t.adherence_percentage }}%
+                </span>
+              </td>
+              <td>{{ t.status | upper }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="sparse-notice">No se reportan fármacos o suplementos activos en el perfil durante este período.</div>
+    {% endif %}
+  </div>
+
+  <!-- 3. SIGNOS VITALES Y SALUD METABÓLICA -->
+  <div class="section-card">
+    <div class="section-title">3. Parámetros Vitales y Metabólicos Recientes</div>
+    {% if report.vitals_summary %}
+      <table class="clinical-table">
+        <thead>
+          <tr>
+            <th>Presión Arterial Reciente</th>
+            <th>Promedio PA</th>
+            <th>Glucosa en Ayuno</th>
+            <th>Peso Corporal</th>
+            <th>IMC Estimado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>{{ report.vitals_summary.latest_blood_pressure or 'N/D' }}</strong></td>
+            <td>
+              {% if report.vitals_summary.mean_systolic and report.vitals_summary.mean_diastolic %}
+                {{ report.vitals_summary.mean_systolic }}/{{ report.vitals_summary.mean_diastolic }} mmHg
+              {% else %}
+                N/D
+              {% endif %}
+            </td>
+            <td>{{ report.vitals_summary.fasting_glucose_mg_dl ~ ' mg/dL' if report.vitals_summary.fasting_glucose_mg_dl else 'N/D' }}</td>
+            <td>{{ report.vitals_summary.weight_kg ~ ' kg' if report.vitals_summary.weight_kg else 'N/D' }}</td>
+            <td>{{ report.vitals_summary.bmi or 'N/D' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    {% else %}
+      <div class="sparse-notice">Sin mediciones biométricas recientes registradas en la ventana evaluada.</div>
+    {% endif %}
+  </div>
+
+  <!-- 4. OBSERVACIONES DE LA ETAPA BIOLÓGICA Y NOTAS CLÍNICAS -->
+  {% if report.stage_specific_notes or report.specialist_notes %}
+    <div class="section-card">
+      <div class="section-title">4. Observaciones Clínicas y Notas para Consulta</div>
+      {% if report.stage_specific_notes %}
+        <ul style="margin: 4px 0 6px 18px; padding: 0; font-size: 8.5pt; color: #374151;">
+          {% for note in report.stage_specific_notes %}
+            <li style="margin-bottom: 3px;">{{ note }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if report.specialist_notes %}
+        <div class="notes-box">
+          <strong>Notas del Paciente para el Especialista:</strong><br>
+          {{ report.specialist_notes }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</body>
+</html>

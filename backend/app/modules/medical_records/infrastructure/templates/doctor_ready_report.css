@@ -1,0 +1,172 @@
+@page {
+  size: A4 portrait;
+  margin: 1.2cm 1.4cm 1.5cm 1.4cm;
+  @bottom-left {
+    content: "Cora — Plataforma de Salud Femenina Integral • Documento Confidencial";
+    font-size: 7.5pt;
+    color: #888888;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  @bottom-right {
+    content: "Página " counter(page) " de " counter(pages);
+    font-size: 7.5pt;
+    color: #888888;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1A1A1A;
+  background-color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+  font-size: 9.5pt;
+  line-height: 1.35;
+}
+
+.report-header {
+  border-bottom: 2.5px solid #E91E63;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.brand-title {
+  font-size: 18pt;
+  font-weight: 800;
+  color: #880E4F;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.brand-subtitle {
+  font-size: 8.5pt;
+  color: #555555;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-meta {
+  text-align: right;
+  font-size: 8pt;
+  color: #666666;
+}
+
+.patient-card {
+  background-color: #FDF2F8;
+  border: 1px solid #FBCFE8;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  display: table;
+  width: 100%;
+}
+
+.patient-row {
+  display: table-row;
+}
+
+.patient-cell {
+  display: table-cell;
+  padding: 3px 6px;
+}
+
+.patient-label {
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  color: #831843;
+  font-weight: 700;
+}
+
+.patient-val {
+  font-size: 10pt;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.section-card {
+  margin-bottom: 12px;
+  break-inside: avoid;
+}
+
+.section-title {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #831843;
+  border-bottom: 1px solid #F3F4F6;
+  padding-bottom: 3px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.clinical-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  margin-top: 4px;
+}
+
+.clinical-table th {
+  background-color: #F9FAFB;
+  color: #374151;
+  font-weight: 700;
+  text-align: left;
+  padding: 5px 8px;
+  border-bottom: 1.5px solid #E5E7EB;
+  font-size: 7.5pt;
+  text-transform: uppercase;
+}
+
+.clinical-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid #F3F4F6;
+  color: #1F2937;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 7.5pt;
+  font-weight: 700;
+}
+
+.badge-green {
+  background-color: #ECFDF5;
+  color: #065F46;
+}
+
+.badge-amber {
+  background-color: #FFFBEB;
+  color: #92400E;
+}
+
+.sparse-notice {
+  background-color: #F9FAFB;
+  border: 1px dashed #D1D5DB;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-style: italic;
+  color: #6B7280;
+  font-size: 8.5pt;
+  text-align: center;
+}
+
+.notes-box {
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-left: 4px solid #D97706;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 8.5pt;
+  margin-top: 6px;
+}
