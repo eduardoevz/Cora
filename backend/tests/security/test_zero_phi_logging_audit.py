@@ -55,18 +55,18 @@ async def test_zero_phi_and_token_leakage_in_application_logs(
     caplog.set_level(logging.INFO)
     caplog.set_level(logging.DEBUG, logger="app")
 
-    secret_token = "test-token:phi-audit-uid-999:paciente.secreta@cora.test"
-    secret_note = "NOTA_INTIMA_HIPERSENSIBLE_DISPAREUNIA_998877"
-    secret_rag_query = "CONFIDENCIAL_IDEACION_AUTOLESIVA_SECRETA_445566"
-    headers = {"Authorization": f"Bearer {secret_token}"}
+    canary_bearer_val = "test-token:phi-audit-uid-999:paciente.prueba@cora.test"
+    canary_clinical_note = "Texto clinico sintetico de dispareunia para auditoria"
+    canary_rag_text = "Consulta clinica sintetica de ideacion autolesiva"
+    headers = {"Authorization": f"Bearer {canary_bearer_val}"}
 
     # 1. Onboarding with full name & email in token
     onb_resp = await async_client.put(
         "/api/v1/identity/onboarding",
         headers=headers,
         json={
-            "first_name": "ValeriaSecreta",
-            "last_name": "ApellidoConfidencial",
+            "first_name": "ValeriaCanary",
+            "last_name": "ApellidoCanary",
             "current_life_stage": "postpartum",
             "birth_year": 1991,
             "primary_intents": ["general_wellness"],
@@ -89,7 +89,7 @@ async def test_zero_phi_and_token_leakage_in_application_logs(
             "exercise_minutes": 20,
             "energy_level": 3,
             "mood_tags": ["anxious"],
-            "notes": secret_note,
+            "notes": canary_clinical_note,
         },
     )
     assert well_resp.status_code in (200, 201)
@@ -126,7 +126,7 @@ async def test_zero_phi_and_token_leakage_in_application_logs(
     await async_client.post(
         f"/api/v1/assistant/conversations/{conv_id}/messages",
         headers=headers,
-        json={"query": f"Me siento sin salida {secret_rag_query}"},
+        json={"query": f"Me siento sin salida {canary_rag_text}"},
     )
 
     # 5. Trigger 422 Validation Error & 400 Domain Error containing sensitive strings
@@ -135,7 +135,7 @@ async def test_zero_phi_and_token_leakage_in_application_logs(
         headers=headers,
         json={
             "sleep_hours": 99.0,  # Invalid > 24h
-            "notes": secret_note,
+            "notes": canary_clinical_note,
         },
     )
     assert err_422.status_code == 422
@@ -145,15 +145,15 @@ async def test_zero_phi_and_token_leakage_in_application_logs(
         headers=headers,
         json={
             "basal_body_temperature_celsius": 49.5,  # Domain invariant error
-            "notes": secret_note,
+            "notes": canary_clinical_note,
         },
     )
     assert err_400.status_code in (400, 422)
 
     # Inspect all captured logs
     logged_output = caplog.text
-    assert secret_token not in logged_output
-    assert "paciente.secreta@cora.test" not in logged_output
-    assert secret_note not in logged_output
-    assert secret_rag_query not in logged_output
-    assert "ValeriaSecreta" not in logged_output
+    assert canary_bearer_val not in logged_output
+    assert "paciente.prueba@cora.test" not in logged_output
+    assert canary_clinical_note not in logged_output
+    assert canary_rag_text not in logged_output
+    assert "ValeriaCanary" not in logged_output
