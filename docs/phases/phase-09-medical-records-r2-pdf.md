@@ -42,15 +42,15 @@
   - `MedicalExamRecord`, `VaccinationEntry` (`HPV`, `TDAP`, `RUBELLA`, `INFLUENZA`, `SHINGLES`), `SpecialistContact`
   - `PreventiveScreeningCalendarService.compute_due_screenings(...) -> list[PreventiveScreeningItem]`
 
-- [ ] **Step 1: Escribir tests TDD parametrizados validando rechazo de MIME ejecutable/HTML o tamaño `> 15 MB`, clave de objeto aislada `users/{user_id}/records/{record_id}` y calendario preventivo según edad (`16`, `27`, `32 embarazada`, `48`, `67` años)**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests TDD parametrizados validando rechazo de MIME ejecutable/HTML o tamaño `> 15 MB`, clave de objeto aislada `users/{user_id}/records/{record_id}` y calendario preventivo según edad (`16`, `27`, `32 embarazada`, `48`, `67` años)**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/medical_records/test_preventive_calendar_and_validation.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar Value Objects, entidades y `PreventiveScreeningCalendarService`**
-- [ ] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
+- [x] **Step 3: Implementar Value Objects, entidades y `PreventiveScreeningCalendarService`**
+- [x] **Step 4: Verificar pase en `< 50 ms` y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/unit/medical_records -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/medical_records/domain backend/tests/unit/medical_records`
   - `git commit -m "feat(medical-records): implement preventive screening calendar, vaccine records, and attachment validation"`
 
@@ -74,15 +74,15 @@
   - `IFileStorage` (`create_presigned_upload_url`, `create_presigned_download_url`, `delete_user_prefix` — este último reutilizado en purga GDPR de Fase 11)
   - `IClinicalReportRenderer.render_pdf(summary: DoctorReportData) -> bytes`
 
-- [ ] **Step 1: Escribir tests verificando: expiración `<= 900s` en URLs prefirmadas de R2, escape automático de etiquetas `<script>`/`<img src="http://...">` en Jinja2, bloqueo SSRF en `url_fetcher` de WeasyPrint, y generación de PDF válido (`%PDF-`) de `1–2` páginas tanto con historial rico como con perfil recién creado**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests verificando: expiración `<= 900s` en URLs prefirmadas de R2, escape automático de etiquetas `<script>`/`<img src="http://...">` en Jinja2, bloqueo SSRF en `url_fetcher` de WeasyPrint, y generación de PDF válido (`%PDF-`) de `1–2` páginas tanto con historial rico como con perfil recién creado**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/medical_records/test_doctor_ready_pdf_and_r2_security.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `CloudflareR2StorageAdapter`, plantilla clínica HTML/CSS paginada (`@page { size: A4; }`), `WeasyPrintReportRenderer` con `safe_local_url_fetcher` y `GenerateDoctorReadyPdfUseCase`**
-- [ ] **Step 4: Verificar tests y `mypy --strict`**
+- [x] **Step 3: Implementar `CloudflareR2StorageAdapter`, plantilla clínica HTML/CSS paginada (`@page { size: A4; }`), `WeasyPrintReportRenderer` con `safe_local_url_fetcher` y `GenerateDoctorReadyPdfUseCase`**
+- [x] **Step 4: Verificar tests y `mypy --strict`**
   - Run: `ruff check backend && mypy --strict backend/app && pytest backend/tests/unit/medical_records -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/medical_records backend/tests/unit/medical_records/test_doctor_ready_pdf_and_r2_security.py`
   - `git commit -m "feat(medical-records): add Cloudflare R2 adapter and SSRF-safe WeasyPrint Doctor-Ready PDF generator"`
 
@@ -105,15 +105,15 @@
 - Produces:
   - `POST /api/v1/medical-records/exams`, `POST /api/v1/medical-records/exams/{exam_id}/upload-url`, `GET /api/v1/medical-records/exams/{exam_id}/download-url`, `GET /api/v1/medical-records/preventive-calendar`, `POST /api/v1/medical-records/vaccinations`, `POST /api/v1/medical-records/specialists`, `POST /api/v1/medical-records/doctor-report/pdf`
 
-- [ ] **Step 1: Escribir tests de integración HTTP verificando flujo completo de examen + URL prefirmada, test anti-IDOR (`404` cuando Usuario B pide descarga de examen de Usuario A) y descarga de `application/pdf` en `/doctor-report/pdf`**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir tests de integración HTTP verificando flujo completo de examen + URL prefirmada, test anti-IDOR (`404` cuando Usuario B pide descarga de examen de Usuario A) y descarga de `application/pdf` en `/doctor-report/pdf`**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/medical_records/test_medical_records_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración `0009`, ORM, repositorio, router y actualizar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar toda la suite backend**
+- [x] **Step 3: Implementar migración `0009`, ORM, repositorio, router y actualizar `contracts/openapi.json`**
+- [x] **Step 4: Verificar toda la suite backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0009_create_medical_records_tables.py backend/app/modules/medical_records backend/app/main.py contracts/openapi.json backend/tests/integration/medical_records/test_medical_records_api.py`
   - `git commit -m "feat(medical-records): expose digital medical folder, vaccinations, and Doctor-Ready PDF REST endpoints"`
 
@@ -135,15 +135,15 @@
 - Consumes: `AppDatabase`, `SyncCoordinator`, `CoraApiClient`, `DiscreetNotificationService`
 - Produces: Módulo transversal móvil completo de Carpeta Clínica Digital
 
-- [ ] **Step 1: Escribir tests en Flutter verificando creación offline de examen/vacuna/especialista, cola diferida de archivo adjunto y selector de rango de fechas (`3`, `6`, `12` meses) para generar el *Doctor-Ready PDF***
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir tests en Flutter verificando creación offline de examen/vacuna/especialista, cola diferida de archivo adjunto y selector de rango de fechas (`3`, `6`, `12` meses) para generar el *Doctor-Ready PDF***
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/features/records`
   - Expected: FAIL
-- [ ] **Step 3: Implementar tablas Drift de carpeta médica, subida por URL prefirmada hacia R2 y pantallas de Carpeta Clínica y exportación PDF**
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar tablas Drift de carpeta médica, subida por URL prefirmada hacia R2 y pantallas de Carpeta Clínica y exportación PDF**
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 09**
+- [x] **Step 5: Commits finales y cierre de Fase 09**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add digital medical folder, vaccination card, specialist directory, and PDF exporter"`
   - `git add docs/phases/phase-09-medical-records-r2-pdf.md docs/phases/README.md`
