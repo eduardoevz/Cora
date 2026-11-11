@@ -85,7 +85,7 @@ class _PrivacyAndDataSovereigntyPageState
                 children: [
                   Icon(Icons.warning_amber_rounded, color: Colors.red),
                   SizedBox(width: 8),
-                  Text('Purga Irreversible'),
+                  Flexible(child: Text('Purga Irreversible')),
                 ],
               ),
               content: SingleChildScrollView(
@@ -95,7 +95,8 @@ class _PrivacyAndDataSovereigntyPageState
                   children: [
                     const Text(
                       'Esta acción eliminará de forma inmediata y definitiva todos tus registros de salud, ciclos, síntomas, notas, archivos clínicos y tu cuenta.',
-                      style: TextStyle(fontWeight: FontWeight.w600, color: Colors.red),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.red),
                     ),
                     const SizedBox(height: 12),
                     const Text(
@@ -104,7 +105,8 @@ class _PrivacyAndDataSovereigntyPageState
                     ),
                     const SelectableText(
                       requiredPhrase,
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black87),
                     ),
                     const SizedBox(height: 12),
                     TextField(
@@ -193,7 +195,8 @@ class _PrivacyAndDataSovereigntyPageState
                 SwitchListTile(
                   key: const Key('biometric_switch'),
                   title: const Text('Bloqueo Biométrico'),
-                  subtitle: const Text('Solicitar huella o rostro para acceder a Cora'),
+                  subtitle: const Text(
+                      'Solicitar huella o rostro para acceder a Cora'),
                   value: _biometricEnabled,
                   onChanged: (val) {
                     setState(() => _biometricEnabled = val);
@@ -241,7 +244,8 @@ class _PrivacyAndDataSovereigntyPageState
                 RadioListTile<DiscreetAppIcon>(
                   key: const Key('radio_icon_default'),
                   title: const Text('Cora Original'),
-                  subtitle: const Text('Ícono y nombre estándar de la aplicación'),
+                  subtitle:
+                      const Text('Ícono y nombre estándar de la aplicación'),
                   value: DiscreetAppIcon.coraDefault,
                   // ignore: deprecated_member_use
                   groupValue: _currentIcon,
@@ -257,7 +261,8 @@ class _PrivacyAndDataSovereigntyPageState
                 RadioListTile<DiscreetAppIcon>(
                   key: const Key('radio_icon_notes'),
                   title: const Text('Notas'),
-                  subtitle: const Text('Ícono de libreta discreta para mayor privacidad'),
+                  subtitle: const Text(
+                      'Ícono de libreta discreta para mayor privacidad'),
                   value: DiscreetAppIcon.neutralNotes,
                   // ignore: deprecated_member_use
                   groupValue: _currentIcon,
@@ -289,12 +294,15 @@ class _PrivacyAndDataSovereigntyPageState
             ),
           ),
           const SizedBox(height: 20),
-          _buildSectionHeader('Soberanía y Portabilidad (GDPR)', Icons.download_outlined),
+          _buildSectionHeader(
+              'Soberanía y Portabilidad (GDPR)', Icons.download_outlined),
           Card(
             child: ListTile(
-              leading: const Icon(Icons.folder_zip_outlined, color: Colors.teal),
+              leading:
+                  const Icon(Icons.folder_zip_outlined, color: Colors.teal),
               title: const Text('Exportar Todos mis Datos'),
-              subtitle: const Text('Descarga una copia completa en ZIP con archivos JSON legibles.'),
+              subtitle: const Text(
+                  'Descarga una copia completa en ZIP con archivos JSON legibles.'),
               trailing: _isExporting
                   ? const SizedBox(
                       width: 24,
@@ -309,7 +317,8 @@ class _PrivacyAndDataSovereigntyPageState
             ),
           ),
           const SizedBox(height: 28),
-          _buildSectionHeader('Zona de Peligro', Icons.delete_forever, color: Colors.red),
+          _buildSectionHeader('Zona de Peligro', Icons.delete_forever,
+              color: Colors.red),
           Card(
             color: Colors.red.shade50,
             shape: RoundedRectangleBorder(
@@ -323,7 +332,8 @@ class _PrivacyAndDataSovereigntyPageState
                 children: [
                   const Text(
                     'Eliminación Definitiva de Cuenta',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.red),
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -357,13 +367,15 @@ class _PrivacyAndDataSovereigntyPageState
         children: [
           Icon(icon, size: 20, color: color ?? Colors.grey.shade700),
           const SizedBox(width: 8),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: color ?? Colors.grey.shade800,
-              letterSpacing: 0.5,
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: color ?? Colors.grey.shade800,
+                letterSpacing: 0.5,
+              ),
             ),
           ),
         ],
