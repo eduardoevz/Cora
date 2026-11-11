@@ -156,3 +156,12 @@ class UserProfileResponse(BaseModel):
             created_at=profile.created_at,
             updated_at=profile.updated_at,
         )
+
+
+class PurgeAccountRequest(BaseModel):
+    """Payload to confirm irreversible GDPR account purge."""
+
+    confirm_phrase: str = Field(
+        ...,
+        description="Frase exacta requerida: 'ELIMINAR MI CUENTA CORA'",
+    )

@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_async_session
@@ -13,8 +13,14 @@ from app.modules.identity.application.dtos.identity_dtos import (
 from app.modules.identity.application.ports.user_profile_repository_port import (
     IUserProfileRepository,
 )
+from app.modules.identity.application.use_cases import (
+    purge_account_irreversibly_use_case as purge_uc,
+)
 from app.modules.identity.application.use_cases.complete_onboarding_use_case import (
     CompleteOnboardingUseCase,
+)
+from app.modules.identity.application.use_cases.export_all_user_data_use_case import (
+    ExportAllUserDataUseCase,
 )
 from app.modules.identity.application.use_cases.get_user_profile_use_case import (
     GetUserProfileUseCase,
@@ -30,10 +36,17 @@ from app.modules.identity.infrastructure.adapters.postgres_user_profile_reposito
 )
 from app.modules.identity.infrastructure.entrypoints.schemas import (
     OnboardingRequest,
+    PurgeAccountRequest,
     SwitchLifeStageRequest,
     UpdateModulePreferencesRequest,
     UserProfileResponse,
 )
+from app.modules.medical_records.infrastructure.adapters import (
+    cloudflare_r2_storage_adapter as r2_adapter,
+)
+
+PurgeAccountIrreversiblyUseCase = purge_uc.PurgeAccountIrreversiblyUseCase
+CloudflareR2StorageAdapter = r2_adapter.CloudflareR2StorageAdapter
 
 router = APIRouter(prefix="/identity", tags=["Identity"])
 
@@ -138,3 +151,70 @@ async def update_module_preferences(
     )
     profile = await use_case.execute(user=current_user, command=command)
     return UserProfileResponse.from_domain(profile)
+
+
+@router.post(
+    "/me/data-export",
+    status_code=status.HTTP_200_OK,
+    summary="Exportar totalidad de datos personales y de salud (ZIP)",
+    responses={
+        200: {
+            "content": {"application/zip": {}},
+            "description": "Archivo ZIP comprimido con los JSONs estructurados.",
+        }
+    },
+)
+async def export_my_data(
+    current_user: CurrentUserDep,
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+) -> Response:
+    profile_repo = PostgresUserProfileRepository(session)
+    profile = await profile_repo.get_by_firebase_uid(current_user.firebase_uid)
+    if profile is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Perfil de usuaria no encontrado.",
+        )
+
+    use_case = ExportAllUserDataUseCase()
+    zip_bytes = await use_case.execute(profile=profile, session=session)
+    filename = f"cora_data_export_{profile.id}.zip"
+    return Response(
+        content=zip_bytes,
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@router.delete(
+    "/me",
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Purga irreversible y eliminación permanente de cuenta (GDPR)",
+)
+async def purge_my_account(
+    payload: PurgeAccountRequest,
+    current_user: CurrentUserDep,
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+) -> Response:
+    profile_repo = PostgresUserProfileRepository(session)
+    profile = await profile_repo.get_by_firebase_uid(current_user.firebase_uid)
+    if profile is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Perfil de usuaria no encontrado.",
+        )
+
+    r2_storage = CloudflareR2StorageAdapter()
+    use_case = PurgeAccountIrreversiblyUseCase(file_storage=r2_storage)
+    try:
+        await use_case.execute(
+            profile=profile,
+            confirm_phrase=payload.confirm_phrase,
+            session=session,
+        )
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc),
+        ) from exc

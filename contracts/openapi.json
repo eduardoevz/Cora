@@ -1042,6 +1042,25 @@
         "title": "CreateConversationRequest",
         "type": "object"
       },
+      "CreateInvitationResponse": {
+        "properties": {
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "invitation_code": {
+            "title": "Invitation Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "invitation_code",
+          "expires_at"
+        ],
+        "title": "CreateInvitationResponse",
+        "type": "object"
+      },
       "CreatePregnancyEpisodeRequest": {
         "additionalProperties": false,
         "properties": {
@@ -4232,6 +4251,122 @@
         "title": "OnboardingRequest",
         "type": "object"
       },
+      "PartnerLinkResponse": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "owner_user_id": {
+            "format": "uuid",
+            "title": "Owner User Id",
+            "type": "string"
+          },
+          "partner_user_id": {
+            "format": "uuid",
+            "title": "Partner User Id",
+            "type": "string"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/SharingScopeSchema"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "owner_user_id",
+          "partner_user_id",
+          "status",
+          "permissions",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "PartnerLinkResponse",
+        "type": "object"
+      },
+      "PartnerProjectedViewResponse": {
+        "properties": {
+          "current_life_stage": {
+            "title": "Current Life Stage",
+            "type": "string"
+          },
+          "fertility_window_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fertility Window Summary"
+          },
+          "fetal_milestone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fetal Milestone"
+          },
+          "owner_first_name": {
+            "title": "Owner First Name",
+            "type": "string"
+          },
+          "pregnancy_week": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pregnancy Week"
+          },
+          "recent_mood_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recent Mood Summary"
+          },
+          "support_tips": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Support Tips",
+            "type": "array"
+          }
+        },
+        "required": [
+          "owner_first_name",
+          "current_life_stage"
+        ],
+        "title": "PartnerProjectedViewResponse",
+        "type": "object"
+      },
       "PelvicLogRequest": {
         "additionalProperties": false,
         "properties": {
@@ -4908,6 +5043,21 @@
         "title": "PrimaryIntent",
         "type": "string"
       },
+      "PurgeAccountRequest": {
+        "description": "Payload to confirm irreversible GDPR account purge.",
+        "properties": {
+          "confirm_phrase": {
+            "description": "Frase exacta requerida: 'ELIMINAR MI CUENTA CORA'",
+            "title": "Confirm Phrase",
+            "type": "string"
+          }
+        },
+        "required": [
+          "confirm_phrase"
+        ],
+        "title": "PurgeAccountRequest",
+        "type": "object"
+      },
       "RecordPostpartumRecoveryRequest": {
         "additionalProperties": false,
         "properties": {
@@ -4999,6 +5149,22 @@
           "lochia_flow"
         ],
         "title": "RecordPostpartumRecoveryRequest",
+        "type": "object"
+      },
+      "RedeemInvitationRequest": {
+        "properties": {
+          "invitation_code": {
+            "description": "C\u00f3digo de invitaci\u00f3n de pareja",
+            "maxLength": 30,
+            "minLength": 4,
+            "title": "Invitation Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "invitation_code"
+        ],
+        "title": "RedeemInvitationRequest",
         "type": "object"
       },
       "RequestUploadUrlRequest": {
@@ -5132,6 +5298,27 @@
           "trusted_contact_phone"
         ],
         "title": "SeniorVitalitySummaryResponse",
+        "type": "object"
+      },
+      "SharingScopeSchema": {
+        "properties": {
+          "share_fertility_window": {
+            "default": false,
+            "title": "Share Fertility Window",
+            "type": "boolean"
+          },
+          "share_mood_and_support_tips": {
+            "default": false,
+            "title": "Share Mood And Support Tips",
+            "type": "boolean"
+          },
+          "share_pregnancy_milestones": {
+            "default": false,
+            "title": "Share Pregnancy Milestones",
+            "type": "boolean"
+          }
+        },
+        "title": "SharingScopeSchema",
         "type": "object"
       },
       "SpecialistContactRequest": {
@@ -5620,6 +5807,34 @@
           "enabled_modules"
         ],
         "title": "UpdateModulePreferencesRequest",
+        "type": "object"
+      },
+      "UpdatePermissionsRequest": {
+        "properties": {
+          "permissions": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SharingScopeSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "ACTIVE o PAUSED para suspender temporalmente",
+            "title": "Status"
+          }
+        },
+        "title": "UpdatePermissionsRequest",
         "type": "object"
       },
       "UpdatePreconceptionChecklistRequest": {
@@ -6953,6 +7168,43 @@
       }
     },
     "/api/v1/identity/me": {
+      "delete": {
+        "operationId": "purge_my_account_api_v1_identity_me_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PurgeAccountRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Purga irreversible y eliminaci\u00f3n permanente de cuenta (GDPR)",
+        "tags": [
+          "Identity"
+        ]
+      },
       "get": {
         "description": "Returns the calibrated profile, active life stage, and modules for the authenticated user.",
         "operationId": "get_me_api_v1_identity_me_get",
@@ -6974,6 +7226,31 @@
           }
         ],
         "summary": "Get Current User Profile",
+        "tags": [
+          "Identity"
+        ]
+      }
+    },
+    "/api/v1/identity/me/data-export": {
+      "post": {
+        "operationId": "export_my_data_api_v1_identity_me_data_export_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "application/zip": {}
+            },
+            "description": "Archivo ZIP comprimido con los JSONs estructurados."
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Exportar totalidad de datos personales y de salud (ZIP)",
         "tags": [
           "Identity"
         ]
@@ -8085,6 +8362,233 @@
         "summary": "Registrar dosis de vacuna administrada",
         "tags": [
           "Medical Records - Folder, Vaccines & Doctor-Ready PDF"
+        ]
+      }
+    },
+    "/api/v1/partner-sharing/invitations": {
+      "post": {
+        "operationId": "create_partner_invitation_api_v1_partner_sharing_invitations_post",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateInvitationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Generar c\u00f3digo de invitaci\u00f3n temporal para la pareja (24h)",
+        "tags": [
+          "Partner Sharing"
+        ]
+      }
+    },
+    "/api/v1/partner-sharing/invitations/redeem": {
+      "post": {
+        "operationId": "redeem_partner_invitation_api_v1_partner_sharing_invitations_redeem_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedeemInvitationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerLinkResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Canjear c\u00f3digo de invitaci\u00f3n recibido de la pareja",
+        "tags": [
+          "Partner Sharing"
+        ]
+      }
+    },
+    "/api/v1/partner-sharing/links": {
+      "get": {
+        "operationId": "list_my_partner_links_api_v1_partner_sharing_links_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PartnerLinkResponse"
+                  },
+                  "title": "Response List My Partner Links Api V1 Partner Sharing Links Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar v\u00ednculos de pareja compartidos por la usuaria",
+        "tags": [
+          "Partner Sharing"
+        ]
+      }
+    },
+    "/api/v1/partner-sharing/links/{link_id}": {
+      "delete": {
+        "operationId": "revoke_partner_link_api_v1_partner_sharing_links__link_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "link_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Link Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Revocar v\u00ednculo de pareja de forma inmediata",
+        "tags": [
+          "Partner Sharing"
+        ]
+      }
+    },
+    "/api/v1/partner-sharing/links/{link_id}/permissions": {
+      "patch": {
+        "operationId": "update_partner_permissions_api_v1_partner_sharing_links__link_id__permissions_patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "link_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Link Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePermissionsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerLinkResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Modificar permisos de visualizaci\u00f3n compartida",
+        "tags": [
+          "Partner Sharing"
+        ]
+      }
+    },
+    "/api/v1/partner-sharing/shared-with-me": {
+      "get": {
+        "operationId": "get_shared_partner_view_api_v1_partner_sharing_shared_with_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerProjectedViewResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Ver informaci\u00f3n compartida por la pareja (Modo Acompa\u00f1ante)",
+        "tags": [
+          "Partner Sharing"
         ]
       }
     },
