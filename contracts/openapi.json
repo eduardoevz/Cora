@@ -91,6 +91,96 @@
         "title": "AlertSeverity",
         "type": "string"
       },
+      "AssistantMessageListResponse": {
+        "description": "Chronological list of messages in a conversation.",
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AssistantMessageResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "AssistantMessageListResponse",
+        "type": "object"
+      },
+      "AssistantMessageResponse": {
+        "description": "Representation of a user or assistant turn with citations and safety flags.",
+        "properties": {
+          "citations": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalCitationResponse"
+            },
+            "title": "Citations",
+            "type": "array"
+          },
+          "content_markdown": {
+            "title": "Content Markdown",
+            "type": "string"
+          },
+          "conversation_id": {
+            "format": "uuid",
+            "title": "Conversation Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "disclaimer_level": {
+            "title": "Disclaimer Level",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "is_emergency_intercepted": {
+            "title": "Is Emergency Intercepted",
+            "type": "boolean"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          },
+          "safety_triage_category": {
+            "title": "Safety Triage Category",
+            "type": "string"
+          },
+          "suggested_follow_ups": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Suggested Follow Ups",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "conversation_id",
+          "role",
+          "content_markdown",
+          "citations",
+          "safety_triage_category",
+          "is_emergency_intercepted",
+          "disclaimer_level",
+          "suggested_follow_ups",
+          "created_at"
+        ],
+        "title": "AssistantMessageResponse",
+        "type": "object"
+      },
       "AttachmentSpecSchema": {
         "properties": {
           "file_name": {
@@ -478,6 +568,218 @@
         "title": "CardiometabolicResponse",
         "type": "object"
       },
+      "ClinicalArticleDetailResponse": {
+        "description": "Full representation of a curated clinical article including Markdown body.",
+        "properties": {
+          "body_markdown": {
+            "description": "Full peer-reviewed Markdown body",
+            "title": "Body Markdown",
+            "type": "string"
+          },
+          "clinical_tags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Clinical Tags",
+            "type": "array"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "title": "Published At",
+            "type": "string"
+          },
+          "reading_time_minutes": {
+            "title": "Reading Time Minutes",
+            "type": "integer"
+          },
+          "reviewed_by": {
+            "title": "Reviewed By",
+            "type": "string"
+          },
+          "scientific_source": {
+            "title": "Scientific Source",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "source_url": {
+            "title": "Source Url",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "target_life_stages": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Target Life Stages",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "summary",
+          "target_life_stages",
+          "clinical_tags",
+          "scientific_source",
+          "source_url",
+          "reviewed_by",
+          "reading_time_minutes",
+          "published_at",
+          "body_markdown"
+        ],
+        "title": "ClinicalArticleDetailResponse",
+        "type": "object"
+      },
+      "ClinicalArticleListResponse": {
+        "description": "Envelope for curated clinical articles.",
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ClinicalArticleSummaryResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "ClinicalArticleListResponse",
+        "type": "object"
+      },
+      "ClinicalArticleSummaryResponse": {
+        "description": "Summary representation of a curated clinical article.",
+        "properties": {
+          "clinical_tags": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Clinical Tags",
+            "type": "array"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "title": "Published At",
+            "type": "string"
+          },
+          "reading_time_minutes": {
+            "title": "Reading Time Minutes",
+            "type": "integer"
+          },
+          "reviewed_by": {
+            "title": "Reviewed By",
+            "type": "string"
+          },
+          "scientific_source": {
+            "title": "Scientific Source",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "source_url": {
+            "title": "Source Url",
+            "type": "string"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "target_life_stages": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Target Life Stages",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "summary",
+          "target_life_stages",
+          "clinical_tags",
+          "scientific_source",
+          "source_url",
+          "reviewed_by",
+          "reading_time_minutes",
+          "published_at"
+        ],
+        "title": "ClinicalArticleSummaryResponse",
+        "type": "object"
+      },
+      "ClinicalCitationResponse": {
+        "description": "Verifiable scientific citation returned with an assistant message.",
+        "properties": {
+          "article_id": {
+            "format": "uuid",
+            "title": "Article Id",
+            "type": "string"
+          },
+          "article_slug": {
+            "title": "Article Slug",
+            "type": "string"
+          },
+          "article_title": {
+            "title": "Article Title",
+            "type": "string"
+          },
+          "scientific_source": {
+            "title": "Scientific Source",
+            "type": "string"
+          },
+          "section_heading": {
+            "title": "Section Heading",
+            "type": "string"
+          },
+          "source_url": {
+            "title": "Source Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "article_id",
+          "article_slug",
+          "article_title",
+          "section_heading",
+          "scientific_source",
+          "source_url"
+        ],
+        "title": "ClinicalCitationResponse",
+        "type": "object"
+      },
       "ClinicalPatternAlertResponse": {
         "description": "Preventative FIGO alert or clinical finding.",
         "properties": {
@@ -653,6 +955,91 @@
           "created_at"
         ],
         "title": "ContractionSessionResponse",
+        "type": "object"
+      },
+      "ConversationListResponse": {
+        "description": "Envelope for assistant conversations.",
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ConversationResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "ConversationListResponse",
+        "type": "object"
+      },
+      "ConversationResponse": {
+        "description": "Representation of a clinical assistant conversation thread.",
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "life_stage_at_creation": {
+            "title": "Life Stage At Creation",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "life_stage_at_creation",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ConversationResponse",
+        "type": "object"
+      },
+      "CreateConversationRequest": {
+        "description": "Payload to start a new clinical assistant conversation.",
+        "properties": {
+          "client_mutation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Mutation Id"
+          },
+          "title": {
+            "default": "Consulta con Cora",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "title": "CreateConversationRequest",
         "type": "object"
       },
       "CreatePregnancyEpisodeRequest": {
@@ -4652,6 +5039,35 @@
         "title": "ScreeningUrgency",
         "type": "string"
       },
+      "SendAssistantMessageRequest": {
+        "description": "Payload to send a question to Cora's grounded clinical RAG assistant.",
+        "properties": {
+          "client_mutation_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Mutation Id"
+          },
+          "query": {
+            "description": "Pregunta cl\u00ednica o educativa de la usuaria",
+            "maxLength": 2000,
+            "minLength": 2,
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "SendAssistantMessageRequest",
+        "type": "object"
+      },
       "SeniorVitalitySummaryResponse": {
         "properties": {
           "has_fracture_alert": {
@@ -5779,6 +6195,184 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/assistant/conversations": {
+      "get": {
+        "description": "List all assistant conversations owned by the authenticated user.",
+        "operationId": "list_conversations_api_v1_assistant_conversations_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar conversaciones del asistente cl\u00ednico de la usuaria",
+        "tags": [
+          "Clinical RAG Assistant"
+        ]
+      },
+      "post": {
+        "description": "Create a new clinical assistant conversation thread.",
+        "operationId": "create_conversation_api_v1_assistant_conversations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateConversationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Crear una nueva conversaci\u00f3n con el asistente cl\u00ednico Cora",
+        "tags": [
+          "Clinical RAG Assistant"
+        ]
+      }
+    },
+    "/api/v1/assistant/conversations/{conversation_id}/messages": {
+      "get": {
+        "description": "Return chronological messages in a conversation owned by the user.",
+        "operationId": "list_conversation_messages_api_v1_assistant_conversations__conversation_id__messages_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Conversation Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantMessageListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Obtener historial de mensajes y citas de una conversaci\u00f3n",
+        "tags": [
+          "Clinical RAG Assistant"
+        ]
+      },
+      "post": {
+        "description": "Execute 4-stage clinical RAG pipeline (Safety -> Memory/Vector -> Gemini).",
+        "operationId": "send_assistant_message_api_v1_assistant_conversations__conversation_id__messages_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Conversation Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendAssistantMessageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantMessageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Enviar consulta al pipeline RAG cl\u00ednico de 4 etapas",
+        "tags": [
+          "Clinical RAG Assistant"
+        ]
+      }
+    },
     "/api/v1/cycles/history": {
       "get": {
         "description": "Retrieves chronological history of past and current menstrual cycles.",
@@ -5938,6 +6532,147 @@
         "summary": "Log Bleeding and Cycle Symptoms",
         "tags": [
           "Menstrual Cycles & Symptoms"
+        ]
+      }
+    },
+    "/api/v1/education/articles": {
+      "get": {
+        "description": "Return curated clinical articles backed by WHO, ACOG, FIGO, and NAMS.",
+        "operationId": "list_curated_articles_api_v1_education_articles_get",
+        "parameters": [
+          {
+            "description": "Filtro opcional por etapa biol\u00f3gica de vida",
+            "in": "query",
+            "name": "life_stage",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filtro opcional por etapa biol\u00f3gica de vida",
+              "title": "Life Stage"
+            }
+          },
+          {
+            "description": "Filtro opcional por etiqueta cl\u00ednica (ej. sop, figo)",
+            "in": "query",
+            "name": "tag",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filtro opcional por etiqueta cl\u00ednica (ej. sop, figo)",
+              "title": "Tag"
+            }
+          },
+          {
+            "description": "B\u00fasqueda textual en t\u00edtulo, resumen o contenido",
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "B\u00fasqueda textual en t\u00edtulo, resumen o contenido",
+              "title": "Q"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicalArticleListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Listar art\u00edculos cl\u00ednicos curados por etapa de vida, etiqueta o b\u00fasqueda",
+        "tags": [
+          "Education & Clinical Library"
+        ]
+      }
+    },
+    "/api/v1/education/articles/{slug}": {
+      "get": {
+        "description": "Return full clinical article Markdown and scientific source metadata.",
+        "operationId": "get_curated_article_detail_api_v1_education_articles__slug__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "required": true,
+            "schema": {
+              "title": "Slug",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClinicalArticleDetailResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Obtener detalle completo de un art\u00edculo cl\u00ednico por su slug",
+        "tags": [
+          "Education & Clinical Library"
         ]
       }
     },
