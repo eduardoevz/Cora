@@ -12,6 +12,8 @@ import 'package:mobile/features/postpartum/presentation/pages/epds_mental_health
 import 'package:mobile/features/postpartum/presentation/pages/lactation_and_milk_bank_page.dart';
 import 'package:mobile/features/postpartum/presentation/pages/postpartum_recovery_page.dart';
 import 'package:mobile/features/pregnancy/presentation/pages/pregnancy_weekly_hub_page.dart';
+import 'package:mobile/features/records/presentation/pages/doctor_report_export_page.dart';
+import 'package:mobile/features/records/presentation/pages/medical_folder_hub_page.dart';
 import 'package:mobile/features/senior_vitality/presentation/pages/senior_vitality_hub_page.dart';
 import 'package:mobile/features/treatments/presentation/pages/pillbox_and_treatments_page.dart';
 import 'package:mobile/features/wellness/presentation/pages/wellness_tracker_page.dart';
@@ -496,6 +498,90 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      key: const Key('quick_action_medical_folder'),
+                      elevation: 0,
+                      color: const Color(0xFFE0F2FE),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const MedicalFolderHubPage(),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.folder_shared,
+                                  color: Color(0xFF0284C7)),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Carpeta Clínica',
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Estudios y vacunas',
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Card(
+                      key: const Key('quick_action_doctor_pdf'),
+                      elevation: 0,
+                      color: const Color(0xFFFEF3C7),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const DoctorReportExportPage(),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.picture_as_pdf,
+                                  color: Color(0xFFD97706)),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Doctor-Ready PDF',
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'Reporte consulta',
+                                style: theme.textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 16),
 
               // Section header
@@ -628,6 +714,13 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
                             MaterialPageRoute(
                               builder: (context) =>
                                   const EpdsMentalHealthPage(),
+                            ),
+                          );
+                        } else if (moduleKey == 'preventive_checkups') {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const MedicalFolderHubPage(),
                             ),
                           );
                         }

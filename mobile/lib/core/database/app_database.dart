@@ -510,6 +510,56 @@ class TrustedContactEntries extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class MedicalExamEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get examType => text()();
+  TextColumn get title => text()();
+  DateTimeColumn get performedAt => dateTime()();
+  TextColumn get clinicOrLab => text().nullable()();
+  TextColumn get notes => text().nullable()();
+  TextColumn get attachmentFileName => text().nullable()();
+  TextColumn get attachmentMimeType => text().nullable()();
+  IntColumn get attachmentSizeBytes => integer().nullable()();
+  TextColumn get attachmentStorageKey => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class VaccinationEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get vaccineType => text()();
+  IntColumn get doseNumber => integer()();
+  DateTimeColumn get administeredAt => dateTime()();
+  TextColumn get lotNumber => text().nullable()();
+  TextColumn get administratorClinic => text().nullable()();
+  TextColumn get notes => text().nullable()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class SpecialistEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get fullName => text()();
+  TextColumn get specialty => text()();
+  TextColumn get clinicName => text().nullable()();
+  TextColumn get phoneNumber => text().nullable()();
+  TextColumn get email => text().nullable()();
+  TextColumn get notes => text().nullable()();
+  BoolColumn get isFavorite => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
@@ -538,6 +588,9 @@ class TrustedContactEntries extends Table {
   FallRiskEntries,
   ContinenceEntries,
   TrustedContactEntries,
+  MedicalExamEntries,
+  VaccinationEntries,
+  SpecialistEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -545,7 +598,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -592,6 +645,11 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(fallRiskEntries);
             await m.createTable(continenceEntries);
             await m.createTable(trustedContactEntries);
+          }
+          if (from < 9) {
+            await m.createTable(medicalExamEntries);
+            await m.createTable(vaccinationEntries);
+            await m.createTable(specialistEntries);
           }
         },
       );

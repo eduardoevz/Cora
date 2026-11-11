@@ -15936,6 +15936,1676 @@ class TrustedContactEntriesCompanion
   }
 }
 
+class $MedicalExamEntriesTable extends MedicalExamEntries
+    with TableInfo<$MedicalExamEntriesTable, MedicalExamEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MedicalExamEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _examTypeMeta =
+      const VerificationMeta('examType');
+  @override
+  late final GeneratedColumn<String> examType = GeneratedColumn<String>(
+      'exam_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _performedAtMeta =
+      const VerificationMeta('performedAt');
+  @override
+  late final GeneratedColumn<DateTime> performedAt = GeneratedColumn<DateTime>(
+      'performed_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _clinicOrLabMeta =
+      const VerificationMeta('clinicOrLab');
+  @override
+  late final GeneratedColumn<String> clinicOrLab = GeneratedColumn<String>(
+      'clinic_or_lab', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _attachmentFileNameMeta =
+      const VerificationMeta('attachmentFileName');
+  @override
+  late final GeneratedColumn<String> attachmentFileName =
+      GeneratedColumn<String>('attachment_file_name', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _attachmentMimeTypeMeta =
+      const VerificationMeta('attachmentMimeType');
+  @override
+  late final GeneratedColumn<String> attachmentMimeType =
+      GeneratedColumn<String>('attachment_mime_type', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _attachmentSizeBytesMeta =
+      const VerificationMeta('attachmentSizeBytes');
+  @override
+  late final GeneratedColumn<int> attachmentSizeBytes = GeneratedColumn<int>(
+      'attachment_size_bytes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _attachmentStorageKeyMeta =
+      const VerificationMeta('attachmentStorageKey');
+  @override
+  late final GeneratedColumn<String> attachmentStorageKey =
+      GeneratedColumn<String>('attachment_storage_key', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        examType,
+        title,
+        performedAt,
+        clinicOrLab,
+        notes,
+        attachmentFileName,
+        attachmentMimeType,
+        attachmentSizeBytes,
+        attachmentStorageKey,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'medical_exam_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<MedicalExamEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('exam_type')) {
+      context.handle(_examTypeMeta,
+          examType.isAcceptableOrUnknown(data['exam_type']!, _examTypeMeta));
+    } else if (isInserting) {
+      context.missing(_examTypeMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('performed_at')) {
+      context.handle(
+          _performedAtMeta,
+          performedAt.isAcceptableOrUnknown(
+              data['performed_at']!, _performedAtMeta));
+    } else if (isInserting) {
+      context.missing(_performedAtMeta);
+    }
+    if (data.containsKey('clinic_or_lab')) {
+      context.handle(
+          _clinicOrLabMeta,
+          clinicOrLab.isAcceptableOrUnknown(
+              data['clinic_or_lab']!, _clinicOrLabMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('attachment_file_name')) {
+      context.handle(
+          _attachmentFileNameMeta,
+          attachmentFileName.isAcceptableOrUnknown(
+              data['attachment_file_name']!, _attachmentFileNameMeta));
+    }
+    if (data.containsKey('attachment_mime_type')) {
+      context.handle(
+          _attachmentMimeTypeMeta,
+          attachmentMimeType.isAcceptableOrUnknown(
+              data['attachment_mime_type']!, _attachmentMimeTypeMeta));
+    }
+    if (data.containsKey('attachment_size_bytes')) {
+      context.handle(
+          _attachmentSizeBytesMeta,
+          attachmentSizeBytes.isAcceptableOrUnknown(
+              data['attachment_size_bytes']!, _attachmentSizeBytesMeta));
+    }
+    if (data.containsKey('attachment_storage_key')) {
+      context.handle(
+          _attachmentStorageKeyMeta,
+          attachmentStorageKey.isAcceptableOrUnknown(
+              data['attachment_storage_key']!, _attachmentStorageKeyMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MedicalExamEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MedicalExamEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      examType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}exam_type'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      performedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}performed_at'])!,
+      clinicOrLab: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}clinic_or_lab']),
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      attachmentFileName: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}attachment_file_name']),
+      attachmentMimeType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}attachment_mime_type']),
+      attachmentSizeBytes: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}attachment_size_bytes']),
+      attachmentStorageKey: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}attachment_storage_key']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $MedicalExamEntriesTable createAlias(String alias) {
+    return $MedicalExamEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class MedicalExamEntry extends DataClass
+    implements Insertable<MedicalExamEntry> {
+  final String id;
+  final String userId;
+  final String examType;
+  final String title;
+  final DateTime performedAt;
+  final String? clinicOrLab;
+  final String? notes;
+  final String? attachmentFileName;
+  final String? attachmentMimeType;
+  final int? attachmentSizeBytes;
+  final String? attachmentStorageKey;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const MedicalExamEntry(
+      {required this.id,
+      required this.userId,
+      required this.examType,
+      required this.title,
+      required this.performedAt,
+      this.clinicOrLab,
+      this.notes,
+      this.attachmentFileName,
+      this.attachmentMimeType,
+      this.attachmentSizeBytes,
+      this.attachmentStorageKey,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['exam_type'] = Variable<String>(examType);
+    map['title'] = Variable<String>(title);
+    map['performed_at'] = Variable<DateTime>(performedAt);
+    if (!nullToAbsent || clinicOrLab != null) {
+      map['clinic_or_lab'] = Variable<String>(clinicOrLab);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    if (!nullToAbsent || attachmentFileName != null) {
+      map['attachment_file_name'] = Variable<String>(attachmentFileName);
+    }
+    if (!nullToAbsent || attachmentMimeType != null) {
+      map['attachment_mime_type'] = Variable<String>(attachmentMimeType);
+    }
+    if (!nullToAbsent || attachmentSizeBytes != null) {
+      map['attachment_size_bytes'] = Variable<int>(attachmentSizeBytes);
+    }
+    if (!nullToAbsent || attachmentStorageKey != null) {
+      map['attachment_storage_key'] = Variable<String>(attachmentStorageKey);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  MedicalExamEntriesCompanion toCompanion(bool nullToAbsent) {
+    return MedicalExamEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      examType: Value(examType),
+      title: Value(title),
+      performedAt: Value(performedAt),
+      clinicOrLab: clinicOrLab == null && nullToAbsent
+          ? const Value.absent()
+          : Value(clinicOrLab),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      attachmentFileName: attachmentFileName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(attachmentFileName),
+      attachmentMimeType: attachmentMimeType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(attachmentMimeType),
+      attachmentSizeBytes: attachmentSizeBytes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(attachmentSizeBytes),
+      attachmentStorageKey: attachmentStorageKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(attachmentStorageKey),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory MedicalExamEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MedicalExamEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      examType: serializer.fromJson<String>(json['examType']),
+      title: serializer.fromJson<String>(json['title']),
+      performedAt: serializer.fromJson<DateTime>(json['performedAt']),
+      clinicOrLab: serializer.fromJson<String?>(json['clinicOrLab']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      attachmentFileName:
+          serializer.fromJson<String?>(json['attachmentFileName']),
+      attachmentMimeType:
+          serializer.fromJson<String?>(json['attachmentMimeType']),
+      attachmentSizeBytes:
+          serializer.fromJson<int?>(json['attachmentSizeBytes']),
+      attachmentStorageKey:
+          serializer.fromJson<String?>(json['attachmentStorageKey']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'examType': serializer.toJson<String>(examType),
+      'title': serializer.toJson<String>(title),
+      'performedAt': serializer.toJson<DateTime>(performedAt),
+      'clinicOrLab': serializer.toJson<String?>(clinicOrLab),
+      'notes': serializer.toJson<String?>(notes),
+      'attachmentFileName': serializer.toJson<String?>(attachmentFileName),
+      'attachmentMimeType': serializer.toJson<String?>(attachmentMimeType),
+      'attachmentSizeBytes': serializer.toJson<int?>(attachmentSizeBytes),
+      'attachmentStorageKey': serializer.toJson<String?>(attachmentStorageKey),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  MedicalExamEntry copyWith(
+          {String? id,
+          String? userId,
+          String? examType,
+          String? title,
+          DateTime? performedAt,
+          Value<String?> clinicOrLab = const Value.absent(),
+          Value<String?> notes = const Value.absent(),
+          Value<String?> attachmentFileName = const Value.absent(),
+          Value<String?> attachmentMimeType = const Value.absent(),
+          Value<int?> attachmentSizeBytes = const Value.absent(),
+          Value<String?> attachmentStorageKey = const Value.absent(),
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      MedicalExamEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        examType: examType ?? this.examType,
+        title: title ?? this.title,
+        performedAt: performedAt ?? this.performedAt,
+        clinicOrLab: clinicOrLab.present ? clinicOrLab.value : this.clinicOrLab,
+        notes: notes.present ? notes.value : this.notes,
+        attachmentFileName: attachmentFileName.present
+            ? attachmentFileName.value
+            : this.attachmentFileName,
+        attachmentMimeType: attachmentMimeType.present
+            ? attachmentMimeType.value
+            : this.attachmentMimeType,
+        attachmentSizeBytes: attachmentSizeBytes.present
+            ? attachmentSizeBytes.value
+            : this.attachmentSizeBytes,
+        attachmentStorageKey: attachmentStorageKey.present
+            ? attachmentStorageKey.value
+            : this.attachmentStorageKey,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  MedicalExamEntry copyWithCompanion(MedicalExamEntriesCompanion data) {
+    return MedicalExamEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      examType: data.examType.present ? data.examType.value : this.examType,
+      title: data.title.present ? data.title.value : this.title,
+      performedAt:
+          data.performedAt.present ? data.performedAt.value : this.performedAt,
+      clinicOrLab:
+          data.clinicOrLab.present ? data.clinicOrLab.value : this.clinicOrLab,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      attachmentFileName: data.attachmentFileName.present
+          ? data.attachmentFileName.value
+          : this.attachmentFileName,
+      attachmentMimeType: data.attachmentMimeType.present
+          ? data.attachmentMimeType.value
+          : this.attachmentMimeType,
+      attachmentSizeBytes: data.attachmentSizeBytes.present
+          ? data.attachmentSizeBytes.value
+          : this.attachmentSizeBytes,
+      attachmentStorageKey: data.attachmentStorageKey.present
+          ? data.attachmentStorageKey.value
+          : this.attachmentStorageKey,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MedicalExamEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('examType: $examType, ')
+          ..write('title: $title, ')
+          ..write('performedAt: $performedAt, ')
+          ..write('clinicOrLab: $clinicOrLab, ')
+          ..write('notes: $notes, ')
+          ..write('attachmentFileName: $attachmentFileName, ')
+          ..write('attachmentMimeType: $attachmentMimeType, ')
+          ..write('attachmentSizeBytes: $attachmentSizeBytes, ')
+          ..write('attachmentStorageKey: $attachmentStorageKey, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      examType,
+      title,
+      performedAt,
+      clinicOrLab,
+      notes,
+      attachmentFileName,
+      attachmentMimeType,
+      attachmentSizeBytes,
+      attachmentStorageKey,
+      createdAt,
+      updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MedicalExamEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.examType == this.examType &&
+          other.title == this.title &&
+          other.performedAt == this.performedAt &&
+          other.clinicOrLab == this.clinicOrLab &&
+          other.notes == this.notes &&
+          other.attachmentFileName == this.attachmentFileName &&
+          other.attachmentMimeType == this.attachmentMimeType &&
+          other.attachmentSizeBytes == this.attachmentSizeBytes &&
+          other.attachmentStorageKey == this.attachmentStorageKey &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class MedicalExamEntriesCompanion extends UpdateCompanion<MedicalExamEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> examType;
+  final Value<String> title;
+  final Value<DateTime> performedAt;
+  final Value<String?> clinicOrLab;
+  final Value<String?> notes;
+  final Value<String?> attachmentFileName;
+  final Value<String?> attachmentMimeType;
+  final Value<int?> attachmentSizeBytes;
+  final Value<String?> attachmentStorageKey;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const MedicalExamEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.examType = const Value.absent(),
+    this.title = const Value.absent(),
+    this.performedAt = const Value.absent(),
+    this.clinicOrLab = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.attachmentFileName = const Value.absent(),
+    this.attachmentMimeType = const Value.absent(),
+    this.attachmentSizeBytes = const Value.absent(),
+    this.attachmentStorageKey = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MedicalExamEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required String examType,
+    required String title,
+    required DateTime performedAt,
+    this.clinicOrLab = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.attachmentFileName = const Value.absent(),
+    this.attachmentMimeType = const Value.absent(),
+    this.attachmentSizeBytes = const Value.absent(),
+    this.attachmentStorageKey = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        examType = Value(examType),
+        title = Value(title),
+        performedAt = Value(performedAt);
+  static Insertable<MedicalExamEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? examType,
+    Expression<String>? title,
+    Expression<DateTime>? performedAt,
+    Expression<String>? clinicOrLab,
+    Expression<String>? notes,
+    Expression<String>? attachmentFileName,
+    Expression<String>? attachmentMimeType,
+    Expression<int>? attachmentSizeBytes,
+    Expression<String>? attachmentStorageKey,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (examType != null) 'exam_type': examType,
+      if (title != null) 'title': title,
+      if (performedAt != null) 'performed_at': performedAt,
+      if (clinicOrLab != null) 'clinic_or_lab': clinicOrLab,
+      if (notes != null) 'notes': notes,
+      if (attachmentFileName != null)
+        'attachment_file_name': attachmentFileName,
+      if (attachmentMimeType != null)
+        'attachment_mime_type': attachmentMimeType,
+      if (attachmentSizeBytes != null)
+        'attachment_size_bytes': attachmentSizeBytes,
+      if (attachmentStorageKey != null)
+        'attachment_storage_key': attachmentStorageKey,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MedicalExamEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String>? examType,
+      Value<String>? title,
+      Value<DateTime>? performedAt,
+      Value<String?>? clinicOrLab,
+      Value<String?>? notes,
+      Value<String?>? attachmentFileName,
+      Value<String?>? attachmentMimeType,
+      Value<int?>? attachmentSizeBytes,
+      Value<String?>? attachmentStorageKey,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return MedicalExamEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      examType: examType ?? this.examType,
+      title: title ?? this.title,
+      performedAt: performedAt ?? this.performedAt,
+      clinicOrLab: clinicOrLab ?? this.clinicOrLab,
+      notes: notes ?? this.notes,
+      attachmentFileName: attachmentFileName ?? this.attachmentFileName,
+      attachmentMimeType: attachmentMimeType ?? this.attachmentMimeType,
+      attachmentSizeBytes: attachmentSizeBytes ?? this.attachmentSizeBytes,
+      attachmentStorageKey: attachmentStorageKey ?? this.attachmentStorageKey,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (examType.present) {
+      map['exam_type'] = Variable<String>(examType.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (performedAt.present) {
+      map['performed_at'] = Variable<DateTime>(performedAt.value);
+    }
+    if (clinicOrLab.present) {
+      map['clinic_or_lab'] = Variable<String>(clinicOrLab.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (attachmentFileName.present) {
+      map['attachment_file_name'] = Variable<String>(attachmentFileName.value);
+    }
+    if (attachmentMimeType.present) {
+      map['attachment_mime_type'] = Variable<String>(attachmentMimeType.value);
+    }
+    if (attachmentSizeBytes.present) {
+      map['attachment_size_bytes'] = Variable<int>(attachmentSizeBytes.value);
+    }
+    if (attachmentStorageKey.present) {
+      map['attachment_storage_key'] =
+          Variable<String>(attachmentStorageKey.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MedicalExamEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('examType: $examType, ')
+          ..write('title: $title, ')
+          ..write('performedAt: $performedAt, ')
+          ..write('clinicOrLab: $clinicOrLab, ')
+          ..write('notes: $notes, ')
+          ..write('attachmentFileName: $attachmentFileName, ')
+          ..write('attachmentMimeType: $attachmentMimeType, ')
+          ..write('attachmentSizeBytes: $attachmentSizeBytes, ')
+          ..write('attachmentStorageKey: $attachmentStorageKey, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $VaccinationEntriesTable extends VaccinationEntries
+    with TableInfo<$VaccinationEntriesTable, VaccinationEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $VaccinationEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _vaccineTypeMeta =
+      const VerificationMeta('vaccineType');
+  @override
+  late final GeneratedColumn<String> vaccineType = GeneratedColumn<String>(
+      'vaccine_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _doseNumberMeta =
+      const VerificationMeta('doseNumber');
+  @override
+  late final GeneratedColumn<int> doseNumber = GeneratedColumn<int>(
+      'dose_number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _administeredAtMeta =
+      const VerificationMeta('administeredAt');
+  @override
+  late final GeneratedColumn<DateTime> administeredAt =
+      GeneratedColumn<DateTime>('administered_at', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _lotNumberMeta =
+      const VerificationMeta('lotNumber');
+  @override
+  late final GeneratedColumn<String> lotNumber = GeneratedColumn<String>(
+      'lot_number', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _administratorClinicMeta =
+      const VerificationMeta('administratorClinic');
+  @override
+  late final GeneratedColumn<String> administratorClinic =
+      GeneratedColumn<String>('administrator_clinic', aliasedName, true,
+          type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        vaccineType,
+        doseNumber,
+        administeredAt,
+        lotNumber,
+        administratorClinic,
+        notes,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vaccination_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<VaccinationEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('vaccine_type')) {
+      context.handle(
+          _vaccineTypeMeta,
+          vaccineType.isAcceptableOrUnknown(
+              data['vaccine_type']!, _vaccineTypeMeta));
+    } else if (isInserting) {
+      context.missing(_vaccineTypeMeta);
+    }
+    if (data.containsKey('dose_number')) {
+      context.handle(
+          _doseNumberMeta,
+          doseNumber.isAcceptableOrUnknown(
+              data['dose_number']!, _doseNumberMeta));
+    } else if (isInserting) {
+      context.missing(_doseNumberMeta);
+    }
+    if (data.containsKey('administered_at')) {
+      context.handle(
+          _administeredAtMeta,
+          administeredAt.isAcceptableOrUnknown(
+              data['administered_at']!, _administeredAtMeta));
+    } else if (isInserting) {
+      context.missing(_administeredAtMeta);
+    }
+    if (data.containsKey('lot_number')) {
+      context.handle(_lotNumberMeta,
+          lotNumber.isAcceptableOrUnknown(data['lot_number']!, _lotNumberMeta));
+    }
+    if (data.containsKey('administrator_clinic')) {
+      context.handle(
+          _administratorClinicMeta,
+          administratorClinic.isAcceptableOrUnknown(
+              data['administrator_clinic']!, _administratorClinicMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  VaccinationEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return VaccinationEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      vaccineType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}vaccine_type'])!,
+      doseNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}dose_number'])!,
+      administeredAt: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}administered_at'])!,
+      lotNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}lot_number']),
+      administratorClinic: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}administrator_clinic']),
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $VaccinationEntriesTable createAlias(String alias) {
+    return $VaccinationEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class VaccinationEntry extends DataClass
+    implements Insertable<VaccinationEntry> {
+  final String id;
+  final String userId;
+  final String vaccineType;
+  final int doseNumber;
+  final DateTime administeredAt;
+  final String? lotNumber;
+  final String? administratorClinic;
+  final String? notes;
+  final DateTime createdAt;
+  const VaccinationEntry(
+      {required this.id,
+      required this.userId,
+      required this.vaccineType,
+      required this.doseNumber,
+      required this.administeredAt,
+      this.lotNumber,
+      this.administratorClinic,
+      this.notes,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['vaccine_type'] = Variable<String>(vaccineType);
+    map['dose_number'] = Variable<int>(doseNumber);
+    map['administered_at'] = Variable<DateTime>(administeredAt);
+    if (!nullToAbsent || lotNumber != null) {
+      map['lot_number'] = Variable<String>(lotNumber);
+    }
+    if (!nullToAbsent || administratorClinic != null) {
+      map['administrator_clinic'] = Variable<String>(administratorClinic);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  VaccinationEntriesCompanion toCompanion(bool nullToAbsent) {
+    return VaccinationEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      vaccineType: Value(vaccineType),
+      doseNumber: Value(doseNumber),
+      administeredAt: Value(administeredAt),
+      lotNumber: lotNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lotNumber),
+      administratorClinic: administratorClinic == null && nullToAbsent
+          ? const Value.absent()
+          : Value(administratorClinic),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory VaccinationEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return VaccinationEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      vaccineType: serializer.fromJson<String>(json['vaccineType']),
+      doseNumber: serializer.fromJson<int>(json['doseNumber']),
+      administeredAt: serializer.fromJson<DateTime>(json['administeredAt']),
+      lotNumber: serializer.fromJson<String?>(json['lotNumber']),
+      administratorClinic:
+          serializer.fromJson<String?>(json['administratorClinic']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'vaccineType': serializer.toJson<String>(vaccineType),
+      'doseNumber': serializer.toJson<int>(doseNumber),
+      'administeredAt': serializer.toJson<DateTime>(administeredAt),
+      'lotNumber': serializer.toJson<String?>(lotNumber),
+      'administratorClinic': serializer.toJson<String?>(administratorClinic),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  VaccinationEntry copyWith(
+          {String? id,
+          String? userId,
+          String? vaccineType,
+          int? doseNumber,
+          DateTime? administeredAt,
+          Value<String?> lotNumber = const Value.absent(),
+          Value<String?> administratorClinic = const Value.absent(),
+          Value<String?> notes = const Value.absent(),
+          DateTime? createdAt}) =>
+      VaccinationEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        vaccineType: vaccineType ?? this.vaccineType,
+        doseNumber: doseNumber ?? this.doseNumber,
+        administeredAt: administeredAt ?? this.administeredAt,
+        lotNumber: lotNumber.present ? lotNumber.value : this.lotNumber,
+        administratorClinic: administratorClinic.present
+            ? administratorClinic.value
+            : this.administratorClinic,
+        notes: notes.present ? notes.value : this.notes,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  VaccinationEntry copyWithCompanion(VaccinationEntriesCompanion data) {
+    return VaccinationEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      vaccineType:
+          data.vaccineType.present ? data.vaccineType.value : this.vaccineType,
+      doseNumber:
+          data.doseNumber.present ? data.doseNumber.value : this.doseNumber,
+      administeredAt: data.administeredAt.present
+          ? data.administeredAt.value
+          : this.administeredAt,
+      lotNumber: data.lotNumber.present ? data.lotNumber.value : this.lotNumber,
+      administratorClinic: data.administratorClinic.present
+          ? data.administratorClinic.value
+          : this.administratorClinic,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaccinationEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('vaccineType: $vaccineType, ')
+          ..write('doseNumber: $doseNumber, ')
+          ..write('administeredAt: $administeredAt, ')
+          ..write('lotNumber: $lotNumber, ')
+          ..write('administratorClinic: $administratorClinic, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, vaccineType, doseNumber,
+      administeredAt, lotNumber, administratorClinic, notes, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is VaccinationEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.vaccineType == this.vaccineType &&
+          other.doseNumber == this.doseNumber &&
+          other.administeredAt == this.administeredAt &&
+          other.lotNumber == this.lotNumber &&
+          other.administratorClinic == this.administratorClinic &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt);
+}
+
+class VaccinationEntriesCompanion extends UpdateCompanion<VaccinationEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> vaccineType;
+  final Value<int> doseNumber;
+  final Value<DateTime> administeredAt;
+  final Value<String?> lotNumber;
+  final Value<String?> administratorClinic;
+  final Value<String?> notes;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const VaccinationEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.vaccineType = const Value.absent(),
+    this.doseNumber = const Value.absent(),
+    this.administeredAt = const Value.absent(),
+    this.lotNumber = const Value.absent(),
+    this.administratorClinic = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  VaccinationEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required String vaccineType,
+    required int doseNumber,
+    required DateTime administeredAt,
+    this.lotNumber = const Value.absent(),
+    this.administratorClinic = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        vaccineType = Value(vaccineType),
+        doseNumber = Value(doseNumber),
+        administeredAt = Value(administeredAt);
+  static Insertable<VaccinationEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? vaccineType,
+    Expression<int>? doseNumber,
+    Expression<DateTime>? administeredAt,
+    Expression<String>? lotNumber,
+    Expression<String>? administratorClinic,
+    Expression<String>? notes,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (vaccineType != null) 'vaccine_type': vaccineType,
+      if (doseNumber != null) 'dose_number': doseNumber,
+      if (administeredAt != null) 'administered_at': administeredAt,
+      if (lotNumber != null) 'lot_number': lotNumber,
+      if (administratorClinic != null)
+        'administrator_clinic': administratorClinic,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  VaccinationEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String>? vaccineType,
+      Value<int>? doseNumber,
+      Value<DateTime>? administeredAt,
+      Value<String?>? lotNumber,
+      Value<String?>? administratorClinic,
+      Value<String?>? notes,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return VaccinationEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      vaccineType: vaccineType ?? this.vaccineType,
+      doseNumber: doseNumber ?? this.doseNumber,
+      administeredAt: administeredAt ?? this.administeredAt,
+      lotNumber: lotNumber ?? this.lotNumber,
+      administratorClinic: administratorClinic ?? this.administratorClinic,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (vaccineType.present) {
+      map['vaccine_type'] = Variable<String>(vaccineType.value);
+    }
+    if (doseNumber.present) {
+      map['dose_number'] = Variable<int>(doseNumber.value);
+    }
+    if (administeredAt.present) {
+      map['administered_at'] = Variable<DateTime>(administeredAt.value);
+    }
+    if (lotNumber.present) {
+      map['lot_number'] = Variable<String>(lotNumber.value);
+    }
+    if (administratorClinic.present) {
+      map['administrator_clinic'] = Variable<String>(administratorClinic.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaccinationEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('vaccineType: $vaccineType, ')
+          ..write('doseNumber: $doseNumber, ')
+          ..write('administeredAt: $administeredAt, ')
+          ..write('lotNumber: $lotNumber, ')
+          ..write('administratorClinic: $administratorClinic, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SpecialistEntriesTable extends SpecialistEntries
+    with TableInfo<$SpecialistEntriesTable, SpecialistEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SpecialistEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fullNameMeta =
+      const VerificationMeta('fullName');
+  @override
+  late final GeneratedColumn<String> fullName = GeneratedColumn<String>(
+      'full_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _specialtyMeta =
+      const VerificationMeta('specialty');
+  @override
+  late final GeneratedColumn<String> specialty = GeneratedColumn<String>(
+      'specialty', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _clinicNameMeta =
+      const VerificationMeta('clinicName');
+  @override
+  late final GeneratedColumn<String> clinicName = GeneratedColumn<String>(
+      'clinic_name', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _phoneNumberMeta =
+      const VerificationMeta('phoneNumber');
+  @override
+  late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
+      'phone_number', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  @override
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+      'email', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _isFavoriteMeta =
+      const VerificationMeta('isFavorite');
+  @override
+  late final GeneratedColumn<bool> isFavorite = GeneratedColumn<bool>(
+      'is_favorite', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_favorite" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        fullName,
+        specialty,
+        clinicName,
+        phoneNumber,
+        email,
+        notes,
+        isFavorite,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'specialist_entries';
+  @override
+  VerificationContext validateIntegrity(Insertable<SpecialistEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('full_name')) {
+      context.handle(_fullNameMeta,
+          fullName.isAcceptableOrUnknown(data['full_name']!, _fullNameMeta));
+    } else if (isInserting) {
+      context.missing(_fullNameMeta);
+    }
+    if (data.containsKey('specialty')) {
+      context.handle(_specialtyMeta,
+          specialty.isAcceptableOrUnknown(data['specialty']!, _specialtyMeta));
+    } else if (isInserting) {
+      context.missing(_specialtyMeta);
+    }
+    if (data.containsKey('clinic_name')) {
+      context.handle(
+          _clinicNameMeta,
+          clinicName.isAcceptableOrUnknown(
+              data['clinic_name']!, _clinicNameMeta));
+    }
+    if (data.containsKey('phone_number')) {
+      context.handle(
+          _phoneNumberMeta,
+          phoneNumber.isAcceptableOrUnknown(
+              data['phone_number']!, _phoneNumberMeta));
+    }
+    if (data.containsKey('email')) {
+      context.handle(
+          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('is_favorite')) {
+      context.handle(
+          _isFavoriteMeta,
+          isFavorite.isAcceptableOrUnknown(
+              data['is_favorite']!, _isFavoriteMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SpecialistEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SpecialistEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      fullName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}full_name'])!,
+      specialty: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}specialty'])!,
+      clinicName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}clinic_name']),
+      phoneNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}phone_number']),
+      email: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}email']),
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      isFavorite: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_favorite'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $SpecialistEntriesTable createAlias(String alias) {
+    return $SpecialistEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class SpecialistEntry extends DataClass implements Insertable<SpecialistEntry> {
+  final String id;
+  final String userId;
+  final String fullName;
+  final String specialty;
+  final String? clinicName;
+  final String? phoneNumber;
+  final String? email;
+  final String? notes;
+  final bool isFavorite;
+  final DateTime createdAt;
+  const SpecialistEntry(
+      {required this.id,
+      required this.userId,
+      required this.fullName,
+      required this.specialty,
+      this.clinicName,
+      this.phoneNumber,
+      this.email,
+      this.notes,
+      required this.isFavorite,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['full_name'] = Variable<String>(fullName);
+    map['specialty'] = Variable<String>(specialty);
+    if (!nullToAbsent || clinicName != null) {
+      map['clinic_name'] = Variable<String>(clinicName);
+    }
+    if (!nullToAbsent || phoneNumber != null) {
+      map['phone_number'] = Variable<String>(phoneNumber);
+    }
+    if (!nullToAbsent || email != null) {
+      map['email'] = Variable<String>(email);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['is_favorite'] = Variable<bool>(isFavorite);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  SpecialistEntriesCompanion toCompanion(bool nullToAbsent) {
+    return SpecialistEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      fullName: Value(fullName),
+      specialty: Value(specialty),
+      clinicName: clinicName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(clinicName),
+      phoneNumber: phoneNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(phoneNumber),
+      email:
+          email == null && nullToAbsent ? const Value.absent() : Value(email),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      isFavorite: Value(isFavorite),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory SpecialistEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SpecialistEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      fullName: serializer.fromJson<String>(json['fullName']),
+      specialty: serializer.fromJson<String>(json['specialty']),
+      clinicName: serializer.fromJson<String?>(json['clinicName']),
+      phoneNumber: serializer.fromJson<String?>(json['phoneNumber']),
+      email: serializer.fromJson<String?>(json['email']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      isFavorite: serializer.fromJson<bool>(json['isFavorite']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'fullName': serializer.toJson<String>(fullName),
+      'specialty': serializer.toJson<String>(specialty),
+      'clinicName': serializer.toJson<String?>(clinicName),
+      'phoneNumber': serializer.toJson<String?>(phoneNumber),
+      'email': serializer.toJson<String?>(email),
+      'notes': serializer.toJson<String?>(notes),
+      'isFavorite': serializer.toJson<bool>(isFavorite),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  SpecialistEntry copyWith(
+          {String? id,
+          String? userId,
+          String? fullName,
+          String? specialty,
+          Value<String?> clinicName = const Value.absent(),
+          Value<String?> phoneNumber = const Value.absent(),
+          Value<String?> email = const Value.absent(),
+          Value<String?> notes = const Value.absent(),
+          bool? isFavorite,
+          DateTime? createdAt}) =>
+      SpecialistEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        fullName: fullName ?? this.fullName,
+        specialty: specialty ?? this.specialty,
+        clinicName: clinicName.present ? clinicName.value : this.clinicName,
+        phoneNumber: phoneNumber.present ? phoneNumber.value : this.phoneNumber,
+        email: email.present ? email.value : this.email,
+        notes: notes.present ? notes.value : this.notes,
+        isFavorite: isFavorite ?? this.isFavorite,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  SpecialistEntry copyWithCompanion(SpecialistEntriesCompanion data) {
+    return SpecialistEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      fullName: data.fullName.present ? data.fullName.value : this.fullName,
+      specialty: data.specialty.present ? data.specialty.value : this.specialty,
+      clinicName:
+          data.clinicName.present ? data.clinicName.value : this.clinicName,
+      phoneNumber:
+          data.phoneNumber.present ? data.phoneNumber.value : this.phoneNumber,
+      email: data.email.present ? data.email.value : this.email,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      isFavorite:
+          data.isFavorite.present ? data.isFavorite.value : this.isFavorite,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpecialistEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('fullName: $fullName, ')
+          ..write('specialty: $specialty, ')
+          ..write('clinicName: $clinicName, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('email: $email, ')
+          ..write('notes: $notes, ')
+          ..write('isFavorite: $isFavorite, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, userId, fullName, specialty, clinicName,
+      phoneNumber, email, notes, isFavorite, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SpecialistEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.fullName == this.fullName &&
+          other.specialty == this.specialty &&
+          other.clinicName == this.clinicName &&
+          other.phoneNumber == this.phoneNumber &&
+          other.email == this.email &&
+          other.notes == this.notes &&
+          other.isFavorite == this.isFavorite &&
+          other.createdAt == this.createdAt);
+}
+
+class SpecialistEntriesCompanion extends UpdateCompanion<SpecialistEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> fullName;
+  final Value<String> specialty;
+  final Value<String?> clinicName;
+  final Value<String?> phoneNumber;
+  final Value<String?> email;
+  final Value<String?> notes;
+  final Value<bool> isFavorite;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const SpecialistEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.fullName = const Value.absent(),
+    this.specialty = const Value.absent(),
+    this.clinicName = const Value.absent(),
+    this.phoneNumber = const Value.absent(),
+    this.email = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isFavorite = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SpecialistEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required String fullName,
+    required String specialty,
+    this.clinicName = const Value.absent(),
+    this.phoneNumber = const Value.absent(),
+    this.email = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isFavorite = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        fullName = Value(fullName),
+        specialty = Value(specialty);
+  static Insertable<SpecialistEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? fullName,
+    Expression<String>? specialty,
+    Expression<String>? clinicName,
+    Expression<String>? phoneNumber,
+    Expression<String>? email,
+    Expression<String>? notes,
+    Expression<bool>? isFavorite,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (fullName != null) 'full_name': fullName,
+      if (specialty != null) 'specialty': specialty,
+      if (clinicName != null) 'clinic_name': clinicName,
+      if (phoneNumber != null) 'phone_number': phoneNumber,
+      if (email != null) 'email': email,
+      if (notes != null) 'notes': notes,
+      if (isFavorite != null) 'is_favorite': isFavorite,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SpecialistEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String>? fullName,
+      Value<String>? specialty,
+      Value<String?>? clinicName,
+      Value<String?>? phoneNumber,
+      Value<String?>? email,
+      Value<String?>? notes,
+      Value<bool>? isFavorite,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return SpecialistEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      fullName: fullName ?? this.fullName,
+      specialty: specialty ?? this.specialty,
+      clinicName: clinicName ?? this.clinicName,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      notes: notes ?? this.notes,
+      isFavorite: isFavorite ?? this.isFavorite,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (fullName.present) {
+      map['full_name'] = Variable<String>(fullName.value);
+    }
+    if (specialty.present) {
+      map['specialty'] = Variable<String>(specialty.value);
+    }
+    if (clinicName.present) {
+      map['clinic_name'] = Variable<String>(clinicName.value);
+    }
+    if (phoneNumber.present) {
+      map['phone_number'] = Variable<String>(phoneNumber.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (isFavorite.present) {
+      map['is_favorite'] = Variable<bool>(isFavorite.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpecialistEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('fullName: $fullName, ')
+          ..write('specialty: $specialty, ')
+          ..write('clinicName: $clinicName, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('email: $email, ')
+          ..write('notes: $notes, ')
+          ..write('isFavorite: $isFavorite, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -15993,6 +17663,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $ContinenceEntriesTable(this);
   late final $TrustedContactEntriesTable trustedContactEntries =
       $TrustedContactEntriesTable(this);
+  late final $MedicalExamEntriesTable medicalExamEntries =
+      $MedicalExamEntriesTable(this);
+  late final $VaccinationEntriesTable vaccinationEntries =
+      $VaccinationEntriesTable(this);
+  late final $SpecialistEntriesTable specialistEntries =
+      $SpecialistEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -16024,7 +17700,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         dexaBoneEntries,
         fallRiskEntries,
         continenceEntries,
-        trustedContactEntries
+        trustedContactEntries,
+        medicalExamEntries,
+        vaccinationEntries,
+        specialistEntries
       ];
 }
 
@@ -23663,6 +25342,813 @@ typedef $$TrustedContactEntriesTableProcessedTableManager
         ),
         TrustedContactEntry,
         PrefetchHooks Function()>;
+typedef $$MedicalExamEntriesTableCreateCompanionBuilder
+    = MedicalExamEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required String examType,
+  required String title,
+  required DateTime performedAt,
+  Value<String?> clinicOrLab,
+  Value<String?> notes,
+  Value<String?> attachmentFileName,
+  Value<String?> attachmentMimeType,
+  Value<int?> attachmentSizeBytes,
+  Value<String?> attachmentStorageKey,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$MedicalExamEntriesTableUpdateCompanionBuilder
+    = MedicalExamEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<String> examType,
+  Value<String> title,
+  Value<DateTime> performedAt,
+  Value<String?> clinicOrLab,
+  Value<String?> notes,
+  Value<String?> attachmentFileName,
+  Value<String?> attachmentMimeType,
+  Value<int?> attachmentSizeBytes,
+  Value<String?> attachmentStorageKey,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$MedicalExamEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $MedicalExamEntriesTable> {
+  $$MedicalExamEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get examType => $composableBuilder(
+      column: $table.examType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get performedAt => $composableBuilder(
+      column: $table.performedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get clinicOrLab => $composableBuilder(
+      column: $table.clinicOrLab, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get attachmentFileName => $composableBuilder(
+      column: $table.attachmentFileName,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get attachmentMimeType => $composableBuilder(
+      column: $table.attachmentMimeType,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get attachmentSizeBytes => $composableBuilder(
+      column: $table.attachmentSizeBytes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get attachmentStorageKey => $composableBuilder(
+      column: $table.attachmentStorageKey,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$MedicalExamEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $MedicalExamEntriesTable> {
+  $$MedicalExamEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get examType => $composableBuilder(
+      column: $table.examType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get performedAt => $composableBuilder(
+      column: $table.performedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get clinicOrLab => $composableBuilder(
+      column: $table.clinicOrLab, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get attachmentFileName => $composableBuilder(
+      column: $table.attachmentFileName,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get attachmentMimeType => $composableBuilder(
+      column: $table.attachmentMimeType,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get attachmentSizeBytes => $composableBuilder(
+      column: $table.attachmentSizeBytes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get attachmentStorageKey => $composableBuilder(
+      column: $table.attachmentStorageKey,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$MedicalExamEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MedicalExamEntriesTable> {
+  $$MedicalExamEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get examType =>
+      $composableBuilder(column: $table.examType, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get performedAt => $composableBuilder(
+      column: $table.performedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get clinicOrLab => $composableBuilder(
+      column: $table.clinicOrLab, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get attachmentFileName => $composableBuilder(
+      column: $table.attachmentFileName, builder: (column) => column);
+
+  GeneratedColumn<String> get attachmentMimeType => $composableBuilder(
+      column: $table.attachmentMimeType, builder: (column) => column);
+
+  GeneratedColumn<int> get attachmentSizeBytes => $composableBuilder(
+      column: $table.attachmentSizeBytes, builder: (column) => column);
+
+  GeneratedColumn<String> get attachmentStorageKey => $composableBuilder(
+      column: $table.attachmentStorageKey, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$MedicalExamEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $MedicalExamEntriesTable,
+    MedicalExamEntry,
+    $$MedicalExamEntriesTableFilterComposer,
+    $$MedicalExamEntriesTableOrderingComposer,
+    $$MedicalExamEntriesTableAnnotationComposer,
+    $$MedicalExamEntriesTableCreateCompanionBuilder,
+    $$MedicalExamEntriesTableUpdateCompanionBuilder,
+    (
+      MedicalExamEntry,
+      BaseReferences<_$AppDatabase, $MedicalExamEntriesTable, MedicalExamEntry>
+    ),
+    MedicalExamEntry,
+    PrefetchHooks Function()> {
+  $$MedicalExamEntriesTableTableManager(
+      _$AppDatabase db, $MedicalExamEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MedicalExamEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MedicalExamEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MedicalExamEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> examType = const Value.absent(),
+            Value<String> title = const Value.absent(),
+            Value<DateTime> performedAt = const Value.absent(),
+            Value<String?> clinicOrLab = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<String?> attachmentFileName = const Value.absent(),
+            Value<String?> attachmentMimeType = const Value.absent(),
+            Value<int?> attachmentSizeBytes = const Value.absent(),
+            Value<String?> attachmentStorageKey = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MedicalExamEntriesCompanion(
+            id: id,
+            userId: userId,
+            examType: examType,
+            title: title,
+            performedAt: performedAt,
+            clinicOrLab: clinicOrLab,
+            notes: notes,
+            attachmentFileName: attachmentFileName,
+            attachmentMimeType: attachmentMimeType,
+            attachmentSizeBytes: attachmentSizeBytes,
+            attachmentStorageKey: attachmentStorageKey,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required String examType,
+            required String title,
+            required DateTime performedAt,
+            Value<String?> clinicOrLab = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<String?> attachmentFileName = const Value.absent(),
+            Value<String?> attachmentMimeType = const Value.absent(),
+            Value<int?> attachmentSizeBytes = const Value.absent(),
+            Value<String?> attachmentStorageKey = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              MedicalExamEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            examType: examType,
+            title: title,
+            performedAt: performedAt,
+            clinicOrLab: clinicOrLab,
+            notes: notes,
+            attachmentFileName: attachmentFileName,
+            attachmentMimeType: attachmentMimeType,
+            attachmentSizeBytes: attachmentSizeBytes,
+            attachmentStorageKey: attachmentStorageKey,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$MedicalExamEntriesTable, MedicalExamEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $MedicalExamEntriesTable,
+                        MedicalExamEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$MedicalExamEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $MedicalExamEntriesTable,
+    MedicalExamEntry,
+    $$MedicalExamEntriesTableFilterComposer,
+    $$MedicalExamEntriesTableOrderingComposer,
+    $$MedicalExamEntriesTableAnnotationComposer,
+    $$MedicalExamEntriesTableCreateCompanionBuilder,
+    $$MedicalExamEntriesTableUpdateCompanionBuilder,
+    (
+      MedicalExamEntry,
+      BaseReferences<_$AppDatabase, $MedicalExamEntriesTable, MedicalExamEntry>
+    ),
+    MedicalExamEntry,
+    PrefetchHooks Function()>;
+typedef $$VaccinationEntriesTableCreateCompanionBuilder
+    = VaccinationEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required String vaccineType,
+  required int doseNumber,
+  required DateTime administeredAt,
+  Value<String?> lotNumber,
+  Value<String?> administratorClinic,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$VaccinationEntriesTableUpdateCompanionBuilder
+    = VaccinationEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<String> vaccineType,
+  Value<int> doseNumber,
+  Value<DateTime> administeredAt,
+  Value<String?> lotNumber,
+  Value<String?> administratorClinic,
+  Value<String?> notes,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$VaccinationEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $VaccinationEntriesTable> {
+  $$VaccinationEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get vaccineType => $composableBuilder(
+      column: $table.vaccineType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get doseNumber => $composableBuilder(
+      column: $table.doseNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get administeredAt => $composableBuilder(
+      column: $table.administeredAt,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lotNumber => $composableBuilder(
+      column: $table.lotNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get administratorClinic => $composableBuilder(
+      column: $table.administratorClinic,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$VaccinationEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $VaccinationEntriesTable> {
+  $$VaccinationEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get vaccineType => $composableBuilder(
+      column: $table.vaccineType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get doseNumber => $composableBuilder(
+      column: $table.doseNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get administeredAt => $composableBuilder(
+      column: $table.administeredAt,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lotNumber => $composableBuilder(
+      column: $table.lotNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get administratorClinic => $composableBuilder(
+      column: $table.administratorClinic,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$VaccinationEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $VaccinationEntriesTable> {
+  $$VaccinationEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get vaccineType => $composableBuilder(
+      column: $table.vaccineType, builder: (column) => column);
+
+  GeneratedColumn<int> get doseNumber => $composableBuilder(
+      column: $table.doseNumber, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get administeredAt => $composableBuilder(
+      column: $table.administeredAt, builder: (column) => column);
+
+  GeneratedColumn<String> get lotNumber =>
+      $composableBuilder(column: $table.lotNumber, builder: (column) => column);
+
+  GeneratedColumn<String> get administratorClinic => $composableBuilder(
+      column: $table.administratorClinic, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$VaccinationEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $VaccinationEntriesTable,
+    VaccinationEntry,
+    $$VaccinationEntriesTableFilterComposer,
+    $$VaccinationEntriesTableOrderingComposer,
+    $$VaccinationEntriesTableAnnotationComposer,
+    $$VaccinationEntriesTableCreateCompanionBuilder,
+    $$VaccinationEntriesTableUpdateCompanionBuilder,
+    (
+      VaccinationEntry,
+      BaseReferences<_$AppDatabase, $VaccinationEntriesTable, VaccinationEntry>
+    ),
+    VaccinationEntry,
+    PrefetchHooks Function()> {
+  $$VaccinationEntriesTableTableManager(
+      _$AppDatabase db, $VaccinationEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$VaccinationEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$VaccinationEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$VaccinationEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> vaccineType = const Value.absent(),
+            Value<int> doseNumber = const Value.absent(),
+            Value<DateTime> administeredAt = const Value.absent(),
+            Value<String?> lotNumber = const Value.absent(),
+            Value<String?> administratorClinic = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              VaccinationEntriesCompanion(
+            id: id,
+            userId: userId,
+            vaccineType: vaccineType,
+            doseNumber: doseNumber,
+            administeredAt: administeredAt,
+            lotNumber: lotNumber,
+            administratorClinic: administratorClinic,
+            notes: notes,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required String vaccineType,
+            required int doseNumber,
+            required DateTime administeredAt,
+            Value<String?> lotNumber = const Value.absent(),
+            Value<String?> administratorClinic = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              VaccinationEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            vaccineType: vaccineType,
+            doseNumber: doseNumber,
+            administeredAt: administeredAt,
+            lotNumber: lotNumber,
+            administratorClinic: administratorClinic,
+            notes: notes,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$VaccinationEntriesTable, VaccinationEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $VaccinationEntriesTable,
+                        VaccinationEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$VaccinationEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $VaccinationEntriesTable,
+    VaccinationEntry,
+    $$VaccinationEntriesTableFilterComposer,
+    $$VaccinationEntriesTableOrderingComposer,
+    $$VaccinationEntriesTableAnnotationComposer,
+    $$VaccinationEntriesTableCreateCompanionBuilder,
+    $$VaccinationEntriesTableUpdateCompanionBuilder,
+    (
+      VaccinationEntry,
+      BaseReferences<_$AppDatabase, $VaccinationEntriesTable, VaccinationEntry>
+    ),
+    VaccinationEntry,
+    PrefetchHooks Function()>;
+typedef $$SpecialistEntriesTableCreateCompanionBuilder
+    = SpecialistEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required String fullName,
+  required String specialty,
+  Value<String?> clinicName,
+  Value<String?> phoneNumber,
+  Value<String?> email,
+  Value<String?> notes,
+  Value<bool> isFavorite,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$SpecialistEntriesTableUpdateCompanionBuilder
+    = SpecialistEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<String> fullName,
+  Value<String> specialty,
+  Value<String?> clinicName,
+  Value<String?> phoneNumber,
+  Value<String?> email,
+  Value<String?> notes,
+  Value<bool> isFavorite,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$SpecialistEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $SpecialistEntriesTable> {
+  $$SpecialistEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fullName => $composableBuilder(
+      column: $table.fullName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get specialty => $composableBuilder(
+      column: $table.specialty, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get clinicName => $composableBuilder(
+      column: $table.clinicName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get phoneNumber => $composableBuilder(
+      column: $table.phoneNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isFavorite => $composableBuilder(
+      column: $table.isFavorite, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$SpecialistEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $SpecialistEntriesTable> {
+  $$SpecialistEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fullName => $composableBuilder(
+      column: $table.fullName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get specialty => $composableBuilder(
+      column: $table.specialty, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get clinicName => $composableBuilder(
+      column: $table.clinicName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get phoneNumber => $composableBuilder(
+      column: $table.phoneNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isFavorite => $composableBuilder(
+      column: $table.isFavorite, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$SpecialistEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SpecialistEntriesTable> {
+  $$SpecialistEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get fullName =>
+      $composableBuilder(column: $table.fullName, builder: (column) => column);
+
+  GeneratedColumn<String> get specialty =>
+      $composableBuilder(column: $table.specialty, builder: (column) => column);
+
+  GeneratedColumn<String> get clinicName => $composableBuilder(
+      column: $table.clinicName, builder: (column) => column);
+
+  GeneratedColumn<String> get phoneNumber => $composableBuilder(
+      column: $table.phoneNumber, builder: (column) => column);
+
+  GeneratedColumn<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<bool> get isFavorite => $composableBuilder(
+      column: $table.isFavorite, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$SpecialistEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $SpecialistEntriesTable,
+    SpecialistEntry,
+    $$SpecialistEntriesTableFilterComposer,
+    $$SpecialistEntriesTableOrderingComposer,
+    $$SpecialistEntriesTableAnnotationComposer,
+    $$SpecialistEntriesTableCreateCompanionBuilder,
+    $$SpecialistEntriesTableUpdateCompanionBuilder,
+    (
+      SpecialistEntry,
+      BaseReferences<_$AppDatabase, $SpecialistEntriesTable, SpecialistEntry>
+    ),
+    SpecialistEntry,
+    PrefetchHooks Function()> {
+  $$SpecialistEntriesTableTableManager(
+      _$AppDatabase db, $SpecialistEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SpecialistEntriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SpecialistEntriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SpecialistEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> fullName = const Value.absent(),
+            Value<String> specialty = const Value.absent(),
+            Value<String?> clinicName = const Value.absent(),
+            Value<String?> phoneNumber = const Value.absent(),
+            Value<String?> email = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<bool> isFavorite = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              SpecialistEntriesCompanion(
+            id: id,
+            userId: userId,
+            fullName: fullName,
+            specialty: specialty,
+            clinicName: clinicName,
+            phoneNumber: phoneNumber,
+            email: email,
+            notes: notes,
+            isFavorite: isFavorite,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required String fullName,
+            required String specialty,
+            Value<String?> clinicName = const Value.absent(),
+            Value<String?> phoneNumber = const Value.absent(),
+            Value<String?> email = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<bool> isFavorite = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              SpecialistEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            fullName: fullName,
+            specialty: specialty,
+            clinicName: clinicName,
+            phoneNumber: phoneNumber,
+            email: email,
+            notes: notes,
+            isFavorite: isFavorite,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$SpecialistEntriesTable, SpecialistEntry>(
+                        table),
+                    BaseReferences<_$AppDatabase, $SpecialistEntriesTable,
+                        SpecialistEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$SpecialistEntriesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $SpecialistEntriesTable,
+    SpecialistEntry,
+    $$SpecialistEntriesTableFilterComposer,
+    $$SpecialistEntriesTableOrderingComposer,
+    $$SpecialistEntriesTableAnnotationComposer,
+    $$SpecialistEntriesTableCreateCompanionBuilder,
+    $$SpecialistEntriesTableUpdateCompanionBuilder,
+    (
+      SpecialistEntry,
+      BaseReferences<_$AppDatabase, $SpecialistEntriesTable, SpecialistEntry>
+    ),
+    SpecialistEntry,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -23734,4 +26220,10 @@ class $AppDatabaseManager {
       $$ContinenceEntriesTableTableManager(_db, _db.continenceEntries);
   $$TrustedContactEntriesTableTableManager get trustedContactEntries =>
       $$TrustedContactEntriesTableTableManager(_db, _db.trustedContactEntries);
+  $$MedicalExamEntriesTableTableManager get medicalExamEntries =>
+      $$MedicalExamEntriesTableTableManager(_db, _db.medicalExamEntries);
+  $$VaccinationEntriesTableTableManager get vaccinationEntries =>
+      $$VaccinationEntriesTableTableManager(_db, _db.vaccinationEntries);
+  $$SpecialistEntriesTableTableManager get specialistEntries =>
+      $$SpecialistEntriesTableTableManager(_db, _db.specialistEntries);
 }
