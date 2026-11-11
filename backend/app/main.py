@@ -75,6 +75,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     from app.modules.medical_records.infrastructure.entrypoints.medical_records_router import (  # noqa: E501
         router as medical_records_router,
     )
+    from app.modules.partner_sharing.infrastructure.entrypoints.router import (
+        router as partner_sharing_router,
+    )
     from app.modules.rag_assistant.infrastructure.entrypoints.router import (
         router as assistant_router,
     )
@@ -93,6 +96,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api_router.include_router(treatment_router)
     api_router.include_router(education_router)
     api_router.include_router(assistant_router)
+    api_router.include_router(partner_sharing_router)
 
     @api_router.get(
         "/health",

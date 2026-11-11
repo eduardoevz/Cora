@@ -13,6 +13,10 @@ from app.modules.education_content.infrastructure.orm.models import (  # noqa: F
     ClinicalArticleORM,
     ClinicalEvidenceChunkORM,
 )
+from app.modules.partner_sharing.infrastructure.orm.models import (  # noqa: F401
+    PartnerInvitationORM,
+    PartnerLinkORM,
+)
 from app.modules.rag_assistant.infrastructure.orm.models import (  # noqa: F401
     AssistantConversationORM,
     AssistantMessageORM,
