@@ -17606,6 +17606,1548 @@ class SpecialistEntriesCompanion extends UpdateCompanion<SpecialistEntry> {
   }
 }
 
+class $ClinicalArticleEntriesTable extends ClinicalArticleEntries
+    with TableInfo<$ClinicalArticleEntriesTable, ClinicalArticleEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ClinicalArticleEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _slugMeta = const VerificationMeta('slug');
+  @override
+  late final GeneratedColumn<String> slug = GeneratedColumn<String>(
+      'slug', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _summaryMeta =
+      const VerificationMeta('summary');
+  @override
+  late final GeneratedColumn<String> summary = GeneratedColumn<String>(
+      'summary', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _bodyMarkdownMeta =
+      const VerificationMeta('bodyMarkdown');
+  @override
+  late final GeneratedColumn<String> bodyMarkdown = GeneratedColumn<String>(
+      'body_markdown', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _targetLifeStagesJsonMeta =
+      const VerificationMeta('targetLifeStagesJson');
+  @override
+  late final GeneratedColumn<String> targetLifeStagesJson =
+      GeneratedColumn<String>('target_life_stages_json', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _clinicalTagsJsonMeta =
+      const VerificationMeta('clinicalTagsJson');
+  @override
+  late final GeneratedColumn<String> clinicalTagsJson = GeneratedColumn<String>(
+      'clinical_tags_json', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _scientificSourceMeta =
+      const VerificationMeta('scientificSource');
+  @override
+  late final GeneratedColumn<String> scientificSource = GeneratedColumn<String>(
+      'scientific_source', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sourceUrlMeta =
+      const VerificationMeta('sourceUrl');
+  @override
+  late final GeneratedColumn<String> sourceUrl = GeneratedColumn<String>(
+      'source_url', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _reviewedByMeta =
+      const VerificationMeta('reviewedBy');
+  @override
+  late final GeneratedColumn<String> reviewedBy = GeneratedColumn<String>(
+      'reviewed_by', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _readingTimeMinutesMeta =
+      const VerificationMeta('readingTimeMinutes');
+  @override
+  late final GeneratedColumn<int> readingTimeMinutes = GeneratedColumn<int>(
+      'reading_time_minutes', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(5));
+  static const VerificationMeta _publishedAtMeta =
+      const VerificationMeta('publishedAt');
+  @override
+  late final GeneratedColumn<DateTime> publishedAt = GeneratedColumn<DateTime>(
+      'published_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        slug,
+        title,
+        summary,
+        bodyMarkdown,
+        targetLifeStagesJson,
+        clinicalTagsJson,
+        scientificSource,
+        sourceUrl,
+        reviewedBy,
+        readingTimeMinutes,
+        publishedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'clinical_article_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ClinicalArticleEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('slug')) {
+      context.handle(
+          _slugMeta, slug.isAcceptableOrUnknown(data['slug']!, _slugMeta));
+    } else if (isInserting) {
+      context.missing(_slugMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('summary')) {
+      context.handle(_summaryMeta,
+          summary.isAcceptableOrUnknown(data['summary']!, _summaryMeta));
+    } else if (isInserting) {
+      context.missing(_summaryMeta);
+    }
+    if (data.containsKey('body_markdown')) {
+      context.handle(
+          _bodyMarkdownMeta,
+          bodyMarkdown.isAcceptableOrUnknown(
+              data['body_markdown']!, _bodyMarkdownMeta));
+    } else if (isInserting) {
+      context.missing(_bodyMarkdownMeta);
+    }
+    if (data.containsKey('target_life_stages_json')) {
+      context.handle(
+          _targetLifeStagesJsonMeta,
+          targetLifeStagesJson.isAcceptableOrUnknown(
+              data['target_life_stages_json']!, _targetLifeStagesJsonMeta));
+    } else if (isInserting) {
+      context.missing(_targetLifeStagesJsonMeta);
+    }
+    if (data.containsKey('clinical_tags_json')) {
+      context.handle(
+          _clinicalTagsJsonMeta,
+          clinicalTagsJson.isAcceptableOrUnknown(
+              data['clinical_tags_json']!, _clinicalTagsJsonMeta));
+    } else if (isInserting) {
+      context.missing(_clinicalTagsJsonMeta);
+    }
+    if (data.containsKey('scientific_source')) {
+      context.handle(
+          _scientificSourceMeta,
+          scientificSource.isAcceptableOrUnknown(
+              data['scientific_source']!, _scientificSourceMeta));
+    } else if (isInserting) {
+      context.missing(_scientificSourceMeta);
+    }
+    if (data.containsKey('source_url')) {
+      context.handle(_sourceUrlMeta,
+          sourceUrl.isAcceptableOrUnknown(data['source_url']!, _sourceUrlMeta));
+    } else if (isInserting) {
+      context.missing(_sourceUrlMeta);
+    }
+    if (data.containsKey('reviewed_by')) {
+      context.handle(
+          _reviewedByMeta,
+          reviewedBy.isAcceptableOrUnknown(
+              data['reviewed_by']!, _reviewedByMeta));
+    } else if (isInserting) {
+      context.missing(_reviewedByMeta);
+    }
+    if (data.containsKey('reading_time_minutes')) {
+      context.handle(
+          _readingTimeMinutesMeta,
+          readingTimeMinutes.isAcceptableOrUnknown(
+              data['reading_time_minutes']!, _readingTimeMinutesMeta));
+    }
+    if (data.containsKey('published_at')) {
+      context.handle(
+          _publishedAtMeta,
+          publishedAt.isAcceptableOrUnknown(
+              data['published_at']!, _publishedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ClinicalArticleEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ClinicalArticleEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      slug: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}slug'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      summary: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}summary'])!,
+      bodyMarkdown: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}body_markdown'])!,
+      targetLifeStagesJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}target_life_stages_json'])!,
+      clinicalTagsJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}clinical_tags_json'])!,
+      scientificSource: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}scientific_source'])!,
+      sourceUrl: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}source_url'])!,
+      reviewedBy: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}reviewed_by'])!,
+      readingTimeMinutes: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}reading_time_minutes'])!,
+      publishedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}published_at'])!,
+    );
+  }
+
+  @override
+  $ClinicalArticleEntriesTable createAlias(String alias) {
+    return $ClinicalArticleEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class ClinicalArticleEntry extends DataClass
+    implements Insertable<ClinicalArticleEntry> {
+  final String id;
+  final String slug;
+  final String title;
+  final String summary;
+  final String bodyMarkdown;
+  final String targetLifeStagesJson;
+  final String clinicalTagsJson;
+  final String scientificSource;
+  final String sourceUrl;
+  final String reviewedBy;
+  final int readingTimeMinutes;
+  final DateTime publishedAt;
+  const ClinicalArticleEntry(
+      {required this.id,
+      required this.slug,
+      required this.title,
+      required this.summary,
+      required this.bodyMarkdown,
+      required this.targetLifeStagesJson,
+      required this.clinicalTagsJson,
+      required this.scientificSource,
+      required this.sourceUrl,
+      required this.reviewedBy,
+      required this.readingTimeMinutes,
+      required this.publishedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['slug'] = Variable<String>(slug);
+    map['title'] = Variable<String>(title);
+    map['summary'] = Variable<String>(summary);
+    map['body_markdown'] = Variable<String>(bodyMarkdown);
+    map['target_life_stages_json'] = Variable<String>(targetLifeStagesJson);
+    map['clinical_tags_json'] = Variable<String>(clinicalTagsJson);
+    map['scientific_source'] = Variable<String>(scientificSource);
+    map['source_url'] = Variable<String>(sourceUrl);
+    map['reviewed_by'] = Variable<String>(reviewedBy);
+    map['reading_time_minutes'] = Variable<int>(readingTimeMinutes);
+    map['published_at'] = Variable<DateTime>(publishedAt);
+    return map;
+  }
+
+  ClinicalArticleEntriesCompanion toCompanion(bool nullToAbsent) {
+    return ClinicalArticleEntriesCompanion(
+      id: Value(id),
+      slug: Value(slug),
+      title: Value(title),
+      summary: Value(summary),
+      bodyMarkdown: Value(bodyMarkdown),
+      targetLifeStagesJson: Value(targetLifeStagesJson),
+      clinicalTagsJson: Value(clinicalTagsJson),
+      scientificSource: Value(scientificSource),
+      sourceUrl: Value(sourceUrl),
+      reviewedBy: Value(reviewedBy),
+      readingTimeMinutes: Value(readingTimeMinutes),
+      publishedAt: Value(publishedAt),
+    );
+  }
+
+  factory ClinicalArticleEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ClinicalArticleEntry(
+      id: serializer.fromJson<String>(json['id']),
+      slug: serializer.fromJson<String>(json['slug']),
+      title: serializer.fromJson<String>(json['title']),
+      summary: serializer.fromJson<String>(json['summary']),
+      bodyMarkdown: serializer.fromJson<String>(json['bodyMarkdown']),
+      targetLifeStagesJson:
+          serializer.fromJson<String>(json['targetLifeStagesJson']),
+      clinicalTagsJson: serializer.fromJson<String>(json['clinicalTagsJson']),
+      scientificSource: serializer.fromJson<String>(json['scientificSource']),
+      sourceUrl: serializer.fromJson<String>(json['sourceUrl']),
+      reviewedBy: serializer.fromJson<String>(json['reviewedBy']),
+      readingTimeMinutes: serializer.fromJson<int>(json['readingTimeMinutes']),
+      publishedAt: serializer.fromJson<DateTime>(json['publishedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'slug': serializer.toJson<String>(slug),
+      'title': serializer.toJson<String>(title),
+      'summary': serializer.toJson<String>(summary),
+      'bodyMarkdown': serializer.toJson<String>(bodyMarkdown),
+      'targetLifeStagesJson': serializer.toJson<String>(targetLifeStagesJson),
+      'clinicalTagsJson': serializer.toJson<String>(clinicalTagsJson),
+      'scientificSource': serializer.toJson<String>(scientificSource),
+      'sourceUrl': serializer.toJson<String>(sourceUrl),
+      'reviewedBy': serializer.toJson<String>(reviewedBy),
+      'readingTimeMinutes': serializer.toJson<int>(readingTimeMinutes),
+      'publishedAt': serializer.toJson<DateTime>(publishedAt),
+    };
+  }
+
+  ClinicalArticleEntry copyWith(
+          {String? id,
+          String? slug,
+          String? title,
+          String? summary,
+          String? bodyMarkdown,
+          String? targetLifeStagesJson,
+          String? clinicalTagsJson,
+          String? scientificSource,
+          String? sourceUrl,
+          String? reviewedBy,
+          int? readingTimeMinutes,
+          DateTime? publishedAt}) =>
+      ClinicalArticleEntry(
+        id: id ?? this.id,
+        slug: slug ?? this.slug,
+        title: title ?? this.title,
+        summary: summary ?? this.summary,
+        bodyMarkdown: bodyMarkdown ?? this.bodyMarkdown,
+        targetLifeStagesJson: targetLifeStagesJson ?? this.targetLifeStagesJson,
+        clinicalTagsJson: clinicalTagsJson ?? this.clinicalTagsJson,
+        scientificSource: scientificSource ?? this.scientificSource,
+        sourceUrl: sourceUrl ?? this.sourceUrl,
+        reviewedBy: reviewedBy ?? this.reviewedBy,
+        readingTimeMinutes: readingTimeMinutes ?? this.readingTimeMinutes,
+        publishedAt: publishedAt ?? this.publishedAt,
+      );
+  ClinicalArticleEntry copyWithCompanion(ClinicalArticleEntriesCompanion data) {
+    return ClinicalArticleEntry(
+      id: data.id.present ? data.id.value : this.id,
+      slug: data.slug.present ? data.slug.value : this.slug,
+      title: data.title.present ? data.title.value : this.title,
+      summary: data.summary.present ? data.summary.value : this.summary,
+      bodyMarkdown: data.bodyMarkdown.present
+          ? data.bodyMarkdown.value
+          : this.bodyMarkdown,
+      targetLifeStagesJson: data.targetLifeStagesJson.present
+          ? data.targetLifeStagesJson.value
+          : this.targetLifeStagesJson,
+      clinicalTagsJson: data.clinicalTagsJson.present
+          ? data.clinicalTagsJson.value
+          : this.clinicalTagsJson,
+      scientificSource: data.scientificSource.present
+          ? data.scientificSource.value
+          : this.scientificSource,
+      sourceUrl: data.sourceUrl.present ? data.sourceUrl.value : this.sourceUrl,
+      reviewedBy:
+          data.reviewedBy.present ? data.reviewedBy.value : this.reviewedBy,
+      readingTimeMinutes: data.readingTimeMinutes.present
+          ? data.readingTimeMinutes.value
+          : this.readingTimeMinutes,
+      publishedAt:
+          data.publishedAt.present ? data.publishedAt.value : this.publishedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ClinicalArticleEntry(')
+          ..write('id: $id, ')
+          ..write('slug: $slug, ')
+          ..write('title: $title, ')
+          ..write('summary: $summary, ')
+          ..write('bodyMarkdown: $bodyMarkdown, ')
+          ..write('targetLifeStagesJson: $targetLifeStagesJson, ')
+          ..write('clinicalTagsJson: $clinicalTagsJson, ')
+          ..write('scientificSource: $scientificSource, ')
+          ..write('sourceUrl: $sourceUrl, ')
+          ..write('reviewedBy: $reviewedBy, ')
+          ..write('readingTimeMinutes: $readingTimeMinutes, ')
+          ..write('publishedAt: $publishedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      slug,
+      title,
+      summary,
+      bodyMarkdown,
+      targetLifeStagesJson,
+      clinicalTagsJson,
+      scientificSource,
+      sourceUrl,
+      reviewedBy,
+      readingTimeMinutes,
+      publishedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ClinicalArticleEntry &&
+          other.id == this.id &&
+          other.slug == this.slug &&
+          other.title == this.title &&
+          other.summary == this.summary &&
+          other.bodyMarkdown == this.bodyMarkdown &&
+          other.targetLifeStagesJson == this.targetLifeStagesJson &&
+          other.clinicalTagsJson == this.clinicalTagsJson &&
+          other.scientificSource == this.scientificSource &&
+          other.sourceUrl == this.sourceUrl &&
+          other.reviewedBy == this.reviewedBy &&
+          other.readingTimeMinutes == this.readingTimeMinutes &&
+          other.publishedAt == this.publishedAt);
+}
+
+class ClinicalArticleEntriesCompanion
+    extends UpdateCompanion<ClinicalArticleEntry> {
+  final Value<String> id;
+  final Value<String> slug;
+  final Value<String> title;
+  final Value<String> summary;
+  final Value<String> bodyMarkdown;
+  final Value<String> targetLifeStagesJson;
+  final Value<String> clinicalTagsJson;
+  final Value<String> scientificSource;
+  final Value<String> sourceUrl;
+  final Value<String> reviewedBy;
+  final Value<int> readingTimeMinutes;
+  final Value<DateTime> publishedAt;
+  final Value<int> rowid;
+  const ClinicalArticleEntriesCompanion({
+    this.id = const Value.absent(),
+    this.slug = const Value.absent(),
+    this.title = const Value.absent(),
+    this.summary = const Value.absent(),
+    this.bodyMarkdown = const Value.absent(),
+    this.targetLifeStagesJson = const Value.absent(),
+    this.clinicalTagsJson = const Value.absent(),
+    this.scientificSource = const Value.absent(),
+    this.sourceUrl = const Value.absent(),
+    this.reviewedBy = const Value.absent(),
+    this.readingTimeMinutes = const Value.absent(),
+    this.publishedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ClinicalArticleEntriesCompanion.insert({
+    required String id,
+    required String slug,
+    required String title,
+    required String summary,
+    required String bodyMarkdown,
+    required String targetLifeStagesJson,
+    required String clinicalTagsJson,
+    required String scientificSource,
+    required String sourceUrl,
+    required String reviewedBy,
+    this.readingTimeMinutes = const Value.absent(),
+    this.publishedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        slug = Value(slug),
+        title = Value(title),
+        summary = Value(summary),
+        bodyMarkdown = Value(bodyMarkdown),
+        targetLifeStagesJson = Value(targetLifeStagesJson),
+        clinicalTagsJson = Value(clinicalTagsJson),
+        scientificSource = Value(scientificSource),
+        sourceUrl = Value(sourceUrl),
+        reviewedBy = Value(reviewedBy);
+  static Insertable<ClinicalArticleEntry> custom({
+    Expression<String>? id,
+    Expression<String>? slug,
+    Expression<String>? title,
+    Expression<String>? summary,
+    Expression<String>? bodyMarkdown,
+    Expression<String>? targetLifeStagesJson,
+    Expression<String>? clinicalTagsJson,
+    Expression<String>? scientificSource,
+    Expression<String>? sourceUrl,
+    Expression<String>? reviewedBy,
+    Expression<int>? readingTimeMinutes,
+    Expression<DateTime>? publishedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (slug != null) 'slug': slug,
+      if (title != null) 'title': title,
+      if (summary != null) 'summary': summary,
+      if (bodyMarkdown != null) 'body_markdown': bodyMarkdown,
+      if (targetLifeStagesJson != null)
+        'target_life_stages_json': targetLifeStagesJson,
+      if (clinicalTagsJson != null) 'clinical_tags_json': clinicalTagsJson,
+      if (scientificSource != null) 'scientific_source': scientificSource,
+      if (sourceUrl != null) 'source_url': sourceUrl,
+      if (reviewedBy != null) 'reviewed_by': reviewedBy,
+      if (readingTimeMinutes != null)
+        'reading_time_minutes': readingTimeMinutes,
+      if (publishedAt != null) 'published_at': publishedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ClinicalArticleEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? slug,
+      Value<String>? title,
+      Value<String>? summary,
+      Value<String>? bodyMarkdown,
+      Value<String>? targetLifeStagesJson,
+      Value<String>? clinicalTagsJson,
+      Value<String>? scientificSource,
+      Value<String>? sourceUrl,
+      Value<String>? reviewedBy,
+      Value<int>? readingTimeMinutes,
+      Value<DateTime>? publishedAt,
+      Value<int>? rowid}) {
+    return ClinicalArticleEntriesCompanion(
+      id: id ?? this.id,
+      slug: slug ?? this.slug,
+      title: title ?? this.title,
+      summary: summary ?? this.summary,
+      bodyMarkdown: bodyMarkdown ?? this.bodyMarkdown,
+      targetLifeStagesJson: targetLifeStagesJson ?? this.targetLifeStagesJson,
+      clinicalTagsJson: clinicalTagsJson ?? this.clinicalTagsJson,
+      scientificSource: scientificSource ?? this.scientificSource,
+      sourceUrl: sourceUrl ?? this.sourceUrl,
+      reviewedBy: reviewedBy ?? this.reviewedBy,
+      readingTimeMinutes: readingTimeMinutes ?? this.readingTimeMinutes,
+      publishedAt: publishedAt ?? this.publishedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (slug.present) {
+      map['slug'] = Variable<String>(slug.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (summary.present) {
+      map['summary'] = Variable<String>(summary.value);
+    }
+    if (bodyMarkdown.present) {
+      map['body_markdown'] = Variable<String>(bodyMarkdown.value);
+    }
+    if (targetLifeStagesJson.present) {
+      map['target_life_stages_json'] =
+          Variable<String>(targetLifeStagesJson.value);
+    }
+    if (clinicalTagsJson.present) {
+      map['clinical_tags_json'] = Variable<String>(clinicalTagsJson.value);
+    }
+    if (scientificSource.present) {
+      map['scientific_source'] = Variable<String>(scientificSource.value);
+    }
+    if (sourceUrl.present) {
+      map['source_url'] = Variable<String>(sourceUrl.value);
+    }
+    if (reviewedBy.present) {
+      map['reviewed_by'] = Variable<String>(reviewedBy.value);
+    }
+    if (readingTimeMinutes.present) {
+      map['reading_time_minutes'] = Variable<int>(readingTimeMinutes.value);
+    }
+    if (publishedAt.present) {
+      map['published_at'] = Variable<DateTime>(publishedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ClinicalArticleEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('slug: $slug, ')
+          ..write('title: $title, ')
+          ..write('summary: $summary, ')
+          ..write('bodyMarkdown: $bodyMarkdown, ')
+          ..write('targetLifeStagesJson: $targetLifeStagesJson, ')
+          ..write('clinicalTagsJson: $clinicalTagsJson, ')
+          ..write('scientificSource: $scientificSource, ')
+          ..write('sourceUrl: $sourceUrl, ')
+          ..write('reviewedBy: $reviewedBy, ')
+          ..write('readingTimeMinutes: $readingTimeMinutes, ')
+          ..write('publishedAt: $publishedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AssistantConversationEntriesTable extends AssistantConversationEntries
+    with
+        TableInfo<$AssistantConversationEntriesTable,
+            AssistantConversationEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AssistantConversationEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _lifeStageAtCreationMeta =
+      const VerificationMeta('lifeStageAtCreation');
+  @override
+  late final GeneratedColumn<String> lifeStageAtCreation =
+      GeneratedColumn<String>('life_stage_at_creation', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, userId, title, lifeStageAtCreation, createdAt, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'assistant_conversation_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<AssistantConversationEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('life_stage_at_creation')) {
+      context.handle(
+          _lifeStageAtCreationMeta,
+          lifeStageAtCreation.isAcceptableOrUnknown(
+              data['life_stage_at_creation']!, _lifeStageAtCreationMeta));
+    } else if (isInserting) {
+      context.missing(_lifeStageAtCreationMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AssistantConversationEntry map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AssistantConversationEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      lifeStageAtCreation: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}life_stage_at_creation'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $AssistantConversationEntriesTable createAlias(String alias) {
+    return $AssistantConversationEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class AssistantConversationEntry extends DataClass
+    implements Insertable<AssistantConversationEntry> {
+  final String id;
+  final String userId;
+  final String title;
+  final String lifeStageAtCreation;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const AssistantConversationEntry(
+      {required this.id,
+      required this.userId,
+      required this.title,
+      required this.lifeStageAtCreation,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_id'] = Variable<String>(userId);
+    map['title'] = Variable<String>(title);
+    map['life_stage_at_creation'] = Variable<String>(lifeStageAtCreation);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  AssistantConversationEntriesCompanion toCompanion(bool nullToAbsent) {
+    return AssistantConversationEntriesCompanion(
+      id: Value(id),
+      userId: Value(userId),
+      title: Value(title),
+      lifeStageAtCreation: Value(lifeStageAtCreation),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory AssistantConversationEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AssistantConversationEntry(
+      id: serializer.fromJson<String>(json['id']),
+      userId: serializer.fromJson<String>(json['userId']),
+      title: serializer.fromJson<String>(json['title']),
+      lifeStageAtCreation:
+          serializer.fromJson<String>(json['lifeStageAtCreation']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userId': serializer.toJson<String>(userId),
+      'title': serializer.toJson<String>(title),
+      'lifeStageAtCreation': serializer.toJson<String>(lifeStageAtCreation),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  AssistantConversationEntry copyWith(
+          {String? id,
+          String? userId,
+          String? title,
+          String? lifeStageAtCreation,
+          DateTime? createdAt,
+          DateTime? updatedAt}) =>
+      AssistantConversationEntry(
+        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        title: title ?? this.title,
+        lifeStageAtCreation: lifeStageAtCreation ?? this.lifeStageAtCreation,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  AssistantConversationEntry copyWithCompanion(
+      AssistantConversationEntriesCompanion data) {
+    return AssistantConversationEntry(
+      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      title: data.title.present ? data.title.value : this.title,
+      lifeStageAtCreation: data.lifeStageAtCreation.present
+          ? data.lifeStageAtCreation.value
+          : this.lifeStageAtCreation,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AssistantConversationEntry(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('title: $title, ')
+          ..write('lifeStageAtCreation: $lifeStageAtCreation, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, userId, title, lifeStageAtCreation, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AssistantConversationEntry &&
+          other.id == this.id &&
+          other.userId == this.userId &&
+          other.title == this.title &&
+          other.lifeStageAtCreation == this.lifeStageAtCreation &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class AssistantConversationEntriesCompanion
+    extends UpdateCompanion<AssistantConversationEntry> {
+  final Value<String> id;
+  final Value<String> userId;
+  final Value<String> title;
+  final Value<String> lifeStageAtCreation;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const AssistantConversationEntriesCompanion({
+    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.lifeStageAtCreation = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AssistantConversationEntriesCompanion.insert({
+    required String id,
+    required String userId,
+    required String title,
+    required String lifeStageAtCreation,
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        userId = Value(userId),
+        title = Value(title),
+        lifeStageAtCreation = Value(lifeStageAtCreation);
+  static Insertable<AssistantConversationEntry> custom({
+    Expression<String>? id,
+    Expression<String>? userId,
+    Expression<String>? title,
+    Expression<String>? lifeStageAtCreation,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
+      if (title != null) 'title': title,
+      if (lifeStageAtCreation != null)
+        'life_stage_at_creation': lifeStageAtCreation,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AssistantConversationEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? userId,
+      Value<String>? title,
+      Value<String>? lifeStageAtCreation,
+      Value<DateTime>? createdAt,
+      Value<DateTime>? updatedAt,
+      Value<int>? rowid}) {
+    return AssistantConversationEntriesCompanion(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      lifeStageAtCreation: lifeStageAtCreation ?? this.lifeStageAtCreation,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (lifeStageAtCreation.present) {
+      map['life_stage_at_creation'] =
+          Variable<String>(lifeStageAtCreation.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AssistantConversationEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('userId: $userId, ')
+          ..write('title: $title, ')
+          ..write('lifeStageAtCreation: $lifeStageAtCreation, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AssistantMessageEntriesTable extends AssistantMessageEntries
+    with TableInfo<$AssistantMessageEntriesTable, AssistantMessageEntry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AssistantMessageEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _conversationIdMeta =
+      const VerificationMeta('conversationId');
+  @override
+  late final GeneratedColumn<String> conversationId = GeneratedColumn<String>(
+      'conversation_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _roleMeta = const VerificationMeta('role');
+  @override
+  late final GeneratedColumn<String> role = GeneratedColumn<String>(
+      'role', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _contentMarkdownMeta =
+      const VerificationMeta('contentMarkdown');
+  @override
+  late final GeneratedColumn<String> contentMarkdown = GeneratedColumn<String>(
+      'content_markdown', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _citationsJsonMeta =
+      const VerificationMeta('citationsJson');
+  @override
+  late final GeneratedColumn<String> citationsJson = GeneratedColumn<String>(
+      'citations_json', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _safetyTriageCategoryMeta =
+      const VerificationMeta('safetyTriageCategory');
+  @override
+  late final GeneratedColumn<String> safetyTriageCategory =
+      GeneratedColumn<String>('safety_triage_category', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          defaultValue: const Constant('NONE'));
+  static const VerificationMeta _isEmergencyInterceptedMeta =
+      const VerificationMeta('isEmergencyIntercepted');
+  @override
+  late final GeneratedColumn<bool> isEmergencyIntercepted =
+      GeneratedColumn<bool>('is_emergency_intercepted', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: false,
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("is_emergency_intercepted" IN (0, 1))'),
+          defaultValue: const Constant(false));
+  static const VerificationMeta _disclaimerLevelMeta =
+      const VerificationMeta('disclaimerLevel');
+  @override
+  late final GeneratedColumn<String> disclaimerLevel = GeneratedColumn<String>(
+      'disclaimer_level', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('STANDARD'));
+  static const VerificationMeta _suggestedFollowUpsJsonMeta =
+      const VerificationMeta('suggestedFollowUpsJson');
+  @override
+  late final GeneratedColumn<String> suggestedFollowUpsJson =
+      GeneratedColumn<String>('suggested_follow_ups_json', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        conversationId,
+        role,
+        contentMarkdown,
+        citationsJson,
+        safetyTriageCategory,
+        isEmergencyIntercepted,
+        disclaimerLevel,
+        suggestedFollowUpsJson,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'assistant_message_entries';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<AssistantMessageEntry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('conversation_id')) {
+      context.handle(
+          _conversationIdMeta,
+          conversationId.isAcceptableOrUnknown(
+              data['conversation_id']!, _conversationIdMeta));
+    } else if (isInserting) {
+      context.missing(_conversationIdMeta);
+    }
+    if (data.containsKey('role')) {
+      context.handle(
+          _roleMeta, role.isAcceptableOrUnknown(data['role']!, _roleMeta));
+    } else if (isInserting) {
+      context.missing(_roleMeta);
+    }
+    if (data.containsKey('content_markdown')) {
+      context.handle(
+          _contentMarkdownMeta,
+          contentMarkdown.isAcceptableOrUnknown(
+              data['content_markdown']!, _contentMarkdownMeta));
+    } else if (isInserting) {
+      context.missing(_contentMarkdownMeta);
+    }
+    if (data.containsKey('citations_json')) {
+      context.handle(
+          _citationsJsonMeta,
+          citationsJson.isAcceptableOrUnknown(
+              data['citations_json']!, _citationsJsonMeta));
+    } else if (isInserting) {
+      context.missing(_citationsJsonMeta);
+    }
+    if (data.containsKey('safety_triage_category')) {
+      context.handle(
+          _safetyTriageCategoryMeta,
+          safetyTriageCategory.isAcceptableOrUnknown(
+              data['safety_triage_category']!, _safetyTriageCategoryMeta));
+    }
+    if (data.containsKey('is_emergency_intercepted')) {
+      context.handle(
+          _isEmergencyInterceptedMeta,
+          isEmergencyIntercepted.isAcceptableOrUnknown(
+              data['is_emergency_intercepted']!, _isEmergencyInterceptedMeta));
+    }
+    if (data.containsKey('disclaimer_level')) {
+      context.handle(
+          _disclaimerLevelMeta,
+          disclaimerLevel.isAcceptableOrUnknown(
+              data['disclaimer_level']!, _disclaimerLevelMeta));
+    }
+    if (data.containsKey('suggested_follow_ups_json')) {
+      context.handle(
+          _suggestedFollowUpsJsonMeta,
+          suggestedFollowUpsJson.isAcceptableOrUnknown(
+              data['suggested_follow_ups_json']!, _suggestedFollowUpsJsonMeta));
+    } else if (isInserting) {
+      context.missing(_suggestedFollowUpsJsonMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AssistantMessageEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AssistantMessageEntry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      conversationId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}conversation_id'])!,
+      role: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}role'])!,
+      contentMarkdown: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}content_markdown'])!,
+      citationsJson: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}citations_json'])!,
+      safetyTriageCategory: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}safety_triage_category'])!,
+      isEmergencyIntercepted: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}is_emergency_intercepted'])!,
+      disclaimerLevel: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}disclaimer_level'])!,
+      suggestedFollowUpsJson: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}suggested_follow_ups_json'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $AssistantMessageEntriesTable createAlias(String alias) {
+    return $AssistantMessageEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class AssistantMessageEntry extends DataClass
+    implements Insertable<AssistantMessageEntry> {
+  final String id;
+  final String conversationId;
+  final String role;
+  final String contentMarkdown;
+  final String citationsJson;
+  final String safetyTriageCategory;
+  final bool isEmergencyIntercepted;
+  final String disclaimerLevel;
+  final String suggestedFollowUpsJson;
+  final DateTime createdAt;
+  const AssistantMessageEntry(
+      {required this.id,
+      required this.conversationId,
+      required this.role,
+      required this.contentMarkdown,
+      required this.citationsJson,
+      required this.safetyTriageCategory,
+      required this.isEmergencyIntercepted,
+      required this.disclaimerLevel,
+      required this.suggestedFollowUpsJson,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['conversation_id'] = Variable<String>(conversationId);
+    map['role'] = Variable<String>(role);
+    map['content_markdown'] = Variable<String>(contentMarkdown);
+    map['citations_json'] = Variable<String>(citationsJson);
+    map['safety_triage_category'] = Variable<String>(safetyTriageCategory);
+    map['is_emergency_intercepted'] = Variable<bool>(isEmergencyIntercepted);
+    map['disclaimer_level'] = Variable<String>(disclaimerLevel);
+    map['suggested_follow_ups_json'] = Variable<String>(suggestedFollowUpsJson);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  AssistantMessageEntriesCompanion toCompanion(bool nullToAbsent) {
+    return AssistantMessageEntriesCompanion(
+      id: Value(id),
+      conversationId: Value(conversationId),
+      role: Value(role),
+      contentMarkdown: Value(contentMarkdown),
+      citationsJson: Value(citationsJson),
+      safetyTriageCategory: Value(safetyTriageCategory),
+      isEmergencyIntercepted: Value(isEmergencyIntercepted),
+      disclaimerLevel: Value(disclaimerLevel),
+      suggestedFollowUpsJson: Value(suggestedFollowUpsJson),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory AssistantMessageEntry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AssistantMessageEntry(
+      id: serializer.fromJson<String>(json['id']),
+      conversationId: serializer.fromJson<String>(json['conversationId']),
+      role: serializer.fromJson<String>(json['role']),
+      contentMarkdown: serializer.fromJson<String>(json['contentMarkdown']),
+      citationsJson: serializer.fromJson<String>(json['citationsJson']),
+      safetyTriageCategory:
+          serializer.fromJson<String>(json['safetyTriageCategory']),
+      isEmergencyIntercepted:
+          serializer.fromJson<bool>(json['isEmergencyIntercepted']),
+      disclaimerLevel: serializer.fromJson<String>(json['disclaimerLevel']),
+      suggestedFollowUpsJson:
+          serializer.fromJson<String>(json['suggestedFollowUpsJson']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'conversationId': serializer.toJson<String>(conversationId),
+      'role': serializer.toJson<String>(role),
+      'contentMarkdown': serializer.toJson<String>(contentMarkdown),
+      'citationsJson': serializer.toJson<String>(citationsJson),
+      'safetyTriageCategory': serializer.toJson<String>(safetyTriageCategory),
+      'isEmergencyIntercepted': serializer.toJson<bool>(isEmergencyIntercepted),
+      'disclaimerLevel': serializer.toJson<String>(disclaimerLevel),
+      'suggestedFollowUpsJson':
+          serializer.toJson<String>(suggestedFollowUpsJson),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  AssistantMessageEntry copyWith(
+          {String? id,
+          String? conversationId,
+          String? role,
+          String? contentMarkdown,
+          String? citationsJson,
+          String? safetyTriageCategory,
+          bool? isEmergencyIntercepted,
+          String? disclaimerLevel,
+          String? suggestedFollowUpsJson,
+          DateTime? createdAt}) =>
+      AssistantMessageEntry(
+        id: id ?? this.id,
+        conversationId: conversationId ?? this.conversationId,
+        role: role ?? this.role,
+        contentMarkdown: contentMarkdown ?? this.contentMarkdown,
+        citationsJson: citationsJson ?? this.citationsJson,
+        safetyTriageCategory: safetyTriageCategory ?? this.safetyTriageCategory,
+        isEmergencyIntercepted:
+            isEmergencyIntercepted ?? this.isEmergencyIntercepted,
+        disclaimerLevel: disclaimerLevel ?? this.disclaimerLevel,
+        suggestedFollowUpsJson:
+            suggestedFollowUpsJson ?? this.suggestedFollowUpsJson,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  AssistantMessageEntry copyWithCompanion(
+      AssistantMessageEntriesCompanion data) {
+    return AssistantMessageEntry(
+      id: data.id.present ? data.id.value : this.id,
+      conversationId: data.conversationId.present
+          ? data.conversationId.value
+          : this.conversationId,
+      role: data.role.present ? data.role.value : this.role,
+      contentMarkdown: data.contentMarkdown.present
+          ? data.contentMarkdown.value
+          : this.contentMarkdown,
+      citationsJson: data.citationsJson.present
+          ? data.citationsJson.value
+          : this.citationsJson,
+      safetyTriageCategory: data.safetyTriageCategory.present
+          ? data.safetyTriageCategory.value
+          : this.safetyTriageCategory,
+      isEmergencyIntercepted: data.isEmergencyIntercepted.present
+          ? data.isEmergencyIntercepted.value
+          : this.isEmergencyIntercepted,
+      disclaimerLevel: data.disclaimerLevel.present
+          ? data.disclaimerLevel.value
+          : this.disclaimerLevel,
+      suggestedFollowUpsJson: data.suggestedFollowUpsJson.present
+          ? data.suggestedFollowUpsJson.value
+          : this.suggestedFollowUpsJson,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AssistantMessageEntry(')
+          ..write('id: $id, ')
+          ..write('conversationId: $conversationId, ')
+          ..write('role: $role, ')
+          ..write('contentMarkdown: $contentMarkdown, ')
+          ..write('citationsJson: $citationsJson, ')
+          ..write('safetyTriageCategory: $safetyTriageCategory, ')
+          ..write('isEmergencyIntercepted: $isEmergencyIntercepted, ')
+          ..write('disclaimerLevel: $disclaimerLevel, ')
+          ..write('suggestedFollowUpsJson: $suggestedFollowUpsJson, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      conversationId,
+      role,
+      contentMarkdown,
+      citationsJson,
+      safetyTriageCategory,
+      isEmergencyIntercepted,
+      disclaimerLevel,
+      suggestedFollowUpsJson,
+      createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AssistantMessageEntry &&
+          other.id == this.id &&
+          other.conversationId == this.conversationId &&
+          other.role == this.role &&
+          other.contentMarkdown == this.contentMarkdown &&
+          other.citationsJson == this.citationsJson &&
+          other.safetyTriageCategory == this.safetyTriageCategory &&
+          other.isEmergencyIntercepted == this.isEmergencyIntercepted &&
+          other.disclaimerLevel == this.disclaimerLevel &&
+          other.suggestedFollowUpsJson == this.suggestedFollowUpsJson &&
+          other.createdAt == this.createdAt);
+}
+
+class AssistantMessageEntriesCompanion
+    extends UpdateCompanion<AssistantMessageEntry> {
+  final Value<String> id;
+  final Value<String> conversationId;
+  final Value<String> role;
+  final Value<String> contentMarkdown;
+  final Value<String> citationsJson;
+  final Value<String> safetyTriageCategory;
+  final Value<bool> isEmergencyIntercepted;
+  final Value<String> disclaimerLevel;
+  final Value<String> suggestedFollowUpsJson;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const AssistantMessageEntriesCompanion({
+    this.id = const Value.absent(),
+    this.conversationId = const Value.absent(),
+    this.role = const Value.absent(),
+    this.contentMarkdown = const Value.absent(),
+    this.citationsJson = const Value.absent(),
+    this.safetyTriageCategory = const Value.absent(),
+    this.isEmergencyIntercepted = const Value.absent(),
+    this.disclaimerLevel = const Value.absent(),
+    this.suggestedFollowUpsJson = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AssistantMessageEntriesCompanion.insert({
+    required String id,
+    required String conversationId,
+    required String role,
+    required String contentMarkdown,
+    required String citationsJson,
+    this.safetyTriageCategory = const Value.absent(),
+    this.isEmergencyIntercepted = const Value.absent(),
+    this.disclaimerLevel = const Value.absent(),
+    required String suggestedFollowUpsJson,
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        conversationId = Value(conversationId),
+        role = Value(role),
+        contentMarkdown = Value(contentMarkdown),
+        citationsJson = Value(citationsJson),
+        suggestedFollowUpsJson = Value(suggestedFollowUpsJson);
+  static Insertable<AssistantMessageEntry> custom({
+    Expression<String>? id,
+    Expression<String>? conversationId,
+    Expression<String>? role,
+    Expression<String>? contentMarkdown,
+    Expression<String>? citationsJson,
+    Expression<String>? safetyTriageCategory,
+    Expression<bool>? isEmergencyIntercepted,
+    Expression<String>? disclaimerLevel,
+    Expression<String>? suggestedFollowUpsJson,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (conversationId != null) 'conversation_id': conversationId,
+      if (role != null) 'role': role,
+      if (contentMarkdown != null) 'content_markdown': contentMarkdown,
+      if (citationsJson != null) 'citations_json': citationsJson,
+      if (safetyTriageCategory != null)
+        'safety_triage_category': safetyTriageCategory,
+      if (isEmergencyIntercepted != null)
+        'is_emergency_intercepted': isEmergencyIntercepted,
+      if (disclaimerLevel != null) 'disclaimer_level': disclaimerLevel,
+      if (suggestedFollowUpsJson != null)
+        'suggested_follow_ups_json': suggestedFollowUpsJson,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AssistantMessageEntriesCompanion copyWith(
+      {Value<String>? id,
+      Value<String>? conversationId,
+      Value<String>? role,
+      Value<String>? contentMarkdown,
+      Value<String>? citationsJson,
+      Value<String>? safetyTriageCategory,
+      Value<bool>? isEmergencyIntercepted,
+      Value<String>? disclaimerLevel,
+      Value<String>? suggestedFollowUpsJson,
+      Value<DateTime>? createdAt,
+      Value<int>? rowid}) {
+    return AssistantMessageEntriesCompanion(
+      id: id ?? this.id,
+      conversationId: conversationId ?? this.conversationId,
+      role: role ?? this.role,
+      contentMarkdown: contentMarkdown ?? this.contentMarkdown,
+      citationsJson: citationsJson ?? this.citationsJson,
+      safetyTriageCategory: safetyTriageCategory ?? this.safetyTriageCategory,
+      isEmergencyIntercepted:
+          isEmergencyIntercepted ?? this.isEmergencyIntercepted,
+      disclaimerLevel: disclaimerLevel ?? this.disclaimerLevel,
+      suggestedFollowUpsJson:
+          suggestedFollowUpsJson ?? this.suggestedFollowUpsJson,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (conversationId.present) {
+      map['conversation_id'] = Variable<String>(conversationId.value);
+    }
+    if (role.present) {
+      map['role'] = Variable<String>(role.value);
+    }
+    if (contentMarkdown.present) {
+      map['content_markdown'] = Variable<String>(contentMarkdown.value);
+    }
+    if (citationsJson.present) {
+      map['citations_json'] = Variable<String>(citationsJson.value);
+    }
+    if (safetyTriageCategory.present) {
+      map['safety_triage_category'] =
+          Variable<String>(safetyTriageCategory.value);
+    }
+    if (isEmergencyIntercepted.present) {
+      map['is_emergency_intercepted'] =
+          Variable<bool>(isEmergencyIntercepted.value);
+    }
+    if (disclaimerLevel.present) {
+      map['disclaimer_level'] = Variable<String>(disclaimerLevel.value);
+    }
+    if (suggestedFollowUpsJson.present) {
+      map['suggested_follow_ups_json'] =
+          Variable<String>(suggestedFollowUpsJson.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AssistantMessageEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('conversationId: $conversationId, ')
+          ..write('role: $role, ')
+          ..write('contentMarkdown: $contentMarkdown, ')
+          ..write('citationsJson: $citationsJson, ')
+          ..write('safetyTriageCategory: $safetyTriageCategory, ')
+          ..write('isEmergencyIntercepted: $isEmergencyIntercepted, ')
+          ..write('disclaimerLevel: $disclaimerLevel, ')
+          ..write('suggestedFollowUpsJson: $suggestedFollowUpsJson, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -17669,6 +19211,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $VaccinationEntriesTable(this);
   late final $SpecialistEntriesTable specialistEntries =
       $SpecialistEntriesTable(this);
+  late final $ClinicalArticleEntriesTable clinicalArticleEntries =
+      $ClinicalArticleEntriesTable(this);
+  late final $AssistantConversationEntriesTable assistantConversationEntries =
+      $AssistantConversationEntriesTable(this);
+  late final $AssistantMessageEntriesTable assistantMessageEntries =
+      $AssistantMessageEntriesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -17703,7 +19251,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         trustedContactEntries,
         medicalExamEntries,
         vaccinationEntries,
-        specialistEntries
+        specialistEntries,
+        clinicalArticleEntries,
+        assistantConversationEntries,
+        assistantMessageEntries
       ];
 }
 
@@ -26149,6 +27700,782 @@ typedef $$SpecialistEntriesTableProcessedTableManager = ProcessedTableManager<
     ),
     SpecialistEntry,
     PrefetchHooks Function()>;
+typedef $$ClinicalArticleEntriesTableCreateCompanionBuilder
+    = ClinicalArticleEntriesCompanion Function({
+  required String id,
+  required String slug,
+  required String title,
+  required String summary,
+  required String bodyMarkdown,
+  required String targetLifeStagesJson,
+  required String clinicalTagsJson,
+  required String scientificSource,
+  required String sourceUrl,
+  required String reviewedBy,
+  Value<int> readingTimeMinutes,
+  Value<DateTime> publishedAt,
+  Value<int> rowid,
+});
+typedef $$ClinicalArticleEntriesTableUpdateCompanionBuilder
+    = ClinicalArticleEntriesCompanion Function({
+  Value<String> id,
+  Value<String> slug,
+  Value<String> title,
+  Value<String> summary,
+  Value<String> bodyMarkdown,
+  Value<String> targetLifeStagesJson,
+  Value<String> clinicalTagsJson,
+  Value<String> scientificSource,
+  Value<String> sourceUrl,
+  Value<String> reviewedBy,
+  Value<int> readingTimeMinutes,
+  Value<DateTime> publishedAt,
+  Value<int> rowid,
+});
+
+class $$ClinicalArticleEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $ClinicalArticleEntriesTable> {
+  $$ClinicalArticleEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get slug => $composableBuilder(
+      column: $table.slug, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get summary => $composableBuilder(
+      column: $table.summary, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get bodyMarkdown => $composableBuilder(
+      column: $table.bodyMarkdown, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get targetLifeStagesJson => $composableBuilder(
+      column: $table.targetLifeStagesJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get clinicalTagsJson => $composableBuilder(
+      column: $table.clinicalTagsJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get scientificSource => $composableBuilder(
+      column: $table.scientificSource,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sourceUrl => $composableBuilder(
+      column: $table.sourceUrl, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get reviewedBy => $composableBuilder(
+      column: $table.reviewedBy, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get readingTimeMinutes => $composableBuilder(
+      column: $table.readingTimeMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get publishedAt => $composableBuilder(
+      column: $table.publishedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$ClinicalArticleEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ClinicalArticleEntriesTable> {
+  $$ClinicalArticleEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get slug => $composableBuilder(
+      column: $table.slug, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get summary => $composableBuilder(
+      column: $table.summary, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get bodyMarkdown => $composableBuilder(
+      column: $table.bodyMarkdown,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get targetLifeStagesJson => $composableBuilder(
+      column: $table.targetLifeStagesJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get clinicalTagsJson => $composableBuilder(
+      column: $table.clinicalTagsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get scientificSource => $composableBuilder(
+      column: $table.scientificSource,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sourceUrl => $composableBuilder(
+      column: $table.sourceUrl, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get reviewedBy => $composableBuilder(
+      column: $table.reviewedBy, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get readingTimeMinutes => $composableBuilder(
+      column: $table.readingTimeMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get publishedAt => $composableBuilder(
+      column: $table.publishedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ClinicalArticleEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ClinicalArticleEntriesTable> {
+  $$ClinicalArticleEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get slug =>
+      $composableBuilder(column: $table.slug, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get summary =>
+      $composableBuilder(column: $table.summary, builder: (column) => column);
+
+  GeneratedColumn<String> get bodyMarkdown => $composableBuilder(
+      column: $table.bodyMarkdown, builder: (column) => column);
+
+  GeneratedColumn<String> get targetLifeStagesJson => $composableBuilder(
+      column: $table.targetLifeStagesJson, builder: (column) => column);
+
+  GeneratedColumn<String> get clinicalTagsJson => $composableBuilder(
+      column: $table.clinicalTagsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get scientificSource => $composableBuilder(
+      column: $table.scientificSource, builder: (column) => column);
+
+  GeneratedColumn<String> get sourceUrl =>
+      $composableBuilder(column: $table.sourceUrl, builder: (column) => column);
+
+  GeneratedColumn<String> get reviewedBy => $composableBuilder(
+      column: $table.reviewedBy, builder: (column) => column);
+
+  GeneratedColumn<int> get readingTimeMinutes => $composableBuilder(
+      column: $table.readingTimeMinutes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get publishedAt => $composableBuilder(
+      column: $table.publishedAt, builder: (column) => column);
+}
+
+class $$ClinicalArticleEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $ClinicalArticleEntriesTable,
+    ClinicalArticleEntry,
+    $$ClinicalArticleEntriesTableFilterComposer,
+    $$ClinicalArticleEntriesTableOrderingComposer,
+    $$ClinicalArticleEntriesTableAnnotationComposer,
+    $$ClinicalArticleEntriesTableCreateCompanionBuilder,
+    $$ClinicalArticleEntriesTableUpdateCompanionBuilder,
+    (
+      ClinicalArticleEntry,
+      BaseReferences<_$AppDatabase, $ClinicalArticleEntriesTable,
+          ClinicalArticleEntry>
+    ),
+    ClinicalArticleEntry,
+    PrefetchHooks Function()> {
+  $$ClinicalArticleEntriesTableTableManager(
+      _$AppDatabase db, $ClinicalArticleEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ClinicalArticleEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ClinicalArticleEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ClinicalArticleEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> slug = const Value.absent(),
+            Value<String> title = const Value.absent(),
+            Value<String> summary = const Value.absent(),
+            Value<String> bodyMarkdown = const Value.absent(),
+            Value<String> targetLifeStagesJson = const Value.absent(),
+            Value<String> clinicalTagsJson = const Value.absent(),
+            Value<String> scientificSource = const Value.absent(),
+            Value<String> sourceUrl = const Value.absent(),
+            Value<String> reviewedBy = const Value.absent(),
+            Value<int> readingTimeMinutes = const Value.absent(),
+            Value<DateTime> publishedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ClinicalArticleEntriesCompanion(
+            id: id,
+            slug: slug,
+            title: title,
+            summary: summary,
+            bodyMarkdown: bodyMarkdown,
+            targetLifeStagesJson: targetLifeStagesJson,
+            clinicalTagsJson: clinicalTagsJson,
+            scientificSource: scientificSource,
+            sourceUrl: sourceUrl,
+            reviewedBy: reviewedBy,
+            readingTimeMinutes: readingTimeMinutes,
+            publishedAt: publishedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String slug,
+            required String title,
+            required String summary,
+            required String bodyMarkdown,
+            required String targetLifeStagesJson,
+            required String clinicalTagsJson,
+            required String scientificSource,
+            required String sourceUrl,
+            required String reviewedBy,
+            Value<int> readingTimeMinutes = const Value.absent(),
+            Value<DateTime> publishedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              ClinicalArticleEntriesCompanion.insert(
+            id: id,
+            slug: slug,
+            title: title,
+            summary: summary,
+            bodyMarkdown: bodyMarkdown,
+            targetLifeStagesJson: targetLifeStagesJson,
+            clinicalTagsJson: clinicalTagsJson,
+            scientificSource: scientificSource,
+            sourceUrl: sourceUrl,
+            reviewedBy: reviewedBy,
+            readingTimeMinutes: readingTimeMinutes,
+            publishedAt: publishedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$ClinicalArticleEntriesTable,
+                        ClinicalArticleEntry>(table),
+                    BaseReferences<_$AppDatabase, $ClinicalArticleEntriesTable,
+                        ClinicalArticleEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ClinicalArticleEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $ClinicalArticleEntriesTable,
+        ClinicalArticleEntry,
+        $$ClinicalArticleEntriesTableFilterComposer,
+        $$ClinicalArticleEntriesTableOrderingComposer,
+        $$ClinicalArticleEntriesTableAnnotationComposer,
+        $$ClinicalArticleEntriesTableCreateCompanionBuilder,
+        $$ClinicalArticleEntriesTableUpdateCompanionBuilder,
+        (
+          ClinicalArticleEntry,
+          BaseReferences<_$AppDatabase, $ClinicalArticleEntriesTable,
+              ClinicalArticleEntry>
+        ),
+        ClinicalArticleEntry,
+        PrefetchHooks Function()>;
+typedef $$AssistantConversationEntriesTableCreateCompanionBuilder
+    = AssistantConversationEntriesCompanion Function({
+  required String id,
+  required String userId,
+  required String title,
+  required String lifeStageAtCreation,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+typedef $$AssistantConversationEntriesTableUpdateCompanionBuilder
+    = AssistantConversationEntriesCompanion Function({
+  Value<String> id,
+  Value<String> userId,
+  Value<String> title,
+  Value<String> lifeStageAtCreation,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
+
+class $$AssistantConversationEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $AssistantConversationEntriesTable> {
+  $$AssistantConversationEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get lifeStageAtCreation => $composableBuilder(
+      column: $table.lifeStageAtCreation,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$AssistantConversationEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $AssistantConversationEntriesTable> {
+  $$AssistantConversationEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lifeStageAtCreation => $composableBuilder(
+      column: $table.lifeStageAtCreation,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$AssistantConversationEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AssistantConversationEntriesTable> {
+  $$AssistantConversationEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get lifeStageAtCreation => $composableBuilder(
+      column: $table.lifeStageAtCreation, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$AssistantConversationEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $AssistantConversationEntriesTable,
+    AssistantConversationEntry,
+    $$AssistantConversationEntriesTableFilterComposer,
+    $$AssistantConversationEntriesTableOrderingComposer,
+    $$AssistantConversationEntriesTableAnnotationComposer,
+    $$AssistantConversationEntriesTableCreateCompanionBuilder,
+    $$AssistantConversationEntriesTableUpdateCompanionBuilder,
+    (
+      AssistantConversationEntry,
+      BaseReferences<_$AppDatabase, $AssistantConversationEntriesTable,
+          AssistantConversationEntry>
+    ),
+    AssistantConversationEntry,
+    PrefetchHooks Function()> {
+  $$AssistantConversationEntriesTableTableManager(
+      _$AppDatabase db, $AssistantConversationEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AssistantConversationEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AssistantConversationEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AssistantConversationEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> title = const Value.absent(),
+            Value<String> lifeStageAtCreation = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AssistantConversationEntriesCompanion(
+            id: id,
+            userId: userId,
+            title: title,
+            lifeStageAtCreation: lifeStageAtCreation,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String userId,
+            required String title,
+            required String lifeStageAtCreation,
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AssistantConversationEntriesCompanion.insert(
+            id: id,
+            userId: userId,
+            title: title,
+            lifeStageAtCreation: lifeStageAtCreation,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$AssistantConversationEntriesTable,
+                        AssistantConversationEntry>(table),
+                    BaseReferences<
+                        _$AppDatabase,
+                        $AssistantConversationEntriesTable,
+                        AssistantConversationEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$AssistantConversationEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $AssistantConversationEntriesTable,
+        AssistantConversationEntry,
+        $$AssistantConversationEntriesTableFilterComposer,
+        $$AssistantConversationEntriesTableOrderingComposer,
+        $$AssistantConversationEntriesTableAnnotationComposer,
+        $$AssistantConversationEntriesTableCreateCompanionBuilder,
+        $$AssistantConversationEntriesTableUpdateCompanionBuilder,
+        (
+          AssistantConversationEntry,
+          BaseReferences<_$AppDatabase, $AssistantConversationEntriesTable,
+              AssistantConversationEntry>
+        ),
+        AssistantConversationEntry,
+        PrefetchHooks Function()>;
+typedef $$AssistantMessageEntriesTableCreateCompanionBuilder
+    = AssistantMessageEntriesCompanion Function({
+  required String id,
+  required String conversationId,
+  required String role,
+  required String contentMarkdown,
+  required String citationsJson,
+  Value<String> safetyTriageCategory,
+  Value<bool> isEmergencyIntercepted,
+  Value<String> disclaimerLevel,
+  required String suggestedFollowUpsJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+typedef $$AssistantMessageEntriesTableUpdateCompanionBuilder
+    = AssistantMessageEntriesCompanion Function({
+  Value<String> id,
+  Value<String> conversationId,
+  Value<String> role,
+  Value<String> contentMarkdown,
+  Value<String> citationsJson,
+  Value<String> safetyTriageCategory,
+  Value<bool> isEmergencyIntercepted,
+  Value<String> disclaimerLevel,
+  Value<String> suggestedFollowUpsJson,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
+
+class $$AssistantMessageEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $AssistantMessageEntriesTable> {
+  $$AssistantMessageEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get conversationId => $composableBuilder(
+      column: $table.conversationId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get role => $composableBuilder(
+      column: $table.role, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get contentMarkdown => $composableBuilder(
+      column: $table.contentMarkdown,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get citationsJson => $composableBuilder(
+      column: $table.citationsJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get safetyTriageCategory => $composableBuilder(
+      column: $table.safetyTriageCategory,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isEmergencyIntercepted => $composableBuilder(
+      column: $table.isEmergencyIntercepted,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get disclaimerLevel => $composableBuilder(
+      column: $table.disclaimerLevel,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get suggestedFollowUpsJson => $composableBuilder(
+      column: $table.suggestedFollowUpsJson,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$AssistantMessageEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $AssistantMessageEntriesTable> {
+  $$AssistantMessageEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get conversationId => $composableBuilder(
+      column: $table.conversationId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get role => $composableBuilder(
+      column: $table.role, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get contentMarkdown => $composableBuilder(
+      column: $table.contentMarkdown,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get citationsJson => $composableBuilder(
+      column: $table.citationsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get safetyTriageCategory => $composableBuilder(
+      column: $table.safetyTriageCategory,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isEmergencyIntercepted => $composableBuilder(
+      column: $table.isEmergencyIntercepted,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get disclaimerLevel => $composableBuilder(
+      column: $table.disclaimerLevel,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get suggestedFollowUpsJson => $composableBuilder(
+      column: $table.suggestedFollowUpsJson,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$AssistantMessageEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AssistantMessageEntriesTable> {
+  $$AssistantMessageEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get conversationId => $composableBuilder(
+      column: $table.conversationId, builder: (column) => column);
+
+  GeneratedColumn<String> get role =>
+      $composableBuilder(column: $table.role, builder: (column) => column);
+
+  GeneratedColumn<String> get contentMarkdown => $composableBuilder(
+      column: $table.contentMarkdown, builder: (column) => column);
+
+  GeneratedColumn<String> get citationsJson => $composableBuilder(
+      column: $table.citationsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get safetyTriageCategory => $composableBuilder(
+      column: $table.safetyTriageCategory, builder: (column) => column);
+
+  GeneratedColumn<bool> get isEmergencyIntercepted => $composableBuilder(
+      column: $table.isEmergencyIntercepted, builder: (column) => column);
+
+  GeneratedColumn<String> get disclaimerLevel => $composableBuilder(
+      column: $table.disclaimerLevel, builder: (column) => column);
+
+  GeneratedColumn<String> get suggestedFollowUpsJson => $composableBuilder(
+      column: $table.suggestedFollowUpsJson, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$AssistantMessageEntriesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $AssistantMessageEntriesTable,
+    AssistantMessageEntry,
+    $$AssistantMessageEntriesTableFilterComposer,
+    $$AssistantMessageEntriesTableOrderingComposer,
+    $$AssistantMessageEntriesTableAnnotationComposer,
+    $$AssistantMessageEntriesTableCreateCompanionBuilder,
+    $$AssistantMessageEntriesTableUpdateCompanionBuilder,
+    (
+      AssistantMessageEntry,
+      BaseReferences<_$AppDatabase, $AssistantMessageEntriesTable,
+          AssistantMessageEntry>
+    ),
+    AssistantMessageEntry,
+    PrefetchHooks Function()> {
+  $$AssistantMessageEntriesTableTableManager(
+      _$AppDatabase db, $AssistantMessageEntriesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AssistantMessageEntriesTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AssistantMessageEntriesTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AssistantMessageEntriesTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> id = const Value.absent(),
+            Value<String> conversationId = const Value.absent(),
+            Value<String> role = const Value.absent(),
+            Value<String> contentMarkdown = const Value.absent(),
+            Value<String> citationsJson = const Value.absent(),
+            Value<String> safetyTriageCategory = const Value.absent(),
+            Value<bool> isEmergencyIntercepted = const Value.absent(),
+            Value<String> disclaimerLevel = const Value.absent(),
+            Value<String> suggestedFollowUpsJson = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AssistantMessageEntriesCompanion(
+            id: id,
+            conversationId: conversationId,
+            role: role,
+            contentMarkdown: contentMarkdown,
+            citationsJson: citationsJson,
+            safetyTriageCategory: safetyTriageCategory,
+            isEmergencyIntercepted: isEmergencyIntercepted,
+            disclaimerLevel: disclaimerLevel,
+            suggestedFollowUpsJson: suggestedFollowUpsJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String id,
+            required String conversationId,
+            required String role,
+            required String contentMarkdown,
+            required String citationsJson,
+            Value<String> safetyTriageCategory = const Value.absent(),
+            Value<bool> isEmergencyIntercepted = const Value.absent(),
+            Value<String> disclaimerLevel = const Value.absent(),
+            required String suggestedFollowUpsJson,
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AssistantMessageEntriesCompanion.insert(
+            id: id,
+            conversationId: conversationId,
+            role: role,
+            contentMarkdown: contentMarkdown,
+            citationsJson: citationsJson,
+            safetyTriageCategory: safetyTriageCategory,
+            isEmergencyIntercepted: isEmergencyIntercepted,
+            disclaimerLevel: disclaimerLevel,
+            suggestedFollowUpsJson: suggestedFollowUpsJson,
+            createdAt: createdAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable<$AssistantMessageEntriesTable,
+                        AssistantMessageEntry>(table),
+                    BaseReferences<_$AppDatabase, $AssistantMessageEntriesTable,
+                        AssistantMessageEntry>(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$AssistantMessageEntriesTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $AssistantMessageEntriesTable,
+        AssistantMessageEntry,
+        $$AssistantMessageEntriesTableFilterComposer,
+        $$AssistantMessageEntriesTableOrderingComposer,
+        $$AssistantMessageEntriesTableAnnotationComposer,
+        $$AssistantMessageEntriesTableCreateCompanionBuilder,
+        $$AssistantMessageEntriesTableUpdateCompanionBuilder,
+        (
+          AssistantMessageEntry,
+          BaseReferences<_$AppDatabase, $AssistantMessageEntriesTable,
+              AssistantMessageEntry>
+        ),
+        AssistantMessageEntry,
+        PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -26226,4 +28553,14 @@ class $AppDatabaseManager {
       $$VaccinationEntriesTableTableManager(_db, _db.vaccinationEntries);
   $$SpecialistEntriesTableTableManager get specialistEntries =>
       $$SpecialistEntriesTableTableManager(_db, _db.specialistEntries);
+  $$ClinicalArticleEntriesTableTableManager get clinicalArticleEntries =>
+      $$ClinicalArticleEntriesTableTableManager(
+          _db, _db.clinicalArticleEntries);
+  $$AssistantConversationEntriesTableTableManager
+      get assistantConversationEntries =>
+          $$AssistantConversationEntriesTableTableManager(
+              _db, _db.assistantConversationEntries);
+  $$AssistantMessageEntriesTableTableManager get assistantMessageEntries =>
+      $$AssistantMessageEntriesTableTableManager(
+          _db, _db.assistantMessageEntries);
 }

@@ -560,6 +560,56 @@ class SpecialistEntries extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class ClinicalArticleEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get slug => text().unique()();
+  TextColumn get title => text()();
+  TextColumn get summary => text()();
+  TextColumn get bodyMarkdown => text()();
+  TextColumn get targetLifeStagesJson => text()();
+  TextColumn get clinicalTagsJson => text()();
+  TextColumn get scientificSource => text()();
+  TextColumn get sourceUrl => text()();
+  TextColumn get reviewedBy => text()();
+  IntColumn get readingTimeMinutes => integer().withDefault(const Constant(5))();
+  DateTimeColumn get publishedAt =>
+      dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class AssistantConversationEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get userId => text()();
+  TextColumn get title => text()();
+  TextColumn get lifeStageAtCreation => text()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class AssistantMessageEntries extends Table {
+  TextColumn get id => text()();
+  TextColumn get conversationId => text()();
+  TextColumn get role => text()();
+  TextColumn get contentMarkdown => text()();
+  TextColumn get citationsJson => text()();
+  TextColumn get safetyTriageCategory =>
+      text().withDefault(const Constant('NONE'))();
+  BoolColumn get isEmergencyIntercepted =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get disclaimerLevel =>
+      text().withDefault(const Constant('STANDARD'))();
+  TextColumn get suggestedFollowUpsJson => text()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DriftDatabase(tables: [
   SyncOutboxEntries,
   UserProfileEntries,
@@ -591,6 +641,9 @@ class SpecialistEntries extends Table {
   MedicalExamEntries,
   VaccinationEntries,
   SpecialistEntries,
+  ClinicalArticleEntries,
+  AssistantConversationEntries,
+  AssistantMessageEntries,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
@@ -598,7 +651,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 9;
+  int get schemaVersion => 10;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -650,6 +703,11 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(medicalExamEntries);
             await m.createTable(vaccinationEntries);
             await m.createTable(specialistEntries);
+          }
+          if (from < 10) {
+            await m.createTable(clinicalArticleEntries);
+            await m.createTable(assistantConversationEntries);
+            await m.createTable(assistantMessageEntries);
           }
         },
       );
