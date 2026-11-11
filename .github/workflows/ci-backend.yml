@@ -94,4 +94,4 @@ jobs:
       - name: Run Pytest with Coverage
         env:
           DATABASE_URL: postgresql+asyncpg://cora_user:cora_password@localhost:5432/cora_test
-        run: pytest --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=80
+        run: pytest --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=85

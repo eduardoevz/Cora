@@ -68,6 +68,7 @@ El desarrollo está estructurado en **12 fases modulares**, diseñadas para ejec
 
 - **Especificación de Producto:** [docs/SPECS.MD](./docs/SPECS.MD)
 - **Especificación Técnica y Arquitectura:** [docs/desarrollo.md](./docs/desarrollo.md)
+- **Guía de Despliegue y Lanzamiento v1.0.0:** [docs/DEPLOYMENT_AND_RELEASE.md](./docs/DEPLOYMENT_AND_RELEASE.md)
 - **Reglas del Agente y Estándares de Ingeniería:** [AGENTS.md](./AGENTS.md) y [.agents/rules/](./.agents/rules/)
 - **Hoja de Ruta Maestra (Fases 01 a 12):** [docs/phases/README.md](./docs/phases/README.md)
 - **Bitácora de Documentación por Fase Completada:** [documentacion/README.md](./documentacion/README.md)
