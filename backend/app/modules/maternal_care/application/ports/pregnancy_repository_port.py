@@ -61,5 +61,8 @@ class IPregnancyRepository(Protocol):
     ) -> PrenatalAppointment: ...
 
     async def toggle_appointment_completion(
-        self, appointment_id: uuid.UUID, is_completed: bool
+        self,
+        appointment_id: uuid.UUID,
+        is_completed: bool,
+        user_id: uuid.UUID | None = None,
     ) -> PrenatalAppointment | None: ...

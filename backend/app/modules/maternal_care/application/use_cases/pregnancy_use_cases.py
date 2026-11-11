@@ -416,10 +416,13 @@ class ManagePrenatalAppointmentsUseCase:
         return await self._repo.create_appointment(appointment, user_id)
 
     async def toggle_completion(
-        self, appointment_id: uuid.UUID, is_completed: bool
+        self,
+        appointment_id: uuid.UUID,
+        is_completed: bool,
+        user_id: uuid.UUID | None = None,
     ) -> PrenatalAppointment:
         res = await self._repo.toggle_appointment_completion(
-            appointment_id, is_completed
+            appointment_id, is_completed, user_id=user_id
         )
         if not res:
             raise EntityNotFoundError(

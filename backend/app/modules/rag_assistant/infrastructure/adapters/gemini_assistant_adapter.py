@@ -171,6 +171,26 @@ class GeminiClinicalAssistantAdapter:
         )
 
     @staticmethod
+    def _is_prescription_or_diagnosis_jailbreak(user_query: str) -> bool:
+        """Detect prompt-injection or prescription/diagnosis forcing requests."""
+        q = user_query.lower()
+        jailbreak_tokens = (
+            "ignora tus instrucciones",
+            "system override",
+            "olvida que eres cora",
+            "recetame",
+            "recétame",
+            "receta medica",
+            "receta médica",
+            "dosis exacta",
+            "diagnosticame",
+            "diagnostícame",
+            "cuantos miligramos",
+            "cuántos miligramos",
+        )
+        return any(tok in q for tok in jailbreak_tokens)
+
+    @staticmethod
     def _build_deterministic_grounded_fallback(
         *,
         user_query: str,
@@ -200,6 +220,28 @@ class GeminiClinicalAssistantAdapter:
                         source_url=ch.source_url,
                     )
                 )
+
+        if GeminiClinicalAssistantAdapter._is_prescription_or_diagnosis_jailbreak(
+            user_query
+        ):
+            refusal_body = "\n\n".join(excerpts) if excerpts else ""
+            refusal_answer = (
+                "### Orientación Educativa Segura — Límites Clínicos de Cora\n\n"
+                "Por tu seguridad clínica, **no puedo emitir diagnósticos médicos "
+                "definitivos ni no puedo recetar medicamentos o indicar dosis "
+                "farmacológicas**. Toda prescripción o ajuste terapéutico requiere "
+                "la valoración presencial de tu **profesional de salud**.\n\n"
+                f"{refusal_body}"
+            ).strip()
+            return GroundedAssistantResult(
+                answer_markdown=refusal_answer,
+                citations=citations,
+                disclaimer_level="RECOMMEND_CONSULTATION",
+                suggested_follow_ups=[
+                    "¿Qué síntomas debo anotar para llevar a mi consulta médica?",
+                    "¿Cómo generar mi reporte PDF para mi especialista?",
+                ],
+            )
 
         correlation_note = ""
         if clinical_memory.detected_correlations:

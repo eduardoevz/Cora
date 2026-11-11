@@ -343,11 +343,16 @@ class PostgresPregnancyRepository(IPregnancyRepository):
         return model.to_domain()
 
     async def toggle_appointment_completion(
-        self, appointment_id: uuid.UUID, is_completed: bool
+        self,
+        appointment_id: uuid.UUID,
+        is_completed: bool,
+        user_id: uuid.UUID | None = None,
     ) -> PrenatalAppointment | None:
         stmt = select(PrenatalAppointmentModel).where(
             PrenatalAppointmentModel.id == appointment_id
         )
+        if user_id is not None:
+            stmt = stmt.where(PrenatalAppointmentModel.user_id == user_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
         if model:

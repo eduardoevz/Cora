@@ -389,11 +389,14 @@ async def create_prenatal_appointment(
 async def toggle_appointment_completion(
     appointment_id: Annotated[uuid.UUID, Path()],
     payload: ToggleAppointmentRequest,
+    user: Annotated[UserProfile, Depends(get_current_user_profile)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
 ) -> PrenatalAppointmentResponse:
     repo = PostgresPregnancyRepository(session)
     use_case = ManagePrenatalAppointmentsUseCase(repo)
-    appointment = await use_case.toggle_completion(appointment_id, payload.is_completed)
+    appointment = await use_case.toggle_completion(
+        appointment_id, payload.is_completed, user_id=user.id
+    )
     return PrenatalAppointmentResponse(
         id=appointment.id,
         pregnancy_episode_id=appointment.pregnancy_episode_id,

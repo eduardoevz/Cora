@@ -9143,6 +9143,11 @@
             "description": "Validation Error"
           }
         },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
         "summary": "Marcar cita prenatal como completada o pendiente",
         "tags": [
           "Maternal Care & Pregnancy"
