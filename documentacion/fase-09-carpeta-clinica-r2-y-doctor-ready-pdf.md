@@ -129,6 +129,17 @@ mobile/
   - **62 pruebas aprobadas en 17s**.
   - **Análisis estático:** `flutter analyze --fatal-infos` finalizado con **0 problemas**.
 
+### 4.3. Validación de CI/CD en GitHub Actions (100% Verde Certificado)
+- **Backend CI (Run ID `42949482236`):**
+  - Lint & Strict Type Check: `ruff check` + `ruff format --check` + `mypy --strict app` -> `success` (24s).
+  - Pytest & Coverage (pgvector container): 199 pruebas unitarias y de integración -> `success` (46s).
+- **Mobile CI (Run ID `42949214765`):**
+  - Flutter Analyze & Formatting -> `success`.
+  - Flutter Unit & Widget Tests (62 tests) -> `success` (2m 20s).
+- **Security & OpenAPI Contract Verification (Run ID `42949482468`):**
+  - Secret & PHI Leak Scan (`gitleaks`) -> `success` (9s).
+  - OpenAPI Schema Drift Check (0% drift) -> `success` (11s).
+
 ---
 
 ## 5. Secuencia de Commits Realizados
@@ -138,6 +149,8 @@ mobile/
 3. `504115f` — `feat(medical-records): expose digital medical folder, vaccinations, and Doctor-Ready PDF REST endpoints`
 4. `c85cc25` — `feat(mobile-ui): add digital medical folder, vaccination card, specialist directory, and PDF exporter`
 5. `a650534` — `docs(plan): mark phase 09 tasks completed in phase spec and roadmap`
+6. `fa74eb5` — `docs(documentacion): add phase-09 completion report in documentacion/`
+7. `02040b7` — `fix(medical-records): apply ruff formatting and clean up migration line lengths`
 
 ---
 
