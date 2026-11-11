@@ -47,15 +47,15 @@
   - `IEducationVectorRepository.search_verified_chunks(query_embedding: list[float], life_stage: LifeStage | None, limit: int = 5) -> list[VerifiedEvidenceChunk]`
   - `GET /api/v1/education/articles`, `GET /api/v1/education/articles/{slug}`
 
-- [ ] **Step 1: Consultar con MCP `gemini_search_docs` los parámetros exactos de `client.models.embed_content` para `gemini-embedding-2` y escribir tests fallidos de ingesta/búsqueda por similitud coseno en PostgreSQL `pgvector` filtrando por `LifeStage`**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Consultar con MCP `gemini_search_docs` los parámetros exactos de `client.models.embed_content` para `gemini-embedding-2` y escribir tests fallidos de ingesta/búsqueda por similitud coseno en PostgreSQL `pgvector` filtrando por `LifeStage`**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/integration/education_content/test_pgvector_hnsw_retrieval.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar migración `0010` con índice `USING hnsw (embedding vector_cosine_ops)`, `GeminiEmbeddingAdapter`, corpus semilla inicial revisado para las 7 etapas (ACOG, OMS, FIGO, NAMS) y endpoints de biblioteca**
-- [ ] **Step 4: Verificar migración, búsqueda vectorial real y `mypy --strict`**
+- [x] **Step 3: Implementar migración `0010` con índice `USING hnsw (embedding vector_cosine_ops)`, `GeminiEmbeddingAdapter`, corpus semilla inicial revisado para las 7 etapas (ACOG, OMS, FIGO, NAMS) y endpoints de biblioteca**
+- [x] **Step 4: Verificar migración, búsqueda vectorial real y `mypy --strict`**
   - Run: `mypy --strict backend/app && pytest backend/tests/integration/education_content/test_pgvector_hnsw_retrieval.py -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0010_create_education_and_pgvector_hnsw_tables.py backend/app/modules/education_content backend/tests/integration/education_content`
   - `git commit -m "feat(education): add curated clinical library and pgvector HNSW search with gemini-embedding-2"`
 
@@ -77,15 +77,15 @@
   - `DeterministicSafetyInterceptor.inspect(user_query: str, active_stage: LifeStage) -> SafetyTriageDecision`
   - `AnonymizedUserClinicalContext` (correlaciones exactas día-de-ciclo/síntoma, sin nombre ni correo)
 
-- [ ] **Step 1: Escribir batería TDD con `>= 25` casos de banderas rojas (hemorragia severa, dolor pélvico agudo, cefalea+fosfenos en embarazo, ausencia de movimientos fetales, fiebre puerperal, dolor torácico, autolesión, con/sin acentos y modismos) más consultas benignas que NO deben ser bloqueadas, y tests de correlación de migraña/síntomas y anonimización PII en `UserClinicalMemoryAssembler`**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Escribir batería TDD con `>= 25` casos de banderas rojas (hemorragia severa, dolor pélvico agudo, cefalea+fosfenos en embarazo, ausencia de movimientos fetales, fiebre puerperal, dolor torácico, autolesión, con/sin acentos y modismos) más consultas benignas que NO deben ser bloqueadas, y tests de correlación de migraña/síntomas y anonimización PII en `UserClinicalMemoryAssembler`**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/rag_assistant -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `DeterministicSafetyInterceptor` y `UserClinicalMemoryAssembler`**
-- [ ] **Step 4: Verificar ejecución en `< 20 ms` y `100%` de cobertura en el interceptor**
+- [x] **Step 3: Implementar `DeterministicSafetyInterceptor` y `UserClinicalMemoryAssembler`**
+- [x] **Step 4: Verificar ejecución en `< 20 ms` y `100%` de cobertura en el interceptor**
   - Run: `pytest backend/tests/unit/rag_assistant --cov=backend/app/modules/rag_assistant/domain/services/deterministic_safety_interceptor --cov-fail-under=100 -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/app/modules/rag_assistant/domain backend/tests/unit/rag_assistant`
   - `git commit -m "feat(rag-assistant): implement deterministic emergency safety interceptor and PII-free clinical memory assembler"`
 
@@ -111,15 +111,15 @@
 - Produces:
   - `POST /api/v1/assistant/messages`, `GET /api/v1/assistant/conversations`, `DELETE /api/v1/assistant/conversations/{conversation_id}`
 
-- [ ] **Step 1: Consultar con MCP `gemini_search_docs` la firma exacta de `client.interactions.create` + salida estructurada y escribir tests verificando: `store=False` estricto, `0` llamadas a Gemini cuando el interceptor detecta emergencia, e inclusión obligatoria de `citations` en consultas normales**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo**
+- [x] **Step 1: Consultar con MCP `gemini_search_docs` la firma exacta de `client.interactions.create` + salida estructurada y escribir tests verificando: `store=False` estricto, `0` llamadas a Gemini cuando el interceptor detecta emergencia, e inclusión obligatoria de `citations` en consultas normales**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo**
   - Run: `pytest backend/tests/unit/rag_assistant/test_gemini_clinical_adapter.py backend/tests/integration/rag_assistant/test_rag_assistant_api.py -v`
   - Expected: FAIL
-- [ ] **Step 3: Implementar `GeminiClinicalAssistantAdapter`, persistencia de hilos en PostgreSQL, caso de uso `AskClinicalAssistantUseCase`, router FastAPI y exportar `contracts/openapi.json`**
-- [ ] **Step 4: Verificar toda la suite backend**
+- [x] **Step 3: Implementar `GeminiClinicalAssistantAdapter`, persistencia de hilos en PostgreSQL, caso de uso `AskClinicalAssistantUseCase`, router FastAPI y exportar `contracts/openapi.json`**
+- [x] **Step 4: Verificar toda la suite backend**
   - Run: `python backend/scripts/export_openapi.py && pytest backend/tests -v`
   - Expected: PASS
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   - `git add backend/alembic/versions/0011_create_rag_conversations_tables.py backend/app/modules/rag_assistant backend/app/main.py contracts/openapi.json backend/tests/unit/rag_assistant/test_gemini_clinical_adapter.py backend/tests/integration/rag_assistant/test_rag_assistant_api.py`
   - `git commit -m "feat(rag-assistant): integrate gemini-3.8-flash with store=False, grounded citations, and conversation API"`
 
@@ -143,15 +143,15 @@
 - Consumes: `/api/v1/education/*`, `/api/v1/assistant/*`, `AppDatabase`
 - Produces: Módulos móviles de Espacio de Aprendizaje y Asistente Conversacional Cora
 
-- [ ] **Step 1: Escribir tests en Flutter verificando: lectura offline de artículos cacheados por etapa, renderizado destacado de `EmergencyDirectiveBanner` cuando `isEmergency == true`, y despliegue de fuentes clínicas al tocar chips de citas (ACOG/OMS/FIGO)**
-- [ ] **Step 2: Ejecutar `flutter test` y confirmar fallo**
+- [x] **Step 1: Escribir tests en Flutter verificando: lectura offline de artículos cacheados por etapa, renderizado destacado de `EmergencyDirectiveBanner` cuando `isEmergency == true`, y despliegue de fuentes clínicas al tocar chips de citas (ACOG/OMS/FIGO)**
+- [x] **Step 2: Ejecutar `flutter test` y confirmar fallo**
   - Run: `cd mobile && flutter test test/features/assistant test/features/education`
   - Expected: FAIL
-- [ ] **Step 3: Implementar caché Drift de artículos e historial de chat, repositorios y pantallas UI en Riverpod**
-- [ ] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
+- [x] **Step 3: Implementar caché Drift de artículos e historial de chat, repositorios y pantallas UI en Riverpod**
+- [x] **Step 4: Ejecutar `build_runner`, `flutter analyze` y `flutter test`**
   - Run: `cd mobile && dart run build_runner build --delete-conflicting-outputs && flutter analyze --fatal-infos && flutter test`
   - Expected: PASS
-- [ ] **Step 5: Commits finales y cierre de Fase 10**
+- [x] **Step 5: Commits finales y cierre de Fase 10**
   - `git add mobile`
   - `git commit -m "feat(mobile-ui): add offline clinical library and RAG assistant chat with verified citations"`
   - `git add docs/phases/phase-10-education-and-clinical-rag.md docs/phases/README.md`
