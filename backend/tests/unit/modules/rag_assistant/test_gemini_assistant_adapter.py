@@ -4,6 +4,8 @@ import json
 from uuid import uuid4
 
 import pytest
+
+from app.modules.education_content.domain.entities import ClinicalEvidenceChunk
 from app.modules.rag_assistant.application.use_cases.assistant_use_cases import (
     AskClinicalAssistantUseCase,
 )
@@ -18,8 +20,6 @@ from app.modules.rag_assistant.domain.services.safety_interceptor import (
 from app.modules.rag_assistant.infrastructure.adapters import (
     gemini_assistant_adapter,
 )
-
-from app.modules.education_content.domain.entities import ClinicalEvidenceChunk
 
 
 def test_gemini_assistant_adapter_enforces_gemini_3_8_flash_and_store_false() -> None:
@@ -75,7 +75,9 @@ def test_gemini_assistant_adapter_enforces_gemini_3_8_flash_and_store_false() ->
         article_id=uuid4(),
         chunk_index=0,
         section_heading="Fase Lútea Tardía y Cefalea Catamenial",
-        content_text="El descenso brusco de estrógenos explica la cefalea premenstrual.",
+        content_text=(
+            "El descenso brusco de estrógenos explica la cefalea premenstrual."
+        ),
         token_count=45,
         target_life_stages=["regular_adult"],
         scientific_source="FIGO Menstrual Disorders Committee",

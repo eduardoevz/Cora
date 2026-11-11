@@ -3,6 +3,7 @@
 import time
 
 import pytest
+
 from app.modules.rag_assistant.domain.services.safety_interceptor import (
     DeterministicSafetyInterceptor,
     SafetyTriageCategory,
@@ -14,7 +15,8 @@ from app.modules.rag_assistant.domain.services.safety_interceptor import (
     [
         # 1. HEMORRHAGE_EMERGENCY (with and without accents + colloquial)
         (
-            "Estoy empapando una toalla por hora desde hace 3 horas y me siento mareada",
+            "Estoy empapando una toalla por hora desde hace 3 horas y me "
+            "siento mareada",
             SafetyTriageCategory.HEMORRHAGE_EMERGENCY,
         ),
         (
@@ -26,16 +28,19 @@ from app.modules.rag_assistant.domain.services.safety_interceptor import (
             SafetyTriageCategory.HEMORRHAGE_EMERGENCY,
         ),
         (
-            "cambio el tampon cada 40 minutos porque se rebalsa de sangre y veo borroso",
+            "cambio el tampon cada 40 minutos porque se rebalsa de sangre "
+            "y veo borroso",
             SafetyTriageCategory.HEMORRHAGE_EMERGENCY,
         ),
         # 2. ECTOPIC_OR_ACUTE_PELVIC_EMERGENCY
         (
-            "Tengo un dolor pelvico subito e insoportable de un solo lado y ganas de vomitar",
+            "Tengo un dolor pelvico subito e insoportable de un solo lado y "
+            "ganas de vomitar",
             SafetyTriageCategory.ECTOPIC_OR_ACUTE_PELVIC_EMERGENCY,
         ),
         (
-            "Me dio una punzada abdominal desgarradora en el ovario derecho y me desmaye",
+            "Me dio una punzada abdominal desgarradora en el ovario derecho "
+            "y me desmaye",
             SafetyTriageCategory.ECTOPIC_OR_ACUTE_PELVIC_EMERGENCY,
         ),
         (
@@ -56,11 +61,13 @@ from app.modules.rag_assistant.domain.services.safety_interceptor import (
             SafetyTriageCategory.OBSTETRIC_PREECLAMPSIA_EMERGENCY,
         ),
         (
-            "Me tome la presion y salio en 165/112 y me duele mucho la boca del estomago",
+            "Me tome la presion y salio en 165/112 y me duele mucho la boca "
+            "del estomago",
             SafetyTriageCategory.OBSTETRIC_PREECLAMPSIA_EMERGENCY,
         ),
         (
-            "tengo escotomas, zumbido de oidos y dolor en el epigastrio estando embarazada",
+            "tengo escotomas, zumbido de oidos y dolor en el epigastrio "
+            "estando embarazada",
             SafetyTriageCategory.OBSTETRIC_PREECLAMPSIA_EMERGENCY,
         ),
         (
@@ -90,11 +97,13 @@ from app.modules.rag_assistant.domain.services.safety_interceptor import (
             SafetyTriageCategory.POSTPARTUM_INFECTION_EMERGENCY,
         ),
         (
-            "hace 5 dias tuve cesarea, tengo escalofrios, fiebre y flujo con olor fetido",
+            "hace 5 dias tuve cesarea, tengo escalofrios, fiebre y flujo "
+            "con olor fetido",
             SafetyTriageCategory.POSTPARTUM_INFECTION_EMERGENCY,
         ),
         (
-            "La herida de la cesarea esta saliendo pus y tengo temperatura de 39 grados",
+            "La herida de la cesarea esta saliendo pus y tengo temperatura "
+            "de 39 grados",
             SafetyTriageCategory.POSTPARTUM_INFECTION_EMERGENCY,
         ),
         # 6. CARDIORESPIRATORY_THROMBOSIS_EMERGENCY
@@ -107,7 +116,8 @@ from app.modules.rag_assistant.domain.services.safety_interceptor import (
             SafetyTriageCategory.CARDIORESPIRATORY_THROMBOSIS_EMERGENCY,
         ),
         (
-            "Tengo una pierna muy hinchada, roja y caliente en la pantorrilla izquierda",
+            "Tengo una pierna muy hinchada, roja y caliente en la "
+            "pantorrilla izquierda",
             SafetyTriageCategory.CARDIORESPIRATORY_THROMBOSIS_EMERGENCY,
         ),
         # 7. MENTAL_HEALTH_CRISIS
@@ -153,7 +163,10 @@ def test_safety_interceptor_detects_all_red_flags_under_5ms(
     [
         "¿Por qué me duele un poco la cabeza dos días antes de que me baje el periodo?",
         "¿Qué alimentos ricos en calcio recomiendas durante la perimenopausia?",
-        "Mi ciclo duró 30 días este mes y 28 el mes pasado, ¿está dentro del rango FIGO?",
+        (
+            "Mi ciclo duró 30 días este mes y 28 el mes pasado, "
+            "¿está dentro del rango FIGO?"
+        ),
         "¿Cómo cambia el moco cervical cuando me acerco a mis días fértiles?",
         "Tengo sofocos moderados en la noche, ¿qué hábitos ayudan a dormir mejor?",
         "¿Cuál es la diferencia entre los loquios rubra y los loquios serosa?",
