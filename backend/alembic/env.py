@@ -9,6 +9,10 @@ from alembic import context
 from app.core.config import get_settings
 from app.core.database import Base
 from app.core.idempotency import IdempotentMutation  # noqa: F401
+from app.modules.education_content.infrastructure.orm.models import (  # noqa: F401
+    ClinicalArticleORM,
+    ClinicalEvidenceChunkORM,
+)
 
 config = context.config
 
