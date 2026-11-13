@@ -13,7 +13,7 @@ Este directorio documenta la ejecución y certificación de los **5 pasos operat
 | **2** | **Validación y Aprovisionamiento de Secretos Prod** | ✅ Completado | [paso-02-secretos-y-entorno.md](./paso-02-secretos-y-entorno.md) |
 | **3** | **Ingesta Automatizada del Corpus RAG en Neon** | ✅ Completado | [paso-03-ingesta-corpus-rag.md](./paso-03-ingesta-corpus-rag.md) |
 | **4** | **Andamiaje Nativo, Firma y Compilación Móvil** | ✅ Completado | [paso-04-empaquetado-y-firma-movil.md](./paso-04-empaquetado-y-firma-movil.md) |
-| **5** | **Preparación de Lanzamiento y Metadata de Tiendas** | ⏳ Pendiente | [paso-05-lanzamiento-tiendas.md](./paso-05-lanzamiento-tiendas.md) |
+| **5** | **Preparación de Lanzamiento y Metadata de Tiendas** | ✅ Completado | [paso-05-lanzamiento-tiendas.md](./paso-05-lanzamiento-tiendas.md) |
 
 ---
 

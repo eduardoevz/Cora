@@ -43,8 +43,8 @@ Este documento contiene la hoja de ruta de ejecución y el seguimiento por check
 ---
 
 ### Paso 5: Preparación de Lanzamiento y Metadata de Tiendas
-- [ ] **Step 5.1:** Crear activos de Google Play en `distribution/store_assets/google_play/` (título, descripción corta, descripción completa, descargo médico y política de privacidad).
-- [ ] **Step 5.2:** Crear activos de App Store en `distribution/store_assets/app_store/` (keywords, texto promocional y notas de revisión médica).
-- [ ] **Step 5.3:** Crear script auditor `scripts/audit_store_readiness.py` validando longitudes de texto, disclaimers y consistencia de privacidad.
-- [ ] **Step 5.4:** Ejecutar auditoría de tiendas y verificar cumplimiento 100%.
-- [ ] **Step 5.5:** Documentar en `implementacion/paso-05-lanzamiento-tiendas.md`, actualizar `implementacion/README.md` y commit final.
+- [x] **Step 5.1:** Crear activos de Google Play en `distribution/store_assets/google_play/` (título, descripción corta, descripción completa, descargo médico y política de privacidad).
+- [x] **Step 5.2:** Crear activos de App Store en `distribution/store_assets/app_store/` (keywords, texto promocional y notas de revisión médica).
+- [x] **Step 5.3:** Crear script auditor `scripts/audit_store_readiness.py` validando longitudes de texto, disclaimers y consistencia de privacidad.
+- [x] **Step 5.4:** Ejecutar auditoría de tiendas y verificar cumplimiento 100%.
+- [x] **Step 5.5:** Documentar en `implementacion/paso-05-lanzamiento-tiendas.md`, actualizar `implementacion/README.md` y commit final.

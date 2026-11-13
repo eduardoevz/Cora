@@ -1,0 +1,29 @@
+Cora es la plataforma integral, preventiva y Offline-First diseñada para acompañar a la mujer a lo largo de sus 7 etapas biológicas, desde la adolescencia hasta la plenitud adulta mayor.
+
+Concebida bajo los más altos estándares de privacidad clínica y soberanía digital, Cora funciona sin conexión a internet y protege tus registros íntimos mediante cifrado local de grado militar, garantizando que tus datos pertenezcan exclusivamente a ti.
+
+🌸 CUIDADO ADAPTADO A TUS 7 ETAPAS BIOLÓGICAS:
+1. Adolescencia: Comprensión del primer ciclo menstrual, privacidad reforzada con PIN y lenguaje cercano sin tecnicismos intimidantes.
+2. Juventud y Edad Reproductiva: Seguimiento de ciclo menstrual de 4 fases con detección de patrones atípicos bajo criterios internacionales FIGO y apoyo en condiciones como SOP y Endometriosis.
+3. Búsqueda de Concepción: Algoritmo sintotérmico avanzado basado en temperatura basal corporal (BBT), cambios en el moco cervical fértil y pico de hormona luteinizante (LH).
+4. Embarazo y Cuidado Materno: Desarrollo fetal semana a semana, control de presión arterial con alertas preventivas ACOG para preeclampsia, cronómetro ergonómico de contracciones 5-1-1 y contador de patadas.
+5. Posparto y Lactancia: Recuperación puerperal integral, monitoreo de loquios, banco de leche materna FIFO y tamizaje prioritario de salud mental mediante la Escala de Edimburgo (EPDS).
+6. Menopausia y Transición: Estadificación precisa con criterios STRAW+10, registro de sofocos, seguimiento de Terapia de Reemplazo Hormonal (TRH) y salud uroginecológica.
+7. Plenitud y Adulta Mayor: Monitorización de salud ósea, prevención del riesgo de caídas, ejercicios de suelo pélvico y tema de Alta Legibilidad (WCAG AAA) con contacto familiar de emergencia.
+
+🔒 PRIVACIDAD RADICAL Y SEGURIDAD OFFLINE-FIRST:
+- Funcionamiento Offline Real: Todos tus síntomas, notas y biomarcadores se guardan primero en tu dispositivo bajo cifrado local SQLite.
+- Modo Discreto: Icono de aplicación camuflable en tu pantalla de inicio, escudo automático de captura de pantalla y bloqueo biométrico instantáneo con Face ID o huella dactilar.
+- Vista para Acompañante (Partner View): Comparte únicamente lo que tú decidas con tu pareja o persona de confianza, con permisos revocables en cualquier momento con un solo toque.
+- Soberanía de Datos (GDPR): Exporta tu historial completo en un archivo ZIP portable o realiza la purga total e irreversible de tu cuenta en segundos.
+
+📋 CARPETA MÉDICA Y REPORTES DOCTOR-READY:
+- Genera reportes clínicos objetivos en formato PDF estructurados para presentar a tu ginecólogo u obstetra, resumiendo meses o años de biomarcadores en gráficos de alta resolución.
+- Guarda tus órdenes médicas, ecografías y resultados de laboratorio en una carpeta digital privada y segura.
+
+💡 ASISTENTE CLÍNICO EDUCATIVO Y GUÍAS CURADAS:
+- Resuelve tus dudas con una biblioteca de artículos revisados por especialistas y un asistente basado en evidencia con triaje determinista de emergencias en menos de 5 milisegundos.
+
+--------------------------------------------------
+AVISO MÉDICO Y DESCARGO DE RESPONSABILIDAD:
+Cora es una aplicación de orientación y bienestar preventivo. No proporciona diagnósticos médicos, no prescribe fármacos ni sustituye la consulta médica profesional. En situaciones de urgencia médica obstétrica o general, diríjase inmediatamente a un centro hospitalario.
