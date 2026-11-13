@@ -28,6 +28,17 @@ def test_settings_load_defaults_in_test_environment() -> None:
     assert settings.environment in {"development", "test", "production"}
 
 
+def test_database_url_normalization() -> None:
+    s1 = Settings(database_url="postgres://user:pass@localhost:5432/db")
+    assert s1.database_url.startswith("postgresql+asyncpg://")
+
+    s2 = Settings(database_url="postgresql://user:pass@localhost:5432/db")
+    assert s2.database_url.startswith("postgresql+asyncpg://")
+
+    s3 = Settings(database_url="postgresql+asyncpg://user:pass@localhost:5432/db")
+    assert s3.database_url == "postgresql+asyncpg://user:pass@localhost:5432/db"
+
+
 @pytest.mark.asyncio
 async def test_domain_error_is_serialized_as_rfc7807_problem_details() -> None:
     app = create_app()

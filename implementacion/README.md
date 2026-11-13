@@ -14,6 +14,7 @@ Este directorio documenta la ejecución y certificación de los **5 pasos operat
 | **3** | **Ingesta Automatizada del Corpus RAG en Neon** | ✅ Completado | [paso-03-ingesta-corpus-rag.md](./paso-03-ingesta-corpus-rag.md) |
 | **4** | **Andamiaje Nativo, Firma y Compilación Móvil** | ✅ Completado | [paso-04-empaquetado-y-firma-movil.md](./paso-04-empaquetado-y-firma-movil.md) |
 | **5** | **Preparación de Lanzamiento y Metadata de Tiendas** | ✅ Completado | [paso-05-lanzamiento-tiendas.md](./paso-05-lanzamiento-tiendas.md) |
+| **Render** | **Guía de Despliegue en Producción (Render + Neon)** | ✅ Listo para Uso | [guia-despliegue-render.md](./guia-despliegue-render.md) |
 
 ---
 

@@ -30,9 +30,15 @@ class MockTokenVerifier(ITokenVerifier):
 class FirebaseTokenVerifier(ITokenVerifier):
     """Production token verification adapter using official Firebase Admin SDK."""
 
-    def __init__(self, credentials_path: str, project_id: str) -> None:
+    def __init__(
+        self,
+        credentials_path: str,
+        project_id: str,
+        credentials_json: str | None = None,
+    ) -> None:
         self._credentials_path = credentials_path
         self._project_id = project_id
+        self._credentials_json = credentials_json
         self._app: Any = None
 
     def _ensure_app_initialized(self) -> None:
@@ -40,11 +46,21 @@ class FirebaseTokenVerifier(ITokenVerifier):
             return
 
         try:
+            import json
+
             import firebase_admin  # type: ignore[import-untyped]
             from firebase_admin import credentials
 
             if firebase_admin._apps:
                 self._app = firebase_admin.get_app()
+                return
+
+            if self._credentials_json and self._credentials_json.strip():
+                cert_data = json.loads(self._credentials_json)
+                cred = credentials.Certificate(cert_data)
+                self._app = firebase_admin.initialize_app(
+                    cred, {"projectId": self._project_id}
+                )
                 return
 
             creds_file = Path(self._credentials_path)

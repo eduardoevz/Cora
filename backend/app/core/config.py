@@ -1,6 +1,7 @@
 from functools import lru_cache
 from typing import Literal
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -20,6 +21,7 @@ class Settings(BaseSettings):
     # Firebase Auth
     firebase_project_id: str = "cora-health-app"
     firebase_credentials_path: str = "./secrets/firebase_service_account.json"
+    firebase_credentials_json: str | None = None
 
     # Cloudflare R2
     r2_account_id: str = "mock-account-id"
@@ -40,6 +42,19 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
     )
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def normalize_database_url(cls, v: str) -> str:
+        """Ensure asyncpg dialect is present for async PostgreSQL connections."""
+        if isinstance(v, str):
+            if v.startswith("postgres://"):
+                return "postgresql+asyncpg://" + v[len("postgres://") :]
+            if v.startswith("postgresql://") and not v.startswith(
+                "postgresql+asyncpg://"
+            ):
+                return "postgresql+asyncpg://" + v[len("postgresql://") :]
+        return v
 
 
 @lru_cache

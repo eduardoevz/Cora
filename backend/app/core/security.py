@@ -36,6 +36,7 @@ def get_token_verifier() -> "ITokenVerifier":
     return FirebaseTokenVerifier(
         credentials_path=settings.firebase_credentials_path,
         project_id=settings.firebase_project_id,
+        credentials_json=settings.firebase_credentials_json,
     )
 
 
