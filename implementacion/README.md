@@ -11,7 +11,7 @@ Este directorio documenta la ejecución y certificación de los **5 pasos operat
 | **0** | **Plan Maestro y Gobernanza de Implementación** | ✅ Completado | [plan-despliegue-y-lanzamiento-produccion.md](./plan-despliegue-y-lanzamiento-produccion.md) |
 | **1** | **Despliegue del Backend en la Nube y CI/CD CD** | ✅ Completado | [paso-01-despliegue-nube.md](./paso-01-despliegue-nube.md) |
 | **2** | **Validación y Aprovisionamiento de Secretos Prod** | ✅ Completado | [paso-02-secretos-y-entorno.md](./paso-02-secretos-y-entorno.md) |
-| **3** | **Ingesta Automatizada del Corpus RAG en Neon** | ⏳ Pendiente | [paso-03-ingesta-corpus-rag.md](./paso-03-ingesta-corpus-rag.md) |
+| **3** | **Ingesta Automatizada del Corpus RAG en Neon** | ✅ Completado | [paso-03-ingesta-corpus-rag.md](./paso-03-ingesta-corpus-rag.md) |
 | **4** | **Andamiaje Nativo, Firma y Compilación Móvil** | ⏳ Pendiente | [paso-04-empaquetado-y-firma-movil.md](./paso-04-empaquetado-y-firma-movil.md) |
 | **5** | **Preparación de Lanzamiento y Metadata de Tiendas** | ⏳ Pendiente | [paso-05-lanzamiento-tiendas.md](./paso-05-lanzamiento-tiendas.md) |
 

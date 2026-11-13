@@ -23,11 +23,11 @@ Este documento contiene la hoja de ruta de ejecución y el seguimiento por check
 ---
 
 ### Paso 3: Automatización de la Ingesta del Corpus Clínico RAG en PostgreSQL (Neon)
-- [ ] **Step 3.1:** Crear script `backend/scripts/ingest_clinical_library.py` con el corpus canónico (FIGO, ACOG, STRAW+10, EPDS, vacunas) y soporte de `--dry-run`, `--batch-size` y `--force`.
-- [ ] **Step 3.2:** Integrar `SemanticChunker` de `education_content` y generación de embeddings (`768d`) con almacenamiento HNSW en Neon PostgreSQL.
-- [ ] **Step 3.3:** Crear prueba automatizada de integración `backend/tests/integration/test_clinical_ingestion_script.py`.
-- [ ] **Step 3.4:** Validar ejecución del script en modo `--dry-run` y tests automatizados.
-- [ ] **Step 3.5:** Documentar en `implementacion/paso-03-ingesta-corpus-rag.md` y commit atómico.
+- [x] **Step 3.1:** Crear script `backend/scripts/ingest_clinical_library.py` con el corpus canónico (FIGO, ACOG, STRAW+10, EPDS, vacunas) y soporte de `--dry-run`, `--batch-size` y `--force`.
+- [x] **Step 3.2:** Integrar `SemanticChunker` de `education_content` y generación de embeddings (`768d`) con almacenamiento HNSW en Neon PostgreSQL.
+- [x] **Step 3.3:** Crear prueba automatizada de integración `backend/tests/integration/test_clinical_ingestion_script.py`.
+- [x] **Step 3.4:** Validar ejecución del script en modo `--dry-run` y tests automatizados.
+- [x] **Step 3.5:** Documentar en `implementacion/paso-03-ingesta-corpus-rag.md` y commit atómico.
 
 ---
 
