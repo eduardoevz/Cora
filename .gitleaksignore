@@ -1,2 +1,6 @@
 # False-positive synthetic test string in test_zero_phi_logging_audit.py
 f115ee22af1009e5a6e20b14ac13051e4f904e0f:backend/tests/security/test_zero_phi_logging_audit.py:generic-api-key:59
+# False-positive synthetic test strings in test_env_validator.py
+cd6d7eb24930e788e611df2aaded1af3465bc69b:backend/tests/unit/test_env_validator.py:generic-api-key:16
+cd6d7eb24930e788e611df2aaded1af3465bc69b:backend/tests/unit/test_env_validator.py:generic-api-key:47
+

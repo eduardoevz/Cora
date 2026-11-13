@@ -12,8 +12,8 @@ def test_valid_production_environment_passes_audit() -> None:
         ),
         "FIREBASE_PROJECT_ID": "cora-health-production-99",
         "R2_ENDPOINT_URL": "https://a1b2c3d4.r2.cloudflarestorage.com",
-        "R2_ACCESS_KEY_ID": "0123456789abcdef0123456789abcdef",
-        "R2_SECRET_ACCESS_KEY": "fedcba9876543210fedcba9876543210fedcba98",
+        "R2_ACCESS_KEY_ID": "dummy_synthetic_access_key",
+        "R2_SECRET_ACCESS_KEY": "dummy_synthetic_secret_key",
         "R2_BUCKET_NAME": "cora-medical-records-prod",
         "GEMINI_API_KEY": "AIzaSyDUMMY_KEY_VAL_FOR_UNIT_TEST_1234567890",
     }
@@ -44,7 +44,7 @@ def test_insecure_placeholder_detection_fails_audit() -> None:
         "FIREBASE_PROJECT_ID": "your-project-id",
         "R2_ENDPOINT_URL": "https://account.r2.cloudflarestorage.com",
         "R2_ACCESS_KEY_ID": "placeholder",
-        "R2_SECRET_ACCESS_KEY": "valid_secret_key_12345",
+        "R2_SECRET_ACCESS_KEY": "valid_synthetic_secret_key",
         "R2_BUCKET_NAME": "cora-bucket",
         "GEMINI_API_KEY": "your-api-key",
     }
