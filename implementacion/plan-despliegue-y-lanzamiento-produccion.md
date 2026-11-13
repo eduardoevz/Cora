@@ -14,11 +14,11 @@ Este documento contiene la hoja de ruta de ejecución y el seguimiento por check
 ---
 
 ### Paso 2: Validación y Aprovisionamiento de Secretos y Variables de Entorno
-- [ ] **Step 2.1:** Implementar script `backend/scripts/validate_production_env.py` con comprobación activa de Neon PostgreSQL (`vector`), Firebase Auth, Cloudflare R2 y Gemini API (`store=False`).
-- [ ] **Step 2.2:** Crear plantilla exhaustiva y segura `backend/.env.production.example`.
-- [ ] **Step 2.3:** Crear suite de pruebas unitarias `backend/tests/unit/test_env_validator.py`.
-- [ ] **Step 2.4:** Verificar ejecución con pytest (`100% pass`) y linter `ruff`.
-- [ ] **Step 2.5:** Documentar en `implementacion/paso-02-secretos-y-entorno.md` y commit atómico.
+- [x] **Step 2.1:** Implementar script `backend/scripts/validate_production_env.py` con comprobación activa de Neon PostgreSQL (`vector`), Firebase Auth, Cloudflare R2 y Gemini API (`store=False`).
+- [x] **Step 2.2:** Crear plantilla exhaustiva y segura `backend/.env.production.example`.
+- [x] **Step 2.3:** Crear suite de pruebas unitarias `backend/tests/unit/test_env_validator.py`.
+- [x] **Step 2.4:** Verificar ejecución con pytest (`100% pass`) y linter `ruff`.
+- [x] **Step 2.5:** Documentar en `implementacion/paso-02-secretos-y-entorno.md` y commit atómico.
 
 ---
 
