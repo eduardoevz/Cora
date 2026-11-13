@@ -12,3 +12,7 @@
 -keep class org.sqlite.** { *; }
 -dontwarn org.sqlite.**
 -keep class com.simonhmartin.drift.** { *; }
+
+# Suppress missing Play Core deferred components warnings in Flutter R8
+-dontwarn com.google.android.play.core.**
+
