@@ -32,13 +32,13 @@ Este documento contiene la hoja de ruta de ejecución y el seguimiento por check
 ---
 
 ### Paso 4: Andamiaje Nativo, Automatización de Firma y Compilación Móvil
-- [ ] **Step 4.1:** Andamiar plataformas nativas `mobile/android/` y `mobile/ios/` con identificador `com.cora.health`.
-- [ ] **Step 4.2:** Configurar `AndroidManifest.xml` (biometría, internet, security config) y `build.gradle` (SDK 23-34, signing config release, Proguard para Drift/SQLCipher).
-- [ ] **Step 4.3:** Configurar `mobile/ios/Runner/Info.plist` y `mobile/ios/Runner/PrivacyInfo.xcprivacy` (Apple Privacy Manifest).
-- [ ] **Step 4.4:** Crear workflow en GitHub Actions `.github/workflows/ci-cd-mobile-build.yml` para compilar Android App Bundle (`.aab`) y APK release.
-- [ ] **Step 4.5:** Crear scripts de empaquetado local `mobile/scripts/build_release_bundles.ps1` y `.sh`.
-- [ ] **Step 4.6:** Verificar `flutter analyze --fatal-infos` y `flutter test`.
-- [ ] **Step 4.7:** Documentar en `implementacion/paso-04-empaquetado-y-firma-movil.md` y commit atómico.
+- [x] **Step 4.1:** Andamiar plataformas nativas `mobile/android/` y `mobile/ios/` con identificador `com.cora.health`.
+- [x] **Step 4.2:** Configurar `AndroidManifest.xml` (biometría, internet, security config) y `build.gradle` (SDK 23-34, signing config release, Proguard para Drift/SQLCipher).
+- [x] **Step 4.3:** Configurar `mobile/ios/Runner/Info.plist` y `mobile/ios/Runner/PrivacyInfo.xcprivacy` (Apple Privacy Manifest).
+- [x] **Step 4.4:** Crear workflow en GitHub Actions `.github/workflows/ci-cd-mobile-build.yml` para compilar Android App Bundle (`.aab`) y APK release.
+- [x] **Step 4.5:** Crear scripts de empaquetado local `mobile/scripts/build_release_bundles.ps1` y `.sh`.
+- [x] **Step 4.6:** Verificar `flutter analyze --fatal-infos` y `flutter test`.
+- [x] **Step 4.7:** Documentar en `implementacion/paso-04-empaquetado-y-firma-movil.md` y commit atómico.
 
 ---
 

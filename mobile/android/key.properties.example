@@ -1,0 +1,14 @@
+# ==============================================================================
+# Plantilla de Configuración de Firma Release (Keystore) — Cora Android
+# ==============================================================================
+# Para firmar la aplicación para Google Play:
+# 1. Genera tu keystore con keytool:
+#    keytool -genkey -v -keystore cora-release.keystore -alias cora-key -keyalg RSA -keysize 2048 -validity 10000
+# 2. Copia este archivo como 'key.properties' en esta misma carpeta (mobile/android/key.properties).
+# 3. NUNCA hagas commit del archivo 'key.properties' ni del archivo '.keystore' en Git.
+# ==============================================================================
+
+storePassword=TU_KEYSTORE_PASSWORD
+keyPassword=TU_KEY_PASSWORD
+keyAlias=cora-key
+storeFile=../cora-release.keystore
