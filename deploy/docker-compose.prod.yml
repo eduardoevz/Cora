@@ -1,0 +1,55 @@
+services:
+  cora-backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    image: cora-backend:latest
+    restart: always
+    env_file:
+      - ../backend/.env.production
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1024M
+        reservations:
+          cpus: "0.5"
+          memory: 256M
+    networks:
+      - cora-network
+
+  caddy:
+    image: caddy:2-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - CORA_DOMAIN=${CORA_DOMAIN:-localhost}
+      - ACME_EMAIL=${ACME_EMAIL:-admin@cora.health}
+    depends_on:
+      cora-backend:
+        condition: service_healthy
+    networks:
+      - cora-network
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  cora-network:
+    driver: bridge

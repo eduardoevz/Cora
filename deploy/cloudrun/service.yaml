@@ -1,0 +1,76 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: cora-backend
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/execution-environment: gen2
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "10"
+        run.googleapis.com/cpu-throttling: "true"
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      containers:
+        - image: gcr.io/PROJECT_ID/cora-backend:latest
+          ports:
+            - name: http1
+              containerPort: 8000
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+          startupProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 8000
+            periodSeconds: 30
+          env:
+            - name: ENVIRONMENT
+              value: "production"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cora-database-url
+                  key: latest
+            - name: FIREBASE_PROJECT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cora-firebase-project-id
+                  key: latest
+            - name: R2_ENDPOINT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cora-r2-endpoint-url
+                  key: latest
+            - name: R2_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cora-r2-access-key-id
+                  key: latest
+            - name: R2_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cora-r2-secret-access-key
+                  key: latest
+            - name: R2_BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: cora-r2-bucket-name
+                  key: latest
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cora-gemini-api-key
+                  key: latest
