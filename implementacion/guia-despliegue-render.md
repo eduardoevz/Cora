@@ -1,13 +1,24 @@
 # Guía de Despliegue en Producción — Cora Backend en Render
 
 **Versión:** v1.0.0  
-**Fecha:** 2026-11-13  
-**Plataforma Cloud:** [Render.com](https://render.com)  
+**Fecha de Despliegue:** 2026-11-21  
+**Estado:** ✅ LIVE / EN PRODUCCIÓN  
+**URL Pública:** `https://cora-backend-h52h.onrender.com`  
+**Service ID:** `srv-dc0l4gk0916s73c2u180`  
+**Deploy ID:** `dep-dc0l4gs0916s73c2u28g`  
+**Plataforma Cloud:** [Render.com](https://render.com) (Región Ohio)  
 **Base de Datos Administrada:** Neon Serverless PostgreSQL 16 + `pgvector`  
 
 ---
 
-## 1. Resumen de la Arquitectura en Render
+## 1. Estado Actual del Servicio en Producción
+
+El backend de **Cora** se encuentra desplegado y plenamente operativo en Render:
+* **Endpoint Base:** [https://cora-backend-h52h.onrender.com](https://cora-backend-h52h.onrender.com)
+* **Health Check Probe:** [https://cora-backend-h52h.onrender.com/api/v1/health](https://cora-backend-h52h.onrender.com/api/v1/health) (HTTP 200 OK — `status: healthy`, latencia < 370ms)
+* **Documentación Interactiva Swagger / OpenAPI:** [https://cora-backend-h52h.onrender.com/docs](https://cora-backend-h52h.onrender.com/docs)
+* **Esquema OpenAPI Contract:** [https://cora-backend-h52h.onrender.com/openapi.json](https://cora-backend-h52h.onrender.com/openapi.json)
+* **Corpus RAG Indexado:** 6 guías clínicas canónicas (FIGO, ACOG, STRAW+10, EPDS, Vacunas, Fertilidad) con 21 chunks semánticos generados con `gemini-embedding-2` e indexados en Neon `pgvector`.
 
 El backend de **Cora** está empaquetado como un contenedor Docker optimizado (`backend/Dockerfile`) que corre bajo un usuario seguro sin privilegios (`USER cora`), con soporte nativo para generación de reportes clínicos PDF vía **WeasyPrint** (con librerías del sistema Pango, Cairo y HarfBuzz) y conexión asíncrona a Neon PostgreSQL con extensión `pgvector`.
 
