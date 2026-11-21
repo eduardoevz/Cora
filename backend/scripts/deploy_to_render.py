@@ -79,8 +79,8 @@ def create_web_service(
     owner_id: str,
     service_name: str,
     env_vars: list[dict[str, str]],
-    region: str = "oregon",
-    plan: str = "starter",
+    region: str = "ohio",
+    plan: str = "free",
 ) -> dict[str, Any]:
     """Create a new Docker web service connected to the Cora repository."""
     payload = {
@@ -94,11 +94,12 @@ def create_web_service(
             "env": "docker",
             "region": region,
             "plan": plan,
-            "dockerfilePath": "backend/Dockerfile",
-            "dockerContext": "backend",
             "healthCheckPath": "/api/v1/health",
             "preDeployCommand": "alembic upgrade head",
-            "envVars": env_vars,
+            "envSpecificDetails": {
+                "dockerfilePath": "./backend/Dockerfile",
+                "dockerContext": "./backend",
+            },
         },
     }
 
@@ -201,8 +202,8 @@ async def run_automated_deploy(
     render_api_key: str,
     gemini_api_key: str | None = None,
     database_url: str | None = None,
-    region: str = "oregon",
-    plan: str = "starter",
+    region: str = "ohio",
+    plan: str = "free",
     service_name: str = "cora-backend",
     skip_ingestion: bool = False,
     dry_run: bool = False,
@@ -347,13 +348,13 @@ def main() -> None:
     )
     parser.add_argument(
         "--region",
-        default="oregon",
+        default="ohio",
         choices=["oregon", "ohio", "frankfurt", "singapore"],
         help="Render deployment region",
     )
     parser.add_argument(
         "--plan",
-        default="starter",
+        default="free",
         choices=["free", "starter", "standard", "pro"],
         help="Render compute plan",
     )
