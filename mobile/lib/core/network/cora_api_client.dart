@@ -2,7 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final coraApiClientProvider = Provider<CoraApiClient>((ref) {
-  return CoraApiClient();
+  const defaultUrl = String.fromEnvironment(
+    'CORA_API_URL',
+    defaultValue: 'https://cora-backend-h52h.onrender.com/api/v1',
+  );
+  return CoraApiClient(baseUrl: defaultUrl);
 });
 
 class ProblemDetailsException implements Exception {
