@@ -14,12 +14,12 @@ import sys
 import time
 from typing import Any, cast
 
-from dotenv import load_dotenv
 import httpx
-
-load_dotenv()
+from dotenv import load_dotenv
 
 from app.core.config import get_settings
+
+load_dotenv()
 
 RENDER_API_BASE = "https://api.render.com/v1"
 
