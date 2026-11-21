@@ -14,7 +14,10 @@ import sys
 import time
 from typing import Any, cast
 
+from dotenv import load_dotenv
 import httpx
+
+load_dotenv()
 
 from app.core.config import get_settings
 
@@ -257,6 +260,7 @@ async def run_automated_deploy(
                 plan=plan,
             )
             service_id = str(new_service["id"])
+            update_service_env_vars(client, render_api_key, service_id, env_vars)
             service_url = new_service.get("serviceDetails", {}).get("url")
             # Wait for auto-triggered initial deploy
             time.sleep(5)
@@ -350,7 +354,7 @@ def main() -> None:
     parser.add_argument(
         "--plan",
         default="starter",
-        choices=["starter", "standard", "pro"],
+        choices=["free", "starter", "standard", "pro"],
         help="Render compute plan",
     )
     parser.add_argument(
