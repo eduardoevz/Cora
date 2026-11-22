@@ -1,94 +1,135 @@
 # Cora — Plataforma Integral y Preventiva de Salud Femenina
 
-**Cora** es un ecosistema móvil *Offline-First* diseñado para acompañar a la mujer de manera continua, empática y basada en evidencia científica a lo largo de las **7 etapas biológicas de su vida**, preservando un historial clínico longitudinal único sin pérdida de contexto entre transiciones vitales.
+[![Backend CI](https://github.com/eduardoevz/Cora/actions/workflows/ci-backend.yml/badge.svg?branch=main)](https://github.com/eduardoevz/Cora/actions/workflows/ci-backend.yml)
+[![Mobile CI](https://github.com/eduardoevz/Cora/actions/workflows/ci-mobile.yml/badge.svg?branch=main)](https://github.com/eduardoevz/Cora/actions/workflows/ci-mobile.yml)
+[![Security & OpenAPI](https://github.com/eduardoevz/Cora/actions/workflows/security-and-contracts.yml/badge.svg?branch=main)](https://github.com/eduardoevz/Cora/actions/workflows/security-and-contracts.yml)
+[![Latest Release](https://img.shields.io/github/v/release/eduardoevz/Cora?color=2E6F40&label=Release&logo=github)](https://github.com/eduardoevz/Cora/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B.svg?logo=flutter&logoColor=white)](https://flutter.dev)
+[![Architecture: Hexagonal](https://img.shields.io/badge/Architecture-Hexagonal%20%2B%20Offline--First-orange.svg)](#arquitectura-e-ingeniería)
+
+> **Cora** es un ecosistema de salud integral *Offline-First* diseñado para acompañar a la mujer de manera longitudinal, empática y basada en evidencia clínica a lo largo de las **7 etapas biológicas de su vida**. Ofrece sincronización local instantánea, triaje preventivo determinista y soberanía absoluta de datos personales y biomédicos.
 
 ---
 
-## Visión Funcional: 7 Etapas Biológicas + Núcleo Transversal
+## 📲 Descarga de la Aplicación Móvil (APK Oficial)
 
-Cora adapta su motor clínico, tono comunicacional y paneles interactivos mediante una máquina de estados longitudinal (`LifeStageStateMachine`):
+Puedes descargar e instalar directamente la última versión oficial de Cora en tu dispositivo Android:
 
-1. **Adolescencia (~10–19 años):** *Mi Primer Periodo*, guía de cambios corporales libre de estigmas, algoritmo tolerante a irregularidad posmenarquia y modo de privacidad con PIN independiente.
-2. **Juventud y Edad Reproductiva (~20–39 años):** Mapeo de 4 fases hormonales, gestión anticonceptiva, seguimiento adaptado a **SOP** y **Endometriosis**, y detección preventiva de patrones atípicos según criterios **FIGO**.
-3. **Búsqueda de Concepción:** Registro sintotérmico avanzado (temperatura basal corporal, moco cervical, pruebas de LH), preparación preconcepcional y consolidado para especialistas en fertilidad.
-4. **Embarazo:** Desarrollo fetal semana a semana, monitor materno de presión arterial, peso y glucosa con alertas preventivas **ACOG** (preeclampsia y diabetes gestacional), contador de contracciones, monitor de patadas y plan de parto.
-5. **Posparto y Crianza Inicial (Cuarto Trimestre):** Evolución de loquios y cicatrices, apoyo ergonómico a la lactancia y banco de leche, y despistaje validado de depresión posparto (**Escala de Edimburgo — EPDS**).
-6. **Perimenopausia y Menopausia (~40–55+ años):** Seguimiento de transición **STRAW+10**, mapa de sofocos diurnos/nocturnos y sueño, control de impacto de **TRH** y salud cardiometabólica.
-7. **Plenitud / Adulta Mayor:** Prevención de osteopenia/osteoporosis y riesgo de caídas, salud uroginecológica, interfaz de **Alta Legibilidad (WCAG AAA)** y botón directo de contacto familiar/soporte.
+[![Descargar APK v2.0.0](https://img.shields.io/badge/Descargar%20APK-v2.0.0%20(Release)-2E6F40?style=for-the-badge&logo=android&logoColor=white)](https://github.com/eduardoevz/Cora/releases/download/v2.0.0/cora-v2.0.0-release.apk)
 
-### Capacidades Transversales y Diferenciales
-- **Carpeta Clínica Digital y *Doctor-Ready PDF*:** Almacenamiento privado de exámenes en **Cloudflare R2**, cartilla de vacunación y exportación de resúmenes médicos de 1–2 páginas renderizados con **WeasyPrint**.
-- **Asistente Conversacional Clínico (RAG):** Triaje de urgencias sub-milisegundo (`DeterministicSafetyInterceptor`) + cruce del historial privado con literatura científica validada (OMS, ACOG, FIGO, NAMS) sobre **Neon `pgvector`** y **Google Gemini API (`gemini-3.8-flash` + `gemini-embedding-2`, `store=False`)**.
-- **Modo Acompañante (*Partner View*) y Modo Discreto:** Compartición selectiva revocable en tiempo real, bloqueo biométrico, icono camuflable, notificaciones neutras y soberanía total de datos (exportación portable y purga irreversible).
+* **Versión:** `v2.0.0` (*Warm Botanical Health Editorial — Google Stitch Hybrid*)
+* **Binario Universal:** `cora-v2.0.0-release.apk` (65.0 MB)
+* **Compatibilidad:** Android 8.0 (API 26) o superior (Optimizado para Android 14/15 y pantallas de alta densidad)
+* **Historial Completo de Versiones y Notas de Lanzamiento:** [GitHub Releases de Cora](https://github.com/eduardoevz/Cora/releases)
 
 ---
 
-## Arquitectura e Ingeniería
+## 🌸 Las 7 Etapas Biológicas de la Mujer en Cora
+
+Cora adapta dinámicamente sus paneles, algoritmos clínicos, vocabulario y niveles de contraste mediante la máquina de estados longitudinal `LifeStageStateMachine`:
+
+1. **Adolescencia (~10–19 años):** *Mi Primer Periodo*, educación menstrual desestigmatizada, algoritmo tolerante a la variabilidad posmenarquia (21–45 días) y modo de privacidad con PIN independiente.
+2. **Juventud y Edad Reproductiva (~20–39 años):** Mapeo de las 4 fases hormonales, calendario menstrual interactivo, gestión anticonceptiva, seguimiento especializado para **SOP** y **Endometriosis**, y detección preventiva de sangrado uterino anormal según criterios **FIGO**.
+3. **Búsqueda de Concepción:** Registro sintotérmico avanzado (curva de Temperatura Basal Corporal con algoritmo 3-sobre-6, moco cervical y picos de LH), checklist preconcepcional y consolidado para especialistas en fertilidad.
+4. **Embarazo:** Desarrollo fetal semana a semana, monitor materno de presión arterial con banderas rojas inmediatas de preeclampsia severa (**ACOG**), cronómetro de contracciones 5-1-1, contador de patadas (método Cardiff) y plan de parto.
+5. **Posparto y Crianza Inicial (Cuarto Trimestre):** Evolución de loquios e involución uterina, cronómetro dual de lactancia y banco de leche FIFO, y tamizaje validado de salud mental posparto (**Escala de Edimburgo — EPDS**) con banner de crisis 24/7 si el ítem 10 es positivo.
+6. **Perimenopausia y Menopausia (~40–55+ años):** Clasificación de transición hormonal **STRAW+10**, diario de sofocos con escala Greene, monitoreo de Terapia de Reemplazo Hormonal (TRH) y factores de riesgo cardiometabólico.
+7. **Plenitud y Vitalidad Sénior:** Prevención de osteoporosis (T-Score DXA), prevención de caídas y fragilidad, salud uroginecológica, interfaz nativa de **Alta Legibilidad (WCAG AAA >= 7:1)** y botón directo de contacto de confianza.
+
+---
+
+## 🛡️ Capacidades Diferenciales y Soberanía
+
+* **Arquitectura Offline-First Real:** Toda acción de registro persiste primero en la base de datos local **Drift (SQLite + SQLCipher)** y encola mutaciones idempotentes (`client_mutation_id`) en una bandeja de salida (`SyncOutboxService`). La aplicación funciona con 0% de conectividad.
+* **Triaje Clínico Determinista (`DeterministicSafetyInterceptor`):** Ninguna consulta libre de urgencia llega al LLM. Los signos de alarma (hemorragia aguda, hipertensión severa en embarazo, ideación autolesiva en EPDS) activan derivación médica inmediata en sub-milisegundos.
+* **IA RAG Clínica Ética y Privada:** Motor conversacional sobre literatura médica canónica indexada en **Neon PostgreSQL con `pgvector` (HNSW)** y **Google Gemini API** (`gemini-3.8-flash` + `gemini-embedding-2`) configurado con **`store=False`** (cero retención de datos clínicos para entrenamiento).
+* **Carpeta Clínica Digital y *Doctor-Ready PDF*:** Almacenamiento seguro en **Cloudflare R2** (*zero-egress fees*) y exportación de resúmenes clínicos de alta fidelidad renderizados con **WeasyPrint** listos para entregar a la ginecóloga u obstetra.
+* **Modo Acompañante (*Partner View*) y Modo Discreto:** Permisos granulares de sólo lectura para parejas, camuflaje de icono en el launcher de Android y eliminación irreversible de cuenta (**Derecho al Olvido / GDPR**) en un solo paso.
+
+---
+
+## 🏗️ Arquitectura e Ingeniería
 
 ```mermaid
 flowchart LR
-    subgraph Client["Mobile App (Flutter 3.x)"]
-        RP["Presentation (Riverpod + WCAG AAA)"]
-        DM["Domain (Pure Dart UseCases)"]
-        DR["Data (Drift SQLite + SQLCipher + SyncOutbox)"]
+    subgraph Client["Aplicación Móvil (Flutter 3.x)"]
+        RP["Presentación (Riverpod + Stitch UI + WCAG AAA)"]
+        DM["Dominio (UseCases puros en Dart)"]
+        DR["Datos (Drift SQLite + SQLCipher + SyncOutbox)"]
         RP --> DM --> DR
     end
 
-    subgraph API["Backend Modular Monolith (FastAPI + Hexagonal)"]
+    subgraph API["Monolito Modular Backend (FastAPI + Hexagonal)"]
         EP["Entrypoints (REST OpenAPI 3.1 + RFC 7807)"]
-        AP["Application (UseCases + Ports)"]
-        DO["Domain (Pure Clinical TDD: FIGO, ACOG, EPDS, STRAW+10)"]
-        AD["Adapters (SQLAlchemy Async, R2, Gemini, WeasyPrint)"]
+        AP["Aplicación (Casos de Uso + Puertos)"]
+        DO["Dominio Puro (TDD Biomédico: FIGO, ACOG, EPDS, STRAW+10)"]
+        AD["Adaptadores (SQLAlchemy Async, R2, Gemini, WeasyPrint)"]
         EP --> AP --> DO
         AP --> AD
     end
 
-    DR <-->|"Idempotent Offline-First Sync"| EP
-    AD --> PG[("Neon PostgreSQL + pgvector HNSW")]
-    AD --> R2[("Cloudflare R2 (Presigned URLs)")]
+    DR <-->|"Sincronización Idempotente Offline-First"| EP
+    AD --> PG[("Neon PostgreSQL + pgvector")]
+    AD --> R2[("Cloudflare R2 (URLs Prefirmadas)")]
     AD --> GM["Google Gemini API (store=False)"]
 ```
 
-### Stack Tecnológico Principal
+### Stack Tecnológico
 
-| Capa | Tecnología |
-| :--- | :--- |
-| **Móvil (iOS / Android)** | Flutter 3.x, Dart 3.x, **Riverpod** (`AsyncNotifier`), **Drift** (SQLite + SQLCipher *Offline-First*) |
-| **Backend API** | Python 3.12+, **FastAPI**, Pydantic v2, **SQLAlchemy 2.0 Async** (`asyncpg`), **Alembic** |
-| **Datos y Búsqueda Vectorial** | **Neon Serverless PostgreSQL** + **`pgvector`** (índice HNSW) |
-| **IA Clínica y Reportes** | **`google-genai >= 2.30.1`** (`gemini-3.8-flash` + `gemini-embedding-2`), **WeasyPrint** + **Jinja2** |
-| **Seguridad y Almacenamiento** | **Firebase Authentication** (JWT), **Cloudflare R2** (S3-compatible *zero-egress*) |
-| **Calidad y Automatización** | SDD (OpenAPI Contract-First), TDD Biomédico, Docker, **GitHub Actions CI/CD** |
+| Capa | Tecnología | Propósito |
+| :--- | :--- | :--- |
+| **Mobile** | Flutter 3.x / Dart 3.x | Multiplataforma nativa para iOS y Android |
+| **Estado y Datos Locales** | Riverpod (`AsyncNotifier`) + Drift | Inmutabilidad, reactividad y persistencia *Offline-First* |
+| **Backend API** | FastAPI / Python 3.12+ | Monolito modular hexagonal de alto rendimiento |
+| **Persistencia y Vectores** | Neon Serverless PostgreSQL + `pgvector` | Base de datos relacional y búsqueda semántica HNSW |
+| **IA y Modelos** | Google GenAI SDK (`gemini-3.8-flash`) | Asistente RAG con citations clínicas y `store=False` |
+| **Almacenamiento Seguro** | Cloudflare R2 | Almacenamiento S3 de estudios médicos sin costos de salida |
+| **Reportes Médicos** | WeasyPrint + Jinja2 | Generación determinista de reportes *Doctor-Ready PDF* |
+| **Autenticación** | Firebase Authentication | Validación de tokens Bearer JWT en backend |
 
 ---
 
-## Estructura Documental y Desarrollo por Fases
+## 🚀 Puesta en Marcha en Local
 
-El desarrollo está estructurado en **16 fases modulares** (Fases `01–12` de **Cora v1.0** y Fases `13–16` de **Cora v2.0** con Google Stitch, Onboarding de 2 periodos, Calendario Menstrual Interactivo de 7 etapas y Rediseño UX/UI del Home + `CoraNavigationDrawer`), diseñadas para ejecutarse sesión por sesión con reglas estrictas de arquitectura, pruebas y commits atómicos:
+### 1. Clonar el Repositorio
+```bash
+git clone https://github.com/eduardoevz/Cora.git
+cd Cora
+```
 
-- **Especificación de Producto:** [docs/SPECS.MD](./docs/SPECS.MD)
-- **Sistema de Diseño Semántico (Cora v2.0 + Google Stitch):** [docs/DESIGN.md](./docs/DESIGN.md)
-- **Especificación Técnica y Arquitectura:** [docs/desarrollo.md](./docs/desarrollo.md)
-- **Guía de Despliegue y Lanzamiento:** [docs/DEPLOYMENT_AND_RELEASE.md](./docs/DEPLOYMENT_AND_RELEASE.md)
-- **Reglas del Agente y Estándares de Ingeniería:** [AGENTS.md](./AGENTS.md) y [.agents/rules/](./.agents/rules/)
-- **Hoja de Ruta Maestra (Fases 01 a 16):** [docs/phases/README.md](./docs/phases/README.md)
-- **Bitácora de Documentación por Fase Completada:** [documentacion/README.md](./documentacion/README.md)
+### 2. Backend (FastAPI)
+```bash
+cd backend
+# Con uv (recomendado)
+uv venv
+uv sync
+uv run pytest tests/unit -q
+uv run uvicorn app.main:app --reload --port 8000
+```
 
-| Fase | Plan Detallado | Enfoque |
-| :--- | :--- | :--- |
-| **01** | [phase-01-foundation-and-cicd.md](./docs/phases/phase-01-foundation-and-cicd.md) | Monorepo `backend/` + `mobile/`, Docker `pgvector`, `SyncCoordinator` y GitHub Actions CI/CD |
-| **02** | [phase-02-identity-onboarding-lifestage.md](./docs/phases/phase-02-identity-onboarding-lifestage.md) | Firebase JWT, Onboarding de 3 Capas, `LifeStageStateMachine` y *Home Dashboard* dinámico |
-| **03** | [phase-03-wellness-and-treatments.md](./docs/phases/phase-03-wellness-and-treatments.md) | Registro diario de Bienestar/Hábitos y Gestor de Tratamientos/Fármacos *Offline-First* |
-| **04** | [phase-04-cycle-reproductive-adolescence.md](./docs/phases/phase-04-cycle-reproductive-adolescence.md) | Etapas 1 y 2: Ciclo de 4 fases, Adolescencia + PIN, SOP/Endometriosis y alertas **FIGO** |
-| **05** | [phase-05-fertility-and-conception.md](./docs/phases/phase-05-fertility-and-conception.md) | Etapa 3: Fertilidad sintotérmica (TBC, moco cervical, LH) y preparación preconcepcional |
-| **06** | [phase-06-pregnancy-maternal-care.md](./docs/phases/phase-06-pregnancy-maternal-care.md) | Etapa 4: Embarazo semana a semana, alertas **ACOG** (preeclampsia/DG), contracciones y patadas |
-| **07** | [phase-07-postpartum-lactation-mental-health.md](./docs/phases/phase-07-postpartum-lactation-mental-health.md) | Etapa 5: Recuperación posparto, lactancia/banco de leche y tamizaje **EPDS** |
-| **08** | [phase-08-menopause-and-senior-vitality.md](./docs/phases/phase-08-menopause-and-senior-vitality.md) | Etapas 6 y 7: Transición **STRAW+10**, sofocos, TRH, salud ósea/caídas y UI WCAG AAA |
-| **09** | [phase-09-medical-records-r2-pdf.md](./docs/phases/phase-09-medical-records-r2-pdf.md) | Carpeta Clínica Digital, vacunas, Cloudflare R2 y reportes **Doctor-Ready PDF** |
-| **10** | [phase-10-education-and-clinical-rag.md](./docs/phases/phase-10-education-and-clinical-rag.md) | Biblioteca clínica curada, búsqueda `pgvector` HNSW, triaje determinista y chat RAG |
-| **11** | [phase-11-partner-view-privacy-gdpr.md](./docs/phases/phase-11-partner-view-privacy-gdpr.md) | *Partner View* selectivo, SQLCipher, biometría, icono camuflable y purga irreversible GDPR |
-| **12** | [phase-12-qa-e2e-security-release.md](./docs/phases/phase-12-qa-e2e-security-release.md) | Suite E2E completa, auditoría BOLA/prompt-injection, benchmarks y Release CD |
-| **13** | [phase-13-design-system-and-stitch.md](./docs/phases/phase-13-design-system-and-stitch.md) | **Cora v2.0:** Sistema de Diseño semántico (`docs/DESIGN.md`) + Google Stitch y `CoraColorTokens` |
-| **14** | [phase-14-onboarding-menstrual-baseline-and-engine.md](./docs/phases/phase-14-onboarding-menstrual-baseline-and-engine.md) | Onboarding de últimos 2 periodos, regularidad/duración del ciclo y motor `CycleCalendarEngine` |
-| **15** | [phase-15-interactive-menstrual-calendar.md](./docs/phases/phase-15-interactive-menstrual-calendar.md) | **Calendario Menstrual Interactivo** mensual con marcadores WCAG, detalle diario y 7 etapas |
-| **16** | [phase-16-home-ux-redesign-drawer-and-qa.md](./docs/phases/phase-16-home-ux-redesign-drawer-and-qa.md) | **Rediseño UX/UI del Home** limpio, `CoraNavigationDrawer`, QA Android Studio y Release v2.0 |
+### 3. Aplicación Móvil (Flutter)
+```bash
+cd mobile
+flutter pub get
+flutter test
+flutter run -d chrome # o emulador Android
+```
+
+---
+
+## 📚 Documentación Técnica y Hoja de Ruta
+
+* **Sistema de Diseño Semántico (Cora v2.0):** [`docs/DESIGN.md`](./docs/DESIGN.md)
+* **Especificación Funcional Completa:** [`docs/SPECS.MD`](./docs/SPECS.MD)
+* **Arquitectura y Estándares de Desarrollo:** [`docs/desarrollo.md`](./docs/desarrollo.md)
+* **Guía de Despliegue en Producción (Render & Neon):** [`docs/DEPLOYMENT_AND_RELEASE.md`](./docs/DEPLOYMENT_AND_RELEASE.md)
+* **Reporte de Auditoría y Certificación de Producción:** [`documentacion/auditoria-sistema-produccion.md`](./documentacion/auditoria-sistema-produccion.md)
+* **Hoja de Ruta de Fases:** [`docs/phases/README.md`](./docs/phases/README.md) y Bitácora en [`documentacion/README.md`](./documentacion/README.md)
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia [MIT](LICENSE). Todos los derechos reservados.
