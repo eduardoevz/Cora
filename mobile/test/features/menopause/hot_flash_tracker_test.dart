@@ -100,7 +100,8 @@ void main() {
       expect(stage, Straw10Stage.postmenopause);
     });
 
-    test('Inviolable postmenopausal bleeding alert triggers when >= 365 days', () {
+    test('Inviolable postmenopausal bleeding alert triggers when >= 365 days',
+        () {
       final alert = evaluator.evaluateBleedingSafety(
         daysPriorAmenorrhea: 400,
       );
@@ -110,7 +111,8 @@ void main() {
       expect(alert.requiresImmediateEvaluation, isTrue);
     });
 
-    test('No postmenopausal alert when bleeding happens during late transition', () {
+    test('No postmenopausal alert when bleeding happens during late transition',
+        () {
       final alert = evaluator.evaluateBleedingSafety(
         daysPriorAmenorrhea: 80,
       );
@@ -220,7 +222,8 @@ void main() {
       );
 
       // Verify hot flash summary
-      expect(find.textContaining('Total episodios recientes: 1'), findsOneWidget);
+      expect(
+          find.textContaining('Total episodios recientes: 1'), findsOneWidget);
     });
   });
 }

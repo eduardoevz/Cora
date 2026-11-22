@@ -49,7 +49,8 @@ class PartnerCompanionViewPage extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.visibility_outlined, size: 16, color: Colors.teal.shade800),
+                Icon(Icons.visibility_outlined,
+                    size: 16, color: Colors.teal.shade800),
                 const SizedBox(width: 4),
                 Text(
                   'Solo Lectura',
@@ -145,7 +146,8 @@ class PartnerCompanionViewPage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(Icons.pause_circle_outline, size: 48, color: Colors.amber.shade800),
+          Icon(Icons.pause_circle_outline,
+              size: 48, color: Colors.amber.shade800),
           const SizedBox(height: 12),
           const Text(
             'Enlace en pausa o revocado',
@@ -173,7 +175,8 @@ class PartnerCompanionViewPage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(Icons.lock_clock_outlined, size: 48, color: Colors.grey.shade600),
+          Icon(Icons.lock_clock_outlined,
+              size: 48, color: Colors.grey.shade600),
           const SizedBox(height: 12),
           const Text(
             'Sin información compartida por ahora',

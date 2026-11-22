@@ -8,7 +8,8 @@ import 'package:mobile/features/privacy/presentation/pages/privacy_and_data_sove
 
 void main() {
   group('PartnerSharingSettingsPage', () {
-    testWidgets('allows toggling permissions and revoking active link', (tester) async {
+    testWidgets('allows toggling permissions and revoking active link',
+        (tester) async {
       tester.view.physicalSize = const Size(800, 1600);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -38,7 +39,8 @@ void main() {
       );
 
       // Verify code display
-      expect(find.byKey(const Key('active_invitation_code_display')), findsOneWidget);
+      expect(find.byKey(const Key('active_invitation_code_display')),
+          findsOneWidget);
       expect(find.text('CORA-XYZ123'), findsOneWidget);
 
       final fertilitySwitch = find.byKey(const Key('switch_share_fertility'));
@@ -72,7 +74,8 @@ void main() {
       expect(revokeCalled, isTrue);
     });
 
-    testWidgets('allows generating invitation when button is pressed', (tester) async {
+    testWidgets('allows generating invitation when button is pressed',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: PartnerSharingSettingsPage(
@@ -81,17 +84,21 @@ void main() {
         ),
       );
 
-      expect(find.byKey(const Key('generate_invitation_code_button')), findsOneWidget);
-      await tester.tap(find.byKey(const Key('generate_invitation_code_button')));
+      expect(find.byKey(const Key('generate_invitation_code_button')),
+          findsOneWidget);
+      await tester
+          .tap(find.byKey(const Key('generate_invitation_code_button')));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('active_invitation_code_display')), findsOneWidget);
+      expect(find.byKey(const Key('active_invitation_code_display')),
+          findsOneWidget);
       expect(find.text('CORA-NEW999'), findsOneWidget);
     });
   });
 
   group('PartnerCompanionViewPage', () {
-    testWidgets('shows read-only badge and projected cards when authorized', (tester) async {
+    testWidgets('shows read-only badge and projected cards when authorized',
+        (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: PartnerCompanionViewPage(
@@ -100,7 +107,8 @@ void main() {
               isLinkActive: true,
               pregnancyMilestone: 'Semana 24: El bebé puede percibir sonidos.',
               fertilityWindowSummary: 'Ventana fértil estimada: Días 12 a 16.',
-              moodAndSupportTip: 'Días con sensibilidad emocional alta; una caminata tranquila ayuda.',
+              moodAndSupportTip:
+                  'Días con sensibilidad emocional alta; una caminata tranquila ayuda.',
             ),
           ),
         ),
@@ -111,10 +119,13 @@ void main() {
       expect(find.byKey(const Key('card_pregnancy_milestone')), findsOneWidget);
       expect(find.byKey(const Key('card_fertility_window')), findsOneWidget);
       expect(find.byKey(const Key('card_mood_tip')), findsOneWidget);
-      expect(find.text('Semana 24: El bebé puede percibir sonidos.'), findsOneWidget);
+      expect(find.text('Semana 24: El bebé puede percibir sonidos.'),
+          findsOneWidget);
     });
 
-    testWidgets('shows empty notice when link is active but no scopes are shared', (tester) async {
+    testWidgets(
+        'shows empty notice when link is active but no scopes are shared',
+        (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: PartnerCompanionViewPage(
@@ -129,11 +140,13 @@ void main() {
         ),
       );
 
-      expect(find.byKey(const Key('partner_empty_shared_notice')), findsOneWidget);
+      expect(
+          find.byKey(const Key('partner_empty_shared_notice')), findsOneWidget);
       expect(find.text('Sin información compartida por ahora'), findsOneWidget);
     });
 
-    testWidgets('shows inactive notice when link is paused or revoked', (tester) async {
+    testWidgets('shows inactive notice when link is paused or revoked',
+        (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: PartnerCompanionViewPage(
@@ -151,7 +164,8 @@ void main() {
   });
 
   group('PrivacyAndDataSovereigntyPage', () {
-    testWidgets('enforces strict phrase confirmation for account purge', (tester) async {
+    testWidgets('enforces strict phrase confirmation for account purge',
+        (tester) async {
       tester.view.physicalSize = const Size(800, 1800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
@@ -179,7 +193,8 @@ void main() {
       await tester.tap(openDialogBtn);
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('purge_confirmation_dialog')), findsOneWidget);
+      expect(
+          find.byKey(const Key('purge_confirmation_dialog')), findsOneWidget);
 
       final confirmButtonFinder = find.byKey(const Key('purge_confirm_button'));
       // Initially disabled

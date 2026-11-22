@@ -141,10 +141,10 @@ class _BirthPlanAndAppointmentsPageState
                               final picked = await showDatePicker(
                                 context: context,
                                 initialDate: selectedDate,
-                                firstDate: DateTime.now().subtract(
-                                    const Duration(days: 30)),
-                                lastDate: DateTime.now().add(
-                                    const Duration(days: 300)),
+                                firstDate: DateTime.now()
+                                    .subtract(const Duration(days: 30)),
+                                lastDate: DateTime.now()
+                                    .add(const Duration(days: 300)),
                               );
                               if (picked != null) {
                                 setModalState(() => selectedDate = picked);
@@ -196,7 +196,8 @@ class _BirthPlanAndAppointmentsPageState
                     TextField(
                       controller: topicsController,
                       decoration: const InputDecoration(
-                        labelText: 'Preguntas / Temas para la consulta (separar por coma)',
+                        labelText:
+                            'Preguntas / Temas para la consulta (separar por coma)',
                         prefixIcon: Icon(Icons.question_answer),
                         border: OutlineInputBorder(),
                       ),
@@ -251,8 +252,7 @@ class _BirthPlanAndAppointmentsPageState
                             isCompleted: false,
                           );
 
-                          final user =
-                              ref.read(activeUserProfileProvider);
+                          final user = ref.read(activeUserProfileProvider);
                           final userId = user?.id ?? 'current_user';
 
                           await ref
@@ -617,7 +617,8 @@ class _BirthPlanAndAppointmentsPageState
                           Text(
                             'Notas: ${apt.notes}',
                             style: const TextStyle(
-                                fontStyle: FontStyle.italic, color: Colors.black87),
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black87),
                           ),
                         ],
                       ],

@@ -95,7 +95,8 @@ class _ConceptionHubPageState extends ConsumerState<ConceptionHubPage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.info_outline, color: Color(0xFFD97706), size: 20),
+                const Icon(Icons.info_outline,
+                    color: Color(0xFFD97706), size: 20),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -307,7 +308,7 @@ class _QuickFertilityLogSheetState
 
   @override
   void dispose() {
-    _tempController.dispose() ;
+    _tempController.dispose();
     _notesController.dispose();
     super.dispose();
   }
@@ -390,7 +391,8 @@ class _QuickFertilityLogSheetState
                 DropdownMenuItem(value: 'dry', child: Text('Seco / Poco')),
                 DropdownMenuItem(value: 'sticky', child: Text('Pegajoso')),
                 DropdownMenuItem(value: 'creamy', child: Text('Cremoso')),
-                DropdownMenuItem(value: 'watery', child: Text('Acuoso (Fértil)')),
+                DropdownMenuItem(
+                    value: 'watery', child: Text('Acuoso (Fértil)')),
                 DropdownMenuItem(
                     value: 'egg_white',
                     child: Text('Clara de huevo (Muy Fértil)')),
@@ -416,7 +418,8 @@ class _QuickFertilityLogSheetState
               items: const [
                 DropdownMenuItem(value: 'negative', child: Text('Negativo')),
                 DropdownMenuItem(value: 'high', child: Text('Alto')),
-                DropdownMenuItem(value: 'peak', child: Text('Pico (Ovulatorio)')),
+                DropdownMenuItem(
+                    value: 'peak', child: Text('Pico (Ovulatorio)')),
               ],
               onChanged: (val) => setState(() => _lhResult = val ?? 'negative'),
             ),

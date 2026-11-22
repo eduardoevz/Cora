@@ -74,7 +74,8 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
 
     if (sys == null && dia == null && glu == null && wt == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Ingresa al menos un valor de signo vital')),
+        const SnackBar(
+            content: Text('Ingresa al menos un valor de signo vital')),
       );
       return;
     }
@@ -287,7 +288,8 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
                             labelText: 'Glucosa (mg/dL)',
                             hintText: 'ej. 92.0',
                             border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.bloodtype, color: Colors.teal),
+                            prefixIcon:
+                                Icon(Icons.bloodtype, color: Colors.teal),
                           ),
                         ),
                       ),
@@ -360,7 +362,8 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
                     },
                   ),
                   CheckboxListTile(
-                    title: const Text('Dolor en boca del estómago / epigastralgia'),
+                    title: const Text(
+                        'Dolor en boca del estómago / epigastralgia'),
                     value: _epigastricPain,
                     dense: true,
                     onChanged: (val) {
@@ -420,9 +423,10 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
 
               return Column(
                 children: history.map((h) {
-                  final bpText = (h.systolicMmhg != null && h.diastolicMmhg != null)
-                      ? '${h.systolicMmhg}/${h.diastolicMmhg} mmHg'
-                      : 'PA no registrada';
+                  final bpText =
+                      (h.systolicMmhg != null && h.diastolicMmhg != null)
+                          ? '${h.systolicMmhg}/${h.diastolicMmhg} mmHg'
+                          : 'PA no registrada';
                   final gluText = h.glucoseMgDl != null
                       ? '${h.glucoseMgDl} mg/dL (${h.glucoseTiming})'
                       : '';
@@ -442,7 +446,8 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
                         '$bpText ${gluText.isNotEmpty ? "• $gluText" : ""}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: hasAlert ? Colors.red.shade900 : Colors.black87,
+                          color:
+                              hasAlert ? Colors.red.shade900 : Colors.black87,
                         ),
                       ),
                       subtitle: Text(

@@ -111,9 +111,8 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
                     padding: const EdgeInsets.all(12),
                     constraints: const BoxConstraints(maxWidth: 520),
                     decoration: BoxDecoration(
-                      color: isUser
-                          ? Colors.teal.shade700
-                          : Colors.grey.shade100,
+                      color:
+                          isUser ? Colors.teal.shade700 : Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

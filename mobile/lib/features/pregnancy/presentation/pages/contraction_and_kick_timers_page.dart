@@ -97,7 +97,8 @@ class _ContractionAndKickTimersPageState
     final session = ContractionSessionEntity(
       id: const Uuid().v4(),
       pregnancyEpisodeId: widget.episode.id,
-      startedAt: DateTime.parse(_currentContractions.first['started_at'] as String),
+      startedAt:
+          DateTime.parse(_currentContractions.first['started_at'] as String),
       endedAt: DateTime.now(),
       gestationalWeeks: widget.gestationalWeeks,
       pattern: evaluation.pattern,
@@ -248,7 +249,8 @@ class _ContractionAndKickTimersPageState
         // Timer Card
         Card(
           elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           color: _isContracting ? Colors.pink.shade50 : Colors.grey.shade50,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
@@ -261,7 +263,8 @@ class _ContractionAndKickTimersPageState
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: _isContracting ? Colors.pink.shade700 : Colors.black87,
+                    color:
+                        _isContracting ? Colors.pink.shade700 : Colors.black87,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -271,7 +274,9 @@ class _ContractionAndKickTimersPageState
                     fontSize: 48,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'monospace',
-                    color: _isContracting ? Colors.pink.shade600 : Colors.grey.shade700,
+                    color: _isContracting
+                        ? Colors.pink.shade600
+                        : Colors.grey.shade700,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -282,7 +287,9 @@ class _ContractionAndKickTimersPageState
                       label: const Text('Leve'),
                       selected: _selectedIntensity == 'mild',
                       onSelected: (selected) {
-                        if (selected) setState(() => _selectedIntensity = 'mild');
+                        if (selected) {
+                          setState(() => _selectedIntensity = 'mild');
+                        }
                       },
                     ),
                     const SizedBox(width: 8),
@@ -290,7 +297,9 @@ class _ContractionAndKickTimersPageState
                       label: const Text('Moderada'),
                       selected: _selectedIntensity == 'moderate',
                       onSelected: (selected) {
-                        if (selected) setState(() => _selectedIntensity = 'moderate');
+                        if (selected) {
+                          setState(() => _selectedIntensity = 'moderate');
+                        }
                       },
                     ),
                     const SizedBox(width: 8),
@@ -298,7 +307,9 @@ class _ContractionAndKickTimersPageState
                       label: const Text('Intensa'),
                       selected: _selectedIntensity == 'strong',
                       onSelected: (selected) {
-                        if (selected) setState(() => _selectedIntensity = 'strong');
+                        if (selected) {
+                          setState(() => _selectedIntensity = 'strong');
+                        }
                       },
                     ),
                   ],
@@ -311,10 +322,11 @@ class _ContractionAndKickTimersPageState
                       ? 'Detener Contracción'
                       : 'Iniciar Contracción'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _isContracting ? Colors.pink.shade600 : Colors.purple,
+                    backgroundColor:
+                        _isContracting ? Colors.pink.shade600 : Colors.purple,
                     foregroundColor: Colors.white,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -336,7 +348,8 @@ class _ContractionAndKickTimersPageState
             children: [
               Text(
                 'Contracciones en esta sesión (${_currentContractions.length})',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               ElevatedButton.icon(
                 onPressed: _saveContractionSession,
@@ -367,7 +380,8 @@ class _ContractionAndKickTimersPageState
                 ),
                 title: Text(
                     'Hora: ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}'),
-                subtitle: Text('Intensidad: $intensity • Duración: $dur segundos'),
+                subtitle:
+                    Text('Intensidad: $intensity • Duración: $dur segundos'),
               ),
             );
           }),
@@ -413,13 +427,14 @@ class _ContractionAndKickTimersPageState
     );
   }
 
-  Widget _buildContractionEvaluationCard(({
-    String pattern,
-    MaternalAlertEntity? alert,
-    double avgIntervalMinutes,
-    double avgDurationSeconds,
-    int totalContractions,
-  }) eval) {
+  Widget _buildContractionEvaluationCard(
+      ({
+        String pattern,
+        MaternalAlertEntity? alert,
+        double avgIntervalMinutes,
+        double avgDurationSeconds,
+        int totalContractions,
+      }) eval) {
     Color cardColor = Colors.blue.shade50;
     Color borderColor = Colors.blue.shade300;
     IconData icon = Icons.info_outline;
@@ -473,7 +488,8 @@ class _ContractionAndKickTimersPageState
               const SizedBox(height: 8),
               Text(
                 'Recomendación: ${eval.alert!.actionRecommended}',
-                style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600, color: Colors.black87),
               ),
             ],
           ],
@@ -495,7 +511,8 @@ class _ContractionAndKickTimersPageState
         // Kick Counter Card
         Card(
           elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           color: Colors.purple.shade50,
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -513,9 +530,13 @@ class _ContractionAndKickTimersPageState
                       ),
                     ),
                     Text(
-                      _isKickSessionActive ? 'Sesión en curso' : 'Sesión pausada',
+                      _isKickSessionActive
+                          ? 'Sesión en curso'
+                          : 'Sesión pausada',
                       style: TextStyle(
-                        color: _isKickSessionActive ? Colors.green.shade700 : Colors.grey,
+                        color: _isKickSessionActive
+                            ? Colors.green.shade700
+                            : Colors.grey,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -527,7 +548,9 @@ class _ContractionAndKickTimersPageState
                   style: TextStyle(
                     fontSize: 54,
                     fontWeight: FontWeight.bold,
-                    color: _kicksCount >= 10 ? Colors.teal : Colors.purple.shade700,
+                    color: _kicksCount >= 10
+                        ? Colors.teal
+                        : Colors.purple.shade700,
                   ),
                 ),
                 const Text(
@@ -549,7 +572,8 @@ class _ContractionAndKickTimersPageState
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 36, vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -561,8 +585,12 @@ class _ContractionAndKickTimersPageState
                   children: [
                     TextButton.icon(
                       onPressed: _toggleKickSession,
-                      icon: Icon(_isKickSessionActive ? Icons.pause : Icons.play_arrow),
-                      label: Text(_isKickSessionActive ? 'Pausar Cronómetro' : 'Iniciar Tiempo'),
+                      icon: Icon(_isKickSessionActive
+                          ? Icons.pause
+                          : Icons.play_arrow),
+                      label: Text(_isKickSessionActive
+                          ? 'Pausar Cronómetro'
+                          : 'Iniciar Tiempo'),
                     ),
                     const SizedBox(width: 16),
                     ElevatedButton.icon(
@@ -674,8 +702,9 @@ class _ContractionAndKickTimersPageState
                   margin: const EdgeInsets.only(bottom: 8),
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor:
-                          s.isReassuring ? Colors.teal.shade100 : Colors.red.shade100,
+                      backgroundColor: s.isReassuring
+                          ? Colors.teal.shade100
+                          : Colors.red.shade100,
                       child: Icon(
                         s.isReassuring ? Icons.check : Icons.warning,
                         color: s.isReassuring ? Colors.teal : Colors.red,

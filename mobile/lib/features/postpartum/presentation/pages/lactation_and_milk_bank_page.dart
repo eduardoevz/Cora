@@ -28,8 +28,7 @@ class _LactationAndMilkBankPageState
   OfferedBreast _activeTimerBreast = OfferedBreast.none;
   OfferedBreast _lastOfferedBreast = OfferedBreast.none;
   FeedingType _feedingType = FeedingType.breastOnly;
-  final TextEditingController _bottleVolumeController =
-      TextEditingController();
+  final TextEditingController _bottleVolumeController = TextEditingController();
   final TextEditingController _timerNotesController = TextEditingController();
   bool _isSavingSession = false;
 
@@ -107,7 +106,8 @@ class _LactationAndMilkBankPageState
     if (totalSecs == 0 && _bottleVolumeController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Registra al menos un minuto de toma o volumen en biberón'),
+          content:
+              Text('Registra al menos un minuto de toma o volumen en biberón'),
         ),
       );
       return;
@@ -117,8 +117,8 @@ class _LactationAndMilkBankPageState
     try {
       final now = DateTime.now();
       final start = _sessionStart ?? now.subtract(Duration(seconds: totalSecs));
-      final double? bottleVol =
-          double.tryParse(_bottleVolumeController.text.trim().replaceAll(',', '.'));
+      final double? bottleVol = double.tryParse(
+          _bottleVolumeController.text.trim().replaceAll(',', '.'));
 
       final session = LactationSession(
         id: const Uuid().v4(),
@@ -203,8 +203,8 @@ class _LactationAndMilkBankPageState
                     TextField(
                       controller: volController,
                       key: const Key('input_milk_volume'),
-                      keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
                       decoration: const InputDecoration(
                         labelText: 'Volumen extraído (ml)',
                         prefixIcon: Icon(Icons.water_drop),
@@ -261,9 +261,8 @@ class _LactationAndMilkBankPageState
                     FilledButton(
                       key: const Key('btn_confirm_add_milk'),
                       onPressed: () async {
-                        final vol = double.tryParse(volController.text
-                            .trim()
-                            .replaceAll(',', '.'));
+                        final vol = double.tryParse(
+                            volController.text.trim().replaceAll(',', '.'));
                         if (vol == null || vol <= 0) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -334,10 +333,11 @@ class _LactationAndMilkBankPageState
               children: [
                 // Suggested Next Breast Banner
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+                    color: theme.colorScheme.primaryContainer
+                        .withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color: theme.colorScheme.primary.withValues(alpha: 0.3),
@@ -345,8 +345,7 @@ class _LactationAndMilkBankPageState
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.swap_calls,
-                          color: theme.colorScheme.primary),
+                      Icon(Icons.swap_calls, color: theme.colorScheme.primary),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
@@ -379,7 +378,8 @@ class _LactationAndMilkBankPageState
                     // Left Breast Card
                     Expanded(
                       child: Card(
-                        elevation: _activeTimerBreast == OfferedBreast.left ? 4 : 1,
+                        elevation:
+                            _activeTimerBreast == OfferedBreast.left ? 4 : 1,
                         color: _activeTimerBreast == OfferedBreast.left
                             ? theme.colorScheme.primaryContainer
                             : theme.colorScheme.surface,
@@ -389,7 +389,9 @@ class _LactationAndMilkBankPageState
                             color: _activeTimerBreast == OfferedBreast.left
                                 ? theme.colorScheme.primary
                                 : theme.colorScheme.outlineVariant,
-                            width: _activeTimerBreast == OfferedBreast.left ? 2 : 1,
+                            width: _activeTimerBreast == OfferedBreast.left
+                                ? 2
+                                : 1,
                           ),
                         ),
                         child: InkWell(
@@ -412,13 +414,15 @@ class _LactationAndMilkBankPageState
                                 const Text(
                                   'Pecho Izquierdo',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 15),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   _formatDuration(_leftSeconds),
                                   key: const Key('text_left_duration'),
-                                  style: theme.textTheme.headlineMedium?.copyWith(
+                                  style:
+                                      theme.textTheme.headlineMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     fontFeatures: const [],
                                   ),
@@ -441,7 +445,8 @@ class _LactationAndMilkBankPageState
                     // Right Breast Card
                     Expanded(
                       child: Card(
-                        elevation: _activeTimerBreast == OfferedBreast.right ? 4 : 1,
+                        elevation:
+                            _activeTimerBreast == OfferedBreast.right ? 4 : 1,
                         color: _activeTimerBreast == OfferedBreast.right
                             ? theme.colorScheme.primaryContainer
                             : theme.colorScheme.surface,
@@ -451,13 +456,16 @@ class _LactationAndMilkBankPageState
                             color: _activeTimerBreast == OfferedBreast.right
                                 ? theme.colorScheme.primary
                                 : theme.colorScheme.outlineVariant,
-                            width: _activeTimerBreast == OfferedBreast.right ? 2 : 1,
+                            width: _activeTimerBreast == OfferedBreast.right
+                                ? 2
+                                : 1,
                           ),
                         ),
                         child: InkWell(
                           key: const Key('btn_right_breast_timer'),
                           borderRadius: BorderRadius.circular(16),
-                          onTap: () => _startOrSwitchBreast(OfferedBreast.right),
+                          onTap: () =>
+                              _startOrSwitchBreast(OfferedBreast.right),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 24, horizontal: 12),
@@ -474,13 +482,15 @@ class _LactationAndMilkBankPageState
                                 const Text(
                                   'Pecho Derecho',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 15),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   _formatDuration(_rightSeconds),
                                   key: const Key('text_right_duration'),
-                                  style: theme.textTheme.headlineMedium?.copyWith(
+                                  style:
+                                      theme.textTheme.headlineMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     fontFeatures: const [],
                                   ),
@@ -671,11 +681,11 @@ class _LactationAndMilkBankPageState
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 4),
                                         decoration: BoxDecoration(
-                                          color: badgeColor.withValues(alpha: 0.15),
+                                          color: badgeColor.withValues(
+                                              alpha: 0.15),
                                           borderRadius:
                                               BorderRadius.circular(12),
-                                          border:
-                                              Border.all(color: badgeColor),
+                                          border: Border.all(color: badgeColor),
                                         ),
                                         child: Text(
                                           badgeText,
@@ -711,9 +721,10 @@ class _LactationAndMilkBankPageState
                                   OutlinedButton.icon(
                                     key: Key('btn_consume_${entry.id}'),
                                     onPressed: () async {
-                                      final repo = ref.read(
-                                          postpartumRepositoryProvider);
-                                      await repo.markMilkStashConsumed(entry.id);
+                                      final repo = ref
+                                          .read(postpartumRepositoryProvider);
+                                      await repo
+                                          .markMilkStashConsumed(entry.id);
                                       ref.invalidate(activeMilkStashProvider);
                                     },
                                     icon: const Icon(Icons.done_all),

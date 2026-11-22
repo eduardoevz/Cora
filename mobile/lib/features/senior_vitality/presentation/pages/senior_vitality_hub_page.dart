@@ -148,9 +148,12 @@ class SeniorVitalityHubPage extends ConsumerWidget {
                               Text(
                                 'Clasificación: ${switch (scan.category) {
                                   BoneDensityCategory.normal => "Normal",
-                                  BoneDensityCategory.osteopenia => "Osteopenia",
-                                  BoneDensityCategory.osteoporosis => "Osteoporosis",
-                                  BoneDensityCategory.severeOsteoporosis => "Osteoporosis Severa",
+                                  BoneDensityCategory.osteopenia =>
+                                    "Osteopenia",
+                                  BoneDensityCategory.osteoporosis =>
+                                    "Osteoporosis",
+                                  BoneDensityCategory.severeOsteoporosis =>
+                                    "Osteoporosis Severa",
                                 }}',
                                 style: const TextStyle(fontSize: 16),
                               ),
@@ -291,7 +294,8 @@ class SeniorVitalityHubPage extends ConsumerWidget {
                                   IncontinenceType.stress => "De esfuerzo",
                                   IncontinenceType.urge => "De urgencia",
                                   IncontinenceType.mixed => "Mixta",
-                                  IncontinenceType.overflow => "Por rebosamiento",
+                                  IncontinenceType.overflow =>
+                                    "Por rebosamiento",
                                 }}',
                                 style: const TextStyle(
                                   fontSize: 18,

@@ -156,7 +156,8 @@ class _ChronicConditionsTrackerPageState
           ),
           SwitchListTile(
             title: const Text('Dispareunia (Dolor en relaciones sexuales)'),
-            subtitle: const Text('Síntoma relevante en sospecha de endometriosis profunda'),
+            subtitle: const Text(
+                'Síntoma relevante en sospecha de endometriosis profunda'),
             value: _dyspareunia,
             onChanged: (val) => setState(() => _dyspareunia = val),
           ),
@@ -230,7 +231,8 @@ class _ChronicConditionsTrackerPageState
             maxLines: 3,
             decoration: const InputDecoration(
               labelText: 'Notas para tu especialista',
-              hintText: 'Detalles sobre medicamentos, alimentación o síntomas...',
+              hintText:
+                  'Detalles sobre medicamentos, alimentación o síntomas...',
               border: OutlineInputBorder(),
             ),
           ),

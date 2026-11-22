@@ -86,8 +86,10 @@ void main() {
 
     test('Classifies T-score according to WHO diagnostic categories', () {
       expect(evaluator.classifyBoneDensity(-0.5), BoneDensityCategory.normal);
-      expect(evaluator.classifyBoneDensity(-1.8), BoneDensityCategory.osteopenia);
-      expect(evaluator.classifyBoneDensity(-2.7), BoneDensityCategory.osteoporosis);
+      expect(
+          evaluator.classifyBoneDensity(-1.8), BoneDensityCategory.osteopenia);
+      expect(evaluator.classifyBoneDensity(-2.7),
+          BoneDensityCategory.osteoporosis);
       expect(
         evaluator.classifyBoneDensity(-2.7, previousFracture: true),
         BoneDensityCategory.severeOsteoporosis,
@@ -114,7 +116,9 @@ void main() {
       expect(lowResult.score, 0);
     });
 
-    test('Detects high fracture risk when osteopenia + high fall risk intersect', () {
+    test(
+        'Detects high fracture risk when osteopenia + high fall risk intersect',
+        () {
       final isAlert = evaluator.isHighFractureRisk(
         boneCategory: BoneDensityCategory.osteopenia,
         fallLevel: FallRiskLevel.high,
@@ -130,7 +134,8 @@ void main() {
   });
 
   group('TrustedContactQuickActionCard Widget Tests', () {
-    testWidgets('Opens 2-step confirmation modal with large touch targets >= 56dp',
+    testWidgets(
+        'Opens 2-step confirmation modal with large touch targets >= 56dp',
         (tester) async {
       final fakeRepo = _FakeSeniorVitalityRepository();
       fakeRepo.primaryContact = const TrustedSupportContact(
@@ -161,7 +166,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Step 1: Tap the card
-      expect(find.byKey(const Key('trusted_contact_quick_card')), findsOneWidget);
+      expect(
+          find.byKey(const Key('trusted_contact_quick_card')), findsOneWidget);
       expect(find.textContaining('Carmen Silva'), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('trusted_contact_quick_card')));
@@ -179,7 +185,8 @@ void main() {
   });
 
   group('SeniorVitalityHubPage Widget Tests & Scaled Rendering', () {
-    testWidgets('Renders all cards and supports TextScaler 2.0 without overflow',
+    testWidgets(
+        'Renders all cards and supports TextScaler 2.0 without overflow',
         (tester) async {
       final fakeRepo = _FakeSeniorVitalityRepository();
       fakeRepo.latestDexa = DexaBoneScan(
@@ -234,7 +241,8 @@ void main() {
       expect(find.text('Suelo Pélvico y Continencia'), findsOneWidget);
 
       // Verify fracture risk banner is active
-      expect(find.byKey(const Key('high_fracture_risk_banner')), findsOneWidget);
+      expect(
+          find.byKey(const Key('high_fracture_risk_banner')), findsOneWidget);
 
       // Zero exceptions and no RenderFlex overflow caught by Flutter test framework
       expect(tester.takeException(), isNull);

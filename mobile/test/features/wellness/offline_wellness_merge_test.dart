@@ -77,8 +77,8 @@ void main() {
     expect(pendingMutations.length, equals(2));
     expect(pendingMutations.first.entityType, equals('daily_wellness'));
 
-    final payload = jsonDecode(pendingMutations.last.payloadJson)
-        as Map<String, dynamic>;
+    final payload =
+        jsonDecode(pendingMutations.last.payloadJson) as Map<String, dynamic>;
     expect(payload['hydration_ml'], equals(2200));
   });
 }

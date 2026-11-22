@@ -114,7 +114,8 @@ class CycleSymptomEntity {
 class CycleStatusEntity {
   final String? currentCycleId;
   final int? dayInCycle;
-  final String currentPhase; // menstrual, follicular, ovulatory, luteal, hormonally_managed
+  final String
+      currentPhase; // menstrual, follicular, ovulatory, luteal, hormonally_managed
   final DateTime? predictedNextPeriod;
   final DateTime? fertileWindowStart;
   final DateTime? fertileWindowEnd;
@@ -212,8 +213,8 @@ class CycleOverviewEntity {
           ? MenstrualCycleEntity.fromJson(
               json['current_cycle'] as Map<String, dynamic>)
           : null,
-      status: CycleStatusEntity.fromJson(
-          json['status'] as Map<String, dynamic>),
+      status:
+          CycleStatusEntity.fromJson(json['status'] as Map<String, dynamic>),
       alerts: (json['alerts'] as List<dynamic>?)
               ?.map((e) => FigoAlertEntity.fromJson(e as Map<String, dynamic>))
               .toList() ??

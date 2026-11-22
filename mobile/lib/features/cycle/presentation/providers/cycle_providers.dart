@@ -22,7 +22,8 @@ final cycleOverviewProvider = FutureProvider.family<CycleOverviewEntity,
 });
 
 final cycleHistoryProvider =
-    FutureProvider.family<List<MenstrualCycleEntity>, String>((ref, userId) async {
+    FutureProvider.family<List<MenstrualCycleEntity>, String>(
+        (ref, userId) async {
   final repo = ref.watch(cycleRepositoryProvider);
   return repo.getCycleHistory(userId: userId);
 });

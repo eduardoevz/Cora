@@ -32,7 +32,8 @@ void main() {
     expect(find.byKey(const Key('privacy_shield_overlay')), findsNothing);
   });
 
-  testWidgets('shows shield overlay when app lifecycle transitions to paused', (tester) async {
+  testWidgets('shows shield overlay when app lifecycle transitions to paused',
+      (tester) async {
     await tester.pumpWidget(
       buildTestWidget(
         child: const Scaffold(
@@ -49,7 +50,8 @@ void main() {
     expect(find.text('Cora — Privacidad Protegida'), findsOneWidget);
   });
 
-  testWidgets('hides shield overlay on resume if biometric is disabled', (tester) async {
+  testWidgets('hides shield overlay on resume if biometric is disabled',
+      (tester) async {
     lockService.setBiometricEnabled(false);
 
     await tester.pumpWidget(
@@ -69,7 +71,9 @@ void main() {
     expect(find.byKey(const Key('privacy_shield_overlay')), findsNothing);
   });
 
-  testWidgets('requires unlock button on resume if biometric is enabled with immediate timeout', (tester) async {
+  testWidgets(
+      'requires unlock button on resume if biometric is enabled with immediate timeout',
+      (tester) async {
     lockService.setBiometricEnabled(true);
     lockService.setTimeout(BiometricLockTimeout.immediate);
 

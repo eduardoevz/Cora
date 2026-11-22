@@ -29,9 +29,8 @@ class CitationChips extends StatelessWidget {
               '${citation.scientificSource} — ${citation.sectionHeading}',
               overflow: TextOverflow.ellipsis,
             ),
-            onPressed: onCitationTap == null
-                ? null
-                : () => onCitationTap!(citation),
+            onPressed:
+                onCitationTap == null ? null : () => onCitationTap!(citation),
           );
         }).toList(),
       ),

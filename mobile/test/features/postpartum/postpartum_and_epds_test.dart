@@ -135,7 +135,9 @@ void main() {
       );
     });
 
-    test('EPDS item 10 positive unconditionally triggers immediate crisis support', () {
+    test(
+        'EPDS item 10 positive unconditionally triggers immediate crisis support',
+        () {
       final screening = EpdsOfflineScoringService.evaluate(
         id: 'test_epds',
         userId: 'user_1',
@@ -155,7 +157,8 @@ void main() {
       );
 
       expect(screening.selfHarmRisk, isTrue);
-      expect(screening.severity, PostpartumAlertSeverity.immediateCrisisSupport);
+      expect(
+          screening.severity, PostpartumAlertSeverity.immediateCrisisSupport);
       expect(screening.item10Score, 1);
     });
 
@@ -172,7 +175,8 @@ void main() {
   });
 
   group('Postpartum Widgets Tests', () {
-    testWidgets('PostpartumRecoveryPage registers recovery log with fever alert',
+    testWidgets(
+        'PostpartumRecoveryPage registers recovery log with fever alert',
         (tester) async {
       tester.view.physicalSize = const Size(800, 2400);
       tester.view.devicePixelRatio = 1.0;
@@ -211,7 +215,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Check that urgent alert banner appeared
-      expect(find.byKey(const Key('alert_endometritis_infection')), findsOneWidget);
+      expect(find.byKey(const Key('alert_endometritis_infection')),
+          findsOneWidget);
 
       // Tap save
       await tester.tap(find.byKey(const Key('btn_save_recovery_log')));
@@ -266,7 +271,8 @@ void main() {
           OfferedBreast.left);
     });
 
-    testWidgets('EpdsMentalHealthPage renders crisis banner on item 10 positive',
+    testWidgets(
+        'EpdsMentalHealthPage renders crisis banner on item 10 positive',
         (tester) async {
       tester.view.physicalSize = const Size(800, 3000);
       tester.view.devicePixelRatio = 1.0;

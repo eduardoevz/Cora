@@ -12,7 +12,8 @@ final menopauseRepositoryProvider = Provider<IMenopauseRepository>((ref) {
   return MenopauseRepositoryImpl(db, syncCoordinator);
 });
 
-final menopauseOfflineEvaluatorProvider = Provider<MenopauseOfflineEvaluator>((ref) {
+final menopauseOfflineEvaluatorProvider =
+    Provider<MenopauseOfflineEvaluator>((ref) {
   return const MenopauseOfflineEvaluator();
 });
 

@@ -75,7 +75,8 @@ class FetalMilestoneEntity {
     return FetalMilestoneEntity(
       week: json['week'] as int? ?? 4,
       fruitComparison: json['fruit_comparison'] as String? ?? '',
-      approximateLengthCm: (json['approximate_length_cm'] as num?)?.toDouble() ?? 0.0,
+      approximateLengthCm:
+          (json['approximate_length_cm'] as num?)?.toDouble() ?? 0.0,
       approximateWeightGrams:
           (json['approximate_weight_grams'] as num?)?.toDouble() ?? 0.0,
       anatomicalHighlights: json['anatomical_highlights'] as String? ?? '',

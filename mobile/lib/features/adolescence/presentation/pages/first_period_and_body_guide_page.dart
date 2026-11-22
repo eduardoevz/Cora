@@ -27,7 +27,8 @@ class FirstPeriodAndBodyGuidePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.favorite_outline, color: Colors.white, size: 36),
+                const Icon(Icons.favorite_outline,
+                    color: Colors.white, size: 36),
                 const SizedBox(height: 12),
                 const Text(
                   '¡Bienvenida a esta nueva etapa!',
@@ -71,8 +72,7 @@ class FirstPeriodAndBodyGuidePage extends StatelessWidget {
             icon: Icons.clean_hands_outlined,
             iconColor: const Color(0xFF10B981),
             title: 'Higiene y Productos Menstruales',
-            content:
-                '• Toallas sanitarias: Cámbialas cada 4 a 6 horas.\n'
+            content: '• Toallas sanitarias: Cámbialas cada 4 a 6 horas.\n'
                 '• Calzones menstruales: Cómodos y reutilizables.\n'
                 '• Hidratación: Bebe suficiente agua para reducir cólicos.\n'
                 '• Descanso: Dormir bien alivia la fatiga física.',
@@ -103,7 +103,8 @@ class FirstPeriodAndBodyGuidePage extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.lock_outline, color: Color(0xFF475569)),
               title: const Text('Bloqueo con PIN de Privacidad'),
-              subtitle: const Text('Protege tu diario íntimo y ciclo con un código secreto.'),
+              subtitle: const Text(
+                  'Protege tu diario íntimo y ciclo con un código secreto.'),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
                 Navigator.of(context).push(

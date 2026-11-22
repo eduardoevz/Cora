@@ -639,7 +639,8 @@ class PostpartumOfflineEvaluator {
           severity: PostpartumAlertSeverity.highPriorityConsult,
           category: 'foul_lochia',
           title: 'Olor Fétido en Loquios',
-          message: 'Los loquios no deben tener mal olor. Puede haber vaginosis o infección incipiente.',
+          message:
+              'Los loquios no deben tener mal olor. Puede haber vaginosis o infección incipiente.',
           actionRecommended:
               'Monitorea tu temperatura corporal y agenda consulta prioritaria.',
         ),
@@ -680,7 +681,8 @@ class PostpartumOfflineEvaluator {
           severity: PostpartumAlertSeverity.urgentEmergency,
           category: 'cesarean_wound_complication',
           title: 'Complicación en Cicatriz de Cesárea',
-          message: 'Apertura de bordes o salida activa de líquido en herida quirúrgica.',
+          message:
+              'Apertura de bordes o salida activa de líquido en herida quirúrgica.',
           actionRecommended:
               'Acude a urgencias para evitar infección profunda o dehiscencia de pared.',
         ),
@@ -696,7 +698,8 @@ class PostpartumOfflineEvaluator {
           severity: PostpartumAlertSeverity.highPriorityConsult,
           category: 'pelvic_floor_dysfunction',
           title: 'Síntoma Significativo de Suelo Pélvico',
-          message: 'Incontinencia fecal o sensación de bulto requieren valoración experta.',
+          message:
+              'Incontinencia fecal o sensación de bulto requieren valoración experta.',
           actionRecommended:
               'Consulta con fisioterapia de suelo pélvico especializada en posparto.',
         ),

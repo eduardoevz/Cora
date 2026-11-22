@@ -34,8 +34,7 @@ final vaccinationsProvider =
   return repo.getVaccinations(userId);
 });
 
-final specialistsProvider =
-    FutureProvider<List<SpecialistEntry>>((ref) async {
+final specialistsProvider = FutureProvider<List<SpecialistEntry>>((ref) async {
   final user = ref.watch(activeUserProfileProvider);
   final userId = user?.id ?? 'default-user';
   final repo = ref.watch(medicalRecordsRepositoryProvider);

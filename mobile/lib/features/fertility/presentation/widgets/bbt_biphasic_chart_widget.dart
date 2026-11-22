@@ -203,8 +203,7 @@ class _BbtChartPainter extends CustomPainter {
       maxTempC = minTempC + 0.6;
     }
 
-    double toDisplayTemp(double c) =>
-        showFahrenheit ? ((c * 9 / 5) + 32) : c;
+    double toDisplayTemp(double c) => showFahrenheit ? ((c * 9 / 5) + 32) : c;
 
     double getY(double tempC) {
       final ratio = (tempC - minTempC) / (maxTempC - minTempC);
@@ -286,8 +285,7 @@ class _BbtChartPainter extends CustomPainter {
       final currentPoint = Offset(getX(day), getY(entry.bbtCelsius!));
 
       if (prevEntry != null && prevPoint != null) {
-        final dayDiff =
-            entry.logDate.difference(prevEntry.logDate).inDays;
+        final dayDiff = entry.logDate.difference(prevEntry.logDate).inDays;
 
         if (dayDiff == 1) {
           // Consecutive days -> solid continuous curve
@@ -341,13 +339,13 @@ class _BbtChartPainter extends CustomPainter {
       textPainter.layout();
       textPainter.paint(
         canvas,
-        Offset(point.dx - textPainter.width / 2, size.height - bottomPadding + 4),
+        Offset(
+            point.dx - textPainter.width / 2, size.height - bottomPadding + 4),
       );
     }
   }
 
-  void _drawDashedLine(
-      Canvas canvas, Offset p1, Offset p2, Paint paint) {
+  void _drawDashedLine(Canvas canvas, Offset p1, Offset p2, Paint paint) {
     const dashLength = 4.0;
     const dashGap = 3.0;
 
@@ -361,7 +359,8 @@ class _BbtChartPainter extends CustomPainter {
 
     while (currentDist < totalLength) {
       final startRatio = currentDist / totalLength;
-      final endRatio = ((currentDist + dashLength) / totalLength).clamp(0.0, 1.0);
+      final endRatio =
+          ((currentDist + dashLength) / totalLength).clamp(0.0, 1.0);
 
       final start = Offset(
         p1.dx + dx * startRatio,

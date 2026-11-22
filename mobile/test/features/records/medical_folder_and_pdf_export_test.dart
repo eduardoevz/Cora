@@ -154,7 +154,8 @@ void main() {
 
       final vaxJson = vax.toJson();
       expect(vaxJson['vaccine_type'], 'influenza');
-      expect(VaccinationRecord.fromJson(vaxJson).vaccineType, VaccineType.influenza);
+      expect(VaccinationRecord.fromJson(vaxJson).vaccineType,
+          VaccineType.influenza);
 
       final spec = SpecialistEntry(
         id: 'spec_1',
@@ -192,7 +193,8 @@ void main() {
 
       expect(find.text('Carpeta Clínica Digital'), findsOneWidget);
       expect(find.text('Calendario Preventivo Clínico'), findsOneWidget);
-      expect(find.text('Citología Cervicovaginal (Papanicolau)'), findsOneWidget);
+      expect(
+          find.text('Citología Cervicovaginal (Papanicolau)'), findsOneWidget);
       expect(find.text('Pendiente'), findsOneWidget);
       expect(find.byKey(const Key('register_exam_fab')), findsOneWidget);
 
@@ -216,7 +218,8 @@ void main() {
   });
 
   group('DoctorReportExportPage Widget Tests', () {
-    testWidgets('configures window and generates Doctor-Ready PDF', (tester) async {
+    testWidgets('configures window and generates Doctor-Ready PDF',
+        (tester) async {
       final fakeRepo = _FakeMedicalRecordsRepository();
 
       await tester.pumpWidget(
@@ -234,7 +237,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Reporte Doctor-Ready PDF'), findsOneWidget);
-      expect(find.byKey(const Key('doctor_report_window_selector')), findsOneWidget);
+      expect(find.byKey(const Key('doctor_report_window_selector')),
+          findsOneWidget);
 
       // Select 12 months
       await tester.tap(find.text('12 Meses'));
@@ -251,7 +255,8 @@ void main() {
       await tester.tap(find.byKey(const Key('doctor_report_generate_button')));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('doctor_report_completed_card')), findsOneWidget);
+      expect(find.byKey(const Key('doctor_report_completed_card')),
+          findsOneWidget);
       expect(find.text('¡Reporte generado con éxito!'), findsOneWidget);
     });
   });

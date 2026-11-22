@@ -153,7 +153,8 @@ void main() {
       expect(alerts.first.category, 'gestational_diabetes_risk');
     });
 
-    test('Gestational diabetes postprandial 1h >= 140 triggers priority_consult',
+    test(
+        'Gestational diabetes postprandial 1h >= 140 triggers priority_consult',
         () {
       final alerts = MaternalOfflineEvaluator.evaluateOffline(
         glucose: 145.0,
@@ -173,7 +174,8 @@ void main() {
       expect(alerts, isEmpty);
     });
 
-    test('Contractions preterm risk (< 37 weeks, 4 contractions in 20 min)', () {
+    test('Contractions preterm risk (< 37 weeks, 4 contractions in 20 min)',
+        () {
       final now = DateTime.now();
       final events = [
         {'started_at': now.toIso8601String(), 'duration_seconds': 45},
@@ -299,7 +301,8 @@ void main() {
       expect(find.text('Mi Embarazo Semana a Semana'), findsOneWidget);
       expect(find.textContaining('Semana'), findsWidgets);
       expect(find.text('Signos Vitales y Alertas ACOG'), findsOneWidget);
-      expect(find.text('Cronómetro de Contracciones y Patadas'), findsOneWidget);
+      expect(
+          find.text('Cronómetro de Contracciones y Patadas'), findsOneWidget);
       await tester.scrollUntilVisible(
           find.text('Plan de Parto y Citas Prenatales'), 100);
       expect(find.text('Plan de Parto y Citas Prenatales'), findsOneWidget);

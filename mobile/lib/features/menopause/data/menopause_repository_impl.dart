@@ -70,8 +70,7 @@ class MenopauseRepositoryImpl implements IMenopauseRepository {
     final query = _db.select(_db.hotFlashEntries)
       ..where((t) => t.userId.equals(userId))
       ..orderBy([
-        (t) =>
-            OrderingTerm(expression: t.occurredAt, mode: OrderingMode.desc)
+        (t) => OrderingTerm(expression: t.occurredAt, mode: OrderingMode.desc)
       ])
       ..limit(limit);
 

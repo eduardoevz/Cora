@@ -100,7 +100,8 @@ void main() {
     expect(find.text('Registro guardado correctamente.'), findsOneWidget);
   });
 
-  test('CycleRepositoryImpl detects endometriosis risk alert offline', () async {
+  test('CycleRepositoryImpl detects endometriosis risk alert offline',
+      () async {
     final userId = testProfile.id;
 
     // Cycle 1: Severe pain 8

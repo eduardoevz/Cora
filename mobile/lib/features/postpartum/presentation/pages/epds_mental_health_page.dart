@@ -93,7 +93,8 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
     },
     {
       'id': 'item_7',
-      'title': '7. Me he sentido tan desdichada que he tenido dificultad para dormir',
+      'title':
+          '7. Me he sentido tan desdichada que he tenido dificultad para dormir',
       'options': [
         'Sí, la mayor parte del tiempo', // 3 pts
         'Sí, a veces', // 2 pts
@@ -201,7 +202,8 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
             // Intro Card
             Card(
               elevation: 0,
-              color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.4),
+              color:
+                  theme.colorScheme.secondaryContainer.withValues(alpha: 0.4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),

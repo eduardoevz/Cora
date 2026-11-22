@@ -103,8 +103,7 @@ class SeniorVitalityRepositoryImpl implements ISeniorVitalityRepository {
       timedUpAndGoSeconds: Value(entry.timedUpAndGoSeconds),
       riskLevel: Value(entry.riskLevel.value),
       compositeScore: Value(entry.compositeScore),
-      environmentalHazardsJson:
-          Value(jsonEncode(entry.environmentalHazards)),
+      environmentalHazardsJson: Value(jsonEncode(entry.environmentalHazards)),
       notes: Value(entry.notes),
     );
 
@@ -112,8 +111,7 @@ class SeniorVitalityRepositoryImpl implements ISeniorVitalityRepository {
 
     final payload = {
       'id': entry.id,
-      'assessment_date':
-          entry.assessmentDate.toIso8601String().split('T')[0],
+      'assessment_date': entry.assessmentDate.toIso8601String().split('T')[0],
       'falls_past_year': entry.fallsPastYear,
       'has_gait_unsteadiness': entry.hasGaitUnsteadiness,
       'uses_walking_aid': entry.usesWalkingAid,
@@ -203,9 +201,8 @@ class SeniorVitalityRepositoryImpl implements ISeniorVitalityRepository {
       {int limit = 20}) async {
     final query = _db.select(_db.continenceEntries)
       ..where((t) => t.userId.equals(userId))
-      ..orderBy([
-        (t) => OrderingTerm(expression: t.logDate, mode: OrderingMode.desc)
-      ])
+      ..orderBy(
+          [(t) => OrderingTerm(expression: t.logDate, mode: OrderingMode.desc)])
       ..limit(limit);
 
     final rows = await query.get();

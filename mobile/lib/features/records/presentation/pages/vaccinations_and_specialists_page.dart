@@ -325,8 +325,7 @@ class _VaccinationsAndSpecialistsPageState
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor:
-                              theme.colorScheme.primaryContainer,
+                          backgroundColor: theme.colorScheme.primaryContainer,
                           child: Icon(
                             Icons.shield_outlined,
                             color: theme.colorScheme.primary,
@@ -345,9 +344,9 @@ class _VaccinationsAndSpecialistsPageState
                   },
                 );
               },
-              loading: () =>
-                  const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error al cargar vacunas: $e')),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (e, _) =>
+                  Center(child: Text('Error al cargar vacunas: $e')),
             ),
 
             // Tab 2: Especialistas
@@ -394,8 +393,7 @@ class _VaccinationsAndSpecialistsPageState
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor:
-                              theme.colorScheme.secondaryContainer,
+                          backgroundColor: theme.colorScheme.secondaryContainer,
                           child: Icon(
                             Icons.local_hospital_outlined,
                             color: theme.colorScheme.secondary,
@@ -443,10 +441,9 @@ class _VaccinationsAndSpecialistsPageState
                   },
                 );
               },
-              loading: () =>
-                  const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(
-                  child: Text('Error al cargar especialistas: $e')),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (e, _) =>
+                  Center(child: Text('Error al cargar especialistas: $e')),
             ),
           ],
         ),

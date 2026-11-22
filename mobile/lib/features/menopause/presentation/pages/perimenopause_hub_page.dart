@@ -18,8 +18,9 @@ class PerimenopauseHubPage extends ConsumerWidget {
     final bleedingAsync = ref.watch(recentBleedingRecordsProvider);
     final evaluator = ref.watch(menopauseOfflineEvaluatorProvider);
 
-    final int userAge =
-        user != null ? (DateTime.now().year - user.onboardingContext.birthYear) : 48;
+    final int userAge = user != null
+        ? (DateTime.now().year - user.onboardingContext.birthYear)
+        : 48;
 
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +47,8 @@ class PerimenopauseHubPage extends ConsumerWidget {
             // 1. Inviolable Postmenopausal Bleeding Banner
             bleedingAsync.when(
               data: (records) {
-                final alertRecord = records.where((r) => r.isAlertTriggered).firstOrNull;
+                final alertRecord =
+                    records.where((r) => r.isAlertTriggered).firstOrNull;
                 if (alertRecord != null) {
                   return Container(
                     key: const Key('postmenopausal_bleeding_alert_banner'),
@@ -276,9 +278,11 @@ class PerimenopauseHubPage extends ConsumerWidget {
                               Text(
                                   'Tensión arterial: ${panel.systolicBp}/${panel.diastolicBp} mmHg'),
                             if (panel.ldlCholesterol != null)
-                              Text('Colesterol LDL: ${panel.ldlCholesterol} mg/dL'),
+                              Text(
+                                  'Colesterol LDL: ${panel.ldlCholesterol} mg/dL'),
                             if (panel.hdlCholesterol != null)
-                              Text('Colesterol HDL: ${panel.hdlCholesterol} mg/dL'),
+                              Text(
+                                  'Colesterol HDL: ${panel.hdlCholesterol} mg/dL'),
                             const SizedBox(height: 4),
                             Text(
                               'Nivel de riesgo: ${panel.riskLevel.value}',

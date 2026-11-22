@@ -61,7 +61,8 @@ class _ClinicalLibraryPageState extends State<ClinicalLibraryPage> {
           Expanded(
             child: filtered.isEmpty
                 ? const Center(
-                    child: Text('No se encontraron artículos para este filtro.'),
+                    child:
+                        Text('No se encontraron artículos para este filtro.'),
                   )
                 : ListView.separated(
                     padding: const EdgeInsets.all(16),

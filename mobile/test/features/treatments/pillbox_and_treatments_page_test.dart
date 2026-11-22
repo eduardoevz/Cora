@@ -94,9 +94,7 @@ void main() {
 
     // Now detailed text should appear
     expect(
-        find.text(
-            'Recordatorio: "1 comprimido a las 21:00"'),
-        findsOneWidget);
+        find.text('Recordatorio: "1 comprimido a las 21:00"'), findsOneWidget);
 
     // Tap "Tomar Dosis"
     await tester.tap(find.byKey(const Key('take_dose_regimen-yasmin-1')));

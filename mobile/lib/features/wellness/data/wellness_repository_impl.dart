@@ -86,9 +86,7 @@ class WellnessRepositoryImpl {
       updatedAt: Value(merged.updatedAt!),
     );
 
-    await _db
-        .into(_db.dailyWellnessEntries)
-        .insertOnConflictUpdate(companion);
+    await _db.into(_db.dailyWellnessEntries).insertOnConflictUpdate(companion);
 
     // Enqueue outbox mutation for remote sync
     final mutationId = _uuid.v4();

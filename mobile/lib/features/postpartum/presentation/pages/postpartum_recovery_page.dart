@@ -124,7 +124,8 @@ class _PostpartumRecoveryPageState
             // Days Postpartum Selector
             Card(
               elevation: 0,
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest
+                  .withValues(alpha: 0.5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -186,11 +187,12 @@ class _PostpartumRecoveryPageState
               ...alerts.map((alert) {
                 final isUrgent =
                     alert.severity == PostpartumAlertSeverity.urgentEmergency;
-                final bgColor = isUrgent
-                    ? Colors.red.shade50
-                    : Colors.amber.shade50;
-                final borderColor = isUrgent ? Colors.red : Colors.amber.shade700;
-                final iconColor = isUrgent ? Colors.red.shade700 : Colors.amber.shade800;
+                final bgColor =
+                    isUrgent ? Colors.red.shade50 : Colors.amber.shade50;
+                final borderColor =
+                    isUrgent ? Colors.red : Colors.amber.shade700;
+                final iconColor =
+                    isUrgent ? Colors.red.shade700 : Colors.amber.shade800;
 
                 return Container(
                   key: Key('alert_${alert.category}'),
@@ -294,8 +296,8 @@ class _PostpartumRecoveryPageState
                       key: const Key('dropdown_lochia_stage'),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       ),
                       items: LochiaStage.values.map((stage) {
                         return DropdownMenuItem(
@@ -308,7 +310,6 @@ class _PostpartumRecoveryPageState
                       },
                     ),
                     const SizedBox(height: 14),
-
                     Text('Flujo / Abundancia',
                         style: theme.textTheme.labelLarge),
                     const SizedBox(height: 6),
@@ -317,8 +318,8 @@ class _PostpartumRecoveryPageState
                       key: const Key('dropdown_lochia_flow'),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       ),
                       items: LochiaFlow.values.map((flow) {
                         return DropdownMenuItem(
@@ -331,7 +332,6 @@ class _PostpartumRecoveryPageState
                       },
                     ),
                     const SizedBox(height: 12),
-
                     SwitchListTile(
                       key: const Key('switch_foul_odor'),
                       title: const Text('¿Olor fétido o inusual?'),
@@ -373,7 +373,7 @@ class _PostpartumRecoveryPageState
                     prefixIcon: Icon(Icons.thermostat),
                     border: OutlineInputBorder(),
                     helperText:
-                      'Fiebre puerperal: temperatura ≥ 38.0°C en cualquier toma',
+                        'Fiebre puerperal: temperatura ≥ 38.0°C en cualquier toma',
                   ),
                   onChanged: (_) => setState(() {}),
                 ),
@@ -408,8 +408,8 @@ class _PostpartumRecoveryPageState
                       key: const Key('dropdown_perineal_status'),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       ),
                       items: PerinealWoundStatus.values.map((status) {
                         return DropdownMenuItem(
@@ -422,7 +422,6 @@ class _PostpartumRecoveryPageState
                       },
                     ),
                     const SizedBox(height: 14),
-
                     Text('Herida de Cesárea',
                         style: theme.textTheme.labelLarge),
                     const SizedBox(height: 6),
@@ -431,8 +430,8 @@ class _PostpartumRecoveryPageState
                       key: const Key('dropdown_cesarean_status'),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       ),
                       items: CesareanWoundStatus.values.map((status) {
                         return DropdownMenuItem(

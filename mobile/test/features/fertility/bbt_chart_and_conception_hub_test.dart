@@ -34,7 +34,11 @@ void main() {
       primaryIntents: [PrimaryIntent.familyPlanning],
       clinicalContextCompleted: true,
     ),
-    enabledModules: const ['fertility_bbt', 'lh_surge_prediction', 'cervical_mucus'],
+    enabledModules: const [
+      'fertility_bbt',
+      'lh_surge_prediction',
+      'cervical_mucus'
+    ],
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   );
@@ -50,7 +54,8 @@ void main() {
     await db.close();
   });
 
-  test('Drift v5 schema stores and retrieves DailyFertility and PreconceptionChecklist',
+  test(
+      'Drift v5 schema stores and retrieves DailyFertility and PreconceptionChecklist',
       () async {
     final today = DateTime(2026, 11, 12);
     final entry = DailyFertilityEntity(
@@ -68,7 +73,8 @@ void main() {
 
     await fertilityRepo.saveDailyFertility(entry);
 
-    final retrieved = await fertilityRepo.getDailyFertility(testProfile.id, today);
+    final retrieved =
+        await fertilityRepo.getDailyFertility(testProfile.id, today);
     expect(retrieved, isNotNull);
     expect(retrieved!.bbtCelsius, 36.45);
     expect(retrieved.cervicalMucus, 'egg_white');
@@ -91,13 +97,15 @@ void main() {
 
     await fertilityRepo.savePreconceptionChecklist(checklist);
 
-    final savedChecklist = await fertilityRepo.getPreconceptionChecklist(testProfile.id);
+    final savedChecklist =
+        await fertilityRepo.getPreconceptionChecklist(testProfile.id);
     expect(savedChecklist, isNotNull);
     expect(savedChecklist!.takingFolicAcid, isTrue);
     expect(savedChecklist.completionPercentage, 50);
   });
 
-  testWidgets('renders BbtBiphasicChartWidget with coverline and broken lines on gaps',
+  testWidgets(
+      'renders BbtBiphasicChartWidget with coverline and broken lines on gaps',
       (tester) async {
     final entries = [
       DailyFertilityEntity(
@@ -139,7 +147,8 @@ void main() {
     expect(find.textContaining('36.30'), findsWidgets);
   });
 
-  testWidgets('renders ConceptionHubPage with status, chart, and quick log sheet',
+  testWidgets(
+      'renders ConceptionHubPage with status, chart, and quick log sheet',
       (tester) async {
     // Start cycle
     await cycleRepo.logBleedingAndSymptoms(
@@ -180,7 +189,8 @@ void main() {
     expect(find.text('Tira Reactiva LH'), findsOneWidget);
   });
 
-  testWidgets('renders PreconceptionChecklistPage and allows toggling recommendations',
+  testWidgets(
+      'renders PreconceptionChecklistPage and allows toggling recommendations',
       (tester) async {
     await tester.pumpWidget(
       ProviderScope(

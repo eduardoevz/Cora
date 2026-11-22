@@ -95,7 +95,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                   const SizedBox(height: 12),
                   SwitchListTile(
                     key: const Key('exam_attachment_toggle'),
-                    title: const Text('Adjuntar Reporte Digital (PDF / Imagen)'),
+                    title:
+                        const Text('Adjuntar Reporte Digital (PDF / Imagen)'),
                     subtitle: const Text(
                       'Almacenamiento seguro en la nube clínica con URL prefirmada (≤ 15 MB)',
                     ),
@@ -117,7 +118,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                           fileName: 'estudio_$examId.pdf',
                           mimeType: 'application/pdf',
                           sizeBytes: 1024 * 350,
-                          storageKey: 'users/$userId/records/$examId/estudio_$examId.pdf',
+                          storageKey:
+                              'users/$userId/records/$examId/estudio_$examId.pdf',
                         );
                       }
                       final exam = MedicalExamRecord(
@@ -206,7 +208,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                 Expanded(
                   child: Card(
                     elevation: 0,
-                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+                    color: theme.colorScheme.primaryContainer
+                        .withValues(alpha: 0.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -244,7 +247,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                 Expanded(
                   child: Card(
                     elevation: 0,
-                    color: theme.colorScheme.tertiaryContainer.withValues(alpha: 0.5),
+                    color: theme.colorScheme.tertiaryContainer
+                        .withValues(alpha: 0.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -253,7 +257,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => const VaccinationsAndSpecialistsPage(),
+                            builder: (_) =>
+                                const VaccinationsAndSpecialistsPage(),
                           ),
                         );
                       },
@@ -325,7 +330,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundColor: badgeColor.withValues(alpha: 0.15),
-                          child: Icon(Icons.calendar_today, color: badgeColor, size: 20),
+                          child: Icon(Icons.calendar_today,
+                              color: badgeColor, size: 20),
                         ),
                         title: Text(
                           item.title,
@@ -352,7 +358,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error al cargar calendario: $e')),
+              error: (e, _) =>
+                  Center(child: Text('Error al cargar calendario: $e')),
             ),
             const SizedBox(height: 20),
 
@@ -369,7 +376,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                 if (selectedFilter != null)
                   TextButton(
                     onPressed: () {
-                      ref.read(selectedExamTypeFilterProvider.notifier).state = null;
+                      ref.read(selectedExamTypeFilterProvider.notifier).state =
+                          null;
                     },
                     child: const Text('Limpiar Filtro'),
                   ),
@@ -389,8 +397,9 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                       label: Text(type.displayName),
                       selected: isSelected,
                       onSelected: (selected) {
-                        ref.read(selectedExamTypeFilterProvider.notifier).state =
-                            selected ? type : null;
+                        ref
+                            .read(selectedExamTypeFilterProvider.notifier)
+                            .state = selected ? type : null;
                       },
                     ),
                   );
@@ -415,7 +424,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                         const SizedBox(height: 8),
                         Text(
                           'No hay estudios médicos registrados.',
-                          style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
+                          style: TextStyle(
+                              color: theme.colorScheme.onSurfaceVariant),
                         ),
                       ],
                     ),
@@ -435,8 +445,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor:
-                              theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
+                          backgroundColor: theme.colorScheme.primaryContainer
+                              .withValues(alpha: 0.6),
                           child: Icon(
                             exam.attachment != null
                                 ? Icons.attach_file
@@ -455,7 +465,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                         trailing: exam.attachment != null
                             ? const Tooltip(
                                 message: 'Archivo adjunto seguro en la nube',
-                                child: Icon(Icons.cloud_done, color: Colors.teal),
+                                child:
+                                    Icon(Icons.cloud_done, color: Colors.teal),
                               )
                             : null,
                       ),
@@ -464,7 +475,8 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error al cargar estudios: $e')),
+              error: (e, _) =>
+                  Center(child: Text('Error al cargar estudios: $e')),
             ),
           ],
         ),

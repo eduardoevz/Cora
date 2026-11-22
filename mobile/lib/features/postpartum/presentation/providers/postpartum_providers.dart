@@ -45,8 +45,7 @@ final activeMilkStashProvider =
   return repo.getActiveMilkStash(user.id);
 });
 
-final latestEpdsScreeningProvider =
-    FutureProvider<EpdsScreening?>((ref) async {
+final latestEpdsScreeningProvider = FutureProvider<EpdsScreening?>((ref) async {
   final user = ref.watch(activeUserProfileProvider);
   if (user == null) return null;
   final repo = ref.watch(postpartumRepositoryProvider);

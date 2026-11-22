@@ -87,7 +87,8 @@ class _PillboxAndTreatmentsPageState
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.3)),
+                      side: BorderSide(
+                          color: theme.dividerColor.withValues(alpha: 0.3)),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(24),
@@ -190,8 +191,8 @@ class _PillboxAndTreatmentsPageState
                         : regimen.category,
                     style: const TextStyle(fontSize: 11),
                   ),
-                  backgroundColor:
-                      theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                  backgroundColor: theme.colorScheme.secondaryContainer
+                      .withValues(alpha: 0.5),
                 ),
               ],
             ),
@@ -201,7 +202,8 @@ class _PillboxAndTreatmentsPageState
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                color: theme.colorScheme.surfaceContainerHighest
+                    .withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -300,30 +302,43 @@ class _PillboxAndTreatmentsPageState
                 TextField(
                   key: const Key('regimen_name_input'),
                   controller: nameCtrl,
-                  decoration: const InputDecoration(labelText: 'Nombre del fármaco / suplemento'),
+                  decoration: const InputDecoration(
+                      labelText: 'Nombre del fármaco / suplemento'),
                 ),
                 TextField(
                   key: const Key('regimen_dosage_input'),
                   controller: dosageCtrl,
-                  decoration: const InputDecoration(labelText: 'Dosis (ej. 1 comprimido, 400 mcg)'),
+                  decoration: const InputDecoration(
+                      labelText: 'Dosis (ej. 1 comprimido, 400 mcg)'),
                 ),
                 TextField(
                   key: const Key('regimen_time_input'),
                   controller: timeCtrl,
-                  decoration: const InputDecoration(labelText: 'Hora programada (HH:MM)'),
+                  decoration: const InputDecoration(
+                      labelText: 'Hora programada (HH:MM)'),
                 ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
                   initialValue: selectedCategory,
                   decoration: const InputDecoration(labelText: 'Categoría'),
                   items: const [
-                    DropdownMenuItem(value: 'contraceptive_oral_combined', child: Text('Anticonceptivo Combinado')),
-                    DropdownMenuItem(value: 'contraceptive_progestin_only', child: Text('Minipíldora (Progestina)')),
-                    DropdownMenuItem(value: 'supplement', child: Text('Suplemento (Ácido fólico, etc.)')),
-                    DropdownMenuItem(value: 'chronic_medication', child: Text('Medicación Crónica')),
+                    DropdownMenuItem(
+                        value: 'contraceptive_oral_combined',
+                        child: Text('Anticonceptivo Combinado')),
+                    DropdownMenuItem(
+                        value: 'contraceptive_progestin_only',
+                        child: Text('Minipíldora (Progestina)')),
+                    DropdownMenuItem(
+                        value: 'supplement',
+                        child: Text('Suplemento (Ácido fólico, etc.)')),
+                    DropdownMenuItem(
+                        value: 'chronic_medication',
+                        child: Text('Medicación Crónica')),
                   ],
                   onChanged: (val) {
-                    if (val != null) setDialogState(() => selectedCategory = val);
+                    if (val != null) {
+                      setDialogState(() => selectedCategory = val);
+                    }
                   },
                 ),
               ],

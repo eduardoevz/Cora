@@ -110,8 +110,7 @@ void main() {
 
       final mutation =
           pending.firstWhere((m) => m.entityType == 'treatment_intake');
-      final payload =
-          jsonDecode(mutation.payloadJson) as Map<String, dynamic>;
+      final payload = jsonDecode(mutation.payloadJson) as Map<String, dynamic>;
       expect(payload['regimen_id'], equals(regimen.id));
       expect(payload['status'], equals('taken'));
     });

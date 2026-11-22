@@ -89,8 +89,8 @@ class PostpartumRepositoryImpl implements IPostpartumRepository {
       final pelvicSymptomsRaw =
           (jsonDecode(r.pelvicFloorSymptomsJson) as List<dynamic>)
               .cast<String>();
-      final alertsRaw =
-          (jsonDecode(r.alertsJson) as List<dynamic>).cast<Map<String, dynamic>>();
+      final alertsRaw = (jsonDecode(r.alertsJson) as List<dynamic>)
+          .cast<Map<String, dynamic>>();
 
       return PostpartumRecoveryLog(
         id: r.id,
@@ -109,9 +109,8 @@ class PostpartumRepositoryImpl implements IPostpartumRepository {
             .map((s) => PelvicFloorSymptom.fromString(s))
             .toList(),
         notes: r.notes,
-        alerts: alertsRaw
-            .map((a) => PostpartumClinicalAlert.fromJson(a))
-            .toList(),
+        alerts:
+            alertsRaw.map((a) => PostpartumClinicalAlert.fromJson(a)).toList(),
       );
     }).toList();
   }
@@ -259,7 +258,8 @@ class PostpartumRepositoryImpl implements IPostpartumRepository {
       entityType: 'milk_stash_consume',
       entityId: stashId,
       operation: 'patch',
-      payloadJson: jsonEncode({'is_consumed': true, 'consumed_at': now.toIso8601String()}),
+      payloadJson: jsonEncode(
+          {'is_consumed': true, 'consumed_at': now.toIso8601String()}),
     );
   }
 
@@ -279,9 +279,7 @@ class PostpartumRepositoryImpl implements IPostpartumRepository {
       actionRecommended: Value(screening.actionRecommended),
     );
 
-    await _db
-        .into(_db.epdsScreeningEntries)
-        .insertOnConflictUpdate(companion);
+    await _db.into(_db.epdsScreeningEntries).insertOnConflictUpdate(companion);
 
     final payload = {
       'days_postpartum': screening.daysPostpartum,
@@ -307,9 +305,8 @@ class PostpartumRepositoryImpl implements IPostpartumRepository {
     final row = await query.getSingleOrNull();
     if (row == null) return null;
 
-    final responsesMap =
-        (jsonDecode(row.responsesJson) as Map<String, dynamic>)
-            .map((k, v) => MapEntry(k, v as int));
+    final responsesMap = (jsonDecode(row.responsesJson) as Map<String, dynamic>)
+        .map((k, v) => MapEntry(k, v as int));
 
     return EpdsScreening(
       id: row.id,

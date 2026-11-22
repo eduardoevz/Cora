@@ -69,7 +69,8 @@ class CycleMonitorPage extends ConsumerWidget {
         ],
       ),
       body: overviewAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+        loading: () =>
+            const Center(child: CircularProgressIndicator.adaptive()),
         error: (err, _) => Center(
           child: Padding(
             padding: const EdgeInsets.all(16),
