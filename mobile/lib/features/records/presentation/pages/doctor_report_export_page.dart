@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/records/presentation/providers/medical_records_providers.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -40,49 +42,12 @@ class _DoctorReportExportPageState
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Clinical Info Card
-            Card(
-              elevation: 0,
-              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-                side: BorderSide(
-                  color: theme.colorScheme.primary.withValues(alpha: 0.3),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.medical_information_outlined,
-                      size: 32,
-                      color: theme.colorScheme.primary,
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Resumen Clínico para tu Consulta',
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Consolida en 1 a 2 páginas A4 tu historial de ciclo, tratamientos activos, signos vitales y calendario preventivo con formato estandarizado para tu médico.',
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            const CoraInfoCallout(
+              title: 'Resumen Clínico para tu Consulta',
+              subtitle:
+                  'Consolida en 1 a 2 páginas A4 tu historial de ciclo, tratamientos activos, signos vitales y calendario preventivo con formato estandarizado para tu médico.',
+              icon: Icons.medical_information_outlined,
+              phaseKey: 'follicular',
             ),
             const SizedBox(height: 20),
 
@@ -182,107 +147,85 @@ class _DoctorReportExportPageState
 
             // Status Card
             if (exportState == ExportPdfState.completed) ...[
-              Card(
+              CoraSurfaceCard(
                 key: const Key('doctor_report_completed_card'),
-                color:
-                    theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(
-                    color: theme.colorScheme.secondary.withValues(alpha: 0.4),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.check_circle,
-                            color: theme.colorScheme.secondary,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              '¡Reporte generado con éxito!',
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                backgroundColor: CoraTheme.tokensOf(context).follicularSurface,
+                borderColor: CoraTheme.tokensOf(context)
+                    .follicular
+                    .withValues(alpha: 0.4),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: CoraTheme.tokensOf(context).follicular,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            '¡Reporte generado con éxito!',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Documento A4 listo con tipografía médica y formato Doctor-Ready.',
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 12),
-                      OutlinedButton.icon(
-                        key: const Key('doctor_report_share_button'),
-                        icon: const Icon(Icons.share),
-                        label: const Text('Compartir o Guardar PDF'),
-                        onPressed: () async {
-                          final bytes = ref
-                              .read(doctorReportExportProvider.notifier)
-                              .lastGeneratedPdfBytes;
-                          final messenger = ScaffoldMessenger.of(context);
-                          if (bytes == null || bytes.isEmpty) {
-                            messenger.showSnackBar(
-                              const SnackBar(
-                                content: Text('Primero genera el reporte PDF.'),
-                              ),
-                            );
-                            return;
-                          }
-                          try {
-                            final dir =
-                                await getApplicationDocumentsDirectory();
-                            final fileName =
-                                'cora_reporte_${DateTime.now().millisecondsSinceEpoch}.pdf';
-                            final file = File(p.join(dir.path, fileName));
-                            await file.writeAsBytes(bytes, flush: true);
-                            messenger.showSnackBar(
-                              SnackBar(
-                                content: Text('PDF guardado en: ${file.path}'),
-                              ),
-                            );
-                          } catch (_) {
-                            messenger.showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    'Reporte PDF listo en memoria para compartir.'),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Documento A4 listo con tipografía médica y formato Doctor-Ready.',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 12),
+                    OutlinedButton.icon(
+                      key: const Key('doctor_report_share_button'),
+                      icon: const Icon(Icons.share),
+                      label: const Text('Compartir o Guardar PDF'),
+                      onPressed: () async {
+                        final bytes = ref
+                            .read(doctorReportExportProvider.notifier)
+                            .lastGeneratedPdfBytes;
+                        final messenger = ScaffoldMessenger.of(context);
+                        if (bytes == null || bytes.isEmpty) {
+                          messenger.showSnackBar(
+                            const SnackBar(
+                              content: Text('Primero genera el reporte PDF.'),
+                            ),
+                          );
+                          return;
+                        }
+                        try {
+                          final dir = await getApplicationDocumentsDirectory();
+                          final fileName =
+                              'cora_reporte_${DateTime.now().millisecondsSinceEpoch}.pdf';
+                          final file = File(p.join(dir.path, fileName));
+                          await file.writeAsBytes(bytes, flush: true);
+                          messenger.showSnackBar(
+                            SnackBar(
+                              content: Text('PDF guardado en: ${file.path}'),
+                            ),
+                          );
+                        } catch (_) {
+                          messenger.showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Reporte PDF listo en memoria para compartir.'),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
             ] else if (exportState == ExportPdfState.error) ...[
-              Card(
-                key: const Key('doctor_report_error_card'),
-                color: theme.colorScheme.errorContainer,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Icon(Icons.error_outline, color: theme.colorScheme.error),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          'No fue posible generar el reporte en este momento. Por favor intenta de nuevo.',
-                          style: TextStyle(
-                            color: theme.colorScheme.onErrorContainer,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              const CoraAlertBanner(
+                key: Key('doctor_report_error_card'),
+                title: 'No fue posible generar el reporte',
+                description:
+                    'No fue posible generar el reporte en este momento. Por favor intenta de nuevo.',
+                isUrgent: true,
               ),
             ],
           ],

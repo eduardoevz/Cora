@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/records/domain/models/specialist_entry.dart';
 import 'package:mobile/features/records/domain/models/vaccination_record.dart';
@@ -317,27 +319,35 @@ class _VaccinationsAndSpecialistsPageState
                   itemCount: vaccines.length,
                   itemBuilder: (context, index) {
                     final vax = vaccines[index];
-                    return Card(
-                      key: Key('vaccination_card_$index'),
-                      margin: const EdgeInsets.only(bottom: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: theme.colorScheme.primaryContainer,
-                          child: Icon(
-                            Icons.shield_outlined,
-                            color: theme.colorScheme.primary,
+                    final tokens = CoraTheme.tokensOf(context);
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: CoraSurfaceCard(
+                        key: Key('vaccination_card_$index'),
+                        padding: EdgeInsets.zero,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: tokens.follicularSurface,
+                              child: Icon(
+                                Icons.shield_outlined,
+                                color: tokens.follicular,
+                              ),
+                            ),
+                            title: Text(
+                              vax.vaccineType.displayName,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w700),
+                            ),
+                            subtitle: Text(
+                              'Dosis #${vax.doseNumber} • ${vax.administeredAt.toLocal().toString().split(' ').first}'
+                              '${vax.administratorClinic != null ? ' • ${vax.administratorClinic}' : ''}',
+                              style: const TextStyle(
+                                fontFeatures: [FontFeature.tabularFigures()],
+                              ),
+                            ),
                           ),
-                        ),
-                        title: Text(
-                          vax.vaccineType.displayName,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          'Dosis #${vax.doseNumber} • ${vax.administeredAt.toLocal().toString().split(' ').first}'
-                          '${vax.administratorClinic != null ? ' • ${vax.administratorClinic}' : ''}',
                         ),
                       ),
                     );
@@ -385,57 +395,62 @@ class _VaccinationsAndSpecialistsPageState
                   itemCount: specialists.length,
                   itemBuilder: (context, index) {
                     final spec = specialists[index];
-                    return Card(
-                      key: Key('specialist_card_$index'),
-                      margin: const EdgeInsets.only(bottom: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: theme.colorScheme.secondaryContainer,
-                          child: Icon(
-                            Icons.local_hospital_outlined,
-                            color: theme.colorScheme.secondary,
-                          ),
-                        ),
-                        title: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                spec.fullName,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                    final tokens = CoraTheme.tokensOf(context);
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: CoraSurfaceCard(
+                        key: Key('specialist_card_$index'),
+                        padding: EdgeInsets.zero,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: tokens.lutealSurface,
+                              child: Icon(
+                                Icons.local_hospital_outlined,
+                                color: tokens.luteal,
                               ),
                             ),
-                            if (spec.isFavorite)
-                              const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 18,
-                              ),
-                          ],
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    spec.fullName,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                if (spec.isFavorite)
+                                  Icon(
+                                    Icons.star,
+                                    color: tokens.ovulatory,
+                                    size: 18,
+                                  ),
+                              ],
+                            ),
+                            subtitle: Text(
+                              '${spec.specialty.displayName}'
+                              '${spec.clinicName != null ? ' • ${spec.clinicName}' : ''}'
+                              '${spec.phoneNumber != null ? '\nTel: ${spec.phoneNumber}' : ''}',
+                            ),
+                            trailing: spec.phoneNumber != null
+                                ? IconButton(
+                                    icon: const Icon(Icons.phone),
+                                    color: tokens.accentPrimary,
+                                    tooltip: 'Llamar al médico',
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Marcando a ${spec.fullName}: ${spec.phoneNumber}'),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : null,
+                          ),
                         ),
-                        subtitle: Text(
-                          '${spec.specialty.displayName}'
-                          '${spec.clinicName != null ? ' • ${spec.clinicName}' : ''}'
-                          '${spec.phoneNumber != null ? '\nTel: ${spec.phoneNumber}' : ''}',
-                        ),
-                        trailing: spec.phoneNumber != null
-                            ? IconButton(
-                                icon: const Icon(Icons.phone),
-                                color: theme.colorScheme.primary,
-                                tooltip: 'Llamar al médico',
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          'Marcando a ${spec.fullName}: ${spec.phoneNumber}'),
-                                    ),
-                                  );
-                                },
-                              )
-                            : null,
                       ),
                     );
                   },

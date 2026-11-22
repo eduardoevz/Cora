@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/core/notifications/discreet_notification_service.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/treatments/domain/entities/treatment_entities.dart';
 import 'package:mobile/features/treatments/presentation/providers/treatment_providers.dart';
@@ -30,6 +32,7 @@ class _PillboxAndTreatmentsPageState
 
     final regimensAsync = ref.watch(userRegimensProvider(profile.id));
     final theme = Theme.of(context);
+    final tokens = CoraTheme.tokensOf(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,73 +52,46 @@ class _PillboxAndTreatmentsPageState
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Privacy Mode Card
-            Card(
-              elevation: 0,
-              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
-              child: SwitchListTile(
-                key: const Key('discreet_mode_switch'),
-                secondary: Icon(
-                  _isDiscreet ? Icons.visibility_off : Icons.visibility,
-                  color: theme.colorScheme.primary,
+            CoraSurfaceCard(
+              padding: EdgeInsets.zero,
+              backgroundColor: tokens.follicularSurface,
+              borderColor: tokens.follicular.withValues(alpha: 0.3),
+              child: Material(
+                color: Colors.transparent,
+                child: SwitchListTile(
+                  key: const Key('discreet_mode_switch'),
+                  secondary: Icon(
+                    _isDiscreet ? Icons.visibility_off : Icons.visibility,
+                    color: tokens.follicular,
+                  ),
+                  title: const Text('Modo Discreto de Notificaciones'),
+                  subtitle: Text(
+                    _isDiscreet
+                        ? 'Texto enmascarado: "Tienes un recordatorio de bienestar en Cora"'
+                        : 'Texto clínico con nombre del medicamento y dosis',
+                    style: theme.textTheme.bodySmall,
+                  ),
+                  value: _isDiscreet,
+                  onChanged: (val) => setState(() => _isDiscreet = val),
                 ),
-                title: const Text('Modo Discreto de Notificaciones'),
-                subtitle: Text(
-                  _isDiscreet
-                      ? 'Texto enmascarado: "Tienes un recordatorio de bienestar en Cora"'
-                      : 'Texto clínico con nombre del medicamento y dosis',
-                  style: theme.textTheme.bodySmall,
-                ),
-                value: _isDiscreet,
-                onChanged: (val) => setState(() => _isDiscreet = val),
               ),
             ),
             const SizedBox(height: 16),
 
             // Today's Doses Header
-            Text(
-              'Tomas Programadas para Hoy',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const CoraSectionLabel(title: 'Tomas Programadas para Hoy'),
             const SizedBox(height: 12),
 
             regimensAsync.when(
               data: (regimens) {
                 if (regimens.isEmpty) {
-                  return Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(
-                          color: theme.dividerColor.withValues(alpha: 0.3)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Column(
-                        children: [
-                          Icon(Icons.medication_outlined,
-                              size: 48, color: theme.colorScheme.primary),
-                          const SizedBox(height: 12),
-                          const Text(
-                            'No tienes tratamientos registrados',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 4),
-                          const Text(
-                            'Registra anticonceptivos, suplementos (ácido fólico, hierro) o medicación.',
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 16),
-                          OutlinedButton.icon(
-                            icon: const Icon(Icons.add),
-                            label: const Text('Añadir Tratamiento'),
-                            onPressed: () =>
-                                _showAddRegimenDialog(context, profile.id),
-                          ),
-                        ],
-                      ),
-                    ),
+                  return CoraEmptyStateCard(
+                    icon: Icons.medication_outlined,
+                    title: 'No tienes tratamientos registrados',
+                    subtitle:
+                        'Registra anticonceptivos, suplementos (ácido fólico, hierro) o medicación.',
+                    actionLabel: 'Añadir Tratamiento',
+                    onAction: () => _showAddRegimenDialog(context, profile.id),
                   );
                 }
 
@@ -149,15 +125,9 @@ class _PillboxAndTreatmentsPageState
       isDiscreet: _isDiscreet,
     );
 
-    return Card(
-      elevation: 0,
-      margin: const EdgeInsets.only(bottom: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.3)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: CoraSurfaceCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -272,12 +242,14 @@ class _PillboxAndTreatmentsPageState
     );
 
     if (mounted) {
+      final tokens = CoraTheme.tokensOf(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(status == 'taken'
               ? '¡Dosis de ${regimen.name} registrada con éxito!'
               : 'Dosis de ${regimen.name} marcada como omitida.'),
-          backgroundColor: status == 'taken' ? Colors.green : Colors.orange,
+          backgroundColor:
+              status == 'taken' ? tokens.follicular : tokens.alertPreventive,
         ),
       );
     }

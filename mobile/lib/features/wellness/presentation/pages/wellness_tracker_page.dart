@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/wellness/domain/entities/daily_wellness_entity.dart';
 import 'package:mobile/features/wellness/presentation/providers/wellness_providers.dart';
@@ -37,14 +39,14 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
   ];
 
   static const Map<String, String> _moodLabels = {
-    'calm': 'Calma 🌿',
-    'energetic': 'Con energía ⚡',
-    'happy': 'Alegre ✨',
-    'anxious': 'Ansiosa 🌧️',
-    'exhausted': 'Agotada 💤',
-    'crampy': 'Cólicos 🩹',
-    'bloated': 'Hinchazón 🎈',
-    'stressed': 'Estresada 🌪️',
+    'calm': 'Calma',
+    'energetic': 'Con energía',
+    'happy': 'Alegre',
+    'anxious': 'Ansiosa',
+    'exhausted': 'Agotada',
+    'crampy': 'Cólicos',
+    'bloated': 'Hinchazón',
+    'stressed': 'Estresada',
   };
 
   @override
@@ -150,38 +152,36 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Date Header
-            Card(
-              elevation: 0,
-              color: theme.colorScheme.surfaceContainerHighest,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Fecha: ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+            CoraSurfaceCard(
+              backgroundColor: CoraTheme.tokensOf(context).surfaceSecondary,
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Fecha: ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontFeatures: const [FontFeature.tabularFigures()],
                     ),
-                    TextButton.icon(
-                      icon: const Icon(Icons.calendar_today, size: 18),
-                      label: const Text('Cambiar'),
-                      onPressed: () async {
-                        final picked = await showDatePicker(
-                          context: context,
-                          initialDate: _selectedDate,
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime.now(),
-                        );
-                        if (picked != null) {
-                          setState(() => _selectedDate = picked);
-                          await _loadExistingLog();
-                        }
-                      },
-                    ),
-                  ],
-                ),
+                  ),
+                  TextButton.icon(
+                    icon: const Icon(Icons.calendar_today, size: 18),
+                    label: const Text('Cambiar'),
+                    onPressed: () async {
+                      final picked = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedDate,
+                        firstDate: DateTime(2020),
+                        lastDate: DateTime.now(),
+                      );
+                      if (picked != null) {
+                        setState(() => _selectedDate = picked);
+                        await _loadExistingLog();
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16),
@@ -189,11 +189,16 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
             // Sleep Section
             _buildSection(
               title: 'Sueño y Descanso',
-              icon: Icons.bedtime,
+              icon: Icons.bedtime_outlined,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Horas dormidas: ${_sleepHours.toStringAsFixed(1)} h'),
+                  Text(
+                    'Horas dormidas: ${_sleepHours.toStringAsFixed(1)} h',
+                    style: const TextStyle(
+                      fontFeatures: [FontFeature.tabularFigures()],
+                    ),
+                  ),
                   Slider(
                     key: const Key('sleep_hours_slider'),
                     value: _sleepHours,
@@ -204,7 +209,12 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
                     onChanged: (val) => setState(() => _sleepHours = val),
                   ),
                   const SizedBox(height: 8),
-                  Text('Calidad del sueño: $_sleepQuality / 5'),
+                  Text(
+                    'Calidad del sueño: $_sleepQuality / 5',
+                    style: const TextStyle(
+                      fontFeatures: [FontFeature.tabularFigures()],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(5, (index) {
@@ -214,7 +224,7 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
                           star <= _sleepQuality
                               ? Icons.star
                               : Icons.star_border,
-                          color: Colors.amber,
+                          color: CoraTheme.tokensOf(context).ovulatory,
                         ),
                         onPressed: () => setState(() => _sleepQuality = star),
                       );
@@ -343,33 +353,26 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
     required Widget child,
   }) {
     final theme = Theme.of(context);
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: theme.dividerColor.withValues(alpha: 0.3)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(icon, size: 20, color: theme.colorScheme.primary),
-                const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+    final tokens = CoraTheme.tokensOf(context);
+    return CoraSurfaceCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 20, color: tokens.accentPrimary),
+              const SizedBox(width: 8),
+              Text(
+                title,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            child,
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          child,
+        ],
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/records/domain/models/medical_exam_record.dart';
 import 'package:mobile/features/records/domain/models/preventive_screening_item.dart';
@@ -206,15 +208,15 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
             Row(
               children: [
                 Expanded(
-                  child: Card(
-                    elevation: 0,
-                    color: theme.colorScheme.primaryContainer
-                        .withValues(alpha: 0.5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                  child: CoraSurfaceCard(
+                    backgroundColor:
+                        CoraTheme.tokensOf(context).follicularSurface,
+                    borderColor: CoraTheme.tokensOf(context)
+                        .follicular
+                        .withValues(alpha: 0.3),
+                    padding: EdgeInsets.zero,
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(20),
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -223,18 +225,18 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(14.0),
                         child: Column(
                           children: [
                             Icon(
                               Icons.description_outlined,
-                              color: theme.colorScheme.primary,
+                              color: CoraTheme.tokensOf(context).follicular,
                               size: 28,
                             ),
                             const SizedBox(height: 6),
                             const Text(
                               'Doctor-Ready PDF',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.w700),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -245,15 +247,14 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Card(
-                    elevation: 0,
-                    color: theme.colorScheme.tertiaryContainer
-                        .withValues(alpha: 0.5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                  child: CoraSurfaceCard(
+                    backgroundColor: CoraTheme.tokensOf(context).lutealSurface,
+                    borderColor: CoraTheme.tokensOf(context)
+                        .luteal
+                        .withValues(alpha: 0.3),
+                    padding: EdgeInsets.zero,
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(20),
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -263,18 +264,18 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(14.0),
                         child: Column(
                           children: [
                             Icon(
                               Icons.contacts_outlined,
-                              color: theme.colorScheme.tertiary,
+                              color: CoraTheme.tokensOf(context).luteal,
                               size: 28,
                             ),
                             const SizedBox(height: 6),
                             const Text(
                               'Especialistas & Vacunas',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.w700),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -288,15 +289,11 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
             const SizedBox(height: 20),
 
             // Section 1: Preventive Screening Calendar
-            Text(
-              'Calendario Preventivo Clínico',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            const CoraSectionLabel(title: 'Calendario Preventivo Clínico'),
             const SizedBox(height: 8),
             calendarAsync.when(
               data: (screenings) {
+                final tokens = CoraTheme.tokensOf(context);
                 return Column(
                   key: const Key('preventive_calendar_section'),
                   children: screenings.map((item) {
@@ -304,53 +301,55 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                     String badgeText;
                     switch (item.urgency) {
                       case ScreeningUrgency.dueNow:
-                        badgeColor = Colors.redAccent;
+                        badgeColor = tokens.alertUrgent;
                         badgeText = 'Pendiente';
                         break;
                       case ScreeningUrgency.upcoming:
-                        badgeColor = Colors.orangeAccent;
+                        badgeColor = tokens.alertPreventive;
                         badgeText = 'Próximo';
                         break;
                       case ScreeningUrgency.upToDate:
-                        badgeColor = Colors.green;
+                        badgeColor = tokens.follicular;
                         badgeText = 'Al Día';
                         break;
                     }
 
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 8),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(
-                          color: badgeColor.withValues(alpha: 0.3),
-                          width: 1.5,
-                        ),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: badgeColor.withValues(alpha: 0.15),
-                          child: Icon(Icons.calendar_today,
-                              color: badgeColor, size: 20),
-                        ),
-                        title: Text(
-                          item.title,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        subtitle: Text(
-                          '${item.description}\nFrecuencia: ${item.frequencyGuideline}',
-                        ),
-                        trailing: Chip(
-                          label: Text(
-                            badgeText,
-                            style: TextStyle(
-                              color: badgeColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: CoraSurfaceCard(
+                        padding: EdgeInsets.zero,
+                        borderColor: badgeColor.withValues(alpha: 0.35),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  badgeColor.withValues(alpha: 0.15),
+                              child: Icon(Icons.calendar_today,
+                                  color: badgeColor, size: 20),
+                            ),
+                            title: Text(
+                              item.title,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            subtitle: Text(
+                              '${item.description}\nFrecuencia: ${item.frequencyGuideline}',
+                            ),
+                            trailing: Chip(
+                              label: Text(
+                                badgeText,
+                                style: TextStyle(
+                                  color: badgeColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              backgroundColor:
+                                  badgeColor.withValues(alpha: 0.1),
+                              side: BorderSide.none,
                             ),
                           ),
-                          backgroundColor: badgeColor.withValues(alpha: 0.1),
-                          side: BorderSide.none,
                         ),
                       ),
                     );
@@ -437,38 +436,43 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
                   itemCount: exams.length,
                   itemBuilder: (context, index) {
                     final exam = exams[index];
-                    return Card(
-                      key: Key('exam_card_$index'),
-                      margin: const EdgeInsets.only(bottom: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: theme.colorScheme.primaryContainer
-                              .withValues(alpha: 0.6),
-                          child: Icon(
-                            exam.attachment != null
-                                ? Icons.attach_file
-                                : Icons.article_outlined,
-                            color: theme.colorScheme.primary,
+                    final tokens = CoraTheme.tokensOf(context);
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: CoraSurfaceCard(
+                        key: Key('exam_card_$index'),
+                        padding: EdgeInsets.zero,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: tokens.follicularSurface,
+                              child: Icon(
+                                exam.attachment != null
+                                    ? Icons.attach_file
+                                    : Icons.article_outlined,
+                                color: tokens.follicular,
+                              ),
+                            ),
+                            title: Text(
+                              exam.title,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w700),
+                            ),
+                            subtitle: Text(
+                              '${exam.examType.displayName} • ${exam.performedAt.toLocal().toString().split(' ').first}'
+                              '${exam.clinicOrLab != null ? '\n${exam.clinicOrLab}' : ''}',
+                            ),
+                            trailing: exam.attachment != null
+                                ? Tooltip(
+                                    message:
+                                        'Archivo adjunto seguro en la nube',
+                                    child: Icon(Icons.cloud_done,
+                                        color: tokens.follicular),
+                                  )
+                                : null,
                           ),
                         ),
-                        title: Text(
-                          exam.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          '${exam.examType.displayName} • ${exam.performedAt.toLocal().toString().split(' ').first}'
-                          '${exam.clinicOrLab != null ? '\n${exam.clinicOrLab}' : ''}',
-                        ),
-                        trailing: exam.attachment != null
-                            ? const Tooltip(
-                                message: 'Archivo adjunto seguro en la nube',
-                                child:
-                                    Icon(Icons.cloud_done, color: Colors.teal),
-                              )
-                            : null,
                       ),
                     );
                   },
