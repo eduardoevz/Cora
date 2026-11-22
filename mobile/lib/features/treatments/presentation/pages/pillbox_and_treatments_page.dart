@@ -51,6 +51,60 @@ class _PillboxAndTreatmentsPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const CoraStitchPageHeader(
+              eyebrow: 'ADHERENCIA FARMACOLÓGICA',
+              title: 'Mi Pastillero Diario',
+              subtitle:
+                  'Control de dosis, ciclos activo/descanso y recordatorios discretos.',
+              eyebrowIcon: Icons.medication_outlined,
+            ),
+            const SizedBox(height: 12),
+            CoraSurfaceCard(
+              padding: const EdgeInsets.all(14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Adherencia Semanal',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: ['L', 'M', 'X', 'J', 'V', 'S', 'D']
+                        .asMap()
+                        .entries
+                        .map((entry) {
+                      final done = entry.key < 5;
+                      return Container(
+                        width: 34,
+                        height: 34,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color:
+                              done ? tokens.verifiedSurface : tokens.blushInset,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: done ? tokens.verified : tokens.borderSubtle,
+                          ),
+                        ),
+                        child: Text(
+                          entry.value,
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color:
+                                done ? tokens.verified : tokens.textSecondary,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
             // Privacy Mode Card
             CoraSurfaceCard(
               padding: EdgeInsets.zero,

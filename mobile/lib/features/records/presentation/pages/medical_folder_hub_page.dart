@@ -204,6 +204,21 @@ class _MedicalFolderHubPageState extends ConsumerState<MedicalFolderHubPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const CoraStitchPageHeader(
+              eyebrow: 'BÓVEDA MÉDICA SOBERANA',
+              title: 'Historial & Estudios',
+              subtitle:
+                  'Estudios de laboratorio, vacunas, especialistas y reportes A4 Doctor-Ready.',
+              eyebrowIcon: Icons.folder_shared_outlined,
+            ),
+            const SizedBox(height: 12),
+            const CoraTrustShieldCard(
+              title: 'Resguardo Clínico Cifrado (E2EE)',
+              body:
+                  'Tus resultados y adjuntos se almacenan localmente en SQLite y se sincronizan mediante URLs prefirmadas privadas.',
+              footerTag: 'Privacidad Médica • HIPAA & RGPD',
+            ),
+            const SizedBox(height: 14),
             // Quick Access Cards Banner
             Row(
               children: [

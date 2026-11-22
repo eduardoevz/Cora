@@ -266,19 +266,28 @@ class _VaccinationsAndSpecialistsPageState
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Vacunas y Directorio Médico'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(
-                key: Key('vaccinations_tab'),
-                icon: Icon(Icons.vaccines_outlined),
-                text: 'Cartilla de Vacunación',
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(58),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+              child: Builder(
+                builder: (tabContext) {
+                  return CoraPillTabBar(
+                    controller: DefaultTabController.of(tabContext),
+                    tabs: const [
+                      Tab(
+                        key: Key('vaccinations_tab'),
+                        text: 'Cartilla de Vacunación',
+                      ),
+                      Tab(
+                        key: Key('specialists_tab'),
+                        text: 'Especialistas',
+                      ),
+                    ],
+                  );
+                },
               ),
-              Tab(
-                key: Key('specialists_tab'),
-                icon: Icon(Icons.people_outline),
-                text: 'Especialistas',
-              ),
-            ],
+            ),
           ),
         ),
         body: TabBarView(

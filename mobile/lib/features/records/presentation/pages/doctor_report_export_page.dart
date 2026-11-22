@@ -41,6 +41,12 @@ class _DoctorReportExportPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const CoraStitchPageHeader(
+              eyebrow: 'HISTORIA CLÍNICA PORTÁTIL',
+              title: 'Reporte Doctor-Ready',
+              eyebrowIcon: Icons.picture_as_pdf_outlined,
+            ),
+            const SizedBox(height: 10),
             // Clinical Info Card
             const CoraInfoCallout(
               title: 'Resumen Clínico para tu Consulta',
@@ -144,6 +150,69 @@ class _DoctorReportExportPageState
                     },
             ),
             const SizedBox(height: 20),
+            CoraSurfaceCard(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Wrap(
+                    spacing: 8,
+                    runSpacing: 6,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        'PREVISUALIZACIÓN DE HOJA CLÍNICA',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.7,
+                        ),
+                      ),
+                      CoraMintStatusPill(
+                        label: 'Formato A4',
+                        variant: CoraStatusPillVariant.softMint,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  CoraBiometricTrendChart(
+                    values: const [28, 29, 28, 30, 28],
+                    lineColor: CoraTheme.tokensOf(context).primaryDeep,
+                    height: 64,
+                    startLabel: 'Inicio',
+                    endLabel: 'Actual',
+                  ),
+                  const SizedBox(height: 10),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      CoraBlushInsetBox(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        child: Text(
+                          'Ventana: $_selectedWindowMonths m',
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      CoraBlushInsetBox(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        child: Text(
+                          'Estándar FIGO/ACOG',
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
 
             // Status Card
             if (exportState == ExportPdfState.completed) ...[

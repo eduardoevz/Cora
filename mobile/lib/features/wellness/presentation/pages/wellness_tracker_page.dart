@@ -151,6 +151,51 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const CoraStitchPageHeader(
+              eyebrow: 'BIENESTAR INTEGRAL',
+              title: 'Balance Diario',
+              eyebrowIcon: Icons.spa_outlined,
+              mintEyebrow: true,
+            ),
+            const SizedBox(height: 12),
+            CoraSurfaceCard(
+              backgroundColor: CoraTheme.tokensOf(context).blushInset,
+              padding: const EdgeInsets.all(14),
+              child: Row(
+                children: [
+                  CoraCircularProgressRing(
+                    progress: (_hydrationMl / 2000.0).clamp(0.0, 1.0),
+                    centerLabel: '${(_hydrationMl / 1000).toStringAsFixed(1)}L',
+                    centerSublabel: 'meta 2L',
+                    size: 68,
+                    strokeWidth: 6,
+                    progressColor: CoraTheme.tokensOf(context).verified,
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hidratación & Energía',
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          '$_hydrationMl ml • $_sleepHours h sueño • $_exerciseMinutes min actividad',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: CoraTheme.tokensOf(context).textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
             // Date Header
             CoraSurfaceCard(
               backgroundColor: CoraTheme.tokensOf(context).surfaceSecondary,
