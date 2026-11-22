@@ -73,3 +73,26 @@ En la **Fase 16** culminamos la evolución **Cora v2.0**, rediseñando la experi
 ## 6. Estado Final del Proyecto (Cora v2.0 Completado — 16/16 Fases)
 
 Con el cierre de la **Fase 16**, las **16 fases** de la hoja de ruta de **Cora** (Fases `01–12` de Cora v1.0 y Fases `13–16` de Cora v2.0) se encuentran 100% completadas, documentadas en `documentacion/`, desplegadas en producción y certificadas con CI/CD en verde en GitHub Actions.
+
+---
+
+## 7. Addendum — Rediseño Integral de las 30 Pantallas (`Cora v2.0`) y QA Final Android Studio
+
+Tras el cierre inicial de la Fase 16, se completó el rediseño visual y funcional de **todas las 30 pantallas (`*_page.dart`)** de `mobile/lib/features/` al sistema **Cora v2.0 (*Warm Botanical Health Editorial*)**, respaldado por **6 tableros visuales de diseño** generados automáticamente para los 6 lotes de pantalla:
+
+1. **Wave 0 — Librería compartida v2 y `CycleWheelPainter` (`8873d1c`):** Se añadieron `CoraPageHeroBanner`, `CoraEmptyStateCard`, `CoraAlertBanner` y `CoraSegmentedSliderCard` en `mobile/lib/core/theme/cora_design_components.dart`, y se migró `CycleWheelPainter` a `CoraColorTokens`.
+2. **Wave 1 — Auth, Onboarding y Preferencias de Módulos (`b3fe9ea`):** `firebase_auth_page.dart`, `onboarding_wizard_page.dart`, `module_preferences_page.dart`.
+3. **Wave 2 — Ciclo, Adolescencia y Fertilidad (`f5bc529`):** `cycle_monitor_page.dart`, `chronic_conditions_tracker_page.dart`, `first_period_and_body_guide_page.dart`, `conception_hub_page.dart`, `preconception_checklist_page.dart`.
+4. **Wave 3 — Embarazo y Posparto (`bc92620`):** `pregnancy_weekly_hub_page.dart`, `maternal_vitals_page.dart`, `contraction_and_kick_timers_page.dart`, `birth_plan_and_appointments_page.dart`, `postpartum_recovery_page.dart`, `lactation_and_milk_bank_page.dart`, `epds_mental_health_page.dart`.
+5. **Wave 4 — Perimenopausia y Vitalidad Senior WCAG AAA (`afb5311`):** `perimenopause_hub_page.dart`, `hot_flash_tracker_page.dart`, `senior_vitality_hub_page.dart` (con `CoraTheme.highLegibility()` y contraste AAA `>= 7:1`).
+6. **Wave 5 — Bienestar, Pastillero y Expediente Médico/PDF (`dd7224d`):** `wellness_tracker_page.dart`, `pillbox_and_treatments_page.dart`, `medical_folder_hub_page.dart`, `vaccinations_and_specialists_page.dart`, `doctor_report_export_page.dart`.
+7. **Wave 6 — Asistente RAG, Biblioteca Clínica, Modo Acompañante y Privacidad/GDPR (`8835b76`):** `cora_assistant_chat_page.dart`, `clinical_library_page.dart`, `partner_sharing_settings_page.dart`, `partner_companion_view_page.dart`, `privacy_and_data_sovereignty_page.dart`.
+8. **Auditoría Estática de 30 Pantallas + WCAG `2.0x` (`4a3c143`):** `mobile/test/accessibility/design_system_30_screens_audit_test.dart` verifica programáticamente que las 30 pantallas usan `CoraTheme.tokensOf(context)`/`highLegibility()`, `0` colores heredados de Material y `0` emojis, además de pruebas de renderizado sin overflow con `TextScaler.linear(2.0)` en `390x844`.
+
+### Verificación Final de Release v2.0 (30/30 Pantallas)
+- `dart format --output=none --set-exit-if-changed .` → `Formatted 141 files (0 changed)`
+- `flutter analyze --fatal-infos` → `No issues found!`
+- `flutter test` → **`+119: All tests passed!`**
+- `flutter test integration_test/app_full_flow_e2e_test.dart -d emulator-5554` → **`01:04 +1: All tests passed!`**
+- `flutter build apk --release` → **`√ Built build\app\outputs\flutter-apk\app-release.apk (64.8MB)`**
+- Instalación y lanzamiento en `Pixel_10_Pro` (`emulator-5554`) → **`Fatal Logcat Count: 0`**.
