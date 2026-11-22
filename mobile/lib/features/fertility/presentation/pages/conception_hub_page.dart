@@ -102,6 +102,13 @@ class _ConceptionHubPageState extends ConsumerState<ConceptionHubPage> {
           ),
         ),
         const SizedBox(height: 14),
+        const CoraEditorialImageBanner(
+          assetPath: 'assets/images/home_follicular_editorial.jpg',
+          height: 94,
+          topBadge: 'MÉTODO SINTOTÉRMICO CLÍNICO',
+          bottomLeftBadge: 'Regla 3-sobre-6 • LH • Cérvix',
+        ),
+        const SizedBox(height: 14),
         // Status Card
         _buildStatusCard(context, data),
         const SizedBox(height: 12),

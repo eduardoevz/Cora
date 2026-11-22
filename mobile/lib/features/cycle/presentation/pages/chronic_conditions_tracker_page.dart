@@ -111,6 +111,13 @@ class _ChronicConditionsTrackerPageState
                 'Monitoreo biométrico diario, correlación inflamatoria y modulación endocrina.',
             eyebrowIcon: Icons.health_and_safety_outlined,
           ),
+          const SizedBox(height: 12),
+          const CoraEditorialImageBanner(
+            assetPath: 'assets/images/cycle_physiology_card.jpg',
+            height: 96,
+            topBadge: 'CUIDADO INTEGRAL',
+            bottomLeftBadge: 'Correlación inflamatoria y hormonal',
+          ),
           const SizedBox(height: 14),
           CoraSurfaceCard(
             padding: const EdgeInsets.all(16),

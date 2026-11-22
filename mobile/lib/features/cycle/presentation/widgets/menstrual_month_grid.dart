@@ -73,17 +73,23 @@ class MenstrualMonthGrid extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                key: const Key('calendar_prev_month_button'),
-                tooltip: 'Mes anterior',
-                constraints: BoxConstraints(
-                  minWidth: minCellHeight,
-                  minHeight: minCellHeight,
+              Container(
+                decoration: BoxDecoration(
+                  color: tokens.surfaceContainer,
+                  shape: BoxShape.circle,
                 ),
-                onPressed: onPreviousMonth,
-                icon: Icon(
-                  Icons.chevron_left_rounded,
-                  color: tokens.textPrimary,
+                child: IconButton(
+                  key: const Key('calendar_prev_month_button'),
+                  tooltip: 'Mes anterior',
+                  constraints: BoxConstraints(
+                    minWidth: minCellHeight,
+                    minHeight: minCellHeight,
+                  ),
+                  onPressed: onPreviousMonth,
+                  icon: Icon(
+                    Icons.chevron_left_rounded,
+                    color: tokens.primaryDeep,
+                  ),
                 ),
               ),
               Expanded(
@@ -96,17 +102,23 @@ class MenstrualMonthGrid extends StatelessWidget {
                       ),
                 ),
               ),
-              IconButton(
-                key: const Key('calendar_next_month_button'),
-                tooltip: 'Mes siguiente',
-                constraints: BoxConstraints(
-                  minWidth: minCellHeight,
-                  minHeight: minCellHeight,
+              Container(
+                decoration: BoxDecoration(
+                  color: tokens.surfaceContainer,
+                  shape: BoxShape.circle,
                 ),
-                onPressed: onNextMonth,
-                icon: Icon(
-                  Icons.chevron_right_rounded,
-                  color: tokens.textPrimary,
+                child: IconButton(
+                  key: const Key('calendar_next_month_button'),
+                  tooltip: 'Mes siguiente',
+                  constraints: BoxConstraints(
+                    minWidth: minCellHeight,
+                    minHeight: minCellHeight,
+                  ),
+                  onPressed: onNextMonth,
+                  icon: Icon(
+                    Icons.chevron_right_rounded,
+                    color: tokens.primaryDeep,
+                  ),
                 ),
               ),
             ],
@@ -270,12 +282,9 @@ class _CalendarDayCell extends StatelessWidget {
       case CalendarDayMarker.fertileWindow:
         backgroundColor = tokens.ovulatorySurface;
         textColor = tokens.ovulatory;
-        border = Border.all(
-          color: tokens.ovulatory.withValues(
-            alpha: tokens.isHighLegibility ? 1.0 : 0.45,
-          ),
-          width: tokens.isHighLegibility ? 1.8 : 1.2,
-        );
+        border = tokens.isHighLegibility
+            ? Border.all(color: tokens.ovulatory, width: 1.8)
+            : null;
         badgeMarker = SizedBox(
           key: Key('marker_fertile_$dateSuffix'),
           width: 6,
