@@ -11,10 +11,13 @@ import 'package:mobile/core/sync/sync_coordinator.dart';
 import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/education/domain/models/clinical_article.dart';
 import 'package:mobile/features/education/presentation/clinical_library_page.dart';
+import 'package:mobile/features/menopause/presentation/pages/perimenopause_hub_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/partner/presentation/pages/partner_sharing_settings_page.dart';
+import 'package:mobile/features/pregnancy/presentation/pages/pregnancy_weekly_hub_page.dart';
 import 'package:mobile/features/privacy/presentation/pages/privacy_and_data_sovereignty_page.dart';
+import 'package:mobile/features/treatments/presentation/pages/pillbox_and_treatments_page.dart';
 import 'package:mobile/features/records/data/medical_records_repository_impl.dart';
 import 'package:mobile/features/records/domain/models/medical_exam_record.dart';
 import 'package:mobile/features/records/domain/models/preventive_screening_item.dart';
@@ -286,6 +289,42 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Privacidad y Soberanía'), findsOneWidget);
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets(
+        'PerimenopauseHubPage, PregnancyWeeklyHubPage & PillboxAndTreatmentsPage render at TextScaler 2.0x without overflow',
+        (tester) async {
+      final db = AppDatabase.forTesting(NativeDatabase.memory());
+      addTearDown(db.close);
+      final syncCoordinator = SyncCoordinator(db);
+
+      for (final page in <Widget>[
+        const PerimenopauseHubPage(),
+        const PregnancyWeeklyHubPage(),
+        const PillboxAndTreatmentsPage(),
+      ]) {
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              appDatabaseProvider.overrideWithValue(db),
+              syncCoordinatorProvider.overrideWithValue(syncCoordinator),
+              activeUserProfileProvider.overrideWith((ref) => testProfile),
+            ],
+            child: MediaQuery(
+              data: const MediaQueryData(
+                size: Size(390, 844),
+                textScaler: TextScaler.linear(2.0),
+              ),
+              child: MaterialApp(
+                theme: CoraTheme.standard(),
+                home: page,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+      }
     });
   });
 }

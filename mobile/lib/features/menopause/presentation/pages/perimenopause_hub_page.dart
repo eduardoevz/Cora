@@ -252,10 +252,12 @@ class PerimenopauseHubPage extends ConsumerWidget {
                     children: [
                       Icon(Icons.favorite_outline, color: tokens.menstrual),
                       const SizedBox(width: 8),
-                      Text(
-                        'Salud Cardiometabólica',
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w700),
+                      Expanded(
+                        child: Text(
+                          'Salud Cardiometabólica',
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ],
                   ),
