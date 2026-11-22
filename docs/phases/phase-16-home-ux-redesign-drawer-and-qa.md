@@ -58,6 +58,6 @@
 - Modify: `documentacion/README.md`
 - Modify: `README.md`
 
-- [ ] **Step 1: Marcar checkboxes completados en `phase-16-home-ux-redesign-drawer-and-qa.md` y actualizar `docs/phases/README.md` y `README.md`**
-- [ ] **Step 2: Push a `origin/main` y monitorear `gh run list` / `gh run watch` hasta certificar `Backend CI`, `Mobile CI` y `Security & OpenAPI Contract Verification` en `success`**
-- [ ] **Step 3: Crear reporte `documentacion/fase-16-rediseno-home-drawer-y-release-v2.md`, actualizar `documentacion/README.md`, hacer commit, push y re-verificar CI en verde**
+- [x] **Step 1: Marcar checkboxes completados en `phase-16-home-ux-redesign-drawer-and-qa.md` y actualizar `docs/phases/README.md` y `README.md`**
+- [x] **Step 2: Push a `origin/main` y monitorear `gh run list` / `gh run watch` hasta certificar `Backend CI`, `Mobile CI` y `Security & OpenAPI Contract Verification` en `success`**
+- [x] **Step 3: Crear reporte `documentacion/fase-16-rediseno-home-drawer-y-release-v2.md`, actualizar `documentacion/README.md`, hacer commit, push y re-verificar CI en verde**
