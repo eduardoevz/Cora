@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/core/auth/auth_providers.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/cycle/presentation/providers/cycle_providers.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
@@ -230,151 +232,193 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   }
 
   Widget _buildProgressIndicator() {
+    final tokens = CoraTheme.tokensOf(context);
     final total = _totalSteps;
-    return Row(
-      children: List.generate(total, (index) {
-        final isActive = index <= _currentStep;
-        return Expanded(
-          child: Container(
-            height: 6,
-            margin: EdgeInsets.only(right: index < total - 1 ? 8 : 0),
-            decoration: BoxDecoration(
-              color: isActive
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(3),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'PASO ${_currentStep + 1} DE $total',
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: tokens.accentPrimary,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.0,
+                fontFeatures: const [FontFeature.tabularFigures()],
+              ),
             ),
-          ),
-        );
-      }),
+            Text(
+              _selectedLifeStage.label,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: tokens.textSecondary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: List.generate(total, (index) {
+            final isActive = index <= _currentStep;
+            return Expanded(
+              child: Container(
+                height: 6,
+                margin: EdgeInsets.only(right: index < total - 1 ? 8 : 0),
+                decoration: BoxDecoration(
+                  color:
+                      isActive ? tokens.accentPrimary : tokens.surfaceSecondary,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+            );
+          }),
+        ),
+      ],
     );
   }
 
   Widget _buildLayer1() {
+    final tokens = CoraTheme.tokensOf(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           '¿Cómo te llamas?',
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.w700,
               ),
         ),
         const SizedBox(height: 8),
         Text(
           'Queremos acompañarte de manera personalizada en cada paso.',
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: tokens.textSecondary,
+              ),
         ),
-        const SizedBox(height: 24),
-        TextField(
-          key: const Key('first_name_input'),
-          controller: _firstNameController,
-          decoration: const InputDecoration(
-            labelText: 'Nombre',
-            border: OutlineInputBorder(),
+        const SizedBox(height: 14),
+        CoraSurfaceCard(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                key: const Key('first_name_input'),
+                controller: _firstNameController,
+                decoration: const InputDecoration(
+                  labelText: 'Nombre',
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                key: const Key('last_name_input'),
+                controller: _lastNameController,
+                decoration: const InputDecoration(
+                  labelText: 'Apellido',
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                key: const Key('birth_year_input'),
+                controller: _birthYearController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Año de nacimiento (ej. 1996)',
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+              const SizedBox(height: 12),
+              DropdownButtonFormField<LifeStage>(
+                key: const Key('life_stage_dropdown'),
+                initialValue: _selectedLifeStage,
+                decoration: const InputDecoration(
+                  labelText: 'Etapa de vida inicial',
+                ),
+                items: LifeStage.values.map((stage) {
+                  return DropdownMenuItem(
+                    value: stage,
+                    child: Text(stage.label),
+                  );
+                }).toList(),
+                onChanged: (val) {
+                  if (val != null) {
+                    setState(() => _selectedLifeStage = val);
+                  }
+                },
+              ),
+            ],
           ),
-          onChanged: (_) => setState(() {}),
         ),
         const SizedBox(height: 16),
-        TextField(
-          key: const Key('last_name_input'),
-          controller: _lastNameController,
-          decoration: const InputDecoration(
-            labelText: 'Apellido',
-            border: OutlineInputBorder(),
-          ),
-          onChanged: (_) => setState(() {}),
-        ),
-        const SizedBox(height: 16),
-        TextField(
-          key: const Key('birth_year_input'),
-          controller: _birthYearController,
-          keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            labelText: 'Año de nacimiento (ej. 1996)',
-            border: OutlineInputBorder(),
-          ),
-          onChanged: (_) => setState(() {}),
-        ),
-        const SizedBox(height: 20),
-        DropdownButtonFormField<LifeStage>(
-          key: const Key('life_stage_dropdown'),
-          initialValue: _selectedLifeStage,
-          decoration: const InputDecoration(
-            labelText: 'Etapa de vida inicial',
-            border: OutlineInputBorder(),
-          ),
-          items: LifeStage.values.map((stage) {
-            return DropdownMenuItem(
-              value: stage,
-              child: Text(stage.label),
-            );
-          }).toList(),
-          onChanged: (val) {
-            if (val != null) {
-              setState(() => _selectedLifeStage = val);
-            }
-          },
-        ),
-        const SizedBox(height: 32),
-        ElevatedButton(
+        CoraPrimaryActionButton(
           key: const Key('next_step_button'),
+          label: 'Continuar',
+          icon: Icons.arrow_forward_rounded,
           onPressed: _nextStep,
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-          ),
-          child: const Text('Continuar'),
         ),
       ],
     );
   }
 
   Widget _buildLayer2() {
+    final tokens = CoraTheme.tokensOf(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           '¿Qué te gustaría priorizar hoy?',
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.w700,
               ),
         ),
         const SizedBox(height: 8),
         Text(
           'Selecciona entre 1 y 3 prioridades principales.',
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: tokens.textSecondary,
+              ),
         ),
-        const SizedBox(height: 24),
-        Wrap(
-          spacing: 8,
-          runSpacing: 10,
-          children: PrimaryIntent.values.map((intent) {
-            final isSelected = _selectedIntents.contains(intent);
-            return FilterChip(
-              key: Key('intent_${intent.value}'),
-              label: Text(intent.label),
-              selected: isSelected,
-              onSelected: (selected) {
-                if (selected) {
-                  if (_selectedIntents.length >= 3) {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Máximo 3 intenciones seleccionadas'),
-                        duration: Duration(seconds: 2),
-                      ),
-                    );
-                    return;
+        const SizedBox(height: 14),
+        CoraSurfaceCard(
+          padding: const EdgeInsets.all(14),
+          child: Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: PrimaryIntent.values.map((intent) {
+              final isSelected = _selectedIntents.contains(intent);
+              return FilterChip(
+                key: Key('intent_${intent.value}'),
+                label: Text(intent.label),
+                selected: isSelected,
+                selectedColor: tokens.accentSurface,
+                checkmarkColor: tokens.accentPrimary,
+                onSelected: (selected) {
+                  if (selected) {
+                    if (_selectedIntents.length >= 3) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Máximo 3 intenciones seleccionadas'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      return;
+                    }
+                    setState(() => _selectedIntents.add(intent));
+                  } else {
+                    setState(() => _selectedIntents.remove(intent));
                   }
-                  setState(() => _selectedIntents.add(intent));
-                } else {
-                  setState(() => _selectedIntents.remove(intent));
-                }
-              },
-            );
-          }).toList(),
+                },
+              );
+            }).toList(),
+          ),
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 16),
         ElevatedButton(
           key: const Key('next_step_button'),
           onPressed:
@@ -382,7 +426,13 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
                   ? _nextStep
                   : null,
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            backgroundColor: tokens.accentPrimary,
+            foregroundColor: Colors.white,
+            minimumSize: const Size(double.infinity, 50),
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
           ),
           child: const Text('Siguiente'),
         ),
@@ -391,79 +441,100 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   }
 
   Widget _buildLayer3() {
+    final tokens = CoraTheme.tokensOf(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           'Contexto Clínico Base',
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.w700,
               ),
         ),
         const SizedBox(height: 6),
         Text(
           'Esta información nos ayuda a calibrar los algoritmos biomédicos. Es completamente opcional y puedes completarla más tarde.',
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: tokens.textSecondary,
+              ),
         ),
-        const SizedBox(height: 16),
-        DropdownButtonFormField<HormonalMethod>(
-          initialValue: _selectedHormonalMethod,
-          decoration: const InputDecoration(
-            labelText: 'Método anticonceptivo / hormonal actual',
-            border: OutlineInputBorder(),
+        const SizedBox(height: 12),
+        CoraSurfaceCard(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              DropdownButtonFormField<HormonalMethod>(
+                initialValue: _selectedHormonalMethod,
+                decoration: const InputDecoration(
+                  labelText: 'Método anticonceptivo / hormonal actual',
+                ),
+                items: HormonalMethod.values.map((m) {
+                  return DropdownMenuItem(
+                    value: m,
+                    child: Text(m.label),
+                  );
+                }).toList(),
+                onChanged: (val) {
+                  if (val != null) {
+                    setState(() => _selectedHormonalMethod = val);
+                  }
+                },
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Condiciones diagnosticadas (opcional):',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: tokens.textPrimary,
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                children: DiagnosedCondition.values.map((cond) {
+                  final isSelected = _selectedConditions.contains(cond);
+                  return FilterChip(
+                    key: Key('condition_${cond.value}'),
+                    label: Text(cond.label),
+                    selected: isSelected,
+                    selectedColor: tokens.accentSurface,
+                    checkmarkColor: tokens.accentPrimary,
+                    onSelected: (selected) {
+                      setState(() {
+                        if (selected) {
+                          if (cond == DiagnosedCondition.none) {
+                            _selectedConditions.clear();
+                            _selectedConditions.add(cond);
+                          } else {
+                            _selectedConditions.remove(DiagnosedCondition.none);
+                            _selectedConditions.add(cond);
+                          }
+                        } else {
+                          _selectedConditions.remove(cond);
+                        }
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
+            ],
           ),
-          items: HormonalMethod.values.map((m) {
-            return DropdownMenuItem(
-              value: m,
-              child: Text(m.label),
-            );
-          }).toList(),
-          onChanged: (val) {
-            if (val != null) {
-              setState(() => _selectedHormonalMethod = val);
-            }
-          },
         ),
         const SizedBox(height: 14),
-        Text(
-          'Condiciones diagnosticadas (opcional):',
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        const SizedBox(height: 6),
-        Wrap(
-          spacing: 8,
-          runSpacing: 6,
-          children: DiagnosedCondition.values.map((cond) {
-            final isSelected = _selectedConditions.contains(cond);
-            return FilterChip(
-              key: Key('condition_${cond.value}'),
-              label: Text(cond.label),
-              selected: isSelected,
-              onSelected: (selected) {
-                setState(() {
-                  if (selected) {
-                    if (cond == DiagnosedCondition.none) {
-                      _selectedConditions.clear();
-                      _selectedConditions.add(cond);
-                    } else {
-                      _selectedConditions.remove(DiagnosedCondition.none);
-                      _selectedConditions.add(cond);
-                    }
-                  } else {
-                    _selectedConditions.remove(cond);
-                  }
-                });
-              },
-            );
-          }).toList(),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
+        CoraPrimaryActionButton(
           key: Key(
             _isMenstrualStage
                 ? 'layer_three_continue_button'
                 : 'complete_onboarding_button',
           ),
+          label: _isMenstrualStage ? 'Continuar' : 'Finalizar Configuración',
+          icon: _isMenstrualStage
+              ? Icons.arrow_forward_rounded
+              : Icons.check_rounded,
+          isLoading: _isCompleting,
           onPressed: _isMenstrualStage
               ? () {
                   setState(() {
@@ -472,12 +543,6 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
                   });
                 }
               : () => _complete(clinicalCompleted: true),
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 14),
-          ),
-          child: Text(
-            _isMenstrualStage ? 'Continuar' : 'Finalizar Configuración',
-          ),
         ),
         const SizedBox(height: 10),
         OutlinedButton(
@@ -491,7 +556,11 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
                 }
               : () => _complete(clinicalCompleted: false),
           style: OutlinedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 48),
             padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
           ),
           child: const Text('Responder después'),
         ),
@@ -500,19 +569,23 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   }
 
   Widget _buildLayer4() {
+    final tokens = CoraTheme.tokensOf(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           'Tu Línea Base Menstrual',
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.w700,
               ),
         ),
         const SizedBox(height: 6),
         Text(
           'Selecciona tus últimos 2 periodos en el calendario y tu regularidad para proyectar tu próximo ciclo, ventana fértil y ovulación.',
-          style: Theme.of(context).textTheme.bodyMedium,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: tokens.textSecondary,
+              ),
         ),
         const SizedBox(height: 16),
         InitialPeriodsCalendarPicker(
@@ -536,16 +609,15 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
           },
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
+        CoraPrimaryActionButton(
           key: const Key('complete_onboarding_button'),
+          label: 'Finalizar Configuración',
+          icon: Icons.check_rounded,
+          isLoading: _isCompleting,
           onPressed: () => _complete(
             clinicalCompleted: _clinicalContextCompleted,
             includePeriods: true,
           ),
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 14),
-          ),
-          child: const Text('Finalizar Configuración'),
         ),
         const SizedBox(height: 10),
         OutlinedButton(
@@ -555,7 +627,11 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
             includePeriods: false,
           ),
           style: OutlinedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 48),
             padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
           ),
           child: const Text('No recuerdo mis fechas por ahora'),
         ),

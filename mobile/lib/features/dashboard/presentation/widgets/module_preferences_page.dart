@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 
@@ -82,7 +84,9 @@ class _ModulePreferencesPageState extends ConsumerState<ModulePreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
+      backgroundColor: tokens.canvas,
       appBar: AppBar(
         title: const Text('Módulos a la Carta'),
         actions: [
@@ -100,25 +104,53 @@ class _ModulePreferencesPageState extends ConsumerState<ModulePreferencesPage> {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        children: _availableModules.entries.map((entry) {
-          final isEnabled = _enabledModules.contains(entry.key);
-          return SwitchListTile(
-            key: Key('toggle_module_${entry.key}'),
-            title: Text(entry.value),
-            subtitle: Text('Clave: ${entry.key}'),
-            value: isEnabled,
-            onChanged: (val) {
-              setState(() {
-                if (val) {
-                  _enabledModules.add(entry.key);
-                } else {
-                  _enabledModules.remove(entry.key);
-                }
-              });
-            },
-          );
-        }).toList(),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        children: [
+          CoraPageHeroBanner(
+            eyebrow: 'Personalización clínica',
+            title: 'Elige tus módulos activos',
+            subtitle:
+                'Activa únicamente las herramientas que deseas priorizar en tu seguimiento diario.',
+            badgeLabel: '${_enabledModules.length} activos',
+            icon: Icons.tune_rounded,
+          ),
+          const SizedBox(height: 14),
+          CoraSurfaceCard(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Column(
+              children: _availableModules.entries.map((entry) {
+                final isEnabled = _enabledModules.contains(entry.key);
+                return SwitchListTile(
+                  key: Key('toggle_module_${entry.key}'),
+                  title: Text(
+                    entry.value,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: tokens.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                  subtitle: Text(
+                    isEnabled ? 'Activo en tu perfil' : 'Oculto temporalmente',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: tokens.textSecondary,
+                        ),
+                  ),
+                  activeThumbColor: tokens.accentPrimary,
+                  value: isEnabled,
+                  onChanged: (val) {
+                    setState(() {
+                      if (val) {
+                        _enabledModules.add(entry.key);
+                      } else {
+                        _enabledModules.remove(entry.key);
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }

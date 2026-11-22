@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/core/auth/auth_providers.dart';
 import 'package:mobile/core/auth/firebase_auth_service.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
 import 'package:mobile/core/theme/cora_theme.dart';
 
 class FirebaseAuthPage extends ConsumerStatefulWidget {
@@ -75,12 +76,13 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
     try {
       await ref.read(coraAuthServiceProvider).sendPasswordResetEmail(email);
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
+          SnackBar(
+            content: const Text(
               'Te enviamos un correo para restablecer tu contraseña.',
             ),
-            backgroundColor: Colors.teal,
+            backgroundColor: tokens.ovulatory,
           ),
         );
       }
@@ -92,11 +94,13 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
+      backgroundColor: tokens.canvas,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 440),
               child: Form(
@@ -104,18 +108,29 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Icon(
-                      Icons.favorite_rounded,
-                      size: 56,
-                      color: CoraTheme.primaryColor,
+                    Center(
+                      child: Container(
+                        width: 68,
+                        height: 68,
+                        decoration: BoxDecoration(
+                          color: tokens.accentSurface,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: tokens.borderSubtle),
+                        ),
+                        child: Icon(
+                          Icons.water_drop_rounded,
+                          size: 34,
+                          color: tokens.accentPrimary,
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 14),
                     Text(
                       'Cora',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.headlineLarge?.copyWith(
-                        color: CoraTheme.primaryColor,
-                        fontWeight: FontWeight.bold,
+                        color: tokens.textPrimary,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -124,88 +139,82 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                           ? 'Crea tu cuenta protegida para acompañar tu salud en cada etapa.'
                           : 'Inicia sesión para acceder a tu espacio clínico privado.',
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyMedium,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: tokens.textSecondary,
+                      ),
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 24),
                     if (_errorMessage != null) ...[
-                      Container(
+                      KeyedSubtree(
                         key: const Key('auth_error_banner'),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.red.shade50,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.red.shade200),
-                        ),
-                        child: Text(
-                          _errorMessage!,
-                          style: TextStyle(color: Colors.red.shade800),
+                        child: CoraAlertBanner(
+                          title: 'No fue posible autenticar',
+                          description: _errorMessage!,
+                          isUrgent: true,
                         ),
                       ),
                       const SizedBox(height: 16),
                     ],
-                    TextFormField(
-                      key: const Key('auth_email_input'),
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
-                      decoration: const InputDecoration(
-                        labelText: 'Correo electrónico',
-                        prefixIcon: Icon(Icons.email_outlined),
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (val) {
-                        final v = val?.trim() ?? '';
-                        if (v.isEmpty || !v.contains('@')) {
-                          return 'Ingresa un correo electrónico válido.';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      key: const Key('auth_password_input'),
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText: 'Contraseña',
-                        prefixIcon: const Icon(Icons.lock_outline),
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () => setState(
-                            () => _obscurePassword = !_obscurePassword,
-                          ),
-                        ),
-                      ),
-                      validator: (val) {
-                        if ((val ?? '').length < 6) {
-                          return 'Mínimo 6 caracteres.';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      key: const Key('auth_submit_button'),
-                      onPressed: _isLoading ? null : _submit,
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(52),
-                      ),
-                      child: _isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            )
-                          : Text(
-                              _isRegisterMode
-                                  ? 'Crear mi Cuenta Cora'
-                                  : 'Iniciar Sesión',
+                    CoraSurfaceCard(
+                      padding: const EdgeInsets.all(20),
+                      borderRadius: 24,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          TextFormField(
+                            key: const Key('auth_email_input'),
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            autocorrect: false,
+                            decoration: const InputDecoration(
+                              labelText: 'Correo electrónico',
+                              prefixIcon: Icon(Icons.email_outlined),
                             ),
+                            validator: (val) {
+                              final v = val?.trim() ?? '';
+                              if (v.isEmpty || !v.contains('@')) {
+                                return 'Ingresa un correo electrónico válido.';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            key: const Key('auth_password_input'),
+                            controller: _passwordController,
+                            obscureText: _obscurePassword,
+                            decoration: InputDecoration(
+                              labelText: 'Contraseña',
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                ),
+                                onPressed: () => setState(
+                                  () => _obscurePassword = !_obscurePassword,
+                                ),
+                              ),
+                            ),
+                            validator: (val) {
+                              if ((val ?? '').length < 6) {
+                                return 'Mínimo 6 caracteres.';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          CoraPrimaryActionButton(
+                            key: const Key('auth_submit_button'),
+                            label: _isRegisterMode
+                                ? 'Crear mi Cuenta Cora'
+                                : 'Iniciar Sesión',
+                            isLoading: _isLoading,
+                            onPressed: _submit,
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 12),
                     if (!_isRegisterMode)
@@ -227,6 +236,14 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                             ? '¿Ya tienes cuenta? Inicia sesión'
                             : '¿Primera vez en Cora? Crear cuenta',
                       ),
+                    ),
+                    const SizedBox(height: 12),
+                    const CoraInfoCallout(
+                      title: 'Privacidad clínica protegida',
+                      subtitle:
+                          'Tus datos de salud permanecen cifrados y bajo tu control en todo momento.',
+                      icon: Icons.verified_user_outlined,
+                      phaseKey: 'ovulatory',
                     ),
                   ],
                 ),
