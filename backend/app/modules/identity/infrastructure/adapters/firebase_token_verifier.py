@@ -98,7 +98,7 @@ class FirebaseTokenVerifier(ITokenVerifier):
             email = decoded_claims.get("email")
             return AuthenticatedUser(firebase_uid=uid, email=email)
         except Exception as exc:
-            logger.debug("Firebase token verification failed: %s", exc)
+            logger.debug("Firebase token verification failed: %s", type(exc).__name__)
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Token de Firebase no válido o expirado.",

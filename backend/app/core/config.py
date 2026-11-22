@@ -37,11 +37,28 @@ class Settings(BaseSettings):
     gemini_embedding_dimensions: int = 768
     gemini_store_interactions: bool = False
 
+    # CORS
+    cors_allowed_origins: list[str] = [
+        "http://localhost:3000",
+        "http://localhost:8080",
+        "https://cora-backend-h52h.onrender.com",
+    ]
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
         extra="ignore",
     )
+
+    @field_validator("cors_allowed_origins", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v: object) -> list[str]:
+        """Accept either a list of origins or a comma-separated env string."""
+        if isinstance(v, str):
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
+        if isinstance(v, list):
+            return [str(origin).strip() for origin in v if str(origin).strip()]
+        return []
 
     @field_validator("database_url", mode="before")
     @classmethod
