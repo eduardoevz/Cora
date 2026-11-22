@@ -367,8 +367,9 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
           iconService: iconService,
           onExportData: () async {
             try {
-              final res =
-                  await api.dio.post<List<int>>('/identity/me/data-export');
+              final res = await api.dio
+                  .post<List<int>>('/identity/me/data-export')
+                  .timeout(const Duration(seconds: 4));
               if (res.data != null && res.data!.isNotEmpty) {
                 final dir = await getApplicationDocumentsDirectory();
                 final outFile =
@@ -389,6 +390,7 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
           },
           onSignOut: () async {
             await ref.read(coraAuthServiceProvider).signOut();
+            ref.read(localOfflineAuthUserProvider.notifier).state = null;
             api.clearAuthToken();
             ref.read(activeUserProfileProvider.notifier).state = null;
             if (privacyCtx.mounted) {
@@ -397,20 +399,23 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
           },
           onPurgeAccount: (phrase) async {
             try {
-              await api.dio.delete(
-                '/identity/me',
-                data: {'confirm_phrase': phrase},
-                options: Options(
-                  sendTimeout: const Duration(seconds: 4),
-                  receiveTimeout: const Duration(seconds: 4),
-                ),
-              );
+              await api.dio
+                  .delete(
+                    '/identity/me',
+                    data: {'confirm_phrase': phrase},
+                    options: Options(
+                      sendTimeout: const Duration(seconds: 4),
+                      receiveTimeout: const Duration(seconds: 4),
+                    ),
+                  )
+                  .timeout(const Duration(seconds: 4));
             } catch (_) {
               // Proceed with local irreversible purge even if offline
             }
             await db.purgeAllLocalData();
             await ref.read(coraAuthServiceProvider).deleteCurrentUser();
             await ref.read(coraAuthServiceProvider).signOut();
+            ref.read(localOfflineAuthUserProvider.notifier).state = null;
             api.clearAuthToken();
             ref.read(activeUserProfileProvider.notifier).state = null;
             if (privacyCtx.mounted) {

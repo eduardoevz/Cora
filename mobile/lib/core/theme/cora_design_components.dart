@@ -44,9 +44,12 @@ class CoraSurfaceCard extends StatelessWidget {
                 ),
               ],
       ),
-      child: Padding(
-        padding: padding,
-        child: child,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Padding(
+          padding: padding,
+          child: child,
+        ),
       ),
     );
 
@@ -993,7 +996,10 @@ class CoraBlushInsetBox extends StatelessWidget {
           width: tokens.isHighLegibility ? 1.5 : 1.0,
         ),
       ),
-      child: child,
+      child: Material(
+        type: MaterialType.transparency,
+        child: child,
+      ),
     );
   }
 }

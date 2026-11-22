@@ -59,42 +59,12 @@ class CoraAssistantService {
       return localEmergency;
     }
 
-    // Stage 2: Try live backend RAG pipeline (/assistant)
+    // Stage 2: Try live backend RAG pipeline (/assistant) with fast 4s timeout
     final api = _ref.read(coraApiClientProvider);
     try {
-      if (_remoteConversationId == null) {
-        try {
-          final convRes = await api.dio.post(
-            '/assistant/conversations',
-            data: {'title': 'Consulta con Cora'},
-          );
-          if (convRes.statusCode == 201 &&
-              convRes.data is Map<String, dynamic>) {
-            _remoteConversationId = convRes.data['id']?.toString();
-          }
-        } catch (_) {
-          // Ensure profile exists remotely if not yet synced
-          if (profile != null) {
-            await api.dio.put(
-              '/identity/onboarding',
-              data: {
-                'first_name': profile.firstName,
-                'last_name': profile.lastName,
-                'current_life_stage': profile.currentLifeStage.value,
-                'birth_year': profile.onboardingContext.birthYear,
-                'primary_intents': profile.onboardingContext.primaryIntents
-                    .map((i) => i.value)
-                    .toList(),
-                'hormonal_method':
-                    profile.onboardingContext.hormonalMethod?.value,
-                'diagnosed_conditions': profile
-                    .onboardingContext.diagnosedConditions
-                    .map((c) => c.value)
-                    .toList(),
-                'clinical_context_completed':
-                    profile.onboardingContext.clinicalContextCompleted,
-              },
-            );
+      final remoteReply = await Future<AssistantMessage?>(() async {
+        if (_remoteConversationId == null) {
+          try {
             final convRes = await api.dio.post(
               '/assistant/conversations',
               data: {'title': 'Consulta con Cora'},
@@ -103,41 +73,80 @@ class CoraAssistantService {
                 convRes.data is Map<String, dynamic>) {
               _remoteConversationId = convRes.data['id']?.toString();
             }
+          } catch (_) {
+            // Ensure profile exists remotely if not yet synced
+            if (profile != null) {
+              await api.dio.put(
+                '/identity/onboarding',
+                data: {
+                  'first_name': profile.firstName,
+                  'last_name': profile.lastName,
+                  'current_life_stage': profile.currentLifeStage.value,
+                  'birth_year': profile.onboardingContext.birthYear,
+                  'primary_intents': profile.onboardingContext.primaryIntents
+                      .map((i) => i.value)
+                      .toList(),
+                  'hormonal_method':
+                      profile.onboardingContext.hormonalMethod?.value,
+                  'diagnosed_conditions': profile
+                      .onboardingContext.diagnosedConditions
+                      .map((c) => c.value)
+                      .toList(),
+                  'clinical_context_completed':
+                      profile.onboardingContext.clinicalContextCompleted,
+                },
+              );
+              final convRes = await api.dio.post(
+                '/assistant/conversations',
+                data: {'title': 'Consulta con Cora'},
+              );
+              if (convRes.statusCode == 201 &&
+                  convRes.data is Map<String, dynamic>) {
+                _remoteConversationId = convRes.data['id']?.toString();
+              }
+            }
           }
         }
-      }
 
-      if (_remoteConversationId != null) {
-        final msgRes = await api.dio.post(
-          '/assistant/conversations/$_remoteConversationId/messages',
-          data: {'query': query},
-        );
-        if (msgRes.statusCode == 201 && msgRes.data is Map<String, dynamic>) {
-          final data = msgRes.data as Map<String, dynamic>;
-          final citations = (data['citations'] as List<dynamic>? ?? const [])
-              .map((e) => ClinicalCitation.fromJson(e as Map<String, dynamic>))
-              .toList();
-          final reply = AssistantMessage(
-            id: data['id']?.toString() ?? _uuid.v4(),
-            conversationId: defaultAssistantConversationId,
-            role: 'assistant',
-            contentMarkdown: data['content_markdown']?.toString() ?? '',
-            citations: citations,
-            safetyTriageCategory:
-                data['safety_triage_category']?.toString() ?? 'NONE',
-            isEmergencyIntercepted:
-                data['is_emergency_intercepted'] as bool? ?? false,
-            disclaimerLevel: data['disclaimer_level']?.toString() ?? 'STANDARD',
-            suggestedFollowUps:
-                (data['suggested_follow_ups'] as List<dynamic>? ?? const [])
-                    .map((e) => e.toString())
-                    .toList(),
-            createdAt: DateTime.now(),
+        if (_remoteConversationId != null) {
+          final msgRes = await api.dio.post(
+            '/assistant/conversations/$_remoteConversationId/messages',
+            data: {'query': query},
           );
-          await repo.saveMessage(reply);
-          _ref.invalidate(assistantMessagesProvider);
-          return reply;
+          if (msgRes.statusCode == 201 && msgRes.data is Map<String, dynamic>) {
+            final data = msgRes.data as Map<String, dynamic>;
+            final citations = (data['citations'] as List<dynamic>? ?? const [])
+                .map(
+                    (e) => ClinicalCitation.fromJson(e as Map<String, dynamic>))
+                .toList();
+            final reply = AssistantMessage(
+              id: data['id']?.toString() ?? _uuid.v4(),
+              conversationId: defaultAssistantConversationId,
+              role: 'assistant',
+              contentMarkdown: data['content_markdown']?.toString() ?? '',
+              citations: citations,
+              safetyTriageCategory:
+                  data['safety_triage_category']?.toString() ?? 'NONE',
+              isEmergencyIntercepted:
+                  data['is_emergency_intercepted'] as bool? ?? false,
+              disclaimerLevel:
+                  data['disclaimer_level']?.toString() ?? 'STANDARD',
+              suggestedFollowUps:
+                  (data['suggested_follow_ups'] as List<dynamic>? ?? const [])
+                      .map((e) => e.toString())
+                      .toList(),
+              createdAt: DateTime.now(),
+            );
+            await repo.saveMessage(reply);
+            _ref.invalidate(assistantMessagesProvider);
+            return reply;
+          }
         }
+        return null;
+      }).timeout(const Duration(seconds: 4));
+
+      if (remoteReply != null) {
+        return remoteReply;
       }
     } catch (_) {
       // Fall back to grounded local educational synthesis below

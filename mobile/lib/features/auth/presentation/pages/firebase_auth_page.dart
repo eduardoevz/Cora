@@ -247,6 +247,26 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                             : '¿Primera vez en Cora? Crear cuenta',
                       ),
                     ),
+                    const SizedBox(height: 6),
+                    OutlinedButton.icon(
+                      key: const Key('continue_offline_local_button'),
+                      onPressed: _isLoading
+                          ? null
+                          : () {
+                              const localUser = CoraAuthUser(
+                                uid: 'cora-local-offline-user',
+                                email: 'local@cora.health',
+                              );
+                              ref
+                                  .read(localOfflineAuthUserProvider.notifier)
+                                  .state = localUser;
+                              widget.onAuthenticated?.call(localUser);
+                            },
+                      icon: const Icon(Icons.offline_bolt_outlined, size: 18),
+                      label: const Text(
+                        'Continuar en Modo Local (Offline-First)',
+                      ),
+                    ),
                     const SizedBox(height: 16),
                     CoraSurfaceCard(
                       backgroundColor: tokens.blushInset,

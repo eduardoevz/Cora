@@ -9,3 +9,6 @@ final coraAuthStateProvider = StreamProvider<CoraAuthUser?>((ref) {
   final authService = ref.watch(coraAuthServiceProvider);
   return authService.authStateChanges();
 });
+
+final localOfflineAuthUserProvider =
+    StateProvider<CoraAuthUser?>((ref) => null);

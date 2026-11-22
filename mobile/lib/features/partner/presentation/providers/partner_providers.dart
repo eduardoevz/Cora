@@ -17,13 +17,15 @@ class PartnerSharingService {
   Future<String> generateInvitationCode() async {
     final api = _ref.read(coraApiClientProvider);
     try {
-      final res = await api.dio.post(
-        '/partner-sharing/invitations',
-        options: Options(
-          sendTimeout: const Duration(seconds: 4),
-          receiveTimeout: const Duration(seconds: 4),
-        ),
-      );
+      final res = await api.dio
+          .post(
+            '/partner-sharing/invitations',
+            options: Options(
+              sendTimeout: const Duration(seconds: 4),
+              receiveTimeout: const Duration(seconds: 4),
+            ),
+          )
+          .timeout(const Duration(seconds: 4));
       if (res.statusCode == 201 && res.data is Map<String, dynamic>) {
         return res.data['invitation_code']?.toString() ?? 'CORA-24H';
       }
@@ -87,13 +89,17 @@ class PartnerSharingService {
   Future<PartnerCompanionProjection> fetchSharedViewOrFallback() async {
     final profile = _ref.read(activeUserProfileProvider);
     try {
-      final res = await _ref.read(coraApiClientProvider).dio.get(
+      final res = await _ref
+          .read(coraApiClientProvider)
+          .dio
+          .get(
             '/partner-sharing/shared-with-me',
             options: Options(
               sendTimeout: const Duration(seconds: 3),
               receiveTimeout: const Duration(seconds: 3),
             ),
-          );
+          )
+          .timeout(const Duration(seconds: 4));
       if (res.statusCode == 200 && res.data is Map<String, dynamic>) {
         final data = res.data as Map<String, dynamic>;
         final tips = (data['support_tips'] as List<dynamic>? ?? const [])

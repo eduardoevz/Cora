@@ -95,11 +95,21 @@ class _CoraRootGateState extends ConsumerState<CoraRootGate> {
 
   @override
   Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      child: _buildRootContent(context),
+    );
+  }
+
+  Widget _buildRootContent(BuildContext context) {
     final authService = ref.watch(coraAuthServiceProvider);
+    final localOfflineUser = ref.watch(localOfflineAuthUserProvider);
 
     if (authService.isFirebaseReady) {
       final authState = ref.watch(coraAuthStateProvider);
-      final authUser = authState.asData?.value ?? authService.currentUser;
+      final authUser = localOfflineUser ??
+          authState.asData?.value ??
+          authService.currentUser;
 
       if (authUser == null) {
         _bootstrappedUid = null;

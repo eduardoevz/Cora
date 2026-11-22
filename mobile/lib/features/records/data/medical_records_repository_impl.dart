@@ -311,18 +311,20 @@ class MedicalRecordsRepositoryImpl implements IMedicalRecordsRepository {
     String? specialistNotes,
   }) async {
     try {
-      final response = await _apiClient.dio.post<List<int>>(
-        '/medical-records/doctor-report/pdf',
-        data: {
-          'reporting_window_months': reportingWindowMonths,
-          'specialist_notes': specialistNotes,
-        },
-        options: Options(
-          responseType: ResponseType.bytes,
-          sendTimeout: const Duration(seconds: 5),
-          receiveTimeout: const Duration(seconds: 5),
-        ),
-      );
+      final response = await _apiClient.dio
+          .post<List<int>>(
+            '/medical-records/doctor-report/pdf',
+            data: {
+              'reporting_window_months': reportingWindowMonths,
+              'specialist_notes': specialistNotes,
+            },
+            options: Options(
+              responseType: ResponseType.bytes,
+              sendTimeout: const Duration(seconds: 5),
+              receiveTimeout: const Duration(seconds: 5),
+            ),
+          )
+          .timeout(const Duration(seconds: 6));
       if (response.statusCode == 200 && response.data != null) {
         return response.data!;
       }
