@@ -29,9 +29,9 @@
 **Files:**
 - Create: `docs/DESIGN.md`
 
-- [ ] **Step 1: Redactar `docs/DESIGN.md` siguiendo `stitch-design-taste` (atmósfera *Warm Botanical Health Editorial*, paleta calibrada, tokens de fases menstruales, tipografía, reglas de componentes, layout mobile-first, movimiento y anti-patrones)**
-- [ ] **Step 2: Conectar con Google Stitch (`https://labs.google/stitch`) mediante el navegador integrado, enviar el brief de Cora v2.0 (Home limpio + Menú lateral + Calendario Menstrual + Onboarding de últimos 2 periodos) y capturar/registrar los lineamientos y referencias generadas por Stitch en `docs/DESIGN.md`**
-- [ ] **Step 3: Commit**
+- [x] **Step 1: Redactar `docs/DESIGN.md` siguiendo `stitch-design-taste` (atmósfera *Warm Botanical Health Editorial*, paleta calibrada, tokens de fases menstruales, tipografía, reglas de componentes, layout mobile-first, movimiento y anti-patrones)**
+- [x] **Step 2: Conectar con Google Stitch (`https://labs.google/stitch`) mediante el navegador integrado, enviar el brief de Cora v2.0 (Home limpio + Menú lateral + Calendario Menstrual + Onboarding de últimos 2 periodos) y capturar/registrar los lineamientos y referencias generadas por Stitch en `docs/DESIGN.md`**
+- [x] **Step 3: Commit**
   - `git add docs/DESIGN.md`
   - `git commit -m "docs(specs): create Cora v2 semantic DESIGN.md with Google Stitch guidance"`
 
@@ -44,11 +44,11 @@
 - Modify: `mobile/pubspec.yaml` (si se empaquetan assets/fuentes locales)
 - Test: `mobile/test/core/cora_theme_v2_test.dart`
 
-- [ ] **Step 1: Escribir tests unitarios y de contraste WCAG (`AA >= 4.5:1` en estándar, `AAA >= 7:1` en `highLegibility`) para `CoraTheme.standard()`, `CoraTheme.highLegibility()` y `CoraColorTokens` (fases menstrual, folicular, ovulatoria, lútea, hormonal)**
-- [ ] **Step 2: Ejecutar `flutter test test/core/cora_theme_v2_test.dart` y verificar fallo inicial (Red)**
-- [ ] **Step 3: Implementar `CoraColorTokens` (`ThemeExtension<CoraColorTokens>`) y actualizar `CoraTheme` con la paleta, tipografía, formas, inputs, botones y AppBar definidos en `docs/DESIGN.md`**
-- [ ] **Step 4: Verificar `flutter analyze --fatal-infos` y `flutter test` en verde (Green)**
-- [ ] **Step 5: Commit**
+- [x] **Step 1: Escribir tests unitarios y de contraste WCAG (`AA >= 4.5:1` en estándar, `AAA >= 7:1` en `highLegibility`) para `CoraTheme.standard()`, `CoraTheme.highLegibility()` y `CoraColorTokens` (fases menstrual, folicular, ovulatoria, lútea, hormonal)**
+- [x] **Step 2: Ejecutar `flutter test test/core/cora_theme_v2_test.dart` y verificar fallo inicial (Red)**
+- [x] **Step 3: Implementar `CoraColorTokens` (`ThemeExtension<CoraColorTokens>`) y actualizar `CoraTheme` con la paleta, tipografía, formas, inputs, botones y AppBar definidos en `docs/DESIGN.md`**
+- [x] **Step 4: Verificar `flutter analyze --fatal-infos` y `flutter test` en verde (Green)**
+- [x] **Step 5: Commit**
   - `git add mobile/lib/core/theme/cora_theme.dart mobile/test/core/cora_theme_v2_test.dart`
   - `git commit -m "feat(mobile-ui): upgrade CoraTheme with v2 editorial palette and semantic cycle tokens"`
 
@@ -60,11 +60,11 @@
 - Create: `mobile/lib/core/theme/cora_design_components.dart`
 - Modify: `mobile/test/core/cora_theme_v2_test.dart`
 
-- [ ] **Step 1: Escribir widget tests para `CoraSurfaceCard`, `CoraPhasePill`, `CoraSectionLabel`, `CoraPrimaryActionButton`, `CoraInfoCallout` verificando renderizado limpio, semántica accesible, áreas táctiles `>= 48dp` (`>= 56dp` en `highLegibility`) y cero overflow a `TextScaler.linear(2.0)`**
-- [ ] **Step 2: Ejecutar `flutter test test/core/cora_theme_v2_test.dart` y verificar fallo inicial (Red)**
-- [ ] **Step 3: Implementar `mobile/lib/core/theme/cora_design_components.dart`**
-- [ ] **Step 4: Ejecutar `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos` y toda la suite `flutter test` para certificar 0 regresiones**
-- [ ] **Step 5: Commit**
+- [x] **Step 1: Escribir widget tests para `CoraSurfaceCard`, `CoraPhasePill`, `CoraSectionLabel`, `CoraPrimaryActionButton`, `CoraInfoCallout` verificando renderizado limpio, semántica accesible, áreas táctiles `>= 48dp` (`>= 56dp` en `highLegibility`) y cero overflow a `TextScaler.linear(2.0)`**
+- [x] **Step 2: Ejecutar `flutter test test/core/cora_theme_v2_test.dart` y verificar fallo inicial (Red)**
+- [x] **Step 3: Implementar `mobile/lib/core/theme/cora_design_components.dart`**
+- [x] **Step 4: Ejecutar `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos` y toda la suite `flutter test` para certificar 0 regresiones**
+- [x] **Step 5: Commit**
   - `git add mobile/lib/core/theme/cora_design_components.dart mobile/test/core/cora_theme_v2_test.dart`
   - `git commit -m "feat(mobile-ui): add reusable Cora v2 editorial surface, badge, and callout components"`
 
@@ -78,6 +78,6 @@
 - Create: `documentacion/fase-13-sistema-de-diseno-y-stitch.md`
 - Modify: `documentacion/README.md`
 
-- [ ] **Step 1: Marcar checkboxes completados en `phase-13-design-system-and-stitch.md` y actualizar `docs/phases/README.md`**
+- [x] **Step 1: Marcar checkboxes completados en `phase-13-design-system-and-stitch.md` y actualizar `docs/phases/README.md`**
 - [ ] **Step 2: Hacer push a `origin/main` y verificar `gh run list` / `gh run watch` hasta que todos los workflows aplicables culminen en `success`**
 - [ ] **Step 3: Crear `documentacion/fase-13-sistema-de-diseno-y-stitch.md`, actualizar `documentacion/README.md`, hacer commit (`docs(documentacion): add phase-13 completion report in documentacion/`), push y re-verificar CI en verde**
