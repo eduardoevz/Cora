@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/pregnancy/domain/entities/pregnancy_entities.dart';
 import 'package:mobile/features/pregnancy/presentation/providers/pregnancy_providers.dart';
 import 'package:uuid/uuid.dart';
@@ -118,10 +120,11 @@ class _ContractionAndKickTimersPageState
     });
 
     if (mounted) {
+      final tokens = CoraTheme.tokensOf(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Sesión de contracciones guardada con éxito.'),
-          backgroundColor: Colors.teal,
+        SnackBar(
+          content: const Text('Sesión de contracciones guardada con éxito.'),
+          backgroundColor: tokens.follicular,
         ),
       );
     }
@@ -201,10 +204,12 @@ class _ContractionAndKickTimersPageState
     });
 
     if (mounted) {
+      final tokens = CoraTheme.tokensOf(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Sesión de movimientos fetales guardada con éxito.'),
-          backgroundColor: Colors.teal,
+        SnackBar(
+          content:
+              const Text('Sesión de movimientos fetales guardada con éxito.'),
+          backgroundColor: tokens.follicular,
         ),
       );
     }
@@ -212,17 +217,22 @@ class _ContractionAndKickTimersPageState
 
   @override
   Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contracciones y Patadas'),
-        backgroundColor: Colors.purple.shade50,
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.purple.shade800,
-          indicatorColor: Colors.purple,
+          labelColor: tokens.luteal,
+          unselectedLabelColor: tokens.textSecondary,
+          indicatorColor: tokens.luteal,
           tabs: const [
-            Tab(icon: Icon(Icons.timer), text: 'Contracciones (5-1-1)'),
-            Tab(icon: Icon(Icons.child_care), text: 'Contador Cardiff (10)'),
+            Tab(
+                icon: Icon(Icons.timer_outlined),
+                text: 'Contracciones (5-1-1)'),
+            Tab(
+                icon: Icon(Icons.child_care_outlined),
+                text: 'Contador Cardiff (10)'),
           ],
         ),
       ),
@@ -237,6 +247,7 @@ class _ContractionAndKickTimersPageState
   }
 
   Widget _buildContractionsTab() {
+    final tokens = CoraTheme.tokensOf(context);
     final evaluation = MaternalOfflineEvaluator.evaluateContractions(
       events: _currentContractions,
       gestationalWeeks: widget.gestationalWeeks,
@@ -247,93 +258,91 @@ class _ContractionAndKickTimersPageState
       padding: const EdgeInsets.all(16),
       children: [
         // Timer Card
-        Card(
-          elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          color: _isContracting ? Colors.pink.shade50 : Colors.grey.shade50,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-            child: Column(
-              children: [
-                Text(
-                  _isContracting
-                      ? 'Contracción en Curso'
-                      : 'Listo para medir contracción',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color:
-                        _isContracting ? Colors.pink.shade700 : Colors.black87,
+        CoraSurfaceCard(
+          backgroundColor:
+              _isContracting ? tokens.menstrualSurface : tokens.surface,
+          borderColor: _isContracting
+              ? tokens.menstrual.withValues(alpha: 0.4)
+              : tokens.borderSubtle,
+          padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
+          child: Column(
+            children: [
+              Text(
+                _isContracting
+                    ? 'Contracción en Curso'
+                    : 'Listo para medir contracción',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: _isContracting
+                          ? tokens.menstrual
+                          : tokens.textPrimary,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                _formatSeconds(_currentContractionSeconds),
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                      color: _isContracting
+                          ? tokens.menstrual
+                          : tokens.textSecondary,
+                    ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ChoiceChip(
+                    label: const Text('Leve'),
+                    selected: _selectedIntensity == 'mild',
+                    onSelected: (selected) {
+                      if (selected) {
+                        setState(() => _selectedIntensity = 'mild');
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  ChoiceChip(
+                    label: const Text('Moderada'),
+                    selected: _selectedIntensity == 'moderate',
+                    onSelected: (selected) {
+                      if (selected) {
+                        setState(() => _selectedIntensity = 'moderate');
+                      }
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  ChoiceChip(
+                    label: const Text('Intensa'),
+                    selected: _selectedIntensity == 'strong',
+                    onSelected: (selected) {
+                      if (selected) {
+                        setState(() => _selectedIntensity = 'strong');
+                      }
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: _toggleContraction,
+                icon: Icon(_isContracting ? Icons.stop : Icons.play_arrow),
+                label: Text(_isContracting
+                    ? 'Detener Contracción'
+                    : 'Iniciar Contracción'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      _isContracting ? tokens.menstrual : tokens.luteal,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  _formatSeconds(_currentContractionSeconds),
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'monospace',
-                    color: _isContracting
-                        ? Colors.pink.shade600
-                        : Colors.grey.shade700,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ChoiceChip(
-                      label: const Text('Leve'),
-                      selected: _selectedIntensity == 'mild',
-                      onSelected: (selected) {
-                        if (selected) {
-                          setState(() => _selectedIntensity = 'mild');
-                        }
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    ChoiceChip(
-                      label: const Text('Moderada'),
-                      selected: _selectedIntensity == 'moderate',
-                      onSelected: (selected) {
-                        if (selected) {
-                          setState(() => _selectedIntensity = 'moderate');
-                        }
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    ChoiceChip(
-                      label: const Text('Intensa'),
-                      selected: _selectedIntensity == 'strong',
-                      onSelected: (selected) {
-                        if (selected) {
-                          setState(() => _selectedIntensity = 'strong');
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: _toggleContraction,
-                  icon: Icon(_isContracting ? Icons.stop : Icons.play_arrow),
-                  label: Text(_isContracting
-                      ? 'Detener Contracción'
-                      : 'Iniciar Contracción'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        _isContracting ? Colors.pink.shade600 : Colors.purple,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
 
@@ -348,15 +357,17 @@ class _ContractionAndKickTimersPageState
             children: [
               Text(
                 'Contracciones en esta sesión (${_currentContractions.length})',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
               ),
               ElevatedButton.icon(
                 onPressed: _saveContractionSession,
-                icon: const Icon(Icons.save, size: 18),
+                icon: const Icon(Icons.save_outlined, size: 18),
                 label: const Text('Guardar Sesión'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
+                  backgroundColor: tokens.follicular,
                   foregroundColor: Colors.white,
                 ),
               ),
@@ -367,54 +378,77 @@ class _ContractionAndKickTimersPageState
             final dur = c['duration_seconds'] as int;
             final intensity = c['intensity'] as String;
             final time = DateTime.parse(c['started_at'] as String);
-            return Card(
-              margin: const EdgeInsets.only(bottom: 8),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.purple.shade100,
-                  child: Text('${dur}s',
-                      style: TextStyle(
-                          color: Colors.purple.shade900,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12)),
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: CoraSurfaceCard(
+                padding: EdgeInsets.zero,
+                child: Material(
+                  color: Colors.transparent,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: tokens.lutealSurface,
+                      child: Text(
+                        '${dur}s',
+                        style: TextStyle(
+                          color: tokens.luteal,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                          fontFeatures: const [FontFeature.tabularFigures()],
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Hora: ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}',
+                      style: const TextStyle(
+                        fontFeatures: [FontFeature.tabularFigures()],
+                      ),
+                    ),
+                    subtitle: Text(
+                        'Intensidad: $intensity • Duración: $dur segundos'),
+                  ),
                 ),
-                title: Text(
-                    'Hora: ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:${time.second.toString().padLeft(2, '0')}'),
-                subtitle:
-                    Text('Intensidad: $intensity • Duración: $dur segundos'),
               ),
             );
           }),
         ],
 
-        const SizedBox(height: 24),
-        const Text(
-          'Historial de Sesiones Anteriores',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
+        const SizedBox(height: 20),
+        const CoraSectionLabel(title: 'Historial de Sesiones Anteriores'),
         const SizedBox(height: 8),
         historyAsync.when(
           data: (sessions) {
             if (sessions.isEmpty) {
-              return const Text(
+              return Text(
                 'No hay sesiones de contracciones previas guardadas.',
-                style: TextStyle(color: Colors.grey),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: tokens.textSecondary),
               );
             }
             return Column(
               children: sessions.map((s) {
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  child: ListTile(
-                    leading: const Icon(Icons.history, color: Colors.purple),
-                    title: Text(
-                      '${s.totalContractions} contracciones • Patrón: ${s.pattern}',
-                      style: const TextStyle(fontWeight: FontWeight.w600),
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: CoraSurfaceCard(
+                    padding: EdgeInsets.zero,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        leading: Icon(Icons.history, color: tokens.luteal),
+                        title: Text(
+                          '${s.totalContractions} contracciones • Patrón: ${s.pattern}',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        subtitle: Text(
+                          'Promedio: ${s.avgIntervalSeconds != null ? (s.avgIntervalSeconds! ~/ 60) : 0}m intervalo, ${s.avgDurationSeconds?.toStringAsFixed(0) ?? "0"}s duración\n${s.startedAt.toLocal().toString().substring(0, 16)}',
+                          style: const TextStyle(
+                            fontFeatures: [FontFeature.tabularFigures()],
+                          ),
+                        ),
+                        isThreeLine: true,
+                      ),
                     ),
-                    subtitle: Text(
-                      'Promedio: ${s.avgIntervalSeconds != null ? (s.avgIntervalSeconds! ~/ 60) : 0}m intervalo, ${s.avgDurationSeconds?.toStringAsFixed(0) ?? "0"}s duración\n${s.startedAt.toLocal().toString().substring(0, 16)}',
-                    ),
-                    isThreeLine: true,
                   ),
                 );
               }).toList(),
@@ -435,70 +469,24 @@ class _ContractionAndKickTimersPageState
         double avgDurationSeconds,
         int totalContractions,
       }) eval) {
-    Color cardColor = Colors.blue.shade50;
-    Color borderColor = Colors.blue.shade300;
-    IconData icon = Icons.info_outline;
-
-    if (eval.alert?.severity == 'urgent_emergency') {
-      cardColor = Colors.red.shade50;
-      borderColor = Colors.red.shade400;
-      icon = Icons.warning_amber_rounded;
-    } else if (eval.alert?.severity == 'priority_consult') {
-      cardColor = Colors.amber.shade50;
-      borderColor = Colors.amber.shade600;
-      icon = Icons.notifications_active;
-    }
-
-    return Card(
-      color: cardColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: borderColor, width: 1.5),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(icon, color: borderColor, size: 28),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    eval.alert?.title ?? 'Evaluación de Dinámica Uterina',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: eval.alert?.severity == 'urgent_emergency'
-                          ? Colors.red.shade900
-                          : Colors.black87,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              eval.alert?.message ??
-                  'Frecuencia: cada ${eval.avgIntervalMinutes.toStringAsFixed(1)} min • Duración: ${eval.avgDurationSeconds.toStringAsFixed(0)} seg.',
-              style: const TextStyle(fontSize: 14),
-            ),
-            if (eval.alert?.actionRecommended != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                'Recomendación: ${eval.alert!.actionRecommended}',
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600, color: Colors.black87),
-              ),
-            ],
-          ],
-        ),
-      ),
+    final isUrgent = eval.alert?.severity == 'urgent_emergency';
+    final isPriority = eval.alert?.severity == 'priority_consult';
+    return CoraAlertBanner(
+      title: eval.alert?.title ?? 'Evaluación de Dinámica Uterina',
+      description: eval.alert?.message ??
+          'Frecuencia: cada ${eval.avgIntervalMinutes.toStringAsFixed(1)} min • Duración: ${eval.avgDurationSeconds.toStringAsFixed(0)} seg.',
+      recommendation: eval.alert?.actionRecommended != null
+          ? 'Recomendación: ${eval.alert!.actionRecommended}'
+          : null,
+      isUrgent: isUrgent,
+      icon: isUrgent
+          ? Icons.warning_amber_rounded
+          : (isPriority ? Icons.notifications_active : Icons.info_outline),
     );
   }
 
   Widget _buildKicksTab() {
+    final tokens = CoraTheme.tokensOf(context);
     final eval = MaternalOfflineEvaluator.evaluateKicks(
       kicksCount: _kicksCount,
       durationMinutes: _kickElapsedMinutes,
@@ -509,105 +497,103 @@ class _ContractionAndKickTimersPageState
       padding: const EdgeInsets.all(16),
       children: [
         // Kick Counter Card
-        Card(
-          elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          color: Colors.purple.shade50,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Tiempo: $_kickElapsedMinutes min',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.purple,
-                      ),
+        CoraSurfaceCard(
+          backgroundColor: tokens.lutealSurface,
+          borderColor: tokens.luteal.withValues(alpha: 0.3),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Tiempo: $_kickElapsedMinutes min',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: tokens.luteal,
+                      fontFeatures: const [FontFeature.tabularFigures()],
                     ),
-                    Text(
-                      _isKickSessionActive
-                          ? 'Sesión en curso'
-                          : 'Sesión pausada',
-                      style: TextStyle(
-                        color: _isKickSessionActive
-                            ? Colors.green.shade700
-                            : Colors.grey,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  '$_kicksCount / 10',
-                  style: TextStyle(
-                    fontSize: 54,
-                    fontWeight: FontWeight.bold,
-                    color: _kicksCount >= 10
-                        ? Colors.teal
-                        : Colors.purple.shade700,
                   ),
-                ),
-                const Text(
-                  'Meta Cardiff: 10 patadas en <= 120 min',
-                  style: TextStyle(color: Colors.black54),
-                ),
-                const SizedBox(height: 12),
-                LinearProgressIndicator(
+                  Text(
+                    _isKickSessionActive ? 'Sesión en curso' : 'Sesión pausada',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: _isKickSessionActive
+                              ? tokens.follicular
+                              : tokens.textSecondary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text(
+                '$_kicksCount / 10',
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                      color:
+                          _kicksCount >= 10 ? tokens.follicular : tokens.luteal,
+                    ),
+              ),
+              Text(
+                'Meta Cardiff: 10 patadas en <= 120 min',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: tokens.textSecondary),
+              ),
+              const SizedBox(height: 12),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
                   value: (_kicksCount / 10).clamp(0.0, 1.0),
-                  backgroundColor: Colors.purple.shade100,
-                  color: _kicksCount >= 10 ? Colors.teal : Colors.purple,
+                  backgroundColor: tokens.surface,
+                  color: _kicksCount >= 10 ? tokens.follicular : tokens.luteal,
                   minHeight: 8,
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: _recordKick,
-                  icon: const Icon(Icons.touch_app, size: 24),
-                  label: const Text('+1 Patada Fetal'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 36, vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: _recordKick,
+                icon: const Icon(Icons.touch_app_outlined, size: 22),
+                label: const Text('+1 Patada Fetal'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: tokens.luteal,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton.icon(
-                      onPressed: _toggleKickSession,
-                      icon: Icon(_isKickSessionActive
-                          ? Icons.pause
-                          : Icons.play_arrow),
-                      label: Text(_isKickSessionActive
-                          ? 'Pausar Cronómetro'
-                          : 'Iniciar Tiempo'),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton.icon(
+                    onPressed: _toggleKickSession,
+                    icon: Icon(
+                        _isKickSessionActive ? Icons.pause : Icons.play_arrow),
+                    label: Text(_isKickSessionActive
+                        ? 'Pausar Cronómetro'
+                        : 'Iniciar Tiempo'),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    onPressed: (_kicksCount > 0 || _kickElapsedMinutes > 0)
+                        ? _saveKickSession
+                        : null,
+                    icon: const Icon(Icons.check, size: 18),
+                    label: const Text('Guardar'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: tokens.follicular,
+                      foregroundColor: Colors.white,
                     ),
-                    const SizedBox(width: 16),
-                    ElevatedButton.icon(
-                      onPressed: (_kicksCount > 0 || _kickElapsedMinutes > 0)
-                          ? _saveKickSession
-                          : null,
-                      icon: const Icon(Icons.check, size: 18),
-                      label: const Text('Guardar'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
-                        foregroundColor: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
 
@@ -615,107 +601,81 @@ class _ContractionAndKickTimersPageState
 
         // Live Evaluation Alert
         if (eval.targetReached) ...[
-          Card(
-            color: Colors.teal.shade50,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Colors.teal.shade400),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Icon(Icons.check_circle, color: Colors.teal, size: 32),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      '¡Meta alcanzada! Patrón fetal tranquilizador. 10 movimientos registrados.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal,
-                      ),
-                    ),
+          CoraSurfaceCard(
+            backgroundColor: tokens.follicularSurface,
+            borderColor: tokens.follicular.withValues(alpha: 0.4),
+            child: Row(
+              children: [
+                Icon(Icons.check_circle_outline,
+                    color: tokens.follicular, size: 28),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    '¡Meta alcanzada! Patrón fetal tranquilizador. 10 movimientos registrados.',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: tokens.follicular,
+                        ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),
         ] else if (eval.alert != null) ...[
-          Card(
-            color: Colors.red.shade50,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-              side: BorderSide(color: Colors.red.shade400, width: 1.5),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.warning, color: Colors.red, size: 28),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          eval.alert!.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.red.shade900,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(eval.alert!.message),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Recomendación: ${eval.alert!.actionRecommended}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
+          CoraAlertBanner(
+            title: eval.alert!.title,
+            description: eval.alert!.message,
+            recommendation: 'Recomendación: ${eval.alert!.actionRecommended}',
+            isUrgent: true,
           ),
           const SizedBox(height: 16),
         ],
 
-        const Text(
-          'Historial de Sesiones de Patadas',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
+        const CoraSectionLabel(title: 'Historial de Sesiones de Patadas'),
         const SizedBox(height: 8),
         historyAsync.when(
           data: (sessions) {
             if (sessions.isEmpty) {
-              return const Text(
+              return Text(
                 'No hay sesiones de patadas guardadas.',
-                style: TextStyle(color: Colors.grey),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: tokens.textSecondary),
               );
             }
             return Column(
               children: sessions.map((s) {
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: s.isReassuring
-                          ? Colors.teal.shade100
-                          : Colors.red.shade100,
-                      child: Icon(
-                        s.isReassuring ? Icons.check : Icons.warning,
-                        color: s.isReassuring ? Colors.teal : Colors.red,
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: CoraSurfaceCard(
+                    padding: EdgeInsets.zero,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: s.isReassuring
+                              ? tokens.follicularSurface
+                              : tokens.alertUrgent.withValues(alpha: 0.12),
+                          child: Icon(
+                            s.isReassuring ? Icons.check : Icons.warning_amber,
+                            color: s.isReassuring
+                                ? tokens.follicular
+                                : tokens.alertUrgent,
+                          ),
+                        ),
+                        title: Text(
+                          '${s.kicksCount} patadas en ${s.durationMinutes} min',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontFeatures: [FontFeature.tabularFigures()],
+                          ),
+                        ),
+                        subtitle: Text(
+                          '${s.isReassuring ? "Patrón tranquilizador" : "Disminución reportada"} • ${s.startedAt.toLocal().toString().substring(0, 16)}',
+                        ),
                       ),
-                    ),
-                    title: Text(
-                      '${s.kicksCount} patadas en ${s.durationMinutes} min',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      '${s.isReassuring ? "Patrón tranquilizador" : "Disminución reportada"} • ${s.startedAt.toLocal().toString().substring(0, 16)}',
                     ),
                   ),
                 );

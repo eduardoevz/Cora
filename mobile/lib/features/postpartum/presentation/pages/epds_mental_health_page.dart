@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/postpartum/domain/entities/postpartum_entities.dart';
 import 'package:mobile/features/postpartum/presentation/providers/postpartum_providers.dart';
@@ -163,19 +165,21 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
       ref.invalidate(latestEpdsScreeningProvider);
 
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Tamizaje EPDS guardado con éxito'),
-            backgroundColor: Colors.teal,
+          SnackBar(
+            content: const Text('Tamizaje EPDS guardado con éxito'),
+            backgroundColor: tokens.follicular,
           ),
         );
       }
     } catch (e) {
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error al guardar tamizaje: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: tokens.alertUrgent,
           ),
         );
       }
@@ -187,6 +191,7 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final tokens = CoraTheme.tokensOf(context);
     final evaluation = _currentEvaluation;
     final latestScreeningAsync = ref.watch(latestEpdsScreeningProvider);
 
@@ -200,40 +205,12 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Intro Card
-            Card(
-              elevation: 0,
-              color:
-                  theme.colorScheme.secondaryContainer.withValues(alpha: 0.4),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.spa_outlined,
-                            color: theme.colorScheme.secondary),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Escala de Edimburgo (EPDS)',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    const Text(
-                      'Responde cómo te has sentido en los últimos 7 días. '
-                      'No hay respuestas correctas ni incorrectas: tus emociones importan y cuidarte es prioritario.',
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ],
-                ),
-              ),
+            const CoraInfoCallout(
+              title: 'Escala de Edimburgo (EPDS)',
+              subtitle: 'Responde cómo te has sentido en los últimos 7 días. '
+                  'No hay respuestas correctas ni incorrectas: tus emociones importan y cuidarte es prioritario.',
+              icon: Icons.spa_outlined,
+              phaseKey: 'follicular',
             ),
             const SizedBox(height: 16),
 
@@ -243,25 +220,24 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
                 key: const Key('banner_immediate_crisis_support'),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.red.shade50,
+                  color: tokens.alertUrgent.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.red.shade700, width: 2),
+                  border: Border.all(color: tokens.alertUrgent, width: 2),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.health_and_safety,
-                            color: Colors.red.shade700, size: 28),
+                        Icon(Icons.health_and_safety_outlined,
+                            color: tokens.alertUrgent, size: 28),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             'No estás sola. Apoyo Inmediato Disponible',
-                            style: TextStyle(
-                              color: Colors.red.shade900,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              color: tokens.alertUrgent,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
@@ -272,16 +248,15 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
                       'Has indicado pensamientos de autolesión o sufrimiento profundo. '
                       'El posparto es una etapa de enormes cambios hormonales y emocionales. '
                       'Por favor, permite que profesionales te acompañen ahora mismo.',
-                      style: TextStyle(
-                        color: Colors.red.shade800,
-                        fontSize: 13,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: tokens.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 12),
                     FilledButton.icon(
                       key: const Key('btn_call_crisis_hotline'),
                       style: FilledButton.styleFrom(
-                        backgroundColor: Colors.red.shade700,
+                        backgroundColor: tokens.alertUrgent,
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
@@ -306,63 +281,58 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
             ],
 
             // Current Score Gauge Card
-            Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-                side: BorderSide(color: theme.colorScheme.outlineVariant),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 28,
-                      backgroundColor: evaluation.selfHarmRisk
-                          ? Colors.red.shade100
-                          : evaluation.totalScore >= 13
-                              ? Colors.orange.shade100
-                              : evaluation.totalScore >= 10
-                                  ? Colors.amber.shade100
-                                  : Colors.teal.shade100,
-                      child: Text(
-                        '${evaluation.totalScore}',
-                        key: const Key('text_epds_score'),
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: evaluation.selfHarmRisk
-                              ? Colors.red.shade800
-                              : evaluation.totalScore >= 13
-                                  ? Colors.orange.shade800
-                                  : evaluation.totalScore >= 10
-                                      ? Colors.amber.shade900
-                                      : Colors.teal.shade800,
+            CoraSurfaceCard(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 28,
+                    backgroundColor: evaluation.selfHarmRisk
+                        ? tokens.alertUrgent.withValues(alpha: 0.14)
+                        : evaluation.totalScore >= 13
+                            ? tokens.alertPreventive.withValues(alpha: 0.18)
+                            : evaluation.totalScore >= 10
+                                ? tokens.ovulatorySurface
+                                : tokens.follicularSurface,
+                    child: Text(
+                      '${evaluation.totalScore}',
+                      key: const Key('text_epds_score'),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                        color: evaluation.selfHarmRisk
+                            ? tokens.alertUrgent
+                            : evaluation.totalScore >= 13
+                                ? tokens.alertPreventive
+                                : evaluation.totalScore >= 10
+                                    ? tokens.menstrual
+                                    : tokens.follicular,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Puntuación total: ${evaluation.totalScore} / 30',
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontFeatures: const [FontFeature.tabularFigures()],
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Puntuación total: ${evaluation.totalScore} / 30',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
+                        const SizedBox(height: 4),
+                        Text(
+                          evaluation.clinicalSummary,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: tokens.textSecondary,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            evaluation.clinicalSummary,
-                            style: theme.textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 20),
@@ -374,46 +344,44 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
               final options = q['options'] as List<String>;
               final selectedIndex = _responses[qId] ?? 0;
 
-              return Card(
-                key: Key('card_question_$qId'),
-                margin: const EdgeInsets.only(bottom: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(
-                    color: qId == 'item_10' && selectedIndex < 3
-                        ? Colors.red.shade300
-                        : theme.colorScheme.outlineVariant,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: CoraSurfaceCard(
+                  key: Key('card_question_$qId'),
+                  borderColor: qId == 'item_10' && selectedIndex < 3
+                      ? tokens.alertUrgent
+                      : tokens.borderSubtle,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      ...List.generate(options.length, (optIdx) {
-                        return RadioListTile<int>(
-                          key: Key('option_${qId}_$optIdx'),
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(options[optIdx]),
-                          value: optIdx,
-                          // ignore: deprecated_member_use
-                          groupValue: selectedIndex,
-                          // ignore: deprecated_member_use
-                          onChanged: (val) {
-                            if (val != null) {
-                              setState(() => _responses[qId] = val);
-                            }
-                          },
-                        );
-                      }),
+                      const SizedBox(height: 10),
+                      Material(
+                        color: Colors.transparent,
+                        child: Column(
+                          children: List.generate(options.length, (optIdx) {
+                            return RadioListTile<int>(
+                              key: Key('option_${qId}_$optIdx'),
+                              contentPadding: EdgeInsets.zero,
+                              title: Text(options[optIdx]),
+                              value: optIdx,
+                              // ignore: deprecated_member_use
+                              groupValue: selectedIndex,
+                              // ignore: deprecated_member_use
+                              onChanged: (val) {
+                                if (val != null) {
+                                  setState(() => _responses[qId] = val);
+                                }
+                              },
+                            );
+                          }),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -459,28 +427,37 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
                     child: Text('No hay tamizajes previos guardados.'),
                   );
                 }
-                return Card(
+                return CoraSurfaceCard(
                   key: const Key('card_latest_screening'),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: latest.selfHarmRisk
-                          ? Colors.red.shade100
-                          : Colors.teal.shade100,
-                      child: Icon(
-                        latest.selfHarmRisk
-                            ? Icons.warning_amber
-                            : Icons.psychology,
-                        color: latest.selfHarmRisk ? Colors.red : Colors.teal,
+                  padding: EdgeInsets.zero,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: latest.selfHarmRisk
+                            ? tokens.alertUrgent.withValues(alpha: 0.14)
+                            : tokens.follicularSurface,
+                        child: Icon(
+                          latest.selfHarmRisk
+                              ? Icons.warning_amber
+                              : Icons.psychology_outlined,
+                          color: latest.selfHarmRisk
+                              ? tokens.alertUrgent
+                              : tokens.follicular,
+                        ),
                       ),
-                    ),
-                    title: Text(
-                      'Puntaje: ${latest.totalScore}/30 — Día ${latest.daysPostpartum} posparto',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      latest.clinicalSummary,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      title: Text(
+                        'Puntaje: ${latest.totalScore}/30 — Día ${latest.daysPostpartum} posparto',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontFeatures: [FontFeature.tabularFigures()],
+                        ),
+                      ),
+                      subtitle: Text(
+                        latest.clinicalSummary,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 );

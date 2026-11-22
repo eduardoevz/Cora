@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/postpartum/domain/entities/postpartum_entities.dart';
 import 'package:mobile/features/postpartum/presentation/providers/postpartum_providers.dart';
@@ -145,19 +147,21 @@ class _LactationAndMilkBankPageState
       _resetTimer();
 
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Toma registrada con éxito'),
-            backgroundColor: Colors.teal,
+          SnackBar(
+            content: const Text('Toma registrada con éxito'),
+            backgroundColor: tokens.follicular,
           ),
         );
       }
     } catch (e) {
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error al guardar toma: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: tokens.alertUrgent,
           ),
         );
       }
@@ -235,7 +239,7 @@ class _LactationAndMilkBankPageState
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.blue.shade50,
+                        color: CoraTheme.tokensOf(context).follicularSurface,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -243,8 +247,9 @@ class _LactationAndMilkBankPageState
                         '${expiresAt.day}/${expiresAt.month}/${expiresAt.year} '
                         'a las ${expiresAt.hour.toString().padLeft(2, '0')}:${expiresAt.minute.toString().padLeft(2, '0')}',
                         style: TextStyle(
-                          color: Colors.blue.shade900,
+                          color: CoraTheme.tokensOf(context).follicular,
                           fontWeight: FontWeight.w600,
+                          fontFeatures: const [FontFeature.tabularFigures()],
                         ),
                       ),
                     ),
@@ -308,6 +313,7 @@ class _LactationAndMilkBankPageState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final tokens = CoraTheme.tokensOf(context);
     final suggestedNext = ref.watch(suggestedNextBreastProvider);
     final milkStashAsync = ref.watch(activeMilkStashProvider);
 
@@ -621,9 +627,9 @@ class _LactationAndMilkBankPageState
                               style: TextStyle(fontSize: 16),
                             ),
                             const SizedBox(height: 6),
-                            const Text(
+                            Text(
                               'Pulsa "Extraer Leche" para registrar un lote.',
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(color: tokens.textSecondary),
                             ),
                           ],
                         ),
@@ -639,30 +645,24 @@ class _LactationAndMilkBankPageState
                           Color badgeColor;
                           String badgeText;
                           if (isExpired) {
-                            badgeColor = Colors.red;
+                            badgeColor = tokens.alertUrgent;
                             badgeText = 'Caducado';
                           } else if (hoursLeft < 24) {
-                            badgeColor = Colors.orange;
+                            badgeColor = tokens.alertPreventive;
                             badgeText = 'Vence en ${hoursLeft}h';
                           } else {
                             final daysLeft = entry.remainingTime.inDays;
-                            badgeColor = Colors.green;
+                            badgeColor = tokens.follicular;
                             badgeText = 'Vence en ${daysLeft}d';
                           }
 
-                          return Card(
-                            key: Key('stash_card_${entry.id}'),
-                            margin: const EdgeInsets.only(bottom: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              side: BorderSide(
-                                color: isExpired
-                                    ? Colors.red.shade300
-                                    : theme.colorScheme.outlineVariant,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: CoraSurfaceCard(
+                              key: Key('stash_card_${entry.id}'),
+                              borderColor: isExpired
+                                  ? tokens.alertUrgent.withValues(alpha: 0.45)
+                                  : tokens.borderSubtle,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

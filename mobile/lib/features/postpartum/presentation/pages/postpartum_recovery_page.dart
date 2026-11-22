@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/postpartum/domain/entities/postpartum_entities.dart';
 import 'package:mobile/features/postpartum/presentation/providers/postpartum_providers.dart';
@@ -85,19 +87,22 @@ class _PostpartumRecoveryPageState
       ref.invalidate(recentRecoveryLogsProvider);
 
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registro puerperal guardado localmente con éxito'),
-            backgroundColor: Colors.teal,
+          SnackBar(
+            content:
+                const Text('Registro puerperal guardado localmente con éxito'),
+            backgroundColor: tokens.follicular,
           ),
         );
       }
     } catch (e) {
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error al guardar registro: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: tokens.alertUrgent,
           ),
         );
       }
@@ -109,6 +114,7 @@ class _PostpartumRecoveryPageState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final tokens = CoraTheme.tokensOf(context);
     final alerts = _currentAlerts;
     final recentLogsAsync = ref.watch(recentRecoveryLogsProvider);
 
@@ -122,62 +128,57 @@ class _PostpartumRecoveryPageState
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Days Postpartum Selector
-            Card(
-              elevation: 0,
-              color: theme.colorScheme.surfaceContainerHighest
-                  .withValues(alpha: 0.5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Días posparto',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
+            CoraSurfaceCard(
+              backgroundColor: tokens.follicularSurface,
+              borderColor: tokens.follicular.withValues(alpha: 0.3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Días posparto',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        'Día $_daysPostpartum tras el nacimiento',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: tokens.follicular,
+                          fontFeatures: const [FontFeature.tabularFigures()],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton.filledTonal(
+                        key: const Key('btn_decrement_day'),
+                        onPressed: _daysPostpartum > 0
+                            ? () => setState(() => _daysPostpartum--)
+                            : null,
+                        icon: const Icon(Icons.remove),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          '$_daysPostpartum',
+                          style: theme.textTheme.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontFeatures: const [FontFeature.tabularFigures()],
                           ),
                         ),
-                        Text(
-                          'Día $_daysPostpartum tras el nacimiento',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.secondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        IconButton.filledTonal(
-                          key: const Key('btn_decrement_day'),
-                          onPressed: _daysPostpartum > 0
-                              ? () => setState(() => _daysPostpartum--)
-                              : null,
-                          icon: const Icon(Icons.remove),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Text(
-                            '$_daysPostpartum',
-                            style: theme.textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        IconButton.filledTonal(
-                          key: const Key('btn_increment_day'),
-                          onPressed: () => setState(() => _daysPostpartum++),
-                          icon: const Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      IconButton.filledTonal(
+                        key: const Key('btn_increment_day'),
+                        onPressed: () => setState(() => _daysPostpartum++),
+                        icon: const Icon(Icons.add),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16),
@@ -187,82 +188,14 @@ class _PostpartumRecoveryPageState
               ...alerts.map((alert) {
                 final isUrgent =
                     alert.severity == PostpartumAlertSeverity.urgentEmergency;
-                final bgColor =
-                    isUrgent ? Colors.red.shade50 : Colors.amber.shade50;
-                final borderColor =
-                    isUrgent ? Colors.red : Colors.amber.shade700;
-                final iconColor =
-                    isUrgent ? Colors.red.shade700 : Colors.amber.shade800;
-
-                return Container(
+                return Padding(
                   key: Key('alert_${alert.category}'),
-                  margin: const EdgeInsets.only(bottom: 12),
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: bgColor,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: borderColor, width: 1.5),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            isUrgent
-                                ? Icons.warning_amber_rounded
-                                : Icons.info_outline,
-                            color: iconColor,
-                            size: 24,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              alert.title,
-                              style: theme.textTheme.titleSmall?.copyWith(
-                                color: isUrgent
-                                    ? Colors.red.shade900
-                                    : Colors.brown.shade900,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        alert.message,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: isUrgent
-                              ? Colors.red.shade800
-                              : Colors.brown.shade800,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.8),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.medical_services_outlined,
-                                size: 18, color: iconColor),
-                            const SizedBox(width: 6),
-                            Expanded(
-                              child: Text(
-                                alert.actionRecommended,
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: CoraAlertBanner(
+                    title: alert.title,
+                    description: alert.message,
+                    recommendation: alert.actionRecommended,
+                    isUrgent: isUrgent,
                   ),
                 );
               }),
@@ -551,31 +484,40 @@ class _PostpartumRecoveryPageState
                   itemCount: logs.length,
                   itemBuilder: (context, index) {
                     final log = logs[index];
-                    return Card(
-                      key: Key('log_card_${log.id}'),
-                      margin: const EdgeInsets.only(bottom: 8),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: log.alerts.isNotEmpty
-                              ? Colors.red.shade100
-                              : Colors.teal.shade100,
-                          child: Icon(
-                            log.alerts.isNotEmpty
-                                ? Icons.warning_amber
-                                : Icons.favorite,
-                            color: log.alerts.isNotEmpty
-                                ? Colors.red
-                                : Colors.teal,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: CoraSurfaceCard(
+                        key: Key('log_card_${log.id}'),
+                        padding: EdgeInsets.zero,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: log.alerts.isNotEmpty
+                                  ? tokens.alertUrgent.withValues(alpha: 0.12)
+                                  : tokens.follicularSurface,
+                              child: Icon(
+                                log.alerts.isNotEmpty
+                                    ? Icons.warning_amber
+                                    : Icons.favorite_outline,
+                                color: log.alerts.isNotEmpty
+                                    ? tokens.alertUrgent
+                                    : tokens.follicular,
+                              ),
+                            ),
+                            title: Text(
+                              'Día ${log.daysPostpartum} — ${log.lochiaStage.displayName}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontFeatures: [FontFeature.tabularFigures()],
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Flujo: ${log.lochiaFlow.displayName}'
+                              '${log.maternalTemperatureC != null ? " • ${log.maternalTemperatureC}°C" : ""}'
+                              '${log.alerts.isNotEmpty ? " • ${log.alerts.length} alertas" : ""}',
+                            ),
                           ),
-                        ),
-                        title: Text(
-                          'Día ${log.daysPostpartum} — ${log.lochiaStage.displayName}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          'Flujo: ${log.lochiaFlow.displayName}'
-                          '${log.maternalTemperatureC != null ? " • ${log.maternalTemperatureC}°C" : ""}'
-                          '${log.alerts.isNotEmpty ? " • ${log.alerts.length} alertas" : ""}',
                         ),
                       ),
                     );

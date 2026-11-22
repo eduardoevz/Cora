@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/pregnancy/domain/entities/pregnancy_entities.dart';
 import 'package:mobile/features/pregnancy/presentation/pages/birth_plan_and_appointments_page.dart';
@@ -14,10 +16,10 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final summaryAsync = ref.watch(pregnancySummaryProvider);
 
+    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mi Embarazo Semana a Semana'),
-        backgroundColor: Colors.pink.shade50,
       ),
       body: summaryAsync.when(
         data: (summary) {
@@ -33,138 +35,140 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
             padding: const EdgeInsets.all(16),
             children: [
               // Hero Gestational Header Card
-              Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                color: Colors.pink.shade100.withValues(alpha: 0.5),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
+              CoraSurfaceCard(
+                backgroundColor: tokens.follicularSurface,
+                borderColor: tokens.follicular.withValues(alpha: 0.35),
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Semana $weeks + $days días',
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.pink,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: tokens.follicular,
+                                  fontFeatures: const [
+                                    FontFeature.tabularFigures(),
+                                  ],
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 'Trimestre $trimester • $daysToEdd días para FPP',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey.shade700,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                  color: tokens.textSecondary,
+                                  fontFeatures: const [
+                                    FontFeature.tabularFigures(),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.pink.shade200,
-                                  blurRadius: 8,
-                                ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.child_friendly,
-                              size: 32,
-                              color: Colors.pink,
-                            ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: tokens.surface,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: tokens.borderSubtle),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      LinearProgressIndicator(
+                          child: Icon(
+                            Icons.child_friendly_outlined,
+                            size: 30,
+                            color: tokens.follicular,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: LinearProgressIndicator(
                         value: (weeks / 40.0).clamp(0.0, 1.0),
-                        backgroundColor: Colors.white,
-                        valueColor:
-                            const AlwaysStoppedAnimation<Color>(Colors.pink),
+                        backgroundColor: tokens.surface,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          tokens.follicular,
+                        ),
                         minHeight: 8,
-                        borderRadius: BorderRadius.circular(4),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
 
               const SizedBox(height: 16),
 
-              // Fruit comparison & developmental highlights
-              Card(
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.eco, color: Colors.green),
-                          const SizedBox(width: 8),
-                          Text(
+              // Developmental highlights
+              CoraSurfaceCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.eco_outlined, color: tokens.follicular),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
                             'Tamaño de tu bebé en la semana $weeks',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: tokens.follicularSurface,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: tokens.borderSubtle),
+                      ),
+                      child: Text(
+                        _getFruitDescription(weeks),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: tokens.textPrimary,
                             ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      _getMilestoneHighlight(weeks),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: tokens.textSecondary,
+                            height: 1.45,
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.green.shade50,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          _getFruitDescription(weeks),
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.green.shade900,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        _getMilestoneHighlight(weeks),
-                        style: const TextStyle(fontSize: 14, height: 1.4),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
 
               const SizedBox(height: 20),
-              const Text(
-                'Herramientas Clínicas Obstétricas',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 12),
+              const CoraSectionLabel(
+                  title: 'Herramientas Clínicas Obstétricas'),
+              const SizedBox(height: 10),
 
               // Action Tiles
               _buildFeatureTile(
                 context: context,
-                icon: Icons.monitor_heart,
-                color: Colors.red.shade400,
+                icon: Icons.monitor_heart_outlined,
+                color: tokens.alertUrgent,
                 title: 'Signos Vitales y Alertas ACOG',
                 subtitle:
                     'Monitor de presión arterial, glucemia, peso y síntomas de alarma',
@@ -181,8 +185,8 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
               const SizedBox(height: 10),
               _buildFeatureTile(
                 context: context,
-                icon: Icons.timer,
-                color: Colors.purple.shade400,
+                icon: Icons.timer_outlined,
+                color: tokens.luteal,
                 title: 'Cronómetro de Contracciones y Patadas',
                 subtitle:
                     'Regla 5-1-1 / Pretérmino y Contador Cardiff de 10 patadas',
@@ -201,8 +205,8 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
               const SizedBox(height: 10),
               _buildFeatureTile(
                 context: context,
-                icon: Icons.assignment,
-                color: Colors.teal.shade500,
+                icon: Icons.assignment_outlined,
+                color: tokens.follicular,
                 title: 'Plan de Parto y Citas Prenatales',
                 subtitle:
                     'Preferencias de parto, acompañamiento y agenda médica',
@@ -232,35 +236,13 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.pregnant_woman, size: 72, color: Colors.pink),
-            const SizedBox(height: 16),
-            const Text(
-              'No tienes un episodio de embarazo activo',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            const Text(
+        child: CoraEmptyStateCard(
+          icon: Icons.pregnant_woman_outlined,
+          title: 'No tienes un episodio de embarazo activo',
+          subtitle:
               'Configura tu fecha de última menstruación o fecha probable de parto para iniciar el seguimiento.',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: () => _showStartPregnancyDialog(context, ref),
-              icon: const Icon(Icons.add),
-              label: const Text('Iniciar Seguimiento de Embarazo'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink,
-                foregroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              ),
-            ),
-          ],
+          actionLabel: 'Iniciar Seguimiento de Embarazo',
+          onAction: () => _showStartPregnancyDialog(context, ref),
         ),
       ),
     );
@@ -301,36 +283,49 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
     required String subtitle,
     required VoidCallback onTap,
   }) {
-    return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: color.withValues(alpha: 0.15),
-          child: Icon(icon, color: color),
+    final tokens = CoraTheme.tokensOf(context);
+    return CoraSurfaceCard(
+      padding: EdgeInsets.zero,
+      child: Material(
+        color: Colors.transparent,
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: color.withValues(alpha: 0.12),
+            child: Icon(icon, color: color),
+          ),
+          title: Text(
+            title,
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+          subtitle: Text(
+            subtitle,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: tokens.textSecondary,
+                ),
+          ),
+          trailing: Icon(Icons.chevron_right, color: tokens.textSecondary),
+          onTap: onTap,
         ),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(subtitle, style: const TextStyle(fontSize: 13)),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: onTap,
       ),
     );
   }
 
   String _getFruitDescription(int week) {
-    if (week <= 8) return '🌱 Tamaño de una frambuesa (~1.6 cm, 1 g)';
-    if (week <= 12) return '🫐 Tamaño de una ciruela (~5.4 cm, 14 g)';
-    if (week <= 16) return '🥑 Tamaño de un aguacate (~11.6 cm, 100 g)';
-    if (week <= 20) return '🍌 Tamaño de un plátano (~25 cm, 300 g)';
-    if (week <= 24) return '🌽 Tamaño de una espiga de maíz (~30 cm, 600 g)';
+    if (week <= 8) return 'Tamaño de una frambuesa (~1.6 cm, 1 g)';
+    if (week <= 12) return 'Tamaño de una ciruela (~5.4 cm, 14 g)';
+    if (week <= 16) return 'Tamaño de un aguacate (~11.6 cm, 100 g)';
+    if (week <= 20) return 'Tamaño de un plátano (~25 cm, 300 g)';
+    if (week <= 24) return 'Tamaño de una espiga de maíz (~30 cm, 600 g)';
     if (week <= 28) {
-      return '🍆 Tamaño de una berenjena grande (~37.6 cm, 1000 g)';
+      return 'Tamaño de una berenjena grande (~37.6 cm, 1000 g)';
     }
-    if (week <= 32) return '🍍 Tamaño de una piña (~42.4 cm, 1700 g)';
+    if (week <= 32) return 'Tamaño de una piña (~42.4 cm, 1700 g)';
     if (week <= 36) {
-      return '🥬 Tamaño de un manojo de acelgas (~47.4 cm, 2600 g)';
+      return 'Tamaño de un manojo de acelgas (~47.4 cm, 2600 g)';
     }
-    return '🍉 Tamaño de una sandía madura (~51 cm, 3500 g)';
+    return 'Tamaño de una sandía madura (~51 cm, 3500 g)';
   }
 
   String _getMilestoneHighlight(int week) {

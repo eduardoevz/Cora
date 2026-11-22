@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/pregnancy/domain/entities/pregnancy_entities.dart';
 import 'package:mobile/features/pregnancy/presentation/providers/pregnancy_providers.dart';
 import 'package:uuid/uuid.dart';
@@ -81,12 +83,13 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
     }
 
     if (sys != null && dia != null && sys <= dia) {
+      final tokens = CoraTheme.tokensOf(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
+        SnackBar(
+          content: const Text(
             'Error fisiológico: La sistólica debe ser estrictamente mayor que la diastólica.',
           ),
-          backgroundColor: Colors.red,
+          backgroundColor: tokens.alertUrgent,
         ),
       );
       return;
@@ -142,10 +145,11 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
     });
 
     if (mounted) {
+      final tokens = CoraTheme.tokensOf(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Signos vitales registrados y sincronizados'),
-          backgroundColor: Colors.green,
+        SnackBar(
+          content: const Text('Signos vitales registrados y sincronizados'),
+          backgroundColor: tokens.follicular,
         ),
       );
     }
@@ -155,10 +159,10 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
   Widget build(BuildContext context) {
     final recentAsync = ref.watch(recentMaternalVitalsProvider);
 
+    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Monitor Materno & Alertas ACOG'),
-        backgroundColor: Colors.pink.shade50,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -166,258 +170,204 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
           // Live Alert Banner if preeclampsia or risk triggered
           if (_currentAlerts.isNotEmpty) ...[
             ..._currentAlerts.map(
-              (alert) => Container(
-                margin: const EdgeInsets.only(bottom: 12),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: alert.severity == 'urgent_emergency'
-                      ? Colors.red.shade100
-                      : Colors.orange.shade100,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: alert.severity == 'urgent_emergency'
-                        ? Colors.red.shade700
-                        : Colors.orange.shade700,
-                    width: 2,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          alert.severity == 'urgent_emergency'
-                              ? Icons.warning
-                              : Icons.info_outline,
-                          color: alert.severity == 'urgent_emergency'
-                              ? Colors.red.shade900
-                              : Colors.orange.shade900,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            alert.title,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: alert.severity == 'urgent_emergency'
-                                  ? Colors.red.shade900
-                                  : Colors.orange.shade900,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      alert.message,
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Recomendación: ${alert.actionRecommended}',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+              (alert) => Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: CoraAlertBanner(
+                  title: alert.title,
+                  description: alert.message,
+                  recommendation: 'Recomendación: ${alert.actionRecommended}',
+                  isUrgent: alert.severity == 'urgent_emergency',
                 ),
               ),
             ),
           ],
 
-          Card(
-            elevation: 2,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Registro de Signos Vitales',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
+          CoraSurfaceCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Registro de Signos Vitales',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 14),
 
-                  // Blood pressure row
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _systolicController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            labelText: 'Sistólica (mmHg)',
-                            hintText: 'ej. 120',
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.favorite, color: Colors.red),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: TextField(
-                          controller: _diastolicController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            labelText: 'Diastólica (mmHg)',
-                            hintText: 'ej. 80',
-                            border: OutlineInputBorder(),
-                            prefixIcon:
-                                Icon(Icons.favorite_border, color: Colors.red),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Glucose and Timing
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _glucoseController,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true),
-                          decoration: const InputDecoration(
-                            labelText: 'Glucosa (mg/dL)',
-                            hintText: 'ej. 92.0',
-                            border: OutlineInputBorder(),
-                            prefixIcon:
-                                Icon(Icons.bloodtype, color: Colors.teal),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          initialValue: _glucoseTiming,
-                          decoration: const InputDecoration(
-                            labelText: 'Momento',
-                            border: OutlineInputBorder(),
-                          ),
-                          items: const [
-                            DropdownMenuItem(
-                                value: 'fasting', child: Text('Ayunas')),
-                            DropdownMenuItem(
-                                value: 'postprandial_1h',
-                                child: Text('1h Posprandial')),
-                            DropdownMenuItem(
-                                value: 'postprandial_2h',
-                                child: Text('2h Posprandial')),
-                            DropdownMenuItem(
-                                value: 'random', child: Text('Azar')),
-                          ],
-                          onChanged: (val) {
-                            if (val != null) {
-                              setState(() => _glucoseTiming = val);
-                              _evaluateLocal();
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Weight
-                  TextField(
-                    controller: _weightController,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    decoration: const InputDecoration(
-                      labelText: 'Peso materno (kg)',
-                      hintText: 'ej. 68.5',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.scale, color: Colors.blue),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Síntomas de Alarma ACOG (Marcar si se presentan):',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                  CheckboxListTile(
-                    title: const Text('Cefalea intensa y persistente'),
-                    value: _headache,
-                    dense: true,
-                    onChanged: (val) {
-                      setState(() => _headache = val ?? false);
-                      _evaluateLocal();
-                    },
-                  ),
-                  CheckboxListTile(
-                    title: const Text('Visión borrosa, escotomas o luces'),
-                    value: _visualBlur,
-                    dense: true,
-                    onChanged: (val) {
-                      setState(() => _visualBlur = val ?? false);
-                      _evaluateLocal();
-                    },
-                  ),
-                  CheckboxListTile(
-                    title: const Text(
-                        'Dolor en boca del estómago / epigastralgia'),
-                    value: _epigastricPain,
-                    dense: true,
-                    onChanged: (val) {
-                      setState(() => _epigastricPain = val ?? false);
-                      _evaluateLocal();
-                    },
-                  ),
-                  CheckboxListTile(
-                    title: const Text('Hinchazón repentina de manos o cara'),
-                    value: _suddenEdema,
-                    dense: true,
-                    onChanged: (val) {
-                      setState(() => _suddenEdema = val ?? false);
-                      _evaluateLocal();
-                    },
-                  ),
-
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton.icon(
-                      onPressed: _saveVitals,
-                      icon: const Icon(Icons.save),
-                      label: const Text('Guardar Registro'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.pink,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                // Blood pressure row
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _systolicController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Sistólica (mmHg)',
+                          hintText: 'ej. 120',
+                          border: const OutlineInputBorder(),
+                          prefixIcon:
+                              Icon(Icons.favorite, color: tokens.menstrual),
                         ),
                       ),
                     ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextField(
+                        controller: _diastolicController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Diastólica (mmHg)',
+                          hintText: 'ej. 80',
+                          border: const OutlineInputBorder(),
+                          prefixIcon: Icon(
+                            Icons.favorite_border,
+                            color: tokens.menstrual,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+
+                // Glucose and Timing
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _glucoseController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
+                        decoration: InputDecoration(
+                          labelText: 'Glucosa (mg/dL)',
+                          hintText: 'ej. 92.0',
+                          border: const OutlineInputBorder(),
+                          prefixIcon: Icon(
+                            Icons.bloodtype_outlined,
+                            color: tokens.follicular,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: DropdownButtonFormField<String>(
+                        initialValue: _glucoseTiming,
+                        decoration: const InputDecoration(
+                          labelText: 'Momento',
+                          border: OutlineInputBorder(),
+                        ),
+                        items: const [
+                          DropdownMenuItem(
+                              value: 'fasting', child: Text('Ayunas')),
+                          DropdownMenuItem(
+                              value: 'postprandial_1h',
+                              child: Text('1h Posprandial')),
+                          DropdownMenuItem(
+                              value: 'postprandial_2h',
+                              child: Text('2h Posprandial')),
+                          DropdownMenuItem(
+                              value: 'random', child: Text('Azar')),
+                        ],
+                        onChanged: (val) {
+                          if (val != null) {
+                            setState(() => _glucoseTiming = val);
+                            _evaluateLocal();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+
+                // Weight
+                TextField(
+                  controller: _weightController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: 'Peso materno (kg)',
+                    hintText: 'ej. 68.5',
+                    border: const OutlineInputBorder(),
+                    prefixIcon:
+                        Icon(Icons.scale_outlined, color: tokens.luteal),
                   ),
-                ],
-              ),
+                ),
+
+                const SizedBox(height: 16),
+                const CoraSectionLabel(
+                  title: 'Síntomas de Alarma ACOG (Marcar si se presentan):',
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: Column(
+                    children: [
+                      CheckboxListTile(
+                        title: const Text('Cefalea intensa y persistente'),
+                        value: _headache,
+                        dense: true,
+                        onChanged: (val) {
+                          setState(() => _headache = val ?? false);
+                          _evaluateLocal();
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text('Visión borrosa, escotomas o luces'),
+                        value: _visualBlur,
+                        dense: true,
+                        onChanged: (val) {
+                          setState(() => _visualBlur = val ?? false);
+                          _evaluateLocal();
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: const Text(
+                          'Dolor en boca del estómago / epigastralgia',
+                        ),
+                        value: _epigastricPain,
+                        dense: true,
+                        onChanged: (val) {
+                          setState(() => _epigastricPain = val ?? false);
+                          _evaluateLocal();
+                        },
+                      ),
+                      CheckboxListTile(
+                        title:
+                            const Text('Hinchazón repentina de manos o cara'),
+                        value: _suddenEdema,
+                        dense: true,
+                        onChanged: (val) {
+                          setState(() => _suddenEdema = val ?? false);
+                          _evaluateLocal();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+                CoraPrimaryActionButton(
+                  label: 'Guardar Registro',
+                  icon: Icons.save_outlined,
+                  onPressed: _saveVitals,
+                ),
+              ],
             ),
           ),
 
-          const SizedBox(height: 24),
-          const Text(
-            'Historial de Registros',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
+          const CoraSectionLabel(title: 'Historial de Registros'),
+          const SizedBox(height: 10),
 
           recentAsync.when(
             data: (history) {
               if (history.isEmpty) {
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('No hay registros de signos vitales previos.'),
-                  ),
+                return const CoraEmptyStateCard(
+                  icon: Icons.monitor_heart_outlined,
+                  title: 'Sin registros previos',
+                  subtitle: 'No hay registros de signos vitales previos.',
                 );
               }
 
@@ -434,24 +384,53 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
 
                   final hasAlert = h.alerts.isNotEmpty;
 
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    color: hasAlert ? Colors.red.shade50 : Colors.white,
-                    child: ListTile(
-                      leading: Icon(
-                        hasAlert ? Icons.warning : Icons.check_circle,
-                        color: hasAlert ? Colors.red : Colors.green,
-                      ),
-                      title: Text(
-                        '$bpText ${gluText.isNotEmpty ? "• $gluText" : ""}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color:
-                              hasAlert ? Colors.red.shade900 : Colors.black87,
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: CoraSurfaceCard(
+                      padding: EdgeInsets.zero,
+                      backgroundColor: hasAlert
+                          ? tokens.alertUrgent.withValues(alpha: 0.08)
+                          : null,
+                      borderColor: hasAlert
+                          ? tokens.alertUrgent.withValues(alpha: 0.35)
+                          : null,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: ListTile(
+                          leading: Icon(
+                            hasAlert
+                                ? Icons.warning_amber_rounded
+                                : Icons.check_circle_outline,
+                            color: hasAlert
+                                ? tokens.alertUrgent
+                                : tokens.follicular,
+                          ),
+                          title: Text(
+                            '$bpText ${gluText.isNotEmpty ? "• $gluText" : ""}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: hasAlert
+                                  ? tokens.alertUrgent
+                                  : tokens.textPrimary,
+                              fontFeatures: const [
+                                FontFeature.tabularFigures(),
+                              ],
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Semana ${h.gestationalWeeks} • ${h.measuredAt.day}/${h.measuredAt.month} ${wtText.isNotEmpty ? "• $wtText" : ""}',
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: tokens.textSecondary,
+                              fontFeatures: const [
+                                FontFeature.tabularFigures(),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      subtitle: Text(
-                        'Semana ${h.gestationalWeeks} • ${h.measuredAt.day}/${h.measuredAt.month} ${wtText.isNotEmpty ? "• $wtText" : ""}',
                       ),
                     ),
                   );

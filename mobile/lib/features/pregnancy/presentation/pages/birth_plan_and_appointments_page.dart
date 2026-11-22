@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/pregnancy/domain/entities/pregnancy_entities.dart';
 import 'package:mobile/features/pregnancy/presentation/providers/pregnancy_providers.dart';
@@ -77,10 +79,11 @@ class _BirthPlanAndAppointmentsPageState
     ref.invalidate(birthPlanProvider);
 
     if (mounted) {
+      final tokens = CoraTheme.tokensOf(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Plan de parto guardado correctamente.'),
-          backgroundColor: Colors.teal,
+        SnackBar(
+          content: const Text('Plan de parto guardado correctamente.'),
+          backgroundColor: tokens.follicular,
         ),
       );
     }
@@ -218,7 +221,8 @@ class _BirthPlanAndAppointmentsPageState
                         icon: const Icon(Icons.save),
                         label: const Text('Guardar Cita Prenatal'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+                          backgroundColor:
+                              CoraTheme.tokensOf(context).follicular,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
@@ -278,19 +282,23 @@ class _BirthPlanAndAppointmentsPageState
 
   @override
   Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
     final existingPlanAsync = ref.watch(birthPlanProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plan de Parto y Citas'),
-        backgroundColor: Colors.teal.shade50,
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.teal.shade800,
-          indicatorColor: Colors.teal,
+          labelColor: tokens.follicular,
+          unselectedLabelColor: tokens.textSecondary,
+          indicatorColor: tokens.follicular,
           tabs: const [
-            Tab(icon: Icon(Icons.assignment), text: 'Plan de Parto'),
-            Tab(icon: Icon(Icons.calendar_month), text: 'Citas Prenatales'),
+            Tab(icon: Icon(Icons.assignment_outlined), text: 'Plan de Parto'),
+            Tab(
+              icon: Icon(Icons.calendar_month_outlined),
+              text: 'Citas Prenatales',
+            ),
           ],
         ),
       ),
@@ -502,11 +510,11 @@ class _BirthPlanAndAppointmentsPageState
           icon: const Icon(Icons.check),
           label: const Text('Guardar Mi Plan de Parto'),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal,
+            backgroundColor: CoraTheme.tokensOf(context).follicular,
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(14),
             ),
           ),
         ),
@@ -516,6 +524,7 @@ class _BirthPlanAndAppointmentsPageState
   }
 
   Widget _buildAppointmentsTab() {
+    final tokens = CoraTheme.tokensOf(context);
     final appointmentsAsync = ref.watch(prenatalAppointmentsProvider);
 
     return ListView(
@@ -524,16 +533,19 @@ class _BirthPlanAndAppointmentsPageState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Agenda Prenatal',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontWeight: FontWeight.w700),
             ),
             ElevatedButton.icon(
               onPressed: _showAddAppointmentDialog,
               icon: const Icon(Icons.add, size: 18),
               label: const Text('Nueva Cita'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
+                backgroundColor: tokens.follicular,
                 foregroundColor: Colors.white,
               ),
             ),
@@ -543,41 +555,32 @@ class _BirthPlanAndAppointmentsPageState
         appointmentsAsync.when(
           data: (appointments) {
             if (appointments.isEmpty) {
-              return Card(
-                color: Colors.grey.shade50,
-                child: const Padding(
-                  padding: EdgeInsets.all(24.0),
-                  child: Center(
-                    child: Text(
-                      'No tienes citas prenatales programadas.\nPulsa "+ Nueva Cita" para agendar tu próximo control.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black54),
-                    ),
-                  ),
-                ),
+              return const CoraEmptyStateCard(
+                icon: Icons.calendar_month_outlined,
+                title: 'Sin citas programadas',
+                subtitle:
+                    'No tienes citas prenatales programadas.\nPulsa "+ Nueva Cita" para agendar tu próximo control.',
               );
             }
 
             return Column(
               children: appointments.map((apt) {
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: CoraSurfaceCard(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Semana ${apt.gestationalWeek} • ${apt.doctorOrClinic}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                            Expanded(
+                              child: Text(
+                                'Semana ${apt.gestationalWeek} • ${apt.doctorOrClinic}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.w700),
                               ),
                             ),
                             Checkbox(
@@ -595,8 +598,9 @@ class _BirthPlanAndAppointmentsPageState
                         Text(
                           'Fecha: ${apt.scheduledAt.toLocal().toString().substring(0, 16)}',
                           style: TextStyle(
-                            color: Colors.teal.shade800,
-                            fontWeight: FontWeight.w500,
+                            color: tokens.follicular,
+                            fontWeight: FontWeight.w600,
+                            fontFeatures: const [FontFeature.tabularFigures()],
                           ),
                         ),
                         if (apt.topicsToDiscuss.isNotEmpty) ...[
@@ -607,7 +611,7 @@ class _BirthPlanAndAppointmentsPageState
                               return Chip(
                                 label: Text(t,
                                     style: const TextStyle(fontSize: 12)),
-                                backgroundColor: Colors.teal.shade50,
+                                backgroundColor: tokens.follicularSurface,
                               );
                             }).toList(),
                           ),
@@ -616,9 +620,10 @@ class _BirthPlanAndAppointmentsPageState
                           const SizedBox(height: 6),
                           Text(
                             'Notas: ${apt.notes}',
-                            style: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.black87),
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: tokens.textSecondary,
+                            ),
                           ),
                         ],
                       ],
@@ -636,15 +641,19 @@ class _BirthPlanAndAppointmentsPageState
   }
 
   Widget _buildSectionHeader(String title, IconData icon) {
+    final tokens = CoraTheme.tokensOf(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(icon, color: Colors.teal, size: 20),
+          Icon(icon, color: tokens.follicular, size: 20),
           const SizedBox(width: 8),
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(fontWeight: FontWeight.w700),
           ),
         ],
       ),
@@ -656,11 +665,12 @@ class _BirthPlanAndAppointmentsPageState
     required bool selected,
     required ValueChanged<bool?> onChanged,
   }) {
+    final tokens = CoraTheme.tokensOf(context);
     return CheckboxListTile(
       dense: true,
       title: Text(title, style: const TextStyle(fontSize: 14)),
       value: selected,
-      activeColor: Colors.teal,
+      activeColor: tokens.follicular,
       onChanged: onChanged,
       contentPadding: EdgeInsets.zero,
       controlAffinity: ListTileControlAffinity.leading,
