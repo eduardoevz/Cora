@@ -569,23 +569,15 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   }
 
   Widget _buildLayer4() {
-    final tokens = CoraTheme.tokensOf(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          'Tu Línea Base Menstrual',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: tokens.textPrimary,
-                fontWeight: FontWeight.w700,
-              ),
-        ),
-        const SizedBox(height: 6),
-        Text(
-          'Selecciona tus últimos 2 periodos en el calendario y tu regularidad para proyectar tu próximo ciclo, ventana fértil y ovulación.',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: tokens.textSecondary,
-              ),
+        const CoraStitchPageHeader(
+          eyebrow: 'CALIBRACIÓN BIOLÓGICA',
+          title: 'Tu Línea Base Menstrual',
+          subtitle:
+              'Selecciona tus últimos 2 periodos en el calendario y tu regularidad para calibrar tus predicciones.',
+          eyebrowIcon: Icons.calendar_month_outlined,
         ),
         const SizedBox(height: 16),
         InitialPeriodsCalendarPicker(
@@ -608,7 +600,41 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
             setState(() => _previousPeriod = range);
           },
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 14),
+        CoraBlushInsetBox(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.science_outlined,
+                size: 18,
+                color: CoraTheme.tokensOf(context).primaryDeep,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Precisión ginecológica',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Dos ciclos permiten delimitar la longitud real de tu fase lútea para anticipar ovulación y próximo periodo.',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: CoraTheme.tokensOf(context).textSecondary,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 18),
         CoraPrimaryActionButton(
           key: const Key('complete_onboarding_button'),
           label: 'Finalizar Configuración',

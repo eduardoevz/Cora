@@ -187,33 +187,111 @@ class HomeCycleHeroCard extends StatelessWidget {
           const SizedBox(height: 18),
           if (!projection.isHormonallyManaged &&
               projection.ovulationDate != null) ...[
-            CoraInfoCallout(
-              title: 'Ventana fértil y ovulación',
-              subtitle:
-                  'Ovulación estimada: ${_formatDateWithCountdown(projection.ovulationDate!)}',
-              badgeText: phaseKey == 'ovulatory' ? 'Alta prob.' : 'Fértil',
-              phaseKey: 'ovulatory',
-              icon: Icons.favorite_border_rounded,
+            CoraBlushInsetBox(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: tokens.verifiedSurface,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.spa_outlined,
+                      size: 18,
+                      color: tokens.verified,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Ventana fértil y ovulación',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Ovulación: ${_formatDateWithCountdown(projection.ovulationDate!)}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: tokens.textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  CoraMintStatusPill(
+                    label: phaseKey == 'ovulatory' ? 'Alta prob.' : 'Fértil',
+                    variant: CoraStatusPillVariant.mint,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 10),
           ],
           if (projection.predictedNextPeriod != null) ...[
-            CoraInfoCallout(
-              title: 'Próximo periodo menstrual',
-              subtitle:
-                  'Esperado: ${_formatDateWithCountdown(projection.predictedNextPeriod!)}',
-              badgeText: projection.hasExtendedUncertainty
-                  ? 'Rango flexible'
-                  : 'Ciclo de $totalDays d',
-              phaseKey: 'menstrual',
-              icon: Icons.water_drop_outlined,
+            CoraBlushInsetBox(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: tokens.accentSurface,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.water_drop_outlined,
+                      size: 18,
+                      color: tokens.primaryDeep,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Próximo periodo menstrual',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Esperado: ${_formatDateWithCountdown(projection.predictedNextPeriod!)}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(color: tokens.textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  CoraMintStatusPill(
+                    label: projection.hasExtendedUncertainty
+                        ? 'Flexible'
+                        : '${projection.predictedNextPeriod!.day} ${MenstrualMonthGrid.monthNamesEs[(projection.predictedNextPeriod!.month - 1).clamp(0, 11)].substring(0, 3)}',
+                    variant: CoraStatusPillVariant.blush,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
           ],
           CoraPrimaryActionButton(
             key: const Key('home_hero_primary_cta_button'),
             label: 'Registrar biomarcadores de hoy',
-            icon: Icons.edit_calendar_rounded,
+            icon: Icons.add_circle_outline_rounded,
             onPressed: onRegisterToday,
           ),
         ],

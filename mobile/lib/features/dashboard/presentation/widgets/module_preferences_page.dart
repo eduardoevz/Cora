@@ -106,50 +106,75 @@ class _ModulePreferencesPageState extends ConsumerState<ModulePreferencesPage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         children: [
-          CoraPageHeroBanner(
-            eyebrow: 'Personalización clínica',
-            title: 'Elige tus módulos activos',
+          CoraStitchPageHeader(
+            eyebrow: 'CONFIGURACIÓN FISIOLÓGICA',
+            title: 'Personaliza tu experiencia médica',
             subtitle:
-                'Activa únicamente las herramientas que deseas priorizar en tu seguimiento diario.',
-            badgeLabel: '${_enabledModules.length} activos',
-            icon: Icons.tune_rounded,
-          ),
-          const SizedBox(height: 14),
-          CoraSurfaceCard(
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            child: Column(
-              children: _availableModules.entries.map((entry) {
-                final isEnabled = _enabledModules.contains(entry.key);
-                return SwitchListTile(
-                  key: Key('toggle_module_${entry.key}'),
-                  title: Text(
-                    entry.value,
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: tokens.textPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                  subtitle: Text(
-                    isEnabled ? 'Activo en tu perfil' : 'Oculto temporalmente',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: tokens.textSecondary,
-                        ),
-                  ),
-                  activeThumbColor: tokens.accentPrimary,
-                  value: isEnabled,
-                  onChanged: (val) {
-                    setState(() {
-                      if (val) {
-                        _enabledModules.add(entry.key);
-                      } else {
-                        _enabledModules.remove(entry.key);
-                      }
-                    });
-                  },
-                );
-              }).toList(),
+                'Activa únicamente las dimensiones fisiológicas y de bienestar que deseas monitorear.',
+            eyebrowIcon: Icons.tune_rounded,
+            mintEyebrow: true,
+            trailing: CoraMintStatusPill(
+              label:
+                  '${_enabledModules.length} de ${_availableModules.length} activos',
+              variant: CoraStatusPillVariant.blush,
             ),
           ),
+          const SizedBox(height: 16),
+          ..._availableModules.entries.map((entry) {
+            final isEnabled = _enabledModules.contains(entry.key);
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: CoraSurfaceCard(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                borderRadius: 18,
+                child: Material(
+                  color: Colors.transparent,
+                  child: SwitchListTile(
+                    key: Key('toggle_module_${entry.key}'),
+                    title: Text(
+                      entry.value,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: tokens.textPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: CoraMintStatusPill(
+                          label: isEnabled ? 'Activo' : 'Inactivo',
+                          variant: isEnabled
+                              ? CoraStatusPillVariant.softMint
+                              : CoraStatusPillVariant.blush,
+                        ),
+                      ),
+                    ),
+                    activeThumbColor: Colors.white,
+                    activeTrackColor: tokens.primaryDeep,
+                    value: isEnabled,
+                    onChanged: (val) {
+                      setState(() {
+                        if (val) {
+                          _enabledModules.add(entry.key);
+                        } else {
+                          _enabledModules.remove(entry.key);
+                        }
+                      });
+                    },
+                  ),
+                ),
+              ),
+            );
+          }),
+          const SizedBox(height: 8),
+          const CoraTrustShieldCard(
+            title: 'Privacidad médica soberana',
+            body:
+                'Tus datos nunca se activan sin tu consentimiento. El procesamiento algorítmico se realiza localmente en tu dispositivo.',
+            icon: Icons.verified_user_outlined,
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );

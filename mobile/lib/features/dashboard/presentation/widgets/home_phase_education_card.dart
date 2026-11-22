@@ -24,7 +24,6 @@ class HomePhaseEducationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tokens = CoraTheme.tokensOf(context);
-    final phaseKey = status.currentPhase;
 
     return CoraSurfaceCard(
       key: const Key('home_phase_education_card'),
@@ -46,12 +45,58 @@ class HomePhaseEducationCard extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: 12),
-          CoraInfoCallout(
-            title: 'Recomendación biológica',
-            subtitle: status.dailyTipEs,
-            badgeText: 'Evidencia clínica',
-            phaseKey: phaseKey,
-            icon: Icons.auto_awesome_outlined,
+          CoraBlushInsetBox(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: tokens.verifiedSurface,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.bolt_outlined,
+                    size: 18,
+                    color: tokens.verified,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 4,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            'Recomendación biológica',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                          const CoraMintStatusPill(
+                            label: 'Evidencia clínica',
+                            variant: CoraStatusPillVariant.softMint,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        status.dailyTipEs,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: tokens.textSecondary,
+                              height: 1.45,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           if (alerts.isNotEmpty) ...[
             const SizedBox(height: 12),

@@ -121,9 +121,9 @@ class CoraNavigationDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 18),
                 decoration: BoxDecoration(
-                  color: tokens.surfaceSecondary,
+                  color: tokens.blushInset,
                   border: Border(
                     bottom: BorderSide(color: tokens.borderSubtle),
                   ),
@@ -131,11 +131,30 @@ class CoraNavigationDrawer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 8,
+                      runSpacing: 6,
+                      children: [
+                        IconButton(
+                          visualDensity: VisualDensity.compact,
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: const Icon(Icons.close_rounded, size: 20),
+                        ),
+                        CoraMintStatusPill(
+                          label: profile.currentLifeStage.label,
+                          icon: Icons.circle,
+                          variant: CoraStatusPillVariant.softMint,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
                     Row(
                       children: [
                         CircleAvatar(
                           radius: 22,
-                          backgroundColor: tokens.accentPrimary,
+                          backgroundColor: tokens.primaryDeep,
                           foregroundColor: Colors.white,
                           child: Text(
                             initial,
@@ -153,19 +172,31 @@ class CoraNavigationDrawer extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                fullName,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                      color: tokens.textPrimary,
-                                      fontWeight: FontWeight.w700,
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      fullName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            color: tokens.textPrimary,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                     ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Icon(
+                                    Icons.verified_outlined,
+                                    size: 16,
+                                    color: tokens.primaryDeep,
+                                  ),
+                                ],
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                'Cora Salud Integral',
+                                'Plan Cora Clínico Integral',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -179,31 +210,83 @@ class CoraNavigationDrawer extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        CoraPhasePill(
-                          phaseKey: 'menstrual',
-                          label: profile.currentLifeStage.label,
-                          icon: Icons.spa_outlined,
-                        ),
-                        ActionChip(
-                          key: const Key('drawer_switch_stage_button'),
-                          avatar: Icon(
-                            Icons.sync_alt_rounded,
-                            size: 15,
-                            color: tokens.accentPrimary,
+                    CoraSurfaceCard(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
+                      borderRadius: 16,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(7),
+                                decoration: BoxDecoration(
+                                  color: tokens.accentSurface,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.water_drop_outlined,
+                                  size: 16,
+                                  color: tokens.primaryDeep,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'ETAPA ACTIVA',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall
+                                          ?.copyWith(
+                                            color: tokens.textSecondary,
+                                            fontSize: 10,
+                                          ),
+                                    ),
+                                    Text(
+                                      profile.currentLifeStage.label,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          label: const Text('Cambiar etapa'),
-                          onPressed: () {
-                            final parentContext = Navigator.of(context).context;
-                            Navigator.of(context).pop();
-                            LifeStageSwitcherSheet.show(parentContext, profile);
-                          },
-                        ),
-                      ],
+                          const SizedBox(height: 8),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: ActionChip(
+                              key: const Key('drawer_switch_stage_button'),
+                              backgroundColor: tokens.accentSurface,
+                              side: BorderSide(color: tokens.borderSubtle),
+                              label: Text(
+                                'Cambiar etapa',
+                                style: TextStyle(
+                                  color: tokens.primaryDeep,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              onPressed: () {
+                                final parentContext =
+                                    Navigator.of(context).context;
+                                Navigator.of(context).pop();
+                                LifeStageSwitcherSheet.show(
+                                    parentContext, profile);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -287,6 +370,7 @@ class CoraNavigationDrawer extends StatelessWidget {
                 icon: Icons.picture_as_pdf_outlined,
                 title: 'Doctor-Ready PDF',
                 subtitle: 'Reporte clínico estructurado para consulta médica',
+                trailingBadge: 'PDF',
                 onTap: () => _navigateToPage(
                   context,
                   () => const DoctorReportExportPage(),
@@ -337,7 +421,69 @@ class CoraNavigationDrawer extends StatelessWidget {
                 subtitle: 'Biometría, icono discreto, exportación y purga',
                 onTap: () => _runActionAfterClose(context, onOpenPrivacy),
               ),
-              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                child: CoraBlushInsetBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.eco_outlined,
+                            size: 15,
+                            color: tokens.primaryDeep,
+                          ),
+                          const SizedBox(width: 6),
+                          Flexible(
+                            child: Text(
+                              'SUGERENCIA CLÍNICA',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                    color: tokens.primaryDeep,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Mantén tu bitácora diaria al día para mejorar la precisión de tu reporte médico.',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: tokens.textSecondary,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.verified_user_outlined,
+                      size: 13,
+                      color: tokens.verified,
+                    ),
+                    const SizedBox(width: 5),
+                    Flexible(
+                      child: Text(
+                        'Cumplimiento HIPAA & RGPD • Cora v2.0',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: tokens.textSecondary,
+                              fontSize: 11,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -374,6 +520,7 @@ class _DrawerNavTile extends StatelessWidget {
   final String title;
   final String subtitle;
   final bool isSelected;
+  final String? trailingBadge;
   final VoidCallback onTap;
 
   const _DrawerNavTile({
@@ -382,6 +529,7 @@ class _DrawerNavTile extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.isSelected = false,
+    this.trailingBadge,
     required this.onTap,
   });
 
@@ -405,12 +553,19 @@ class _DrawerNavTile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
               child: Row(
                 children: [
-                  Icon(
-                    icon,
-                    size: 21,
-                    color: isSelected
-                        ? tokens.accentPrimary
-                        : tokens.textSecondary,
+                  Container(
+                    padding: const EdgeInsets.all(7),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? tokens.primaryDeep
+                          : tokens.surfaceSecondary,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(
+                      icon,
+                      size: 18,
+                      color: isSelected ? Colors.white : tokens.textSecondary,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -422,7 +577,7 @@ class _DrawerNavTile extends StatelessWidget {
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: isSelected
-                                        ? tokens.accentPrimary
+                                        ? tokens.primaryDeep
                                         : tokens.textPrimary,
                                     fontWeight: isSelected
                                         ? FontWeight.w700
@@ -439,6 +594,13 @@ class _DrawerNavTile extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if (trailingBadge != null) ...[
+                    const SizedBox(width: 6),
+                    CoraMintStatusPill(
+                      label: trailingBadge!,
+                      variant: CoraStatusPillVariant.mint,
+                    ),
+                  ],
                 ],
               ),
             ),

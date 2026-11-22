@@ -151,24 +151,20 @@ class _PredictionHighlightsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 12,
-      runSpacing: 10,
+      spacing: 10,
+      runSpacing: 8,
       children: [
         if (predictedNextPeriod != null)
-          CoraInfoCallout(
-            title: 'Próximo periodo estimado',
-            subtitle: formatDate(predictedNextPeriod!),
-            badgeText: 'Predicción',
-            phaseKey: 'menstrual',
+          CoraMintStatusPill(
+            label: 'Próximo periodo: ${formatDate(predictedNextPeriod!)}',
             icon: Icons.water_drop_outlined,
+            variant: CoraStatusPillVariant.blush,
           ),
         if (ovulationDate != null)
-          CoraInfoCallout(
-            title: 'Ovulación estimada',
-            subtitle: formatDate(ovulationDate!),
-            badgeText: 'Ventana fértil',
-            phaseKey: 'ovulatory',
+          CoraMintStatusPill(
+            label: 'Ovulación estimada: ${formatDate(ovulationDate!)}',
             icon: Icons.favorite_border_rounded,
+            variant: CoraStatusPillVariant.softMint,
           ),
       ],
     );

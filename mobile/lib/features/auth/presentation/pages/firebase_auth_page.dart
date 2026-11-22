@@ -118,13 +118,23 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                           border: Border.all(color: tokens.borderSubtle),
                         ),
                         child: Icon(
-                          Icons.water_drop_rounded,
-                          size: 34,
-                          color: tokens.accentPrimary,
+                          Icons.spa_outlined,
+                          size: 32,
+                          color: tokens.primaryDeep,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 12),
+                    Text(
+                      'PLATAFORMA GINECOLÓGICA & ENDOCRINA',
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: tokens.verified,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.7,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
                     Text(
                       'Cora',
                       textAlign: TextAlign.center,
@@ -137,7 +147,7 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                     Text(
                       _isRegisterMode
                           ? 'Crea tu cuenta protegida para acompañar tu salud en cada etapa.'
-                          : 'Inicia sesión para acceder a tu espacio clínico privado.',
+                          : 'Salud hormonal y reproductiva con rigor clínico y respeto absoluto por tus ritmos biológicos.',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: tokens.textSecondary,
@@ -237,13 +247,83 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                             : '¿Primera vez en Cora? Crear cuenta',
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    const CoraInfoCallout(
-                      title: 'Privacidad clínica protegida',
-                      subtitle:
-                          'Tus datos de salud permanecen cifrados y bajo tu control en todo momento.',
-                      icon: Icons.verified_user_outlined,
-                      phaseKey: 'ovulatory',
+                    const SizedBox(height: 16),
+                    CoraSurfaceCard(
+                      backgroundColor: tokens.blushInset,
+                      padding: const EdgeInsets.all(16),
+                      borderRadius: 20,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: tokens.surface,
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(color: tokens.borderSubtle),
+                                ),
+                                child: Icon(
+                                  Icons.verified_user_outlined,
+                                  size: 18,
+                                  color: tokens.verified,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Compromiso de Privacidad Cora',
+                                  style: theme.textTheme.titleSmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              const CoraMintStatusPill(
+                                label: 'HIPAA • GDPR',
+                                variant: CoraStatusPillVariant.mint,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Tus biomarcadores, sintomatología y fechas de ciclo cuentan con cifrado de extremo a extremo. Jamás se comercializan.',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: tokens.textSecondary,
+                              height: 1.4,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          CoraSurfaceCard(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
+                            borderRadius: 14,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                _TrustMiniBadge(
+                                  icon: Icons.lock_outline,
+                                  label: 'Cifrado E2EE',
+                                  color: tokens.verified,
+                                ),
+                                _TrustMiniBadge(
+                                  icon: Icons.shield_outlined,
+                                  label: 'Cero Rastreo',
+                                  color: tokens.primaryDeep,
+                                ),
+                                _TrustMiniBadge(
+                                  icon: Icons.medical_information_outlined,
+                                  label: 'Auditoría',
+                                  color: tokens.luteal,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -252,6 +332,35 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _TrustMiniBadge extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+
+  const _TrustMiniBadge({
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 17, color: color),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+      ],
     );
   }
 }
