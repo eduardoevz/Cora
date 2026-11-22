@@ -65,6 +65,6 @@
 - Create: `documentacion/fase-15-calendario-menstrual-interactivo.md`
 - Modify: `documentacion/README.md`
 
-- [ ] **Step 1: Marcar checkboxes y actualizar `docs/phases/README.md`**
-- [ ] **Step 2: Push a `origin/main` y verificar `Mobile CI` y `Security & OpenAPI Contract Verification` en verde (`success`)**
-- [ ] **Step 3: Crear reporte `documentacion/fase-15-calendario-menstrual-interactivo.md`, actualizar índice, commit, push y re-verificar CI**
+- [x] **Step 1: Marcar checkboxes y actualizar `docs/phases/README.md`**
+- [x] **Step 2: Push a `origin/main` y verificar `Mobile CI` y `Security & OpenAPI Contract Verification` en verde (`success`)**
+- [x] **Step 3: Crear reporte `documentacion/fase-15-calendario-menstrual-interactivo.md`, actualizar índice, commit, push y re-verificar CI**
