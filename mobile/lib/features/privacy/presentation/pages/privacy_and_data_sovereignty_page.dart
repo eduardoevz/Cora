@@ -101,10 +101,12 @@ class _PrivacyAndDataSovereigntyPageState
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Esta acción eliminará de forma inmediata y definitiva todos tus registros de salud, ciclos, síntomas, notas, archivos clínicos y tu cuenta.',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600, color: Colors.red),
+                        fontWeight: FontWeight.w600,
+                        color: CoraTheme.tokensOf(context).alertUrgent,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     const Text(
@@ -138,7 +140,7 @@ class _PrivacyAndDataSovereigntyPageState
                 ElevatedButton(
                   key: const Key('purge_confirm_button'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: CoraTheme.tokensOf(context).alertUrgent,
                     foregroundColor: Colors.white,
                   ),
                   onPressed: isPhraseMatching && !_isPurging

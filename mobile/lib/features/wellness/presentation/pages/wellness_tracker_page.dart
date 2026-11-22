@@ -113,9 +113,9 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registro diario consolidado (Offline-First)'),
-            backgroundColor: Colors.teal,
+          SnackBar(
+            content: const Text('Registro diario consolidado (Offline-First)'),
+            backgroundColor: CoraTheme.tokensOf(context).follicular,
           ),
         );
       }
@@ -158,11 +158,13 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Fecha: ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontFeatures: const [FontFeature.tabularFigures()],
+                  Expanded(
+                    child: Text(
+                      'Fecha: ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                      ),
                     ),
                   ),
                   TextButton.icon(

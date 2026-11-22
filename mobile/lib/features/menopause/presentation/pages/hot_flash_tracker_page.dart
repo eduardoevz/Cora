@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/menopause/domain/models/hot_flash_episode.dart';
 import 'package:mobile/features/menopause/presentation/providers/menopause_providers.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
@@ -213,6 +214,8 @@ class _HotFlashTrackerPageState extends ConsumerState<HotFlashTrackerPage> {
               key: const Key('save_hot_flash_button'),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(52),
+                backgroundColor: CoraTheme.tokensOf(context).accentPrimary,
+                foregroundColor: Colors.white,
               ),
               onPressed: _saveEpisode,
               icon: const Icon(Icons.check),
