@@ -128,8 +128,9 @@ class _HotFlashTrackerPageState extends ConsumerState<HotFlashTrackerPage> {
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children: HotFlashSeverity.values.map((sev) {
                 final isSelected = _severity == sev;
                 return ChoiceChip(

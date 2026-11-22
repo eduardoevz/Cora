@@ -1,11 +1,113 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/senior_vitality/domain/models/trusted_support_contact.dart';
 import 'package:mobile/features/senior_vitality/presentation/providers/senior_vitality_providers.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class TrustedContactQuickActionCard extends ConsumerWidget {
   const TrustedContactQuickActionCard({super.key});
+
+  Future<void> _showRegisterContactSheet(
+      BuildContext context, WidgetRef ref) async {
+    final nameCtrl = TextEditingController();
+    final relationCtrl = TextEditingController(text: 'Hija / Familiar');
+    final phoneCtrl = TextEditingController();
+
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (sheetCtx) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: MediaQuery.of(sheetCtx).viewInsets.bottom + 24,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Registrar Contacto de Apoyo',
+                  style: Theme.of(sheetCtx)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  key: const Key('trusted_contact_name_input'),
+                  controller: nameCtrl,
+                  decoration: const InputDecoration(
+                    labelText: 'Nombre completo',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  key: const Key('trusted_contact_relation_input'),
+                  controller: relationCtrl,
+                  decoration: const InputDecoration(
+                    labelText: 'Parentesco (ej. Hija, Esposo, Cuidador)',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  key: const Key('trusted_contact_phone_input'),
+                  controller: phoneCtrl,
+                  keyboardType: TextInputType.phone,
+                  decoration: const InputDecoration(
+                    labelText: 'Teléfono',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  key: const Key('save_trusted_contact_button'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(56),
+                  ),
+                  onPressed: () async {
+                    final user = ref.read(activeUserProfileProvider);
+                    if (user == null ||
+                        nameCtrl.text.trim().isEmpty ||
+                        phoneCtrl.text.trim().isEmpty) {
+                      return;
+                    }
+                    final contact = TrustedSupportContact(
+                      id: const Uuid().v4(),
+                      userId: user.id,
+                      contactName: nameCtrl.text.trim(),
+                      relationship: relationCtrl.text.trim().isEmpty
+                          ? 'Familiar'
+                          : relationCtrl.text.trim(),
+                      phoneNumber: phoneCtrl.text.trim(),
+                      isPrimary: true,
+                    );
+                    await ref
+                        .read(seniorVitalityRepositoryProvider)
+                        .saveSupportContact(contact);
+                    ref.invalidate(primarySupportContactProvider);
+                    if (sheetCtx.mounted) Navigator.of(sheetCtx).pop();
+                  },
+                  icon: const Icon(Icons.save),
+                  label: const Text('Guardar Contacto'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   void _showActionSheet(BuildContext context, TrustedSupportContact contact) {
     final theme = Theme.of(context);
@@ -106,16 +208,7 @@ class TrustedContactQuickActionCard extends ConsumerWidget {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                // Info prompt
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'Puedes registrar a tu contacto familiar desde el perfil.',
-                    ),
-                  ),
-                );
-              },
+              onTap: () => _showRegisterContactSheet(context, ref),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 16.0, vertical: 20.0),
@@ -159,8 +252,8 @@ class TrustedContactQuickActionCard extends ConsumerWidget {
             borderRadius: BorderRadius.circular(16),
             onTap: () => _showActionSheet(context, contact),
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0, vertical: 18.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18.0),
               child: Row(
                 children: [
                   CircleAvatar(

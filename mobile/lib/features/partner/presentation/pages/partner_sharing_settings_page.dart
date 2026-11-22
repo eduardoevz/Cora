@@ -11,6 +11,7 @@ class PartnerSharingSettingsPage extends StatefulWidget {
     this.onRedeemCode,
     this.onPermissionsChanged,
     this.onRevokeLink,
+    this.onOpenCompanionView,
   });
 
   final String? initialInvitationCode;
@@ -22,6 +23,7 @@ class PartnerSharingSettingsPage extends StatefulWidget {
   final void Function(bool fertility, bool pregnancy, bool mood)?
       onPermissionsChanged;
   final Future<void> Function()? onRevokeLink;
+  final VoidCallback? onOpenCompanionView;
 
   @override
   State<PartnerSharingSettingsPage> createState() =>
@@ -109,6 +111,7 @@ class _PartnerSharingSettingsPageState
                       onPressed: () async {
                         if (widget.onGenerateCode != null) {
                           final code = await widget.onGenerateCode!();
+                          if (!mounted) return;
                           setState(() => _activeCode = code);
                         } else {
                           setState(() => _activeCode = 'CORA-TESTCODE');
@@ -194,7 +197,8 @@ class _PartnerSharingSettingsPageState
             SwitchListTile(
               key: const Key('switch_share_mood'),
               title: const Text('Compartir estado de ánimo y consejos'),
-              subtitle: const Text('Tips prácticos para que tu pareja te apoye'),
+              subtitle:
+                  const Text('Tips prácticos para que tu pareja te apoye'),
               value: _mood,
               onChanged: (val) {
                 setState(() => _mood = val);
@@ -202,6 +206,15 @@ class _PartnerSharingSettingsPageState
               },
             ),
             const SizedBox(height: 24),
+            if (widget.onOpenCompanionView != null) ...[
+              FilledButton.tonalIcon(
+                key: const Key('open_companion_view_button'),
+                icon: const Icon(Icons.visibility_outlined),
+                label: const Text('Abrir Vista de Acompañante (Solo Lectura)'),
+                onPressed: widget.onOpenCompanionView,
+              ),
+              const SizedBox(height: 12),
+            ],
             OutlinedButton.icon(
               key: const Key('revoke_partner_link_button'),
               style: OutlinedButton.styleFrom(foregroundColor: Colors.red),
