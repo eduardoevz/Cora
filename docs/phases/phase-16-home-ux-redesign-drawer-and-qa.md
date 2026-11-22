@@ -29,12 +29,12 @@
 - Test: `mobile/test/features/dashboard/dynamic_dashboard_test.dart`
 - Test: `mobile/test/accessibility/wcag_all_stages_audit_test.dart`
 
-- [ ] **Step 1: Escribir/actualizar widget tests del Home v2 y `CoraNavigationDrawer` (verificando Hero de ciclo/ovulación/periodo en etapas menstruales, adaptación en embarazo/posparto/menopausia/plenitud, tira semanal -> `MenstrualCalendarPage`, tarjeta educativa del periodo, navegación por Drawer a todos los módulos y auditoría WCAG `2.0x` en las 7 etapas)**
-- [ ] **Step 2: Ejecutar `flutter test` y verificar fallo inicial (Red)**
-- [ ] **Step 3: Implementar `CoraNavigationDrawer`, `HomeCycleHeroCard`, `HomeWeekCalendarStrip`, `HomePhaseEducationCard` y refactorizar `DynamicHomeDashboardPage`**
-- [ ] **Step 4: Actualizar `test/core/cora_app_boot_test.dart`, `test/core/firebase_auth_flow_test.dart`, `test/e2e/longitudinal_journey_e2e_test.dart` e `integration_test/app_full_flow_e2e_test.dart` para el nuevo flujo de Onboarding + Home + Drawer + Calendario Menstrual**
-- [ ] **Step 5: Ejecutar `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos` y `flutter test` en verde (Green)**
-- [ ] **Step 6: Commits atómicos (`feat(mobile-ui): ...` y `test(mobile): ...`)**
+- [x] **Step 1: Escribir/actualizar widget tests del Home v2 y `CoraNavigationDrawer` (verificando Hero de ciclo/ovulación/periodo en etapas menstruales, adaptación en embarazo/posparto/menopausia/plenitud, tira semanal -> `MenstrualCalendarPage`, tarjeta educativa del periodo, navegación por Drawer a todos los módulos y auditoría WCAG `2.0x` en las 7 etapas)**
+- [x] **Step 2: Ejecutar `flutter test` y verificar fallo inicial (Red)**
+- [x] **Step 3: Implementar `CoraNavigationDrawer`, `HomeCycleHeroCard`, `HomeWeekCalendarStrip`, `HomePhaseEducationCard` y refactorizar `DynamicHomeDashboardPage`**
+- [x] **Step 4: Actualizar `test/core/cora_app_boot_test.dart`, `test/core/firebase_auth_flow_test.dart`, `test/e2e/longitudinal_journey_e2e_test.dart` e `integration_test/app_full_flow_e2e_test.dart` para el nuevo flujo de Onboarding + Home + Drawer + Calendario Menstrual**
+- [x] **Step 5: Ejecutar `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos` y `flutter test` en verde (Green)**
+- [x] **Step 6: Commits atómicos (`feat(mobile-ui): ...` y `test(mobile): ...`)**
 
 ---
 
@@ -43,9 +43,9 @@
 **Files:**
 - Build artifact (local gitignored): `mobile/build/app/outputs/flutter-apk/app-release.apk`
 
-- [ ] **Step 1: Ejecutar `flutter test integration_test/app_full_flow_e2e_test.dart -d emulator-5554` y verificar pase al 100%**
-- [ ] **Step 2: Compilar el APK release firmado (`flutter build apk --release`), instalar en `emulator-5554` y probar flujo real completo contra Firebase Auth (`cora-5d341`) + Render en producción (Onboarding con últimos 2 periodos → Home limpio → Calendario Menstrual interactivo → Drawer lateral → Cambio de etapa → Purga GDPR → 0 errores en `logcat`)**
-- [ ] **Step 3: Verificar `alembic upgrade head` y endpoints v2 (`/api/v1/cycles/calendar`, `/api/v1/identity/onboarding`) en producción Render**
+- [x] **Step 1: Ejecutar `flutter test integration_test/app_full_flow_e2e_test.dart -d emulator-5554` y verificar pase al 100%**
+- [x] **Step 2: Compilar el APK release firmado (`flutter build apk --release`), instalar en `emulator-5554` y probar flujo real completo contra Firebase Auth (`cora-5d341`) + Render en producción (Onboarding con últimos 2 periodos → Home limpio → Calendario Menstrual interactivo → Drawer lateral → Cambio de etapa → Purga GDPR → 0 errores en `logcat`)**
+- [x] **Step 3: Verificar `alembic upgrade head` y endpoints v2 (`/api/v1/cycles/calendar`, `/api/v1/identity/onboarding`) en producción Render**
 
 ---
 

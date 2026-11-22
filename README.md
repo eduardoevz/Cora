@@ -64,13 +64,14 @@ flowchart LR
 
 ## Estructura Documental y Desarrollo por Fases
 
-El desarrollo está estructurado en **12 fases modulares**, diseñadas para ejecutarse sesión por sesión con reglas estrictas de arquitectura, pruebas y commits atómicos:
+El desarrollo está estructurado en **16 fases modulares** (Fases `01–12` de **Cora v1.0** y Fases `13–16` de **Cora v2.0** con Google Stitch, Onboarding de 2 periodos, Calendario Menstrual Interactivo de 7 etapas y Rediseño UX/UI del Home + `CoraNavigationDrawer`), diseñadas para ejecutarse sesión por sesión con reglas estrictas de arquitectura, pruebas y commits atómicos:
 
 - **Especificación de Producto:** [docs/SPECS.MD](./docs/SPECS.MD)
+- **Sistema de Diseño Semántico (Cora v2.0 + Google Stitch):** [docs/DESIGN.md](./docs/DESIGN.md)
 - **Especificación Técnica y Arquitectura:** [docs/desarrollo.md](./docs/desarrollo.md)
-- **Guía de Despliegue y Lanzamiento v1.0.0:** [docs/DEPLOYMENT_AND_RELEASE.md](./docs/DEPLOYMENT_AND_RELEASE.md)
+- **Guía de Despliegue y Lanzamiento:** [docs/DEPLOYMENT_AND_RELEASE.md](./docs/DEPLOYMENT_AND_RELEASE.md)
 - **Reglas del Agente y Estándares de Ingeniería:** [AGENTS.md](./AGENTS.md) y [.agents/rules/](./.agents/rules/)
-- **Hoja de Ruta Maestra (Fases 01 a 12):** [docs/phases/README.md](./docs/phases/README.md)
+- **Hoja de Ruta Maestra (Fases 01 a 16):** [docs/phases/README.md](./docs/phases/README.md)
 - **Bitácora de Documentación por Fase Completada:** [documentacion/README.md](./documentacion/README.md)
 
 | Fase | Plan Detallado | Enfoque |
@@ -87,3 +88,7 @@ El desarrollo está estructurado en **12 fases modulares**, diseñadas para ejec
 | **10** | [phase-10-education-and-clinical-rag.md](./docs/phases/phase-10-education-and-clinical-rag.md) | Biblioteca clínica curada, búsqueda `pgvector` HNSW, triaje determinista y chat RAG |
 | **11** | [phase-11-partner-view-privacy-gdpr.md](./docs/phases/phase-11-partner-view-privacy-gdpr.md) | *Partner View* selectivo, SQLCipher, biometría, icono camuflable y purga irreversible GDPR |
 | **12** | [phase-12-qa-e2e-security-release.md](./docs/phases/phase-12-qa-e2e-security-release.md) | Suite E2E completa, auditoría BOLA/prompt-injection, benchmarks y Release CD |
+| **13** | [phase-13-design-system-and-stitch.md](./docs/phases/phase-13-design-system-and-stitch.md) | **Cora v2.0:** Sistema de Diseño semántico (`docs/DESIGN.md`) + Google Stitch y `CoraColorTokens` |
+| **14** | [phase-14-onboarding-menstrual-baseline-and-engine.md](./docs/phases/phase-14-onboarding-menstrual-baseline-and-engine.md) | Onboarding de últimos 2 periodos, regularidad/duración del ciclo y motor `CycleCalendarEngine` |
+| **15** | [phase-15-interactive-menstrual-calendar.md](./docs/phases/phase-15-interactive-menstrual-calendar.md) | **Calendario Menstrual Interactivo** mensual con marcadores WCAG, detalle diario y 7 etapas |
+| **16** | [phase-16-home-ux-redesign-drawer-and-qa.md](./docs/phases/phase-16-home-ux-redesign-drawer-and-qa.md) | **Rediseño UX/UI del Home** limpio, `CoraNavigationDrawer`, QA Android Studio y Release v2.0 |
