@@ -36,6 +36,7 @@ from app.modules.identity.domain.value_objects.onboarding_context import (
     PrimaryIntent,
 )
 from app.modules.identity.infrastructure.adapters.firebase_token_verifier import (
+    FirebaseTokenVerifier,
     MockTokenVerifier,
 )
 
@@ -206,4 +207,22 @@ async def test_token_verifier_mock_rejects_invalid_token() -> None:
     verifier = MockTokenVerifier()
     with pytest.raises(HTTPException) as exc_info:
         await verifier.verify_token("invalid-malformed-token")
+    assert exc_info.value.status_code == 401
+
+
+@pytest.mark.parametrize(
+    "token",
+    [
+        "mock-token:uid-prod-bypass",
+        "test-token:uid-prod-bypass:bypass@cora.test",
+    ],
+)
+async def test_production_firebase_verifier_rejects_mock_tokens(token: str) -> None:
+    verifier = FirebaseTokenVerifier(
+        credentials_path="./nonexistent.json",
+        project_id="cora-health-app",
+        allow_mock_tokens=False,
+    )
+    with pytest.raises(HTTPException) as exc_info:
+        await verifier.verify_token(token)
     assert exc_info.value.status_code == 401

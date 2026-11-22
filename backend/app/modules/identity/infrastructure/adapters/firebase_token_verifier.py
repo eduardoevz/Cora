@@ -35,10 +35,12 @@ class FirebaseTokenVerifier(ITokenVerifier):
         credentials_path: str,
         project_id: str,
         credentials_json: str | None = None,
+        allow_mock_tokens: bool = False,
     ) -> None:
         self._credentials_path = credentials_path
         self._project_id = project_id
         self._credentials_json = credentials_json
+        self._allow_mock_tokens = allow_mock_tokens
         self._app: Any = None
 
     def _ensure_app_initialized(self) -> None:
@@ -79,7 +81,9 @@ class FirebaseTokenVerifier(ITokenVerifier):
             )
 
     async def verify_token(self, token: str) -> AuthenticatedUser:
-        if token.startswith("test-token:") or token.startswith("mock-token:"):
+        if self._allow_mock_tokens and (
+            token.startswith("test-token:") or token.startswith("mock-token:")
+        ):
             parts = token.split(":")
             uid = parts[1] if len(parts) > 1 else "default-test-uid"
             email = parts[2] if len(parts) > 2 else f"{uid}@cora.test"

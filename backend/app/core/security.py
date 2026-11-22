@@ -37,6 +37,7 @@ def get_token_verifier() -> "ITokenVerifier":
         credentials_path=settings.firebase_credentials_path,
         project_id=settings.firebase_project_id,
         credentials_json=settings.firebase_credentials_json,
+        allow_mock_tokens=settings.environment in {"development", "test", "testing"},
     )
 
 
