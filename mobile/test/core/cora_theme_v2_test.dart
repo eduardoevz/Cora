@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
 import 'package:mobile/core/theme/cora_theme.dart';
 
 double _relativeLuminance(Color c) {
@@ -123,5 +124,140 @@ void main() {
       final mid = std.lerp(high, 0.5);
       expect(mid.isHighLegibility, isTrue);
     });
+  });
+
+  group('Cora v2 Reusable Design Components', () {
+    testWidgets(
+      'render cleanly in standard mode and under TextScaler 2.0x without overflow',
+      (tester) async {
+        var actionTapped = false;
+        var linkTapped = false;
+
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: CoraTheme.standard(),
+            home: MediaQuery(
+              data: const MediaQueryData(
+                size: Size(360, 800),
+                textScaler: TextScaler.linear(2.0),
+              ),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CoraSectionLabel(
+                        title: 'Semana 2 del ciclo',
+                        actionLabel: 'Calendario',
+                        onActionTap: () => linkTapped = true,
+                      ),
+                      const SizedBox(height: 12),
+                      const CoraSurfaceCard(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CoraPhasePill(
+                              phaseKey: 'follicular',
+                              label: 'Fase Folicular',
+                              icon: Icons.wb_sunny_outlined,
+                            ),
+                            SizedBox(height: 12),
+                            CoraInfoCallout(
+                              title: 'Ventana fértil alta',
+                              subtitle: 'Ovulación estimada en 2 días',
+                              badgeText: 'Alta prob.',
+                              phaseKey: 'ovulatory',
+                              icon: Icons.eco_outlined,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      const Row(
+                        children: [
+                          Expanded(
+                            child: CoraMetricTile(
+                              label: 'Temp. Basal',
+                              value: '36.4 °C',
+                              icon: Icons.thermostat_outlined,
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: CoraMetricTile(
+                              label: 'Descanso',
+                              value: '7h 45m',
+                              icon: Icons.nightlight_outlined,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      CoraPrimaryActionButton(
+                        key: const Key('cora_primary_cta'),
+                        label: 'Registrar biomarcadores de hoy',
+                        icon: Icons.add_circle_outline,
+                        onPressed: () => actionTapped = true,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        expect(find.text('Semana 2 del ciclo'), findsOneWidget);
+        expect(find.text('Fase Folicular'), findsOneWidget);
+        expect(find.text('Ventana fértil alta'), findsOneWidget);
+        expect(find.text('Alta prob.'), findsOneWidget);
+        expect(find.text('36.4 °C'), findsOneWidget);
+        expect(find.text('7h 45m'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+
+        await tester.tap(find.text('Calendario'));
+        expect(linkTapped, isTrue);
+
+        final ctaFinder = find.byKey(const Key('cora_primary_cta'));
+        await tester.ensureVisible(ctaFinder);
+        await tester.pumpAndSettle();
+        final ctaSize = tester.getSize(ctaFinder);
+        expect(ctaSize.height, greaterThanOrEqualTo(48));
+
+        await tester.tap(ctaFinder);
+        expect(actionTapped, isTrue);
+      },
+    );
+
+    testWidgets(
+      'CoraPrimaryActionButton enforces >= 56dp target in highLegibility theme',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: CoraTheme.highLegibility(),
+            home: Scaffold(
+              body: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: CoraPrimaryActionButton(
+                    key: const Key('high_legibility_cta'),
+                    label: 'Registrar hoy',
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+        final size =
+            tester.getSize(find.byKey(const Key('high_legibility_cta')));
+        expect(size.height, greaterThanOrEqualTo(56));
+      },
+    );
   });
 }
