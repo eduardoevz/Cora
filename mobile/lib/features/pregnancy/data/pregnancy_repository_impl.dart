@@ -87,12 +87,21 @@ class PregnancyRepositoryImpl implements IPregnancyRepository {
     );
   }
 
+  Future<String> _resolveEpisodeUserId(String episodeId) async {
+    final row = await (_db.select(_db.pregnancyEpisodeEntries)
+          ..where((tbl) => tbl.id.equals(episodeId))
+          ..limit(1))
+        .getSingleOrNull();
+    return row?.userId ?? 'current_user';
+  }
+
   @override
   Future<void> saveVitals(MaternalVitalsEntity vitals) async {
+    final userId = await _resolveEpisodeUserId(vitals.pregnancyEpisodeId);
     final companion = MaternalVitalsEntriesCompanion(
       id: Value(vitals.id),
       pregnancyEpisodeId: Value(vitals.pregnancyEpisodeId),
-      userId: const Value('current_user'),
+      userId: Value(userId),
       measuredAt: Value(vitals.measuredAt),
       gestationalWeeks: Value(vitals.gestationalWeeks),
       systolicMmhg: Value(vitals.systolicMmhg),
@@ -101,7 +110,8 @@ class PregnancyRepositoryImpl implements IPregnancyRepository {
       glucoseTiming: Value(vitals.glucoseTiming),
       weightKg: Value(vitals.weightKg),
       symptomsJson: Value(jsonEncode(vitals.symptoms)),
-      alertsJson: Value(jsonEncode(vitals.alerts.map((a) => a.toJson()).toList())),
+      alertsJson:
+          Value(jsonEncode(vitals.alerts.map((a) => a.toJson()).toList())),
       createdAt: Value(vitals.measuredAt),
     );
 
@@ -162,10 +172,11 @@ class PregnancyRepositoryImpl implements IPregnancyRepository {
 
   @override
   Future<void> saveContractionSession(ContractionSessionEntity session) async {
+    final userId = await _resolveEpisodeUserId(session.pregnancyEpisodeId);
     final companion = ContractionSessionEntriesCompanion(
       id: Value(session.id),
       pregnancyEpisodeId: Value(session.pregnancyEpisodeId),
-      userId: const Value('current_user'),
+      userId: Value(userId),
       startedAt: Value(session.startedAt),
       endedAt: Value(session.endedAt),
       gestationalWeeks: Value(session.gestationalWeeks),
@@ -232,10 +243,11 @@ class PregnancyRepositoryImpl implements IPregnancyRepository {
 
   @override
   Future<void> saveKickSession(KickSessionEntity session) async {
+    final userId = await _resolveEpisodeUserId(session.pregnancyEpisodeId);
     final companion = KickSessionEntriesCompanion(
       id: Value(session.id),
       pregnancyEpisodeId: Value(session.pregnancyEpisodeId),
-      userId: const Value('current_user'),
+      userId: Value(userId),
       startedAt: Value(session.startedAt),
       durationMinutes: Value(session.durationMinutes),
       gestationalWeeks: Value(session.gestationalWeeks),
@@ -302,10 +314,11 @@ class PregnancyRepositoryImpl implements IPregnancyRepository {
     final row = await query.getSingleOrNull();
     if (row == null) return null;
 
-    final companions = (jsonDecode(row.companionPreferencesJson) as List<dynamic>?)
-            ?.map((e) => e.toString())
-            .toList() ??
-        [];
+    final companions =
+        (jsonDecode(row.companionPreferencesJson) as List<dynamic>?)
+                ?.map((e) => e.toString())
+                .toList() ??
+            [];
     final pain = (jsonDecode(row.painManagementJson) as List<dynamic>?)
             ?.map((e) => e.toString())
             .toList() ??

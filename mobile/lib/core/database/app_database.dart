@@ -141,16 +141,14 @@ class CycleSymptomEntries extends Table {
   TextColumn get userId => text()();
   TextColumn get cycleId => text().nullable()();
   DateTimeColumn get logDate => dateTime()();
-  TextColumn get bleedingFlow =>
-      text().withDefault(const Constant('none'))();
+  TextColumn get bleedingFlow => text().withDefault(const Constant('none'))();
   IntColumn get pelvicPain => integer().nullable()();
   IntColumn get dysmenorrhea => integer().nullable()();
   BoolColumn get dyspareunia => boolean().nullable()();
   IntColumn get acneSeverity => integer().nullable()();
   BoolColumn get hirsutism => boolean().nullable()();
   IntColumn get fatigueLevel => integer().nullable()();
-  TextColumn get giSymptomsJson =>
-      text().withDefault(const Constant('[]'))();
+  TextColumn get giSymptomsJson => text().withDefault(const Constant('[]'))();
   TextColumn get notes => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
@@ -169,8 +167,7 @@ class DailyFertilityEntries extends Table {
   TextColumn get userId => text()();
   DateTimeColumn get logDate => dateTime()();
   RealColumn get bbtCelsius => real().nullable()();
-  BoolColumn get isDisturbed =>
-      boolean().withDefault(const Constant(false))();
+  BoolColumn get isDisturbed => boolean().withDefault(const Constant(false))();
   TextColumn get disturbanceReason => text().nullable()();
   TextColumn get measuredAtTime => text().nullable()();
   TextColumn get cervicalMucus => text().nullable()();
@@ -571,7 +568,8 @@ class ClinicalArticleEntries extends Table {
   TextColumn get scientificSource => text()();
   TextColumn get sourceUrl => text()();
   TextColumn get reviewedBy => text()();
-  IntColumn get readingTimeMinutes => integer().withDefault(const Constant(5))();
+  IntColumn get readingTimeMinutes =>
+      integer().withDefault(const Constant(5))();
   DateTimeColumn get publishedAt =>
       dateTime().withDefault(currentDateAndTime)();
 
@@ -717,6 +715,15 @@ class AppDatabase extends _$AppDatabase {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'cora_offline.sqlite'));
       return NativeDatabase.createInBackground(file);
+    });
+  }
+
+  /// Irreversibly wipe all locally persisted clinical and profile tables (GDPR).
+  Future<void> purgeAllLocalData() async {
+    await transaction(() async {
+      for (final table in allTables) {
+        await delete(table).go();
+      }
     });
   }
 }

@@ -27,20 +27,26 @@ class FertilityRepositoryImpl implements IFertilityRepository {
 
   @override
   Future<void> saveDailyFertility(DailyFertilityEntity entry) async {
+    final targetDate =
+        DateTime(entry.logDate.year, entry.logDate.month, entry.logDate.day);
+    final existing = await getDailyFertility(entry.userId, targetDate);
+    final resolvedId =
+        existing?.id ?? (entry.id.isNotEmpty ? entry.id : _uuid.v4());
+
     final companion = DailyFertilityEntriesCompanion(
-      id: Value(entry.id),
+      id: Value(resolvedId),
       userId: Value(entry.userId),
-      logDate: Value(DateTime(
-          entry.logDate.year, entry.logDate.month, entry.logDate.day)),
-      bbtCelsius: Value(entry.bbtCelsius),
+      logDate: Value(targetDate),
+      bbtCelsius: Value(entry.bbtCelsius ?? existing?.bbtCelsius),
       isDisturbed: Value(entry.isDisturbed),
-      disturbanceReason: Value(entry.disturbanceReason),
-      measuredAtTime: Value(entry.measuredAtTime),
-      cervicalMucus: Value(entry.cervicalMucus),
-      lhResult: Value(entry.lhResult),
+      disturbanceReason:
+          Value(entry.disturbanceReason ?? existing?.disturbanceReason),
+      measuredAtTime: Value(entry.measuredAtTime ?? existing?.measuredAtTime),
+      cervicalMucus: Value(entry.cervicalMucus ?? existing?.cervicalMucus),
+      lhResult: Value(entry.lhResult ?? existing?.lhResult),
       intercourseHad: Value(entry.intercourseHad),
       intercourseType: Value(entry.intercourseType),
-      notes: Value(entry.notes),
+      notes: Value(entry.notes ?? existing?.notes),
       updatedAt: Value(DateTime.now()),
     );
 
@@ -49,22 +55,23 @@ class FertilityRepositoryImpl implements IFertilityRepository {
     // Offline-First sync queue
     final payload = {
       'log_date':
-          "${entry.logDate.year.toString().padLeft(4, '0')}-${entry.logDate.month.toString().padLeft(2, '0')}-${entry.logDate.day.toString().padLeft(2, '0')}",
-      'bbt_celsius': entry.bbtCelsius,
+          "${targetDate.year.toString().padLeft(4, '0')}-${targetDate.month.toString().padLeft(2, '0')}-${targetDate.day.toString().padLeft(2, '0')}",
+      'bbt_celsius': entry.bbtCelsius ?? existing?.bbtCelsius,
       'is_disturbed': entry.isDisturbed,
-      'disturbance_reason': entry.disturbanceReason,
-      'measured_at_time': entry.measuredAtTime,
-      'cervical_mucus': entry.cervicalMucus,
-      'lh_result': entry.lhResult,
+      'disturbance_reason':
+          entry.disturbanceReason ?? existing?.disturbanceReason,
+      'measured_at_time': entry.measuredAtTime ?? existing?.measuredAtTime,
+      'cervical_mucus': entry.cervicalMucus ?? existing?.cervicalMucus,
+      'lh_result': entry.lhResult ?? existing?.lhResult,
       'intercourse_had': entry.intercourseHad,
       'intercourse_type': entry.intercourseType,
-      'notes': entry.notes,
+      'notes': entry.notes ?? existing?.notes,
     };
 
     await _syncCoordinator.enqueueMutation(
       clientMutationId: _uuid.v4(),
       entityType: 'daily_fertility_log',
-      entityId: entry.id,
+      entityId: resolvedId,
       operation: 'upsert',
       payloadJson: jsonEncode(payload),
     );
@@ -106,7 +113,8 @@ class FertilityRepositoryImpl implements IFertilityRepository {
           t.userId.equals(userId) &
           t.logDate.isBiggerOrEqualValue(startDate) &
           t.logDate.isSmallerOrEqualValue(endDate))
-      ..orderBy([(t) => OrderingTerm(expression: t.logDate, mode: OrderingMode.asc)]);
+      ..orderBy(
+          [(t) => OrderingTerm(expression: t.logDate, mode: OrderingMode.asc)]);
 
     final rows = await query.get();
     return rows

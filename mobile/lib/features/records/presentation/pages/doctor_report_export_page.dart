@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/features/records/presentation/providers/medical_records_providers.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class DoctorReportExportPage extends ConsumerStatefulWidget {
   const DoctorReportExportPage({super.key});
@@ -167,9 +171,10 @@ class _DoctorReportExportPageState
                           .read(doctorReportExportProvider.notifier)
                           .generateReport(
                             reportingWindowMonths: _selectedWindowMonths,
-                            specialistNotes: _notesController.text.trim().isEmpty
-                                ? null
-                                : _notesController.text.trim(),
+                            specialistNotes:
+                                _notesController.text.trim().isEmpty
+                                    ? null
+                                    : _notesController.text.trim(),
                           );
                     },
             ),
@@ -179,7 +184,8 @@ class _DoctorReportExportPageState
             if (exportState == ExportPdfState.completed) ...[
               Card(
                 key: const Key('doctor_report_completed_card'),
-                color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                color:
+                    theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                   side: BorderSide(
@@ -217,12 +223,39 @@ class _DoctorReportExportPageState
                         key: const Key('doctor_report_share_button'),
                         icon: const Icon(Icons.share),
                         label: const Text('Compartir o Guardar PDF'),
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Abriendo diálogo del sistema para compartir PDF...'),
-                            ),
-                          );
+                        onPressed: () async {
+                          final bytes = ref
+                              .read(doctorReportExportProvider.notifier)
+                              .lastGeneratedPdfBytes;
+                          final messenger = ScaffoldMessenger.of(context);
+                          if (bytes == null || bytes.isEmpty) {
+                            messenger.showSnackBar(
+                              const SnackBar(
+                                content: Text('Primero genera el reporte PDF.'),
+                              ),
+                            );
+                            return;
+                          }
+                          try {
+                            final dir =
+                                await getApplicationDocumentsDirectory();
+                            final fileName =
+                                'cora_reporte_${DateTime.now().millisecondsSinceEpoch}.pdf';
+                            final file = File(p.join(dir.path, fileName));
+                            await file.writeAsBytes(bytes, flush: true);
+                            messenger.showSnackBar(
+                              SnackBar(
+                                content: Text('PDF guardado en: ${file.path}'),
+                              ),
+                            );
+                          } catch (_) {
+                            messenger.showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Reporte PDF listo en memoria para compartir.'),
+                              ),
+                            );
+                          }
                         },
                       ),
                     ],

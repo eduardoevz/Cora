@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/core/database/app_database.dart';
+import 'package:mobile/core/network/cora_api_client.dart';
 import 'package:mobile/core/sync/sync_coordinator.dart';
 import 'package:mobile/features/onboarding/data/local/profile_dao.dart';
 import 'package:mobile/features/onboarding/data/repositories/identity_repository_impl.dart';
@@ -24,6 +25,7 @@ final identityRepositoryProvider = Provider<IdentityRepository>((ref) {
   return IdentityRepositoryImpl(
     profileDao: ref.watch(profileDaoProvider),
     syncCoordinator: ref.watch(syncCoordinatorProvider),
+    apiClient: ref.watch(coraApiClientProvider),
   );
 });
 

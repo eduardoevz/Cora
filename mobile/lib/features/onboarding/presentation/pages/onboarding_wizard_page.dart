@@ -16,6 +16,7 @@ class OnboardingWizardPage extends ConsumerStatefulWidget {
 
 class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   int _currentStep = 0;
+  bool _isCompleting = false;
 
   // Layer 1
   final _firstNameController = TextEditingController();
@@ -39,14 +40,29 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   }
 
   bool _isStep1Valid() {
+    final year = int.tryParse(_birthYearController.text.trim());
+    final currentYear = DateTime.now().year;
     return _firstNameController.text.trim().isNotEmpty &&
         _lastNameController.text.trim().isNotEmpty &&
-        int.tryParse(_birthYearController.text.trim()) != null;
+        year != null &&
+        year >= 1920 &&
+        year <= currentYear;
   }
 
   void _nextStep() {
-    if (_currentStep == 0 && _isStep1Valid()) {
-      setState(() => _currentStep = 1);
+    if (_currentStep == 0) {
+      if (_isStep1Valid()) {
+        setState(() => _currentStep = 1);
+      } else {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Ingresa tu nombre, apellido y un año de nacimiento válido (1920–${DateTime.now().year}).',
+            ),
+          ),
+        );
+      }
     } else if (_currentStep == 1 && _selectedIntents.isNotEmpty) {
       setState(() => _currentStep = 2);
     }
@@ -85,14 +101,30 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   }
 
   Future<void> _complete({required bool clinicalCompleted}) async {
-    final profile = _buildProfile(clinicalCompleted: clinicalCompleted);
+    if (_isCompleting) return;
+    setState(() => _isCompleting = true);
+    try {
+      final profile = _buildProfile(clinicalCompleted: clinicalCompleted);
 
-    ref.read(activeUserProfileProvider.notifier).state = profile;
-
-    if (widget.onCompleted != null) {
-      widget.onCompleted!(profile);
-    } else {
-      await ref.read(identityRepositoryProvider).completeOnboarding(profile);
+      if (widget.onCompleted != null) {
+        ref.read(activeUserProfileProvider.notifier).state = profile;
+        widget.onCompleted!(profile);
+      } else {
+        final saved = await ref
+            .read(identityRepositoryProvider)
+            .completeOnboarding(profile);
+        ref.read(activeUserProfileProvider.notifier).state = saved;
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('No fue posible guardar tu perfil: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isCompleting = false);
+      }
     }
   }
 

@@ -258,8 +258,13 @@ class MedicalRecordsRepositoryImpl implements IMedicalRecordsRepository {
   Future<List<PreventiveScreeningItem>> getPreventiveCalendar(
       String userId) async {
     try {
-      final response =
-          await _apiClient.dio.get('/medical-records/preventive-calendar');
+      final response = await _apiClient.dio.get(
+        '/medical-records/preventive-calendar',
+        options: Options(
+          sendTimeout: const Duration(seconds: 2),
+          receiveTimeout: const Duration(seconds: 2),
+        ),
+      );
       if (response.statusCode == 200 && response.data != null) {
         final data = response.data as Map<String, dynamic>;
         final screenings = data['screenings'] as List<dynamic>? ?? [];
@@ -312,7 +317,11 @@ class MedicalRecordsRepositoryImpl implements IMedicalRecordsRepository {
           'reporting_window_months': reportingWindowMonths,
           'specialist_notes': specialistNotes,
         },
-        options: Options(responseType: ResponseType.bytes),
+        options: Options(
+          responseType: ResponseType.bytes,
+          sendTimeout: const Duration(seconds: 5),
+          receiveTimeout: const Duration(seconds: 5),
+        ),
       );
       if (response.statusCode == 200 && response.data != null) {
         return response.data!;

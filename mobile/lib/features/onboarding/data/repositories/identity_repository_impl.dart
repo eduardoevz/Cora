@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:mobile/core/network/cora_api_client.dart';
 import 'package:mobile/core/sync/sync_coordinator.dart';
 import 'package:mobile/features/onboarding/data/local/profile_dao.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
@@ -9,14 +11,17 @@ import 'package:uuid/uuid.dart';
 class IdentityRepositoryImpl implements IdentityRepository {
   final ProfileDao _profileDao;
   final SyncCoordinator? _syncCoordinator;
+  final CoraApiClient? _apiClient;
   final Uuid _uuid;
 
   IdentityRepositoryImpl({
     required ProfileDao profileDao,
     SyncCoordinator? syncCoordinator,
+    CoraApiClient? apiClient,
     Uuid? uuid,
   })  : _profileDao = profileDao,
         _syncCoordinator = syncCoordinator,
+        _apiClient = apiClient,
         _uuid = uuid ?? const Uuid();
 
   @override
@@ -110,31 +115,47 @@ class IdentityRepositoryImpl implements IdentityRepository {
 
     // Enqueue idempotent offline-first sync mutation
     final coordinator = _syncCoordinator;
-    if (coordinator != null) {
-      final payload = {
-        'first_name': finalProfile.firstName,
-        'last_name': finalProfile.lastName,
-        'current_life_stage': finalProfile.currentLifeStage.value,
-        'birth_year': finalProfile.onboardingContext.birthYear,
-        'primary_intents': finalProfile.onboardingContext.primaryIntents
-            .map((i) => i.value)
-            .toList(),
-        'hormonal_method': finalProfile.onboardingContext.hormonalMethod?.value,
-        'diagnosed_conditions': finalProfile
-            .onboardingContext.diagnosedConditions
-            .map((c) => c.value)
-            .toList(),
-        'clinical_context_completed':
-            finalProfile.onboardingContext.clinicalContextCompleted,
-      };
+    final payload = {
+      'first_name': finalProfile.firstName,
+      'last_name': finalProfile.lastName,
+      'current_life_stage': finalProfile.currentLifeStage.value,
+      'birth_year': finalProfile.onboardingContext.birthYear,
+      'primary_intents': finalProfile.onboardingContext.primaryIntents
+          .map((i) => i.value)
+          .toList(),
+      'hormonal_method': finalProfile.onboardingContext.hormonalMethod?.value,
+      'diagnosed_conditions': finalProfile.onboardingContext.diagnosedConditions
+          .map((c) => c.value)
+          .toList(),
+      'clinical_context_completed':
+          finalProfile.onboardingContext.clinicalContextCompleted,
+    };
 
+    String? mutationId;
+    if (coordinator != null) {
+      mutationId = _uuid.v4();
       await coordinator.enqueueMutation(
-        clientMutationId: _uuid.v4(),
+        clientMutationId: mutationId,
         entityType: 'user_profile',
         entityId: finalProfile.id,
         operation: 'complete_onboarding',
         payloadJson: jsonEncode(payload),
       );
+    }
+
+    final api = _apiClient;
+    if (api != null) {
+      api.setAuthToken('mock-token:${finalProfile.firebaseUid}');
+      unawaited(() async {
+        try {
+          await api.dio.put('/identity/onboarding', data: payload);
+          if (coordinator != null && mutationId != null) {
+            await coordinator.markAsSynced(mutationId);
+          }
+        } catch (_) {
+          // Offline-First: remains queued in sync_outbox
+        }
+      }());
     }
 
     return finalProfile;
@@ -171,15 +192,16 @@ class IdentityRepositoryImpl implements IdentityRepository {
     );
 
     final coordinator = _syncCoordinator;
+    final payload = {
+      'target_stage': newStage.value,
+      'reason': reason.value,
+      'notes': notes,
+    };
+    String? mutationId;
     if (coordinator != null) {
-      final payload = {
-        'target_stage': newStage.value,
-        'reason': reason.value,
-        'notes': notes,
-      };
-
+      mutationId = _uuid.v4();
       await coordinator.enqueueMutation(
-        clientMutationId: _uuid.v4(),
+        clientMutationId: mutationId,
         entityType: 'life_stage_transition',
         entityId: transition.id,
         operation: 'switch_life_stage',
@@ -188,6 +210,20 @@ class IdentityRepositoryImpl implements IdentityRepository {
     }
 
     final updated = await _profileDao.getActiveProfile();
+    final api = _apiClient;
+    if (api != null && updated != null) {
+      api.setAuthToken('mock-token:${updated.firebaseUid}');
+      unawaited(() async {
+        try {
+          await api.dio.post('/identity/life-stage/transitions', data: payload);
+          if (coordinator != null && mutationId != null) {
+            await coordinator.markAsSynced(mutationId);
+          }
+        } catch (_) {
+          // Offline-First: remains queued in sync_outbox
+        }
+      }());
+    }
     return updated!;
   }
 
@@ -199,11 +235,12 @@ class IdentityRepositoryImpl implements IdentityRepository {
     await _profileDao.updateEnabledModules(profileId, modules);
 
     final coordinator = _syncCoordinator;
+    final payload = {'enabled_modules': modules};
+    String? mutationId;
     if (coordinator != null) {
-      final payload = {'enabled_modules': modules};
-
+      mutationId = _uuid.v4();
       await coordinator.enqueueMutation(
-        clientMutationId: _uuid.v4(),
+        clientMutationId: mutationId,
         entityType: 'module_preferences',
         entityId: profileId,
         operation: 'update_module_preferences',
@@ -212,6 +249,20 @@ class IdentityRepositoryImpl implements IdentityRepository {
     }
 
     final updated = await _profileDao.getActiveProfile();
+    final api = _apiClient;
+    if (api != null && updated != null) {
+      api.setAuthToken('mock-token:${updated.firebaseUid}');
+      unawaited(() async {
+        try {
+          await api.dio.patch('/identity/module-preferences', data: payload);
+          if (coordinator != null && mutationId != null) {
+            await coordinator.markAsSynced(mutationId);
+          }
+        } catch (_) {
+          // Offline-First: remains queued in sync_outbox
+        }
+      }());
+    }
     return updated!;
   }
 }

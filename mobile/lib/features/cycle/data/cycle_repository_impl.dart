@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:drift/drift.dart';
@@ -27,8 +28,8 @@ class CycleRepositoryImpl implements CycleRepository {
     final symptomId = symptom.id.isEmpty ? _uuid.v4() : symptom.id;
 
     // 1. Cycle delimitation for menstrual bleeding
-    final isMenstrual =
-        ['light', 'medium', 'heavy'].contains(symptom.bleedingFlow.toLowerCase());
+    final isMenstrual = ['light', 'medium', 'heavy']
+        .contains(symptom.bleedingFlow.toLowerCase());
 
     String? activeCycleId = symptom.cycleId;
 
@@ -98,21 +99,43 @@ class CycleRepositoryImpl implements CycleRepository {
       }
     }
 
-    // 2. Persist daily symptom record locally
+    // 2. Persist daily symptom record locally (merge with existing row for the same day)
+    final existingRow = await (_db.select(_db.cycleSymptomEntries)
+          ..where((tbl) =>
+              tbl.userId.equals(symptom.userId) &
+              tbl.logDate.equals(normalized)))
+        .getSingleOrNull();
+
+    final resolvedId =
+        existingRow?.id ?? (symptom.id.isEmpty ? symptomId : symptom.id);
+    final existingGi = existingRow != null
+        ? ((jsonDecode(existingRow.giSymptomsJson) as List<dynamic>?)
+                ?.map((e) => e.toString())
+                .toList() ??
+            <String>[])
+        : <String>[];
+    final resolvedFlow = (symptom.id.isEmpty &&
+            symptom.bleedingFlow == 'none' &&
+            existingRow != null &&
+            existingRow.bleedingFlow != 'none')
+        ? existingRow.bleedingFlow
+        : symptom.bleedingFlow;
+
     final entity = CycleSymptomEntity(
-      id: symptomId,
+      id: resolvedId,
       userId: symptom.userId,
-      cycleId: activeCycleId,
+      cycleId: activeCycleId ?? existingRow?.cycleId,
       logDate: normalized,
-      bleedingFlow: symptom.bleedingFlow,
-      pelvicPain: symptom.pelvicPain,
-      dysmenorrhea: symptom.dysmenorrhea,
-      dyspareunia: symptom.dyspareunia,
-      acneSeverity: symptom.acneSeverity,
-      hirsutism: symptom.hirsutism,
-      fatigueLevel: symptom.fatigueLevel,
-      giSymptoms: symptom.giSymptoms,
-      notes: symptom.notes,
+      bleedingFlow: resolvedFlow,
+      pelvicPain: symptom.pelvicPain ?? existingRow?.pelvicPain,
+      dysmenorrhea: symptom.dysmenorrhea ?? existingRow?.dysmenorrhea,
+      dyspareunia: symptom.dyspareunia ?? existingRow?.dyspareunia,
+      acneSeverity: symptom.acneSeverity ?? existingRow?.acneSeverity,
+      hirsutism: symptom.hirsutism ?? existingRow?.hirsutism,
+      fatigueLevel: symptom.fatigueLevel ?? existingRow?.fatigueLevel,
+      giSymptoms:
+          symptom.giSymptoms.isNotEmpty ? symptom.giSymptoms : existingGi,
+      notes: symptom.notes ?? existingRow?.notes,
     );
 
     await _db.into(_db.cycleSymptomEntries).insertOnConflictUpdate(
@@ -144,18 +167,20 @@ class CycleRepositoryImpl implements CycleRepository {
       payloadJson: jsonEncode(entity.toJson()),
     );
 
-    // 4. Opportunistic remote sync
+    // 4. Non-blocking opportunistic remote sync (true Offline-First)
     final api = _api;
     if (api != null) {
-      try {
-        await api.dio.post(
-          '/cycles/symptoms',
-          data: entity.toJson(),
-        );
-        await _sync.markAsSynced(mutationId);
-      } catch (_) {
-        // Will sync on next background pass
-      }
+      unawaited(() async {
+        try {
+          await api.dio.post(
+            '/cycles/symptoms',
+            data: entity.toJson(),
+          );
+          await _sync.markAsSynced(mutationId);
+        } catch (_) {
+          // Will sync on next background pass
+        }
+      }());
     }
 
     return entity;
@@ -168,25 +193,12 @@ class CycleRepositoryImpl implements CycleRepository {
   }) async {
     final refDate = _normalizeDate(referenceDate ?? DateTime.now());
 
-    // Opportunistic fetch from remote if connected
-    final api = _api;
-    if (api != null) {
-      try {
-        final queryDate = refDate.toIso8601String().split('T').first;
-        final res = await api.dio.get('/cycles/overview?reference_date=$queryDate');
-        if (res.statusCode == 200 && res.data is Map<String, dynamic>) {
-          return CycleOverviewEntity.fromJson(res.data as Map<String, dynamic>);
-        }
-      } catch (_) {
-        // Fall back to offline computation below
-      }
-    }
-
-    // Offline computation from local SQLite database
+    // Offline-First: always compute immediately from local Drift SQLite database
     final cycles = await getCycleHistory(userId: userId, limit: 12);
     final symptoms = await getSymptomLogs(userId: userId);
 
-    final currentCycle = cycles.isNotEmpty && cycles.first.isCurrent ? cycles.first : null;
+    final currentCycle =
+        cycles.isNotEmpty && cycles.first.isCurrent ? cycles.first : null;
 
     final int dayInCycle = currentCycle != null
         ? refDate.difference(currentCycle.startDate).inDays + 1
@@ -216,8 +228,9 @@ class CycleRepositoryImpl implements CycleRepository {
     // Check offline FIGO alerts
     final List<FigoAlertEntity> alerts = [];
     final severePainCount = symptoms
-        .where((s) => (s.pelvicPain != null && s.pelvicPain! >= 7) ||
-                      (s.dysmenorrhea != null && s.dysmenorrhea! >= 7))
+        .where((s) =>
+            (s.pelvicPain != null && s.pelvicPain! >= 7) ||
+            (s.dysmenorrhea != null && s.dysmenorrhea! >= 7))
         .map((s) => s.cycleId)
         .where((id) => id != null)
         .toSet()

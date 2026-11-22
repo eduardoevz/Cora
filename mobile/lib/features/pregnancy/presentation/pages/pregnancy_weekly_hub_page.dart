@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:mobile/features/pregnancy/domain/entities/pregnancy_entities.dart';
 import 'package:mobile/features/pregnancy/presentation/pages/birth_plan_and_appointments_page.dart';
 import 'package:mobile/features/pregnancy/presentation/pages/contraction_and_kick_timers_page.dart';
@@ -90,7 +91,8 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
                       LinearProgressIndicator(
                         value: (weeks / 40.0).clamp(0.0, 1.0),
                         backgroundColor: Colors.white,
-                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.pink),
+                        valueColor:
+                            const AlwaysStoppedAnimation<Color>(Colors.pink),
                         minHeight: 8,
                         borderRadius: BorderRadius.circular(4),
                       ),
@@ -170,7 +172,8 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => MaternalVitalsPage(episode: summary.episode),
+                      builder: (_) =>
+                          MaternalVitalsPage(episode: summary.episode),
                     ),
                   );
                 },
@@ -253,7 +256,8 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pink,
                 foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
             ),
           ],
@@ -272,11 +276,13 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
     );
 
     if (pickedDate != null) {
+      final user = ref.read(activeUserProfileProvider);
+      if (user == null) return;
       final repo = ref.read(pregnancyRepositoryProvider);
       final clinicalEdd = pickedDate.add(const Duration(days: 280));
       final episode = PregnancyEpisodeEntity(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
-        userId: 'current_user',
+        userId: user.id,
         clinicalEdd: clinicalEdd,
         lastMenstrualPeriod: pickedDate,
         isActive: true,
@@ -317,9 +323,13 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
     if (week <= 16) return '🥑 Tamaño de un aguacate (~11.6 cm, 100 g)';
     if (week <= 20) return '🍌 Tamaño de un plátano (~25 cm, 300 g)';
     if (week <= 24) return '🌽 Tamaño de una espiga de maíz (~30 cm, 600 g)';
-    if (week <= 28) return '🍆 Tamaño de una berenjena grande (~37.6 cm, 1000 g)';
+    if (week <= 28) {
+      return '🍆 Tamaño de una berenjena grande (~37.6 cm, 1000 g)';
+    }
     if (week <= 32) return '🍍 Tamaño de una piña (~42.4 cm, 1700 g)';
-    if (week <= 36) return '🥬 Tamaño de un manojo de acelgas (~47.4 cm, 2600 g)';
+    if (week <= 36) {
+      return '🥬 Tamaño de un manojo de acelgas (~47.4 cm, 2600 g)';
+    }
     return '🍉 Tamaño de una sandía madura (~51 cm, 3500 g)';
   }
 
