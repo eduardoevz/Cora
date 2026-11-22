@@ -313,6 +313,228 @@
         "title": "BleedingFlow",
         "type": "string"
       },
+      "CalendarDayMarker": {
+        "description": "Visual/clinical marker assigned to a day on the menstrual calendar.",
+        "enum": [
+          "recorded_period",
+          "predicted_period",
+          "fertile_window",
+          "predicted_ovulation",
+          "spotting",
+          "none"
+        ],
+        "title": "CalendarDayMarker",
+        "type": "string"
+      },
+      "CalendarDayProjectionResponse": {
+        "description": "Single day projection inside the monthly menstrual calendar.",
+        "properties": {
+          "bleeding_flow": {
+            "$ref": "#/components/schemas/BleedingFlow"
+          },
+          "daily_summary_es": {
+            "title": "Daily Summary Es",
+            "type": "string"
+          },
+          "date": {
+            "format": "date",
+            "title": "Date",
+            "type": "string"
+          },
+          "day_in_cycle": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Day In Cycle"
+          },
+          "day_marker": {
+            "$ref": "#/components/schemas/CalendarDayMarker"
+          },
+          "fertility_probability": {
+            "$ref": "#/components/schemas/FertilityProbability"
+          },
+          "has_logged_symptoms": {
+            "title": "Has Logged Symptoms",
+            "type": "boolean"
+          },
+          "pelvic_pain": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pelvic Pain"
+          },
+          "phase": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CyclePhase"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "phase_education_es": {
+            "title": "Phase Education Es",
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "day_marker",
+          "fertility_probability",
+          "has_logged_symptoms",
+          "bleeding_flow",
+          "daily_summary_es",
+          "phase_education_es"
+        ],
+        "title": "CalendarDayProjectionResponse",
+        "type": "object"
+      },
+      "CalendarDisplayMode": {
+        "description": "Stage-adapted presentation mode for the monthly menstrual calendar.",
+        "enum": [
+          "standard_cycle",
+          "adolescence_flexible",
+          "conception_fertility",
+          "hormonally_managed",
+          "pregnancy_gestational",
+          "postpartum_recovery",
+          "perimenopause_straw10",
+          "senior_preventive"
+        ],
+        "title": "CalendarDisplayMode",
+        "type": "string"
+      },
+      "CalendarMonthProjectionResponse": {
+        "description": "Full monthly projection adapted to life stage and cycle history.",
+        "properties": {
+          "current_cycle_day": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Cycle Day"
+          },
+          "current_phase": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CyclePhase"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "days": {
+            "items": {
+              "$ref": "#/components/schemas/CalendarDayProjectionResponse"
+            },
+            "title": "Days",
+            "type": "array"
+          },
+          "display_mode": {
+            "$ref": "#/components/schemas/CalendarDisplayMode"
+          },
+          "estimated_bleeding_duration_days": {
+            "title": "Estimated Bleeding Duration Days",
+            "type": "integer"
+          },
+          "estimated_cycle_length_days": {
+            "title": "Estimated Cycle Length Days",
+            "type": "integer"
+          },
+          "fertile_window_end": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fertile Window End"
+          },
+          "fertile_window_start": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fertile Window Start"
+          },
+          "has_extended_uncertainty": {
+            "title": "Has Extended Uncertainty",
+            "type": "boolean"
+          },
+          "is_hormonally_managed": {
+            "title": "Is Hormonally Managed",
+            "type": "boolean"
+          },
+          "month": {
+            "title": "Month",
+            "type": "integer"
+          },
+          "ovulation_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ovulation Date"
+          },
+          "predicted_next_period": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Predicted Next Period"
+          },
+          "year": {
+            "title": "Year",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "year",
+          "month",
+          "display_mode",
+          "estimated_cycle_length_days",
+          "estimated_bleeding_duration_days",
+          "is_hormonally_managed",
+          "has_extended_uncertainty",
+          "days"
+        ],
+        "title": "CalendarMonthProjectionResponse",
+        "type": "object"
+      },
       "CardiometabolicRequest": {
         "additionalProperties": false,
         "properties": {
@@ -1317,6 +1539,17 @@
           "hormonally_managed"
         ],
         "title": "CyclePhase",
+        "type": "string"
+      },
+      "CycleRegularity": {
+        "description": "Self-reported menstrual cycle regularity established during onboarding.",
+        "enum": [
+          "regular",
+          "irregular",
+          "unsure",
+          "not_applicable"
+        ],
+        "title": "CycleRegularity",
         "type": "string"
       },
       "CycleStatusResponse": {
@@ -2652,6 +2885,17 @@
         "title": "FertilityCycleChartResponse",
         "type": "object"
       },
+      "FertilityProbability": {
+        "description": "Qualitative orientation of conception probability on a given calendar day.",
+        "enum": [
+          "none",
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "FertilityProbability",
+        "type": "string"
+      },
       "FetalMilestoneResponse": {
         "properties": {
           "anatomical_highlights": {
@@ -2916,6 +3160,54 @@
           "notes"
         ],
         "title": "HotFlashResponse",
+        "type": "object"
+      },
+      "InitialPeriodInput": {
+        "additionalProperties": false,
+        "description": "Start and end date range for an initial historical menstrual period.",
+        "properties": {
+          "end_date": {
+            "description": "Last day of bleeding",
+            "format": "date",
+            "title": "End Date",
+            "type": "string"
+          },
+          "start_date": {
+            "description": "First day of bleeding",
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "title": "InitialPeriodInput",
+        "type": "object"
+      },
+      "InitialPeriodRangeSchema": {
+        "additionalProperties": false,
+        "description": "Historical initial period range [start_date, end_date].",
+        "properties": {
+          "end_date": {
+            "description": "Last bleeding day of period.",
+            "format": "date",
+            "title": "End Date",
+            "type": "string"
+          },
+          "start_date": {
+            "description": "First bleeding day of period.",
+            "format": "date",
+            "title": "Start Date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_date",
+          "end_date"
+        ],
+        "title": "InitialPeriodRangeSchema",
         "type": "object"
       },
       "IntakeAssessmentResponse": {
@@ -4130,6 +4422,10 @@
             "title": "Clinical Context Completed",
             "type": "boolean"
           },
+          "cycle_regularity": {
+            "$ref": "#/components/schemas/CycleRegularity",
+            "default": "unsure"
+          },
           "diagnosed_conditions": {
             "items": {
               "$ref": "#/components/schemas/DiagnosedCondition"
@@ -4153,6 +4449,28 @@
             },
             "title": "Primary Intents",
             "type": "array"
+          },
+          "typical_bleeding_duration_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Typical Bleeding Duration Days"
+          },
+          "typical_cycle_length_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Typical Cycle Length Days"
           }
         },
         "required": [
@@ -4189,6 +4507,11 @@
               "regular_adult"
             ]
           },
+          "cycle_regularity": {
+            "$ref": "#/components/schemas/CycleRegularity",
+            "default": "unsure",
+            "description": "Self-reported menstrual regularity or not_applicable."
+          },
           "diagnosed_conditions": {
             "description": "Diagnosed conditions in Layer 3 (PCOS, endometriosis, etc.).",
             "items": {
@@ -4217,6 +4540,15 @@
             ],
             "description": "Contraceptive or hormonal method active in Layer 3."
           },
+          "initial_periods": {
+            "description": "Up to 2 historical initial periods (start/end dates) to seed.",
+            "items": {
+              "$ref": "#/components/schemas/InitialPeriodRangeSchema"
+            },
+            "maxItems": 2,
+            "title": "Initial Periods",
+            "type": "array"
+          },
           "last_name": {
             "examples": [
               "Torres"
@@ -4239,6 +4571,34 @@
             },
             "title": "Primary Intents",
             "type": "array"
+          },
+          "typical_bleeding_duration_days": {
+            "anyOf": [
+              {
+                "maximum": 15.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Typical bleeding duration in days (1-15).",
+            "title": "Typical Bleeding Duration Days"
+          },
+          "typical_cycle_length_days": {
+            "anyOf": [
+              {
+                "maximum": 90.0,
+                "minimum": 15.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Typical cycle length in days (15-90).",
+            "title": "Typical Cycle Length Days"
           }
         },
         "required": [
@@ -5204,6 +5564,66 @@
         ],
         "title": "ScreeningUrgency",
         "type": "string"
+      },
+      "SeedInitialPeriodsRequest": {
+        "additionalProperties": false,
+        "description": "Payload to seed up to 2 historical initial periods and baseline metrics.",
+        "properties": {
+          "cycle_regularity": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CycleRegularity"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional self-reported cycle regularity update"
+          },
+          "periods": {
+            "description": "Up to 2 historical periods (start and end dates)",
+            "items": {
+              "$ref": "#/components/schemas/InitialPeriodInput"
+            },
+            "maxItems": 2,
+            "minItems": 1,
+            "title": "Periods",
+            "type": "array"
+          },
+          "typical_bleeding_duration_days": {
+            "anyOf": [
+              {
+                "maximum": 15.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional typical bleeding duration override in days (1-15)",
+            "title": "Typical Bleeding Duration Days"
+          },
+          "typical_cycle_length_days": {
+            "anyOf": [
+              {
+                "maximum": 90.0,
+                "minimum": 15.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional typical cycle length override in days (15-90)",
+            "title": "Typical Cycle Length Days"
+          }
+        },
+        "required": [
+          "periods"
+        ],
+        "title": "SeedInitialPeriodsRequest",
+        "type": "object"
       },
       "SendAssistantMessageRequest": {
         "description": "Payload to send a question to Cora's grounded clinical RAG assistant.",
@@ -6588,6 +7008,90 @@
         ]
       }
     },
+    "/api/v1/cycles/calendar": {
+      "get": {
+        "description": "Projects each day of a target calendar month with recorded periods, predicted periods, fertile window, estimated ovulation, symptoms, and life-stage-adapted educational guidance.",
+        "operationId": "get_cycle_calendar_api_v1_cycles_calendar_get",
+        "parameters": [
+          {
+            "description": "Calendar year",
+            "in": "query",
+            "name": "year",
+            "required": true,
+            "schema": {
+              "description": "Calendar year",
+              "maximum": 2100,
+              "minimum": 2000,
+              "title": "Year",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Calendar month (1-12)",
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "schema": {
+              "description": "Calendar month (1-12)",
+              "maximum": 12,
+              "minimum": 1,
+              "title": "Month",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Reference date for 'today' status; defaults to today",
+            "in": "query",
+            "name": "reference_date",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Reference date for 'today' status; defaults to today",
+              "title": "Reference Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarMonthProjectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Projected Monthly Menstrual Calendar",
+        "tags": [
+          "Menstrual Cycles & Symptoms"
+        ]
+      }
+    },
     "/api/v1/cycles/history": {
       "get": {
         "description": "Retrieves chronological history of past and current menstrual cycles.",
@@ -6640,6 +7144,57 @@
           }
         ],
         "summary": "List Menstrual Cycle History",
+        "tags": [
+          "Menstrual Cycles & Symptoms"
+        ]
+      }
+    },
+    "/api/v1/cycles/initial-periods": {
+      "post": {
+        "description": "Seeds up to 2 historical initial periods with daily bleeding logs and updates the user's baseline regularity and typical cycle duration.",
+        "operationId": "seed_initial_periods_api_v1_cycles_initial_periods_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SeedInitialPeriodsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MenstrualCycleResponse"
+                  },
+                  "title": "Response Seed Initial Periods Api V1 Cycles Initial Periods Post",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Seed Initial Historical Periods & Baseline",
         "tags": [
           "Menstrual Cycles & Symptoms"
         ]

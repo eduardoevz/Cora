@@ -5,6 +5,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_async_session
 from app.core.security import CurrentUserDep
+from app.modules.clinical_tracking.application.use_cases.seed_initial_periods_use_case import (  # noqa: E501
+    SeedInitialPeriodsUseCase,
+)
+from app.modules.clinical_tracking.domain.value_objects.bleeding_and_symptoms import (
+    InitialPeriodRange,
+)
+from app.modules.clinical_tracking.infrastructure.adapters.postgres_cycle_repository import (  # noqa: E501
+    PostgresCycleRepository,
+)
 from app.modules.identity.application.dtos.identity_dtos import (
     CompleteOnboardingCommand,
     SwitchLifeStageCommand,
@@ -30,6 +39,10 @@ from app.modules.identity.application.use_cases.switch_life_stage_use_case impor
 )
 from app.modules.identity.application.use_cases.update_module_preferences_use_case import (  # noqa: E501
     UpdateModulePreferencesUseCase,
+)
+from app.modules.identity.domain.value_objects.life_stage import LifeStage
+from app.modules.identity.domain.value_objects.onboarding_context import (
+    CycleRegularity,
 )
 from app.modules.identity.infrastructure.adapters.postgres_user_profile_repository import (  # noqa: E501
     PostgresUserProfileRepository,
@@ -89,7 +102,41 @@ async def complete_onboarding(
     current_user: CurrentUserDep,
     request: OnboardingRequest,
     repository: Annotated[IUserProfileRepository, Depends(get_user_profile_repository)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
 ) -> UserProfileResponse:
+    ordered_ranges: list[InitialPeriodRange] = []
+    if request.initial_periods:
+        raw_ranges = [
+            InitialPeriodRange(start_date=p.start_date, end_date=p.end_date)
+            for p in request.initial_periods
+        ]
+        ordered_ranges = SeedInitialPeriodsUseCase.validate_periods(raw_ranges)
+
+    non_menstrual_stages = {
+        LifeStage.PREGNANCY,
+        LifeStage.POSTPARTUM,
+        LifeStage.SENIOR_VITALITY,
+    }
+    regularity = request.cycle_regularity
+    if (
+        request.current_life_stage in non_menstrual_stages
+        and regularity == CycleRegularity.UNSURE
+        and not ordered_ranges
+    ):
+        regularity = CycleRegularity.NOT_APPLICABLE
+
+    cycle_length_days = request.typical_cycle_length_days
+    if cycle_length_days is None and len(ordered_ranges) == 2:
+        cycle_length_days = (
+            ordered_ranges[1].start_date - ordered_ranges[0].start_date
+        ).days
+
+    bleeding_duration_days = request.typical_bleeding_duration_days
+    if bleeding_duration_days is None and ordered_ranges:
+        bleeding_duration_days = round(
+            sum(r.bleeding_duration_days for r in ordered_ranges) / len(ordered_ranges)
+        )
+
     use_case = CompleteOnboardingUseCase(repository=repository)
     command = CompleteOnboardingCommand(
         first_name=request.first_name,
@@ -100,8 +147,16 @@ async def complete_onboarding(
         hormonal_method=request.hormonal_method,
         diagnosed_conditions=request.diagnosed_conditions,
         clinical_context_completed=request.clinical_context_completed,
+        cycle_regularity=regularity,
+        typical_cycle_length_days=cycle_length_days,
+        typical_bleeding_duration_days=bleeding_duration_days,
     )
     profile = await use_case.execute(user=current_user, command=command)
+
+    if ordered_ranges:
+        seed_use_case = SeedInitialPeriodsUseCase(PostgresCycleRepository(session))
+        await seed_use_case.execute(user_id=str(profile.id), periods=ordered_ranges)
+
     return UserProfileResponse.from_domain(profile)
 
 

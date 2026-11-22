@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import date, datetime
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.modules.identity.domain.models.user_profile import (
     LifeStageTransition,
@@ -12,10 +12,20 @@ from app.modules.identity.domain.value_objects.life_stage import (
     TransitionReason,
 )
 from app.modules.identity.domain.value_objects.onboarding_context import (
+    CycleRegularity,
     DiagnosedCondition,
     HormonalMethod,
     PrimaryIntent,
 )
+
+
+class InitialPeriodRangeSchema(BaseModel):
+    """Historical initial period range [start_date, end_date]."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    start_date: date = Field(..., description="First bleeding day of period.")
+    end_date: date = Field(..., description="Last bleeding day of period.")
 
 
 class OnboardingRequest(BaseModel):
@@ -49,6 +59,27 @@ class OnboardingRequest(BaseModel):
     clinical_context_completed: bool = Field(
         default=False,
         description="Whether Layer 3 was completed or deferred ('Responder después').",
+    )
+    cycle_regularity: CycleRegularity = Field(
+        default=CycleRegularity.UNSURE,
+        description="Self-reported menstrual regularity or not_applicable.",
+    )
+    typical_cycle_length_days: int | None = Field(
+        default=None,
+        ge=15,
+        le=90,
+        description="Typical cycle length in days (15-90).",
+    )
+    typical_bleeding_duration_days: int | None = Field(
+        default=None,
+        ge=1,
+        le=15,
+        description="Typical bleeding duration in days (1-15).",
+    )
+    initial_periods: list[InitialPeriodRangeSchema] = Field(
+        default_factory=list,
+        max_length=2,
+        description="Up to 2 historical initial periods (start/end dates) to seed.",
     )
 
 
@@ -113,6 +144,9 @@ class OnboardingContextResponse(BaseModel):
     hormonal_method: HormonalMethod | None
     diagnosed_conditions: list[DiagnosedCondition]
     clinical_context_completed: bool
+    cycle_regularity: CycleRegularity = CycleRegularity.UNSURE
+    typical_cycle_length_days: int | None = None
+    typical_bleeding_duration_days: int | None = None
 
 
 class UserProfileResponse(BaseModel):
@@ -138,6 +172,13 @@ class UserProfileResponse(BaseModel):
             hormonal_method=profile.onboarding_context.hormonal_method,
             diagnosed_conditions=list(profile.onboarding_context.diagnosed_conditions),
             clinical_context_completed=profile.onboarding_context.clinical_context_completed,
+            cycle_regularity=profile.onboarding_context.cycle_regularity,
+            typical_cycle_length_days=(
+                profile.onboarding_context.typical_cycle_length_days
+            ),
+            typical_bleeding_duration_days=(
+                profile.onboarding_context.typical_bleeding_duration_days
+            ),
         )
         transitions_res = [
             LifeStageTransitionResponse.from_domain(t)

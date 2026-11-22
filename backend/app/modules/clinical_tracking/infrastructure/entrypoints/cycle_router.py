@@ -1,4 +1,5 @@
-from datetime import date
+from dataclasses import replace
+from datetime import UTC, date, datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, status
@@ -14,25 +15,35 @@ from app.modules.clinical_tracking.application.dtos.cycle_dtos import (
 from app.modules.clinical_tracking.application.ports.cycle_repository_port import (
     ICycleRepository,
 )
+from app.modules.clinical_tracking.application.use_cases.get_cycle_calendar_use_case import (  # noqa: E501
+    GetCycleCalendarUseCase,
+)
 from app.modules.clinical_tracking.application.use_cases.get_cycle_overview_use_case import (  # noqa: E501
     GetCycleOverviewUseCase,
 )
 from app.modules.clinical_tracking.application.use_cases.log_bleeding_and_symptoms_use_case import (  # noqa: E501
     LogBleedingAndSymptomsUseCase,
 )
+from app.modules.clinical_tracking.application.use_cases.seed_initial_periods_use_case import (  # noqa: E501
+    SeedInitialPeriodsUseCase,
+)
 from app.modules.clinical_tracking.domain.value_objects.bleeding_and_symptoms import (
+    InitialPeriodRange,
     PatientCycleContext,
 )
 from app.modules.clinical_tracking.infrastructure.adapters.postgres_cycle_repository import (  # noqa: E501
     PostgresCycleRepository,
 )
 from app.modules.clinical_tracking.infrastructure.entrypoints.cycle_schemas import (
+    CalendarDayProjectionResponse,
+    CalendarMonthProjectionResponse,
     ClinicalPatternAlertResponse,
     CycleOverviewResponse,
     CycleStatusResponse,
     CycleSymptomLogResponse,
     LogBleedingAndSymptomsRequest,
     MenstrualCycleResponse,
+    SeedInitialPeriodsRequest,
 )
 from app.modules.identity.domain.models.user_profile import UserProfile
 from app.modules.identity.domain.value_objects.onboarding_context import (
@@ -98,6 +109,23 @@ async def log_bleeding_and_symptoms(
     return CycleSymptomLogResponse.model_validate(result)
 
 
+def _build_patient_cycle_context(user_profile: UserProfile) -> PatientCycleContext:
+    ob_ctx = user_profile.onboarding_context
+    return PatientCycleContext(
+        life_stage=user_profile.current_life_stage,
+        hormonal_method=ob_ctx.hormonal_method or HormonalMethod.NONE,
+        diagnosed_conditions=(
+            list(ob_ctx.diagnosed_conditions)
+            if ob_ctx.diagnosed_conditions
+            else [DiagnosedCondition.NONE]
+        ),
+        birth_year=ob_ctx.birth_year,
+        cycle_regularity=ob_ctx.cycle_regularity,
+        typical_cycle_length_days=ob_ctx.typical_cycle_length_days,
+        typical_bleeding_duration_days=ob_ctx.typical_bleeding_duration_days,
+    )
+
+
 @router.get(
     "/overview",
     response_model=CycleOverviewResponse,
@@ -117,18 +145,7 @@ async def get_cycle_overview(
     ] = None,
 ) -> CycleOverviewResponse:
     calc_date = reference_date or date.today()
-
-    ob_ctx = user_profile.onboarding_context
-    context = PatientCycleContext(
-        life_stage=user_profile.current_life_stage,
-        hormonal_method=ob_ctx.hormonal_method or HormonalMethod.NONE,
-        diagnosed_conditions=(
-            list(ob_ctx.diagnosed_conditions)
-            if ob_ctx.diagnosed_conditions
-            else [DiagnosedCondition.NONE]
-        ),
-        birth_year=ob_ctx.birth_year,
-    )
+    context = _build_patient_cycle_context(user_profile)
 
     use_case = GetCycleOverviewUseCase(repository)
     overview: CycleOverviewDTO = await use_case.execute(
@@ -171,6 +188,136 @@ async def get_cycle_overview(
         ],
         recent_cycles=[
             MenstrualCycleResponse.model_validate(c) for c in overview.recent_cycles
+        ],
+    )
+
+
+@router.post(
+    "/initial-periods",
+    response_model=list[MenstrualCycleResponse],
+    status_code=status.HTTP_201_CREATED,
+    summary="Seed Initial Historical Periods & Baseline",
+    description=(
+        "Seeds up to 2 historical initial periods with daily bleeding logs and "
+        "updates the user's baseline regularity and typical cycle duration."
+    ),
+)
+async def seed_initial_periods(
+    request: SeedInitialPeriodsRequest,
+    user_profile: Annotated[UserProfile, Depends(get_current_user_profile)],
+    repository: Annotated[ICycleRepository, Depends(get_cycle_repository)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+) -> list[MenstrualCycleResponse]:
+    ranges = [
+        InitialPeriodRange(start_date=item.start_date, end_date=item.end_date)
+        for item in request.periods
+    ]
+    use_case = SeedInitialPeriodsUseCase(repository)
+    created_cycles = await use_case.execute(
+        user_id=str(user_profile.id),
+        periods=ranges,
+    )
+
+    ordered = sorted(ranges, key=lambda item: item.start_date)
+    inferred_cycle_len = (
+        (ordered[1].start_date - ordered[0].start_date).days
+        if len(ordered) == 2
+        else None
+    )
+    inferred_bleed_len = round(
+        sum(item.bleeding_duration_days for item in ordered) / len(ordered)
+    )
+
+    new_regularity = (
+        request.cycle_regularity or user_profile.onboarding_context.cycle_regularity
+    )
+    new_cycle_len = (
+        request.typical_cycle_length_days
+        if request.typical_cycle_length_days is not None
+        else (
+            inferred_cycle_len
+            or user_profile.onboarding_context.typical_cycle_length_days
+        )
+    )
+    new_bleed_len = (
+        request.typical_bleeding_duration_days
+        if request.typical_bleeding_duration_days is not None
+        else (
+            inferred_bleed_len
+            or user_profile.onboarding_context.typical_bleeding_duration_days
+        )
+    )
+    user_profile.onboarding_context = replace(
+        user_profile.onboarding_context,
+        cycle_regularity=new_regularity,
+        typical_cycle_length_days=new_cycle_len,
+        typical_bleeding_duration_days=new_bleed_len,
+    )
+    user_profile.updated_at = datetime.now(UTC)
+    await PostgresUserProfileRepository(session).save(user_profile)
+
+    return [MenstrualCycleResponse.model_validate(c) for c in created_cycles]
+
+
+@router.get(
+    "/calendar",
+    response_model=CalendarMonthProjectionResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get Projected Monthly Menstrual Calendar",
+    description=(
+        "Projects each day of a target calendar month with recorded periods, "
+        "predicted periods, fertile window, estimated ovulation, symptoms, "
+        "and life-stage-adapted educational guidance."
+    ),
+)
+async def get_cycle_calendar(
+    user_profile: Annotated[UserProfile, Depends(get_current_user_profile)],
+    repository: Annotated[ICycleRepository, Depends(get_cycle_repository)],
+    year: Annotated[int, Query(ge=2000, le=2100, description="Calendar year")],
+    month: Annotated[int, Query(ge=1, le=12, description="Calendar month (1-12)")],
+    reference_date: Annotated[
+        date | None,
+        Query(description="Reference date for 'today' status; defaults to today"),
+    ] = None,
+) -> CalendarMonthProjectionResponse:
+    calc_date = reference_date or date.today()
+    context = _build_patient_cycle_context(user_profile)
+    use_case = GetCycleCalendarUseCase(repository)
+    projection = await use_case.execute(
+        user_id=str(user_profile.id),
+        year=year,
+        month=month,
+        context=context,
+        reference_date=calc_date,
+    )
+    return CalendarMonthProjectionResponse(
+        year=projection.year,
+        month=projection.month,
+        display_mode=projection.display_mode,
+        estimated_cycle_length_days=projection.estimated_cycle_length_days,
+        estimated_bleeding_duration_days=projection.estimated_bleeding_duration_days,
+        is_hormonally_managed=projection.is_hormonally_managed,
+        has_extended_uncertainty=projection.has_extended_uncertainty,
+        current_cycle_day=projection.current_cycle_day,
+        current_phase=projection.current_phase,
+        predicted_next_period=projection.predicted_next_period,
+        ovulation_date=projection.ovulation_date,
+        fertile_window_start=projection.fertile_window_start,
+        fertile_window_end=projection.fertile_window_end,
+        days=[
+            CalendarDayProjectionResponse(
+                date=day.date,
+                day_in_cycle=day.day_in_cycle,
+                phase=day.phase,
+                day_marker=day.day_marker,
+                fertility_probability=day.fertility_probability,
+                has_logged_symptoms=day.has_logged_symptoms,
+                bleeding_flow=day.bleeding_flow,
+                pelvic_pain=day.pelvic_pain,
+                daily_summary_es=day.daily_summary_es,
+                phase_education_es=day.phase_education_es,
+            )
+            for day in projection.days
         ],
     )
 
