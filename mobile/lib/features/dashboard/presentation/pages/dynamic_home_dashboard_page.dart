@@ -144,7 +144,14 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
             onPressed: () => Scaffold.of(ctx).openDrawer(),
           ),
         ),
-        title: Text('Hola, ${profile.firstName}'),
+        title: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CoraBrandEmblem(size: 30, iconSize: 16),
+            SizedBox(width: 8),
+            Text('Cora'),
+          ],
+        ),
         actions: [
           IconButton(
             key: const Key('open_privacy_settings_button'),
@@ -164,7 +171,62 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
               );
             },
           ),
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: CircleAvatar(
+              radius: 15,
+              backgroundColor: CoraTheme.tokensOf(context).primaryDeep,
+              foregroundColor: Colors.white,
+              child: Text(
+                profile.firstName.trim().isNotEmpty
+                    ? profile.firstName.trim()[0].toUpperCase()
+                    : 'C',
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
         ],
+      ),
+      bottomNavigationBar: CoraStitchBottomNav(
+        currentIndex: 0,
+        items: const [
+          CoraBottomNavItem(
+            icon: Icons.spa_outlined,
+            activeIcon: Icons.spa_rounded,
+            label: 'Inicio',
+          ),
+          CoraBottomNavItem(
+            icon: Icons.calendar_month_outlined,
+            activeIcon: Icons.calendar_month_rounded,
+            label: 'Calendario',
+          ),
+          CoraBottomNavItem(
+            icon: Icons.edit_calendar_outlined,
+            activeIcon: Icons.edit_calendar_rounded,
+            label: 'Registro',
+          ),
+          CoraBottomNavItem(
+            icon: Icons.menu_book_outlined,
+            activeIcon: Icons.menu_book_rounded,
+            label: 'Aprender',
+          ),
+        ],
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const MenstrualCalendarPage(),
+              ),
+            );
+          } else if (index == 2) {
+            _openTodayLogSheet(context, refToday, todayLog);
+          } else if (index == 3) {
+            _openLibrary(context, ref, profile.currentLifeStage.value);
+          }
+        },
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -172,7 +234,7 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildStageHeaderCard(context, profile),
+              _buildStageHeaderCard(context, profile, status),
               const SizedBox(height: 16),
               HomeCycleHeroCard(
                 profile: profile,
@@ -237,53 +299,80 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
   Widget _buildStageHeaderCard(
     BuildContext context,
     UserProfileEntity profile,
+    CycleStatusEntity status,
   ) {
     final tokens = CoraTheme.tokensOf(context);
-    return CoraSurfaceCard(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      borderRadius: 18,
-      child: Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: 12,
-        runSpacing: 8,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'ETAPA BIOLÓGICA ACTIVA',
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: tokens.accentPrimary,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.9,
-                    ),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                profile.currentLifeStage.label,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: tokens.textPrimary,
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
-            ],
-          ),
-          ActionChip(
-            key: const Key('switch_stage_chip_button'),
-            avatar: Icon(
-              Icons.sync_alt_rounded,
-              size: 16,
-              color: tokens.accentPrimary,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 10,
+          runSpacing: 6,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'ETAPA BIOLÓGICA ACTIVA',
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: tokens.textSecondary,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.0,
+                      ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  profile.currentLifeStage.label,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: tokens.primaryDeep,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+              ],
             ),
-            label: const Text('Cambiar'),
-            onPressed: () {
-              LifeStageSwitcherSheet.show(context, profile);
-            },
-          ),
-        ],
-      ),
+            ActionChip(
+              key: const Key('switch_stage_chip_button'),
+              backgroundColor: tokens.surfaceContainer,
+              side: BorderSide(color: tokens.borderSubtle),
+              avatar: Icon(
+                Icons.sync_alt_rounded,
+                size: 16,
+                color: tokens.primaryDeep,
+              ),
+              label: Text(
+                'Cambiar',
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: tokens.primaryDeep,
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              onPressed: () {
+                LifeStageSwitcherSheet.show(context, profile);
+              },
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Hola, ${profile.firstName}',
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          status.phaseDescriptionEs,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: tokens.textSecondary,
+              ),
+        ),
+      ],
     );
   }
 

@@ -1584,3 +1584,419 @@ class _BiometricTrendPainter extends CustomPainter {
         oldDelegate.referenceLine != referenceLine;
   }
 }
+
+/// Circular botanical emblem matching Stitch's top bar and welcome branding.
+class CoraBrandEmblem extends StatelessWidget {
+  final double size;
+  final double iconSize;
+
+  const CoraBrandEmblem({
+    super.key,
+    this.size = 34,
+    this.iconSize = 18,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: tokens.surfaceContainer,
+        shape: BoxShape.circle,
+        border: Border.all(color: tokens.borderSubtle),
+      ),
+      child: Icon(
+        Icons.spa_outlined,
+        size: iconSize,
+        color: tokens.primaryDeep,
+      ),
+    );
+  }
+}
+
+/// Thin tonal step progress bar used in Stitch Onboarding and EPDS flows.
+class CoraTonalStepProgressBar extends StatelessWidget {
+  final double progress;
+  final double height;
+
+  const CoraTonalStepProgressBar({
+    super.key,
+    required this.progress,
+    this.height = 5,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(999),
+      child: LinearProgressIndicator(
+        value: progress.clamp(0.0, 1.0),
+        minHeight: height,
+        backgroundColor: tokens.surfaceContainer,
+        valueColor: AlwaysStoppedAnimation<Color>(tokens.primaryDeep),
+      ),
+    );
+  }
+}
+
+/// Offline-first editorial botanical banner with gradient scrim and overlay pills.
+class CoraEditorialImageBanner extends StatelessWidget {
+  final String assetPath;
+  final double height;
+  final String? topBadge;
+  final String? bottomLeftBadge;
+  final String? bottomRightBadge;
+  final Widget? overlayContent;
+
+  const CoraEditorialImageBanner({
+    super.key,
+    required this.assetPath,
+    this.height = 148,
+    this.topBadge,
+    this.bottomLeftBadge,
+    this.bottomRightBadge,
+    this.overlayContent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(18),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: height),
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  assetPath,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [tokens.blushInset, tokens.surfaceContainer],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        tokens.textPrimary.withValues(alpha: 0.08),
+                        tokens.textPrimary.withValues(alpha: 0.42),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints(minHeight: height),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (topBadge != null)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: tokens.surface.withValues(alpha: 0.92),
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                          child: Text(
+                            topBadge!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: tokens.primaryDeep,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 0.4,
+                                ),
+                          ),
+                        )
+                      else
+                        const SizedBox.shrink(),
+                      if (overlayContent != null)
+                        overlayContent!
+                      else if (bottomLeftBadge != null ||
+                          bottomRightBadge != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceBetween,
+                            spacing: 8,
+                            runSpacing: 6,
+                            children: [
+                              if (bottomLeftBadge != null)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        tokens.surface.withValues(alpha: 0.92),
+                                    borderRadius: BorderRadius.circular(999),
+                                  ),
+                                  child: Text(
+                                    bottomLeftBadge!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: tokens.verified,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                  ),
+                                ),
+                              if (bottomRightBadge != null)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        tokens.surface.withValues(alpha: 0.92),
+                                    borderRadius: BorderRadius.circular(999),
+                                  ),
+                                  child: Text(
+                                    bottomRightBadge!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: tokens.textPrimary,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Blush tonal metric/progress row matching Stitch's telemetry cards.
+class CoraMetricProgressRow extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final String? badgeText;
+  final CoraStatusPillVariant badgeVariant;
+  final String? trailingValue;
+  final Color? iconColor;
+  final Color? iconBackground;
+  final VoidCallback? onTap;
+
+  const CoraMetricProgressRow({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    this.badgeText,
+    this.badgeVariant = CoraStatusPillVariant.softMint,
+    this.trailingValue,
+    this.iconColor,
+    this.iconBackground,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    final row = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
+      decoration: BoxDecoration(
+        color: tokens.blushInset,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: tokens.borderSubtle.withValues(
+            alpha: tokens.isHighLegibility ? 1.0 : 0.65,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: iconBackground ?? tokens.surfaceContainer,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              size: 18,
+              color: iconColor ?? tokens.primaryDeep,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: tokens.textPrimary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: tokens.textSecondary,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          if (badgeText != null) ...[
+            const SizedBox(width: 8),
+            CoraMintStatusPill(
+              label: badgeText!,
+              variant: badgeVariant,
+            ),
+          ] else if (trailingValue != null) ...[
+            const SizedBox(width: 8),
+            Text(
+              trailingValue!,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.w700,
+                fontFeatures: const [FontFeature.tabularFigures()],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+
+    if (onTap == null) return row;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: row,
+      ),
+    );
+  }
+}
+
+/// Stitch-styled bottom navigation item descriptor.
+class CoraBottomNavItem {
+  final IconData icon;
+  final IconData? activeIcon;
+  final String label;
+
+  const CoraBottomNavItem({
+    required this.icon,
+    this.activeIcon,
+    required this.label,
+  });
+}
+
+/// Clean Stitch-styled bottom navigation bar supporting 2.0x text scaling safely.
+class CoraStitchBottomNav extends StatelessWidget {
+  final int currentIndex;
+  final List<CoraBottomNavItem> items;
+  final ValueChanged<int> onTap;
+
+  const CoraStitchBottomNav({
+    super.key,
+    required this.currentIndex,
+    required this.items,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: tokens.surface,
+        border: Border(top: BorderSide(color: tokens.borderSubtle)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+          child: Row(
+            children: List.generate(items.length, (i) {
+              final item = items[i];
+              final selected = i == currentIndex;
+              final color =
+                  selected ? tokens.primaryDeep : tokens.textSecondary;
+              return Expanded(
+                child: InkWell(
+                  onTap: () => onTap(i),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          selected ? (item.activeIcon ?? item.icon) : item.icon,
+                          size: 22,
+                          color: color,
+                        ),
+                        const SizedBox(height: 3),
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            item.label,
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: color,
+                                  fontWeight: selected
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+}

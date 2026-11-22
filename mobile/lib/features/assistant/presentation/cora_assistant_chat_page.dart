@@ -91,14 +91,25 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CoraMintStatusPill(
-                  label: 'Evidencia RAG • Triaje Determinista',
-                  icon: Icons.verified_user_outlined,
-                  variant: CoraStatusPillVariant.softMint,
+                const Wrap(
+                  spacing: 8,
+                  runSpacing: 6,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    CoraMintStatusPill(
+                      label: 'TRIAJE CLÍNICO AUTOMATIZADO',
+                      icon: Icons.verified_user_outlined,
+                      variant: CoraStatusPillVariant.softMint,
+                    ),
+                    CoraMintStatusPill(
+                      label: 'Protocolo Médico',
+                      variant: CoraStatusPillVariant.blush,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'Orientación educativa basada en evidencia científica (OMS, ACOG, FIGO, NAMS). No reemplaza una consulta médica.',
+                  'Orientación basada en evidencia científica (ACOG, SEGO, FIGO, OMS). No reemplaza una consulta médica.',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: tokens.textSecondary,
                       ),

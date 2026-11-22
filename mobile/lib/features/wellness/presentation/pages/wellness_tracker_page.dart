@@ -152,10 +152,17 @@ class _WellnessTrackerPageState extends ConsumerState<WellnessTrackerPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const CoraStitchPageHeader(
-              eyebrow: 'BIENESTAR INTEGRAL',
+              eyebrow: 'REGISTRO SOMÁTICO DIARIO',
               title: 'Balance Diario',
               eyebrowIcon: Icons.spa_outlined,
               mintEyebrow: true,
+            ),
+            const SizedBox(height: 12),
+            const CoraEditorialImageBanner(
+              assetPath: 'assets/images/home_follicular_editorial.jpg',
+              height: 92,
+              topBadge: 'VENTANA DE REGENERACIÓN',
+              bottomLeftBadge: 'Homeostasis & ritmo biológico',
             ),
             const SizedBox(height: 12),
             CoraSurfaceCard(

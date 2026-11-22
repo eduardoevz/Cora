@@ -137,10 +137,18 @@ class CoraNavigationDrawer extends StatelessWidget {
                       spacing: 8,
                       runSpacing: 6,
                       children: [
-                        IconButton(
-                          visualDensity: VisualDensity.compact,
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: const Icon(Icons.close_rounded, size: 20),
+                        Material(
+                          color: tokens.surface,
+                          shape: const CircleBorder(),
+                          child: IconButton(
+                            visualDensity: VisualDensity.compact,
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: Icon(
+                              Icons.close_rounded,
+                              size: 20,
+                              color: tokens.textPrimary,
+                            ),
+                          ),
                         ),
                         CoraMintStatusPill(
                           label: profile.currentLifeStage.label,

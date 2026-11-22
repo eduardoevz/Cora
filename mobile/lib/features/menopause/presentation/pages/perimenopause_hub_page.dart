@@ -54,6 +54,13 @@ class PerimenopauseHubPage extends ConsumerWidget {
                   'Seguimiento de variabilidad menstrual, síntomas vasomotores y salud cardiometabólica.',
               eyebrowIcon: Icons.waves_rounded,
             ),
+            const SizedBox(height: 12),
+            const CoraEditorialImageBanner(
+              assetPath: 'assets/images/perimenopause_protocol_hero.jpg',
+              height: 106,
+              topBadge: 'PROTOCOLO BIOLÓGICO ACTIVO',
+              bottomLeftBadge: 'Criterios clínicos STRAW+10',
+            ),
             const SizedBox(height: 14),
             // 1. Inviolable Postmenopausal Bleeding Banner
             bleedingAsync.when(

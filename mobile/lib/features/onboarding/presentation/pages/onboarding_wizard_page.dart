@@ -202,13 +202,25 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bienvenida a Cora'),
         leading: _currentStep > 0
-            ? IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: _previousStep,
+            ? Padding(
+                padding: const EdgeInsets.all(8),
+                child: Material(
+                  color: tokens.surfaceContainer,
+                  shape: const CircleBorder(),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_rounded,
+                      size: 20,
+                      color: tokens.textPrimary,
+                    ),
+                    onPressed: _previousStep,
+                  ),
+                ),
               )
             : null,
       ),
@@ -237,13 +249,16 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8,
+          runSpacing: 4,
           children: [
             Text(
               'PASO ${_currentStep + 1} DE $total',
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: tokens.accentPrimary,
+                color: tokens.primaryDeep,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 1.0,
                 fontFeatures: const [FontFeature.tabularFigures()],
@@ -259,22 +274,7 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
           ],
         ),
         const SizedBox(height: 8),
-        Row(
-          children: List.generate(total, (index) {
-            final isActive = index <= _currentStep;
-            return Expanded(
-              child: Container(
-                height: 6,
-                margin: EdgeInsets.only(right: index < total - 1 ? 8 : 0),
-                decoration: BoxDecoration(
-                  color:
-                      isActive ? tokens.accentPrimary : tokens.surfaceSecondary,
-                  borderRadius: BorderRadius.circular(999),
-                ),
-              ),
-            );
-          }),
-        ),
+        CoraTonalStepProgressBar(progress: (_currentStep + 1) / total),
       ],
     );
   }
@@ -599,6 +599,13 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
           onPreviousPeriodChanged: (range) {
             setState(() => _previousPeriod = range);
           },
+        ),
+        const SizedBox(height: 14),
+        const CoraEditorialImageBanner(
+          assetPath: 'assets/images/onboarding_calibration_banner.jpg',
+          height: 96,
+          topBadge: 'ALGORITMO CORA',
+          bottomLeftBadge: 'Sincronización basal adaptativa',
         ),
         const SizedBox(height: 14),
         CoraBlushInsetBox(

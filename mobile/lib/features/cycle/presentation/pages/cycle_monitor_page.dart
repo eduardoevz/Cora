@@ -123,6 +123,13 @@ class CycleMonitorPage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
+                const CoraEditorialImageBanner(
+                  assetPath: 'assets/images/cycle_physiology_card.jpg',
+                  height: 102,
+                  topBadge: 'ALINEACIÓN FISIOLÓGICA',
+                  bottomLeftBadge: 'Monitoreo con Validación FIGO',
+                ),
+                const SizedBox(height: 16),
                 // 1. Rueda de 4 Fases
                 CoraSurfaceCard(
                   padding: const EdgeInsets.all(20),

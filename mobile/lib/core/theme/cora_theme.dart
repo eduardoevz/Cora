@@ -44,6 +44,12 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
   final Color verified;
   final Color verifiedSurface;
   final Color verifiedMint;
+  final Color surfaceContainer;
+  final Color surfaceContainerHigh;
+  final Color surfaceContainerHighest;
+  final Color outlineVariant;
+  final Color primaryFixed;
+  final Color tertiaryFixed;
   final bool isHighLegibility;
 
   const CoraColorTokens({
@@ -74,6 +80,12 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
     this.verified = const Color(0xFF006B57),
     this.verifiedSurface = const Color(0xFFDDF7EE),
     this.verifiedMint = const Color(0xFF9EF3D9),
+    this.surfaceContainer = const Color(0xFFFCE9EF),
+    this.surfaceContainerHigh = const Color(0xFFF6E3E9),
+    this.surfaceContainerHighest = const Color(0xFFF1DEE3),
+    this.outlineVariant = const Color(0xFFDCBFC5),
+    this.primaryFixed = const Color(0xFFFFD9E0),
+    this.tertiaryFixed = const Color(0xFFECDCFF),
     required this.isHighLegibility,
   });
 
@@ -136,6 +148,12 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
     verified: Color(0xFF004D40),
     verifiedSurface: Color(0xFFEBF8F5),
     verifiedMint: Color(0xFFEBF8F5),
+    surfaceContainer: Color(0xFFF3F3F3),
+    surfaceContainerHigh: Color(0xFFEAEAEA),
+    surfaceContainerHighest: Color(0xFFE0E0E0),
+    outlineVariant: Color(0xFF1F1F1F),
+    primaryFixed: Color(0xFFFCEBF1),
+    tertiaryFixed: Color(0xFFF3EEFA),
     isHighLegibility: true,
   );
 
@@ -213,6 +231,12 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
     Color? verified,
     Color? verifiedSurface,
     Color? verifiedMint,
+    Color? surfaceContainer,
+    Color? surfaceContainerHigh,
+    Color? surfaceContainerHighest,
+    Color? outlineVariant,
+    Color? primaryFixed,
+    Color? tertiaryFixed,
     bool? isHighLegibility,
   }) {
     return CoraColorTokens(
@@ -244,6 +268,13 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
       verified: verified ?? this.verified,
       verifiedSurface: verifiedSurface ?? this.verifiedSurface,
       verifiedMint: verifiedMint ?? this.verifiedMint,
+      surfaceContainer: surfaceContainer ?? this.surfaceContainer,
+      surfaceContainerHigh: surfaceContainerHigh ?? this.surfaceContainerHigh,
+      surfaceContainerHighest:
+          surfaceContainerHighest ?? this.surfaceContainerHighest,
+      outlineVariant: outlineVariant ?? this.outlineVariant,
+      primaryFixed: primaryFixed ?? this.primaryFixed,
+      tertiaryFixed: tertiaryFixed ?? this.tertiaryFixed,
       isHighLegibility: isHighLegibility ?? this.isHighLegibility,
     );
   }
@@ -300,6 +331,21 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
           verifiedSurface,
       verifiedMint:
           Color.lerp(verifiedMint, other.verifiedMint, t) ?? verifiedMint,
+      surfaceContainer:
+          Color.lerp(surfaceContainer, other.surfaceContainer, t) ??
+              surfaceContainer,
+      surfaceContainerHigh:
+          Color.lerp(surfaceContainerHigh, other.surfaceContainerHigh, t) ??
+              surfaceContainerHigh,
+      surfaceContainerHighest: Color.lerp(
+              surfaceContainerHighest, other.surfaceContainerHighest, t) ??
+          surfaceContainerHighest,
+      outlineVariant:
+          Color.lerp(outlineVariant, other.outlineVariant, t) ?? outlineVariant,
+      primaryFixed:
+          Color.lerp(primaryFixed, other.primaryFixed, t) ?? primaryFixed,
+      tertiaryFixed:
+          Color.lerp(tertiaryFixed, other.tertiaryFixed, t) ?? tertiaryFixed,
       isHighLegibility: t < 0.5 ? isHighLegibility : other.isHighLegibility,
     );
   }
@@ -345,6 +391,7 @@ class CoraTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
+      fontFamily: 'PlusJakartaSans',
       colorScheme: colorScheme,
       scaffoldBackgroundColor: tokens.canvas,
       extensions: const <ThemeExtension<dynamic>>[tokens],
@@ -356,9 +403,10 @@ class CoraTheme {
         surfaceTintColor: Colors.transparent,
         centerTitle: false,
         titleTextStyle: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 20,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           letterSpacing: -0.3,
         ),
       ),
@@ -385,58 +433,81 @@ class CoraTheme {
       ),
       textTheme: TextTheme(
         headlineLarge: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 28,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           letterSpacing: -0.5,
           height: 1.2,
         ),
         headlineMedium: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 24,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           letterSpacing: -0.4,
           height: 1.25,
         ),
         headlineSmall: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 20,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           letterSpacing: -0.3,
           height: 1.3,
         ),
         titleMedium: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 16,
           fontWeight: FontWeight.w600,
           height: 1.35,
         ),
         titleSmall: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 14,
           fontWeight: FontWeight.w600,
           height: 1.35,
         ),
         bodyLarge: TextStyle(
+          fontFamily: 'PlusJakartaSans',
           color: tokens.textPrimary,
           fontSize: 16,
           height: 1.5,
         ),
         bodyMedium: TextStyle(
+          fontFamily: 'PlusJakartaSans',
           color: tokens.textPrimary,
           fontSize: 14,
           height: 1.45,
         ),
         bodySmall: TextStyle(
+          fontFamily: 'PlusJakartaSans',
           color: tokens.textSecondary,
           fontSize: 12,
           height: 1.4,
         ),
         labelLarge: TextStyle(
+          fontFamily: 'PlusJakartaSans',
           color: tokens.textPrimary,
           fontSize: 14,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.1,
+        ),
+        labelMedium: TextStyle(
+          fontFamily: 'PlusJakartaSans',
+          color: tokens.textPrimary,
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.1,
+        ),
+        labelSmall: TextStyle(
+          fontFamily: 'PlusJakartaSans',
+          color: tokens.textSecondary,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.4,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -508,6 +579,7 @@ class CoraTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
+      fontFamily: 'PlusJakartaSans',
       scaffoldBackgroundColor: tokens.canvas,
       extensions: const <ThemeExtension<dynamic>>[tokens],
       colorScheme: ColorScheme.light(
@@ -526,9 +598,10 @@ class CoraTheme {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         titleTextStyle: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 22,
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w700,
         ),
       ),
       drawerTheme: DrawerThemeData(
@@ -549,41 +622,48 @@ class CoraTheme {
       ),
       textTheme: TextTheme(
         headlineLarge: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 32,
           fontWeight: FontWeight.w800,
           height: 1.2,
         ),
         headlineMedium: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 26,
           fontWeight: FontWeight.w800,
           height: 1.25,
         ),
         headlineSmall: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 22,
           fontWeight: FontWeight.w800,
           height: 1.3,
         ),
         titleMedium: TextStyle(
+          fontFamily: 'Outfit',
           color: tokens.textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w700,
         ),
         bodyLarge: TextStyle(
+          fontFamily: 'PlusJakartaSans',
           color: tokens.textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w500,
           height: 1.6,
         ),
         bodyMedium: TextStyle(
+          fontFamily: 'PlusJakartaSans',
           color: tokens.textPrimary,
           fontSize: 16,
           fontWeight: FontWeight.w500,
           height: 1.5,
         ),
         bodySmall: TextStyle(
+          fontFamily: 'PlusJakartaSans',
           color: tokens.textSecondary,
           fontSize: 15,
           fontWeight: FontWeight.w500,

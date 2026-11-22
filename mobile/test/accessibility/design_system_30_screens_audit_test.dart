@@ -93,6 +93,13 @@ void main() {
         reason: 'Expected exactly 30 *_page.dart screens under lib/features/',
       );
 
+      final stdTheme = CoraTheme.standard();
+      final highTheme = CoraTheme.highLegibility();
+      expect(stdTheme.textTheme.headlineLarge?.fontFamily, 'Outfit');
+      expect(stdTheme.textTheme.bodyMedium?.fontFamily, 'PlusJakartaSans');
+      expect(highTheme.textTheme.headlineLarge?.fontFamily, 'Outfit');
+      expect(highTheme.textTheme.bodyMedium?.fontFamily, 'PlusJakartaSans');
+
       final legacyColorsRegex = RegExp(
         r'Colors\.(pink|purple|indigo|teal|blue|orange|amber|deepPurple|red|green|brown|grey)\b',
       );

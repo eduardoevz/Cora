@@ -134,6 +134,13 @@ class _PostpartumRecoveryPageState
                   'Monitoreo diario de loquios, temperatura materna, cicatrización y piso pélvico.',
               eyebrowIcon: Icons.child_care_rounded,
             ),
+            const SizedBox(height: 12),
+            const CoraEditorialImageBanner(
+              assetPath: 'assets/images/onboarding_calibration_banner.jpg',
+              height: 92,
+              topBadge: 'RECUPERACIÓN PUERPERAL',
+              bottomLeftBadge: 'Acompañamiento físico y emocional',
+            ),
             const SizedBox(height: 14),
             // Days Postpartum Selector
             CoraSurfaceCard(

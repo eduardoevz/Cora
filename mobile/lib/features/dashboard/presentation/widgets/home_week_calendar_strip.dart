@@ -126,67 +126,38 @@ class HomeWeekCalendarStrip extends StatelessWidget {
               final marker = dayProj?.dayMarker ?? CalendarDayMarker.none;
               final isToday = _isSameDay(date, referenceToday);
 
-              Color fill = tokens.canvas;
+              Color fill = Colors.transparent;
               Color fg = tokens.textPrimary;
-              BoxBorder border = Border.all(color: tokens.borderSubtle);
-              Widget? indicator;
+              BoxBorder? border;
+              Color dotColor = Colors.transparent;
 
               switch (marker) {
                 case CalendarDayMarker.recordedPeriod:
-                  fill = tokens.menstrual;
-                  fg = Colors.white;
-                  border = Border.all(color: tokens.menstrual, width: 1.5);
-                  indicator = const Icon(
-                    Icons.water_drop_rounded,
-                    size: 9,
-                    color: Colors.white,
-                  );
+                  fill = isToday ? tokens.menstrual : Colors.transparent;
+                  fg = isToday ? Colors.white : tokens.menstrual;
+                  dotColor = isToday ? Colors.white : tokens.menstrual;
                   break;
                 case CalendarDayMarker.predictedPeriod:
-                  fill = tokens.menstrualSurface;
-                  fg = tokens.menstrual;
-                  border = Border.all(color: tokens.menstrual, width: 1.3);
+                  dotColor = tokens.menstrual.withValues(alpha: 0.7);
                   break;
                 case CalendarDayMarker.fertileWindow:
-                  fill = tokens.ovulatorySurface;
-                  fg = tokens.ovulatory;
-                  border = Border.all(color: tokens.ovulatory, width: 1.3);
+                  dotColor = tokens.ovulatory;
                   break;
                 case CalendarDayMarker.predictedOvulation:
-                  fill = tokens.ovulatorySurface;
-                  fg = tokens.ovulatory;
-                  border = Border.all(color: tokens.ovulatory, width: 2.0);
-                  indicator = Container(
-                    width: 6,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: tokens.ovulatory,
-                      shape: BoxShape.circle,
-                    ),
-                  );
+                  dotColor = tokens.ovulatory;
                   break;
                 case CalendarDayMarker.spotting:
-                  fill = tokens.follicularSurface;
-                  fg = tokens.follicular;
-                  border = Border.all(color: tokens.follicular, width: 1.2);
+                  dotColor = tokens.follicular;
                   break;
                 case CalendarDayMarker.none:
-                  if (isToday) {
-                    fill = tokens.accentSurface;
-                    fg = tokens.accentPrimary;
-                    border =
-                        Border.all(color: tokens.accentPrimary, width: 1.8);
-                  }
                   break;
               }
 
-              if (isToday && marker != CalendarDayMarker.none) {
+              if (isToday && marker != CalendarDayMarker.recordedPeriod) {
+                fill = tokens.surfaceContainer;
+                fg = tokens.primaryDeep;
                 border = Border.all(
-                  color: marker == CalendarDayMarker.recordedPeriod
-                      ? tokens.textPrimary
-                      : tokens.accentPrimary,
-                  width: 2.2,
-                );
+                    color: tokens.primaryDeep.withValues(alpha: 0.35));
               }
 
               return Expanded(
@@ -219,11 +190,13 @@ class HomeWeekCalendarStrip extends StatelessWidget {
                                 .textTheme
                                 .labelSmall
                                 ?.copyWith(
-                                  color:
-                                      marker == CalendarDayMarker.recordedPeriod
-                                          ? Colors.white
-                                          : tokens.textSecondary,
-                                  fontWeight: FontWeight.w700,
+                                  color: marker ==
+                                              CalendarDayMarker
+                                                  .recordedPeriod &&
+                                          isToday
+                                      ? Colors.white
+                                      : tokens.textSecondary,
+                                  fontWeight: FontWeight.w600,
                                 ),
                           ),
                           const SizedBox(height: 4),
@@ -234,16 +207,22 @@ class HomeWeekCalendarStrip extends StatelessWidget {
                                 .bodyMedium
                                 ?.copyWith(
                               color: fg,
-                              fontWeight: FontWeight.w800,
+                              fontWeight:
+                                  isToday ? FontWeight.w800 : FontWeight.w600,
                               fontFeatures: const [
                                 FontFeature.tabularFigures(),
                               ],
                             ),
                           ),
-                          if (indicator != null) ...[
-                            const SizedBox(height: 2),
-                            indicator,
-                          ],
+                          const SizedBox(height: 4),
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              color: dotColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
                         ],
                       ),
                     ),

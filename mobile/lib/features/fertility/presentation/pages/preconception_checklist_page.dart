@@ -106,6 +106,13 @@ class _PreconceptionChecklistPageState
             ],
           ),
         ),
+        const SizedBox(height: 12),
+        const CoraEditorialImageBanner(
+          assetPath: 'assets/images/welcome_botanical_hero.jpg',
+          height: 92,
+          topBadge: 'VENTANA DE FERTILIDAD',
+          bottomLeftBadge: 'Preparación ovocitaria 90–120 días',
+        ),
         const SizedBox(height: 16),
         _buildChecklistItem(
           context,

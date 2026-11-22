@@ -40,6 +40,13 @@ class FirstPeriodAndBodyGuidePage extends StatelessWidget {
                 'Tu cuerpo está madurando a su propio ritmo. Tener preguntas o dudas es completamente normal y aquí estamos para acompañarte.',
             eyebrowIcon: Icons.favorite_outline_rounded,
           ),
+          const SizedBox(height: 12),
+          const CoraEditorialImageBanner(
+            assetPath: 'assets/images/onboarding_calibration_banner.jpg',
+            height: 98,
+            topBadge: 'COMPRENDER LA FISIOLOGÍA',
+            bottomLeftBadge: 'Tu cuerpo encuentra su compás único',
+          ),
           const SizedBox(height: 14),
           CoraSurfaceCard(
             padding: const EdgeInsets.all(16),

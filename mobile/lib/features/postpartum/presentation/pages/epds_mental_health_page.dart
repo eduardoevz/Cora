@@ -241,6 +241,8 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
               icon: Icons.spa_outlined,
               phaseKey: 'follicular',
             ),
+            const SizedBox(height: 10),
+            const CoraTonalStepProgressBar(progress: 1.0),
             const SizedBox(height: 16),
 
             // Inviolable Emergency Banner: Self Harm Risk (Item 10 > 0)
@@ -390,26 +392,20 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Material(
-                        color: Colors.transparent,
-                        child: Column(
-                          children: List.generate(options.length, (optIdx) {
-                            return RadioListTile<int>(
+                      Column(
+                        children: List.generate(options.length, (optIdx) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: CoraSelectableOptionCard(
                               key: Key('option_${qId}_$optIdx'),
-                              contentPadding: EdgeInsets.zero,
-                              title: Text(options[optIdx]),
-                              value: optIdx,
-                              // ignore: deprecated_member_use
-                              groupValue: selectedIndex,
-                              // ignore: deprecated_member_use
-                              onChanged: (val) {
-                                if (val != null) {
-                                  setState(() => _responses[qId] = val);
-                                }
+                              title: options[optIdx],
+                              selected: selectedIndex == optIdx,
+                              onTap: () {
+                                setState(() => _responses[qId] = optIdx);
                               },
-                            );
-                          }),
-                        ),
+                            ),
+                          );
+                        }),
                       ),
                     ],
                   ),

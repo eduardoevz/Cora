@@ -48,8 +48,17 @@ class _ClinicalLibraryPageState extends State<ClinicalLibraryPage> {
       ),
       body: Column(
         children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
+            child: CoraStitchPageHeader(
+              eyebrow: 'EVIDENCIA CIENTÍFICA CURADA',
+              title: 'Guías Médicas Cora',
+              eyebrowIcon: Icons.menu_book_outlined,
+              mintEyebrow: true,
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             child: TextField(
               key: const Key('library_search_field'),
               decoration: const InputDecoration(

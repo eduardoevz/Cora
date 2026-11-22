@@ -159,6 +159,49 @@ class _PillboxAndTreatmentsPageState
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (err, stack) => Text('Error al cargar regímenes: $err'),
             ),
+            const SizedBox(height: 16),
+            CoraBlushInsetBox(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: ['L', 'M', 'X', 'J', 'V', 'S', 'D']
+                    .asMap()
+                    .entries
+                    .map((e) {
+                  final active = e.key < 5;
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        e.value,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: tokens.textSecondary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: active ? tokens.verified : tokens.surface,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color:
+                                active ? tokens.verified : tokens.borderSubtle,
+                          ),
+                        ),
+                        child: Icon(
+                          active ? Icons.check_rounded : Icons.schedule_rounded,
+                          size: 13,
+                          color: active ? Colors.white : tokens.textSecondary,
+                        ),
+                      ),
+                    ],
+                  );
+                }).toList(),
+              ),
+            ),
           ],
         ),
       ),
