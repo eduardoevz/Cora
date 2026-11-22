@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/features/cycle/domain/entities/cycle_entities.dart';
 import 'package:mobile/features/cycle/presentation/pages/chronic_conditions_tracker_page.dart';
+import 'package:mobile/features/cycle/presentation/pages/menstrual_calendar_page.dart';
 import 'package:mobile/features/cycle/presentation/providers/cycle_providers.dart';
+import 'package:mobile/features/cycle/presentation/providers/menstrual_calendar_providers.dart';
 import 'package:mobile/features/cycle/presentation/widgets/cycle_wheel_painter.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 
@@ -50,11 +52,29 @@ class CycleMonitorPage extends ConsumerWidget {
     final overviewAsync = ref.watch(
       cycleOverviewProvider((userId: user.id, referenceDate: null)),
     );
+    final monthProjectionAsync =
+        ref.watch(activeCalendarMonthProjectionProvider);
+    final estimatedTotalDays =
+        monthProjectionAsync.valueOrNull?.estimatedCycleLengthDays ??
+            user.onboardingContext.typicalCycleLengthDays ??
+            28;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Monitoreo del Ciclo'),
         actions: [
+          IconButton(
+            key: const Key('open_menstrual_calendar_button'),
+            icon: const Icon(Icons.calendar_month_rounded),
+            tooltip: 'Calendario Menstrual',
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const MenstrualCalendarPage(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.tune),
             tooltip: 'SOP y Endometriosis',
@@ -96,7 +116,7 @@ class CycleMonitorPage extends ConsumerWidget {
                         size: const Size(240, 240),
                         painter: CycleWheelPainter(
                           currentDay: currentDay,
-                          totalDays: 28,
+                          totalDays: estimatedTotalDays,
                           phase: status.currentPhase,
                           isHormonallyManaged: status.isHormonallyManaged,
                         ),
