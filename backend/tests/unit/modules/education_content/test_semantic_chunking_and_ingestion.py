@@ -206,8 +206,11 @@ async def test_retrieve_top_k_chunks_postgresql_uses_pgvector() -> None:
     from unittest.mock import AsyncMock, MagicMock
 
     from sqlalchemy.dialects import postgresql
+    from sqlalchemy.engine import Dialect
+    from sqlalchemy.sql.elements import ClauseElement
 
-    executed_statements: list[object] = []
+    pg_dialect: Dialect = postgresql.dialect()  # type: ignore[no-untyped-call]
+    executed_statements: list[ClauseElement] = []
 
     count_result = MagicMock()
     count_result.scalar_one.return_value = 6
@@ -215,12 +218,14 @@ async def test_retrieve_top_k_chunks_postgresql_uses_pgvector() -> None:
     vector_result = MagicMock()
     vector_result.all.return_value = []
 
-    async def fake_execute(stmt: object, *_args: object, **_kwargs: object) -> object:
+    async def fake_execute(
+        stmt: ClauseElement, *_args: object, **_kwargs: object
+    ) -> object:
         executed_statements.append(stmt)
         return count_result if len(executed_statements) == 1 else vector_result
 
     session = MagicMock()
-    session.get_bind.return_value = MagicMock(dialect=postgresql.dialect())
+    session.get_bind.return_value = MagicMock(dialect=pg_dialect)
     session.execute = AsyncMock(side_effect=fake_execute)
 
     embedding_adapter = GeminiEmbeddingAdapter(
@@ -240,7 +245,5 @@ async def test_retrieve_top_k_chunks_postgresql_uses_pgvector() -> None:
 
     assert chunks == []
     assert len(executed_statements) == 2
-    compiled_sql = str(
-        executed_statements[1].compile(dialect=postgresql.dialect())  # type: ignore[attr-defined]
-    )
+    compiled_sql = str(executed_statements[1].compile(dialect=pg_dialect))
     assert "<=>" in compiled_sql
