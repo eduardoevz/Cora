@@ -1,6 +1,7 @@
 """Gemini 3.8 Flash clinical assistant adapter enforcing store=False."""
 
 import json
+import logging
 from typing import Any, Literal
 
 from google import genai
@@ -12,6 +13,8 @@ from app.modules.rag_assistant.domain.entities import (
     ClinicalCitation,
     GroundedAssistantResult,
 )
+
+logger = logging.getLogger(__name__)
 
 CLINICAL_SYSTEM_INSTRUCTION = (
     "Eres Cora, asistente de orientación educativa en salud femenina integral "
@@ -74,6 +77,13 @@ class GeminiClinicalAssistantAdapter:
         evidence_chunks: list[ClinicalEvidenceChunk],
     ) -> GroundedAssistantResult:
         """Call client.interactions.create with store=False and build citations."""
+        if self._is_prescription_or_diagnosis_jailbreak(user_query):
+            return self._build_deterministic_grounded_fallback(
+                user_query=user_query,
+                clinical_memory=clinical_memory,
+                evidence_chunks=evidence_chunks,
+            )
+
         prompt = self._build_grounded_prompt(
             user_query=user_query,
             clinical_memory=clinical_memory,
@@ -81,19 +91,27 @@ class GeminiClinicalAssistantAdapter:
         )
 
         if self._client is not None:
-            interaction = self._client.interactions.create(
-                model=self._model_name,
-                input=prompt,
-                system_instruction=CLINICAL_SYSTEM_INSTRUCTION,
-                response_format=StructuredLLMOutputSchema.model_json_schema(),
-                response_mime_type="application/json",
-                store=False,
-            )
-            raw_text = self._extract_text(interaction)
-            if raw_text:
-                return self._parse_structured_response(
-                    raw_text=raw_text,
-                    evidence_chunks=evidence_chunks,
+            try:
+                interaction = self._client.interactions.create(
+                    model=self._model_name,
+                    input=prompt,
+                    system_instruction=CLINICAL_SYSTEM_INSTRUCTION,
+                    response_format=StructuredLLMOutputSchema.model_json_schema(),
+                    response_mime_type="application/json",
+                    api_version="v1beta",
+                    timeout=15.0,
+                    store=False,
+                )
+                raw_text = self._extract_text(interaction)
+                if raw_text:
+                    return self._parse_structured_response(
+                        raw_text=raw_text,
+                        evidence_chunks=evidence_chunks,
+                    )
+            except Exception as exc:
+                logger.warning(
+                    "Gemini interaction failed (%s); using fallback.",
+                    type(exc).__name__,
                 )
 
         return self._build_deterministic_grounded_fallback(
@@ -124,6 +142,9 @@ class GeminiClinicalAssistantAdapter:
 
     @staticmethod
     def _extract_text(interaction: Any) -> str:
+        output_text = getattr(interaction, "output_text", None)
+        if isinstance(output_text, str) and output_text.strip():
+            return output_text.strip()
         direct_text = getattr(interaction, "text", None)
         if isinstance(direct_text, str) and direct_text.strip():
             return direct_text.strip()
