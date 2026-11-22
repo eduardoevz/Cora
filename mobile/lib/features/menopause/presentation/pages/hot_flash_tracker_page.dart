@@ -89,7 +89,8 @@ class _HotFlashTrackerPageState extends ConsumerState<HotFlashTrackerPage> {
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(child: CoraSectionLabel(title: 'Momento y Tipo')),
+                      Flexible(
+                          child: CoraSectionLabel(title: 'Momento y Tipo')),
                       CoraMintStatusPill(
                         label: 'STRAW+10',
                         variant: CoraStatusPillVariant.blush,

@@ -340,8 +340,8 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
       surfaceContainerHighest: Color.lerp(
               surfaceContainerHighest, other.surfaceContainerHighest, t) ??
           surfaceContainerHighest,
-      outlineVariant: Color.lerp(outlineVariant, other.outlineVariant, t) ??
-          outlineVariant,
+      outlineVariant:
+          Color.lerp(outlineVariant, other.outlineVariant, t) ?? outlineVariant,
       primaryFixed:
           Color.lerp(primaryFixed, other.primaryFixed, t) ?? primaryFixed,
       tertiaryFixed:

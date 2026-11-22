@@ -1722,12 +1722,14 @@ class CoraEditorialImageBanner extends StatelessWidget {
                           ),
                           child: Text(
                             topBadge!,
-                            style:
-                                Theme.of(context).textTheme.labelSmall?.copyWith(
-                                      color: tokens.primaryDeep,
-                                      fontWeight: FontWeight.w700,
-                                      letterSpacing: 0.4,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: tokens.primaryDeep,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: 0.4,
+                                ),
                           ),
                         )
                       else
@@ -1750,7 +1752,8 @@ class CoraEditorialImageBanner extends StatelessWidget {
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: tokens.surface.withValues(alpha: 0.92),
+                                    color:
+                                        tokens.surface.withValues(alpha: 0.92),
                                     borderRadius: BorderRadius.circular(999),
                                   ),
                                   child: Text(
@@ -1771,7 +1774,8 @@ class CoraEditorialImageBanner extends StatelessWidget {
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: tokens.surface.withValues(alpha: 0.92),
+                                    color:
+                                        tokens.surface.withValues(alpha: 0.92),
                                     borderRadius: BorderRadius.circular(999),
                                   ),
                                   child: Text(
@@ -1951,7 +1955,8 @@ class CoraStitchBottomNav extends StatelessWidget {
             children: List.generate(items.length, (i) {
               final item = items[i];
               final selected = i == currentIndex;
-              final color = selected ? tokens.primaryDeep : tokens.textSecondary;
+              final color =
+                  selected ? tokens.primaryDeep : tokens.textSecondary;
               return Expanded(
                 child: InkWell(
                   onTap: () => onTap(i),

@@ -187,9 +187,8 @@ class _PillboxAndTreatmentsPageState
                           color: active ? tokens.verified : tokens.surface,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: active
-                                ? tokens.verified
-                                : tokens.borderSubtle,
+                            color:
+                                active ? tokens.verified : tokens.borderSubtle,
                           ),
                         ),
                         child: Icon(

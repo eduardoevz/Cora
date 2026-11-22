@@ -156,7 +156,8 @@ class HomeWeekCalendarStrip extends StatelessWidget {
               if (isToday && marker != CalendarDayMarker.recordedPeriod) {
                 fill = tokens.surfaceContainer;
                 fg = tokens.primaryDeep;
-                border = Border.all(color: tokens.primaryDeep.withValues(alpha: 0.35));
+                border = Border.all(
+                    color: tokens.primaryDeep.withValues(alpha: 0.35));
               }
 
               return Expanded(
@@ -189,11 +190,12 @@ class HomeWeekCalendarStrip extends StatelessWidget {
                                 .textTheme
                                 .labelSmall
                                 ?.copyWith(
-                                  color:
-                                      marker == CalendarDayMarker.recordedPeriod &&
-                                              isToday
-                                          ? Colors.white
-                                          : tokens.textSecondary,
+                                  color: marker ==
+                                              CalendarDayMarker
+                                                  .recordedPeriod &&
+                                          isToday
+                                      ? Colors.white
+                                      : tokens.textSecondary,
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
