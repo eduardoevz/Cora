@@ -259,5 +259,89 @@ void main() {
         expect(size.height, greaterThanOrEqualTo(56));
       },
     );
+
+    testWidgets(
+      'CoraPageHeroBanner, CoraEmptyStateCard, CoraAlertBanner, and CoraSegmentedSliderCard render cleanly at 2.0x TextScaler',
+      (tester) async {
+        var emptyTapped = false;
+        var sliderValue = 4.0;
+
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: CoraTheme.standard(),
+            home: MediaQuery(
+              data: const MediaQueryData(
+                size: Size(360, 800),
+                textScaler: TextScaler.linear(2.0),
+              ),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const CoraPageHeroBanner(
+                        eyebrow: 'Módulo clínico',
+                        title: 'Bienestar Diario',
+                        subtitle:
+                            'Seguimiento integral de sueño e hidratación.',
+                        badgeLabel: 'Activo',
+                        phaseKey: 'follicular',
+                        icon: Icons.spa_outlined,
+                      ),
+                      const SizedBox(height: 12),
+                      const CoraAlertBanner(
+                        title: 'Patrón preventivo FIGO',
+                        description:
+                            'Variación detectada en tus últimos ciclos.',
+                        recommendation: 'Comenta este registro con tu médica.',
+                        isUrgent: false,
+                      ),
+                      const SizedBox(height: 12),
+                      const CoraAlertBanner(
+                        title: 'Atención prioritaria',
+                        description: 'Contacta a tu línea de apoyo clínico.',
+                        isUrgent: true,
+                      ),
+                      const SizedBox(height: 12),
+                      CoraSegmentedSliderCard(
+                        title: 'Nivel de energía',
+                        value: sliderValue,
+                        min: 1,
+                        max: 10,
+                        divisions: 9,
+                        valueLabel: '4/10',
+                        onChanged: (v) => sliderValue = v,
+                      ),
+                      const SizedBox(height: 12),
+                      CoraEmptyStateCard(
+                        icon: Icons.folder_open_rounded,
+                        title: 'Sin estudios aún',
+                        subtitle: 'Agrega tu primer resultado clínico.',
+                        actionLabel: 'Agregar estudio',
+                        onAction: () => emptyTapped = true,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        expect(find.text('Bienestar Diario'), findsOneWidget);
+        expect(find.text('Patrón preventivo FIGO'), findsOneWidget);
+        expect(find.text('Atención prioritaria'), findsOneWidget);
+        expect(find.text('4/10'), findsOneWidget);
+        expect(find.text('Sin estudios aún'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+
+        await tester.ensureVisible(find.text('Agregar estudio'));
+        await tester.tap(find.text('Agregar estudio'));
+        expect(emptyTapped, isTrue);
+      },
+    );
   });
 }

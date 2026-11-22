@@ -446,3 +446,361 @@ class CoraMetricTile extends StatelessWidget {
     );
   }
 }
+
+/// Editorial page hero banner for feature hubs and secondary flows.
+class CoraPageHeroBanner extends StatelessWidget {
+  final String eyebrow;
+  final String title;
+  final String subtitle;
+  final String? badgeLabel;
+  final String phaseKey;
+  final IconData? icon;
+  final Widget? trailing;
+
+  const CoraPageHeroBanner({
+    super.key,
+    required this.eyebrow,
+    required this.title,
+    required this.subtitle,
+    this.badgeLabel,
+    this.phaseKey = 'neutral',
+    this.icon,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    final pair = phaseKey == 'neutral'
+        ? CoraPhaseColorPair(
+            foreground: tokens.accentPrimary,
+            background: tokens.accentSurface,
+            border: tokens.borderSubtle,
+          )
+        : tokens.phaseColors(phaseKey);
+
+    return CoraSurfaceCard(
+      padding: const EdgeInsets.all(18),
+      borderRadius: 22,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 6,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (icon != null) ...[
+                    Container(
+                      width: 34,
+                      height: 34,
+                      decoration: BoxDecoration(
+                        color: pair.background,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: pair.border),
+                      ),
+                      child: Icon(icon, size: 18, color: pair.foreground),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
+                  Flexible(
+                    child: Text(
+                      eyebrow.toUpperCase(),
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: tokens.textSecondary,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 1.0,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+              if (badgeLabel != null)
+                CoraPhasePill(
+                  phaseKey: phaseKey == 'neutral' ? 'follicular' : phaseKey,
+                  label: badgeLabel!,
+                ),
+              if (trailing != null) trailing!,
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: tokens.textPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: tokens.textSecondary,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Composed empty state with tinted circular badge, warm guidance, and optional CTA.
+class CoraEmptyStateCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final String? actionLabel;
+  final VoidCallback? onAction;
+
+  const CoraEmptyStateCard({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    this.actionLabel,
+    this.onAction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+
+    return CoraSurfaceCard(
+      padding: const EdgeInsets.all(22),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: tokens.accentSurface,
+              shape: BoxShape.circle,
+              border: Border.all(color: tokens.borderSubtle),
+            ),
+            child: Icon(icon, size: 24, color: tokens.accentPrimary),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: tokens.textPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: tokens.textSecondary,
+                ),
+          ),
+          if (actionLabel != null && onAction != null) ...[
+            const SizedBox(height: 16),
+            CoraPrimaryActionButton(
+              label: actionLabel!,
+              onPressed: onAction,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// Clinical alert banner calibrated for preventive FIGO/ACOG/STRAW+10 or urgent red flags.
+class CoraAlertBanner extends StatelessWidget {
+  final String title;
+  final String description;
+  final String? recommendation;
+  final bool isUrgent;
+  final IconData? icon;
+  final Widget? trailingAction;
+
+  const CoraAlertBanner({
+    super.key,
+    required this.title,
+    required this.description,
+    this.recommendation,
+    this.isUrgent = false,
+    this.icon,
+    this.trailingAction,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    final fg = isUrgent ? tokens.alertUrgent : tokens.alertPreventive;
+    final bg =
+        isUrgent ? tokens.alertUrgentSurface : tokens.alertPreventiveSurface;
+    final resolvedIcon = icon ??
+        (isUrgent ? Icons.warning_amber_rounded : Icons.info_outline_rounded);
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: fg.withValues(alpha: tokens.isHighLegibility ? 1.0 : 0.45),
+          width: tokens.isHighLegibility ? 2.0 : 1.2,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(resolvedIcon, color: fg, size: 22),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: fg,
+                            fontWeight: FontWeight.w800,
+                          ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: tokens.textPrimary,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          if (recommendation != null && recommendation!.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                color: tokens.surface,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: tokens.borderSubtle),
+              ),
+              child: Text(
+                recommendation!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: tokens.textPrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ),
+          ],
+          if (trailingAction != null) ...[
+            const SizedBox(height: 12),
+            trailingAction!,
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// Tactile slider container with tabular figure indicator for biomedical scales.
+class CoraSegmentedSliderCard extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final double value;
+  final double min;
+  final double max;
+  final int divisions;
+  final String valueLabel;
+  final ValueChanged<double> onChanged;
+  final Key? sliderKey;
+
+  const CoraSegmentedSliderCard({
+    super.key,
+    required this.title,
+    this.subtitle,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.divisions,
+    required this.valueLabel,
+    required this.onChanged,
+    this.sliderKey,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+
+    return CoraSurfaceCard(
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
+      borderRadius: 18,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 4,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: tokens.textPrimary,
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: tokens.accentSurface,
+                  borderRadius: BorderRadius.circular(999),
+                  border: Border.all(color: tokens.borderSubtle),
+                ),
+                child: Text(
+                  valueLabel,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: tokens.accentPrimary,
+                    fontWeight: FontWeight.w800,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (subtitle != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              subtitle!,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: tokens.textSecondary,
+                  ),
+            ),
+          ],
+          Slider(
+            key: sliderKey,
+            value: value.clamp(min, max),
+            min: min,
+            max: max,
+            divisions: divisions,
+            activeColor: tokens.accentPrimary,
+            inactiveColor: tokens.surfaceSecondary,
+            label: valueLabel,
+            onChanged: onChanged,
+          ),
+        ],
+      ),
+    );
+  }
+}
