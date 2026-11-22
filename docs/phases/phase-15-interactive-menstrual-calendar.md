@@ -31,9 +31,9 @@
 - Create: `mobile/lib/features/cycle/presentation/providers/menstrual_calendar_providers.dart`
 - Test: `mobile/test/features/cycle/menstrual_calendar_providers_test.dart`
 
-- [ ] **Step 1: Escribir tests unitarios de providers (cambio de mes, selección de día, recálculo inmediato tras registrar sangrado o síntomas)**
-- [ ] **Step 2: Implementar `menstrual_calendar_providers.dart`**
-- [ ] **Step 3: Verificar tests en verde y commit**
+- [x] **Step 1: Escribir tests unitarios de providers (cambio de mes, selección de día, recálculo inmediato tras registrar sangrado o síntomas)**
+- [x] **Step 2: Implementar `menstrual_calendar_providers.dart`**
+- [x] **Step 3: Verificar tests en verde y commit**
   - `git commit -m "feat(mobile-ui): add reactive Riverpod providers for monthly menstrual calendar projection"`
 
 ---
@@ -48,11 +48,11 @@
 - Modify: `mobile/lib/features/cycle/presentation/pages/cycle_monitor_page.dart`
 - Test: `mobile/test/features/cycle/menstrual_calendar_page_test.dart`
 
-- [ ] **Step 1: Escribir widget tests completos para `MenstrualCalendarPage`: visualización de últimos 2 periodos + predicción próximo periodo + ovulación + ventana fértil, navegación de meses, tap en un día y detalle diario, registro de sangrado/síntomas desde el calendario con recálculo en vivo, adaptación de las 7 etapas y prueba WCAG `TextScaler.linear(2.0)`**
-- [ ] **Step 2: Ejecutar `flutter test test/features/cycle/menstrual_calendar_page_test.dart` y verificar fallo inicial (Red)**
-- [ ] **Step 3: Implementar `MenstrualMonthGrid`, `CalendarDayDetailPanel`, `CalendarDayLogSheet`, `MenstrualCalendarPage` y enlazarla con `CycleMonitorPage` (incluyendo `totalDays` dinámico en `CycleWheelPainter`)**
-- [ ] **Step 4: Ejecutar `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos` y `flutter test` completo en verde (Green)**
-- [ ] **Step 5: Commit**
+- [x] **Step 1: Escribir widget tests completos para `MenstrualCalendarPage`: visualización de últimos 2 periodos + predicción próximo periodo + ovulación + ventana fértil, navegación de meses, tap en un día y detalle diario, registro de sangrado/síntomas desde el calendario con recálculo en vivo, adaptación de las 7 etapas y prueba WCAG `TextScaler.linear(2.0)`**
+- [x] **Step 2: Ejecutar `flutter test test/features/cycle/menstrual_calendar_page_test.dart` y verificar fallo inicial (Red)**
+- [x] **Step 3: Implementar `MenstrualMonthGrid`, `CalendarDayDetailPanel`, `CalendarDayLogSheet`, `MenstrualCalendarPage` y enlazarla con `CycleMonitorPage` (incluyendo `totalDays` dinámico en `CycleWheelPainter`)**
+- [x] **Step 4: Ejecutar `dart format --output=none --set-exit-if-changed .`, `flutter analyze --fatal-infos` y `flutter test` completo en verde (Green)**
+- [x] **Step 5: Commit**
   - `git commit -m "feat(mobile-ui): build interactive MenstrualCalendarPage with daily predictions and 7-stage adaptation"`
 
 ---
