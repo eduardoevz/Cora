@@ -30,11 +30,11 @@
 - Create: `backend/app/modules/clinical_tracking/domain/services/cycle_calendar_projection_service.py`
 - Test: `backend/tests/unit/clinical_tracking/test_cycle_calendar_projection.py`
 
-- [ ] **Step 1: Escribir tests unitarios parametrizados para `CycleRegularity`, calibración por duración declarada (`24–38d`, regular vs irregular, adolescencia `21–45d`, SOP, método hormonal) y proyección mensual completa (`RECORDED_PERIOD`, `PREDICTED_PERIOD`, `FERTILE_WINDOW`, `PREDICTED_OVULATION`, meses futuros y adaptación de las 7 etapas)**
-- [ ] **Step 2: Ejecutar pytest y confirmar fallo (Red)**
-- [ ] **Step 3: Implementar cambios de dominio puro y `CycleCalendarProjectionService`**
-- [ ] **Step 4: Verificar `ruff`, `mypy --strict app scripts tests` y pytest en `< 50 ms` (Green)**
-- [ ] **Step 5: Commit**
+- [x] **Step 1: Escribir tests unitarios parametrizados para `CycleRegularity`, calibración por duración declarada (`24–38d`, regular vs irregular, adolescencia `21–45d`, SOP, método hormonal) y proyección mensual completa (`RECORDED_PERIOD`, `PREDICTED_PERIOD`, `FERTILE_WINDOW`, `PREDICTED_OVULATION`, meses futuros y adaptación de las 7 etapas)**
+- [x] **Step 2: Ejecutar pytest y confirmar fallo (Red)**
+- [x] **Step 3: Implementar cambios de dominio puro y `CycleCalendarProjectionService`**
+- [x] **Step 4: Verificar `ruff`, `mypy --strict app scripts tests` y pytest en `< 50 ms` (Green)**
+- [x] **Step 5: Commit**
   - `git commit -m "feat(clinical-tracking): add menstrual baseline calibration and monthly calendar projection domain service"`
 
 ---
@@ -43,7 +43,7 @@
 
 **Files:**
 - Create: `backend/alembic/versions/0014_add_menstrual_baseline_to_profiles.py`
-- Modify: `backend/app/modules/identity/infrastructure/orm/models.py`
+- Modify: `backend/app/modules/identity/infrastructure/orm/identity_models.py`
 - Modify: `backend/app/modules/identity/infrastructure/entrypoints/schemas.py`
 - Modify: `backend/app/modules/identity/infrastructure/entrypoints/router.py`
 - Create: `backend/app/modules/clinical_tracking/application/use_cases/seed_initial_periods_use_case.py`
@@ -53,11 +53,11 @@
 - Modify: `contracts/openapi.json`
 - Test: `backend/tests/integration/clinical_tracking/test_cycle_calendar_and_seed_api.py`
 
-- [ ] **Step 1: Crear migración Alembic reversible `0014` y mapear campos en `UserProfileORM`**
-- [ ] **Step 2: Implementar `SeedInitialPeriodsUseCase`, `GetCycleCalendarUseCase`, endpoint `GET /api/v1/cycles/calendar` y `POST /api/v1/cycles/initial-periods`, además de soporte de `initial_periods` en `PUT /api/v1/identity/onboarding`**
-- [ ] **Step 3: Exportar y verificar contrato SDD (`contracts/openapi.json`)**
-- [ ] **Step 4: Escribir y ejecutar tests de integración y contrato en verde**
-- [ ] **Step 5: Commits atómicos (`db(identity): ...` y `feat(clinical-tracking): ...`)**
+- [x] **Step 1: Crear migración Alembic reversible `0014` y mapear campos en `UserProfileModel`**
+- [x] **Step 2: Implementar `SeedInitialPeriodsUseCase`, `GetCycleCalendarUseCase`, endpoint `GET /api/v1/cycles/calendar` y `POST /api/v1/cycles/initial-periods`, además de soporte de `initial_periods` en `PUT /api/v1/identity/onboarding`**
+- [x] **Step 3: Exportar y verificar contrato SDD (`contracts/openapi.json`)**
+- [x] **Step 4: Escribir y ejecutar tests de integración y contrato en verde**
+- [x] **Step 5: Commits atómicos (`db(identity): ...` y `feat(clinical-tracking): ...`)**
 
 ---
 
@@ -75,11 +75,11 @@
 - Modify: `mobile/lib/features/cycle/data/cycle_repository_impl.dart`
 - Test: `mobile/test/features/cycle/cycle_calendar_engine_test.dart`
 
-- [ ] **Step 1: Escribir tests unitarios en Dart puro para `CycleCalendarEngine` (mismos casos clínicos que Python: 2 periodos iniciales, ciclo 26/28/33 días, regular vs irregular, adolescencia, SOP, hormonal, embarazo, posparto, perimenopausia STRAW+10, plenitud sénior)**
-- [ ] **Step 2: Implementar migración segura en `AppDatabase` (`build_runner`), `CycleCalendarEngine` y `CycleRepositoryImpl.seedInitialPeriods()` eliminando el `const cycleLen = 28` fijo**
-- [ ] **Step 3: Verificar `dart format`, `flutter analyze --fatal-infos` y `flutter test` en verde**
-- [ ] **Step 4: Commit**
-  - `git commit -m "feat(mobile-sync): add Drift menstrual baseline migration and offline-first CycleCalendarEngine"`
+- [x] **Step 1: Escribir tests unitarios en Dart puro para `CycleCalendarEngine` (mismos casos clínicos que Python: 2 periodos iniciales, ciclo 26/28/33 días, regular vs irregular, adolescencia, SOP, hormonal, embarazo, posparto, perimenopausia STRAW+10, plenitud sénior)**
+- [x] **Step 2: Implementar migración segura en `AppDatabase` (`build_runner`), `CycleCalendarEngine` y `CycleRepositoryImpl.seedInitialPeriods()` eliminando el `const cycleLen = 28` fijo**
+- [x] **Step 3: Verificar `dart format`, `flutter analyze --fatal-infos` y `flutter test` en verde**
+- [x] **Step 4: Commit**
+  - `git commit -m "feat(mobile-sync): add Drift v11 menstrual baseline migration and offline-first CycleCalendarEngine"`
 
 ---
 
@@ -90,10 +90,10 @@
 - Modify: `mobile/lib/features/onboarding/presentation/pages/onboarding_wizard_page.dart`
 - Test: `mobile/test/features/onboarding/onboarding_menstrual_baseline_test.dart`
 
-- [ ] **Step 1: Escribir widget tests verificando selección interactiva de Periodo 1 y Periodo 2 (inicio y fin), cálculo automático de duración del ciclo, selector Regular/Irregular, salto respetuoso en Embarazo/Plenitud Sénior y siembra automática en Drift al completar**
-- [ ] **Step 2: Implementar `InitialPeriodsCalendarPicker` e integrarlo en `OnboardingWizardPage` siguiendo `docs/DESIGN.md`**
-- [ ] **Step 3: Actualizar tests existentes de onboarding si es necesario y verificar `flutter test` completo en verde**
-- [ ] **Step 4: Commit**
+- [x] **Step 1: Escribir widget tests verificando selección interactiva de Periodo 1 y Periodo 2 (inicio y fin), cálculo automático de duración del ciclo, selector Regular/Irregular, salto respetuoso en Embarazo/Plenitud Sénior y siembra automática en Drift al completar**
+- [x] **Step 2: Implementar `InitialPeriodsCalendarPicker` e integrarlo en `OnboardingWizardPage` siguiendo `docs/DESIGN.md`**
+- [x] **Step 3: Actualizar tests existentes de onboarding si es necesario y verificar `flutter test` completo en verde**
+- [x] **Step 4: Commit**
   - `git commit -m "feat(mobile-ui): add interactive 2-period calendar baseline step to onboarding wizard"`
 
 ---
