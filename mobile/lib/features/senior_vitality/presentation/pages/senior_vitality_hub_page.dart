@@ -52,6 +52,13 @@ class SeniorVitalityHubPage extends ConsumerWidget {
                     eyebrowIcon: Icons.health_and_safety_outlined,
                   ),
                   const SizedBox(height: 12),
+                  const CoraEditorialImageBanner(
+                    assetPath: 'assets/images/senior_vitality_outdoor.jpg',
+                    height: 110,
+                    topBadge: 'ALTA LEGIBILIDAD WCAG AAA',
+                    bottomLeftBadge: 'Bienestar y autonomía sénior',
+                  ),
+                  const SizedBox(height: 12),
                   CoraSurfaceCard(
                     padding: const EdgeInsets.all(14),
                     child: Column(
@@ -66,6 +73,35 @@ class SeniorVitalityHubPage extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(999),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 4,
+                                child: Container(
+                                  height: 8,
+                                  color: tokens.verified,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  height: 8,
+                                  color: tokens.primaryDeep,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  height: 8,
+                                  color: tokens.alertUrgent,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10),
                         const Wrap(
                           spacing: 6,
                           runSpacing: 6,
