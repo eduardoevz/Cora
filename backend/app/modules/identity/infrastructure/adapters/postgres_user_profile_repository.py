@@ -71,6 +71,15 @@ class PostgresUserProfileRepository(IUserProfileRepository):
             existing.clinical_context_completed = (
                 profile.onboarding_context.clinical_context_completed
             )
+            existing.cycle_regularity = (
+                profile.onboarding_context.cycle_regularity.value
+            )
+            existing.typical_cycle_length_days = (
+                profile.onboarding_context.typical_cycle_length_days
+            )
+            existing.typical_bleeding_duration_days = (
+                profile.onboarding_context.typical_bleeding_duration_days
+            )
             existing.onboarding_completed = profile.onboarding_completed
             existing.enabled_modules = list(profile.enabled_modules)
             existing.updated_at = profile.updated_at

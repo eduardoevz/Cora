@@ -40,6 +40,9 @@ class CompleteOnboardingUseCase:
             hormonal_method=command.hormonal_method,
             diagnosed_conditions=command.diagnosed_conditions,
             clinical_context_completed=command.clinical_context_completed,
+            cycle_regularity=command.cycle_regularity,
+            typical_cycle_length_days=command.typical_cycle_length_days,
+            typical_bleeding_duration_days=command.typical_bleeding_duration_days,
         )
 
         initial_modules = LifeStageStateMachine.get_default_modules_for_stage(

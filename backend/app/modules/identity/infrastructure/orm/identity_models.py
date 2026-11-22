@@ -16,6 +16,7 @@ from app.modules.identity.domain.value_objects.life_stage import (
     TransitionReason,
 )
 from app.modules.identity.domain.value_objects.onboarding_context import (
+    CycleRegularity,
     DiagnosedCondition,
     HormonalMethod,
     OnboardingContext,
@@ -46,6 +47,15 @@ class UserProfileModel(Base):
     diagnosed_conditions: Mapped[list[str]] = mapped_column(JSONType, nullable=False)
     clinical_context_completed: Mapped[bool] = mapped_column(
         Boolean, default=False, nullable=False
+    )
+    cycle_regularity: Mapped[str] = mapped_column(
+        String(30), default=CycleRegularity.UNSURE.value, nullable=False
+    )
+    typical_cycle_length_days: Mapped[int | None] = mapped_column(
+        Integer, nullable=True
+    )
+    typical_bleeding_duration_days: Mapped[int | None] = mapped_column(
+        Integer, nullable=True
     )
     onboarding_completed: Mapped[bool] = mapped_column(
         Boolean, default=True, nullable=False
@@ -81,6 +91,9 @@ class UserProfileModel(Base):
             hormonal_method=method,
             diagnosed_conditions=conditions,
             clinical_context_completed=self.clinical_context_completed,
+            cycle_regularity=CycleRegularity(self.cycle_regularity),
+            typical_cycle_length_days=self.typical_cycle_length_days,
+            typical_bleeding_duration_days=self.typical_bleeding_duration_days,
         )
 
         domain_transitions = [t.to_domain() for t in self.transitions]
@@ -122,6 +135,13 @@ class UserProfileModel(Base):
             ],
             clinical_context_completed=(
                 profile.onboarding_context.clinical_context_completed
+            ),
+            cycle_regularity=profile.onboarding_context.cycle_regularity.value,
+            typical_cycle_length_days=(
+                profile.onboarding_context.typical_cycle_length_days
+            ),
+            typical_bleeding_duration_days=(
+                profile.onboarding_context.typical_bleeding_duration_days
             ),
             onboarding_completed=profile.onboarding_completed,
             enabled_modules=list(profile.enabled_modules),

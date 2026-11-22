@@ -7,6 +7,7 @@ from app.modules.identity.domain.value_objects.life_stage import (
     TransitionReason,
 )
 from app.modules.identity.domain.value_objects.onboarding_context import (
+    CycleRegularity,
     DiagnosedCondition,
     HormonalMethod,
     PrimaryIntent,
@@ -25,6 +26,9 @@ class CompleteOnboardingCommand:
     hormonal_method: HormonalMethod | None = None
     diagnosed_conditions: Sequence[DiagnosedCondition] = field(default_factory=tuple)
     clinical_context_completed: bool = False
+    cycle_regularity: CycleRegularity = CycleRegularity.UNSURE
+    typical_cycle_length_days: int | None = None
+    typical_bleeding_duration_days: int | None = None
 
 
 @dataclass(frozen=True)
