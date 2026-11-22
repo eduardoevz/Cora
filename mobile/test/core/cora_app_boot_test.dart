@@ -46,8 +46,14 @@ void main() {
       await tester.tap(find.byKey(const Key('next_step_button')));
       await tester.pumpAndSettle();
 
-      // Step 3: Complete onboarding
-      await tester.tap(find.byKey(const Key('complete_onboarding_button')));
+      // Step 3: Advance clinical context -> Step 4 Menstrual baseline
+      await tester.tap(find.byKey(const Key('layer_three_continue_button')));
+      await tester.pumpAndSettle();
+
+      // Step 4: Complete onboarding
+      final finishBtn = find.byKey(const Key('complete_onboarding_button'));
+      await tester.ensureVisible(finishBtn);
+      await tester.tap(finishBtn);
       await tester.pumpAndSettle();
 
       // Must transition automatically to DynamicHomeDashboardPage

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile/core/auth/auth_providers.dart';
+import 'package:mobile/features/cycle/presentation/providers/cycle_providers.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
+import 'package:mobile/features/onboarding/presentation/widgets/initial_periods_calendar_picker.dart';
 import 'package:uuid/uuid.dart';
 
 class OnboardingWizardPage extends ConsumerStatefulWidget {
@@ -31,6 +33,26 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   // Layer 3
   HormonalMethod _selectedHormonalMethod = HormonalMethod.none;
   final Set<DiagnosedCondition> _selectedConditions = {};
+  bool _clinicalContextCompleted = false;
+
+  // Layer 4 (Menstrual Baseline for menstrual life stages)
+  CycleRegularity _selectedRegularity = CycleRegularity.unsure;
+  int _typicalCycleLengthDays = 28;
+  InitialPeriodRangeEntity? _latestPeriod;
+  InitialPeriodRangeEntity? _previousPeriod;
+
+  bool get _isMenstrualStage =>
+      _selectedLifeStage == LifeStage.adolescence ||
+      _selectedLifeStage == LifeStage.regularAdult ||
+      _selectedLifeStage == LifeStage.conceptionSearch ||
+      _selectedLifeStage == LifeStage.perimenopause;
+
+  int get _totalSteps => _isMenstrualStage ? 4 : 3;
+
+  List<InitialPeriodRangeEntity> get _collectedInitialPeriods => [
+        if (_previousPeriod != null) _previousPeriod!,
+        if (_latestPeriod != null) _latestPeriod!,
+      ];
 
   @override
   void dispose() {
@@ -75,7 +97,10 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
     }
   }
 
-  UserProfileEntity _buildProfile({required bool clinicalCompleted}) {
+  UserProfileEntity _buildProfile({
+    required bool clinicalCompleted,
+    required bool includePeriods,
+  }) {
     final birthYear = int.tryParse(_birthYearController.text.trim()) ?? 1996;
     final repo = ref.read(identityRepositoryProvider);
     final defaultModules = repo.getDefaultModulesForStage(_selectedLifeStage);
@@ -83,6 +108,15 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
     final authUid = ref.read(coraAuthServiceProvider).currentUser?.uid;
     final resolvedUid =
         (authUid != null && authUid.isNotEmpty) ? authUid : const Uuid().v4();
+
+    final periods = _isMenstrualStage && includePeriods
+        ? _collectedInitialPeriods
+        : const <InitialPeriodRangeEntity>[];
+    final inferredBleeding = periods.isEmpty
+        ? null
+        : (periods.map((e) => e.bleedingDurationDays).reduce((a, b) => a + b) /
+                periods.length)
+            .round();
 
     return UserProfileEntity(
       id: const Uuid().v4(),
@@ -98,6 +132,14 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
         diagnosedConditions:
             clinicalCompleted ? _selectedConditions.toList() : const [],
         clinicalContextCompleted: clinicalCompleted,
+        cycleRegularity: _isMenstrualStage
+            ? _selectedRegularity
+            : CycleRegularity.notApplicable,
+        typicalCycleLengthDays:
+            _isMenstrualStage ? _typicalCycleLengthDays : null,
+        typicalBleedingDurationDays:
+            _isMenstrualStage ? inferredBleeding : null,
+        initialPeriods: periods,
       ),
       enabledModules: defaultModules,
       createdAt: DateTime.now(),
@@ -105,11 +147,17 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
     );
   }
 
-  Future<void> _complete({required bool clinicalCompleted}) async {
+  Future<void> _complete({
+    required bool clinicalCompleted,
+    bool includePeriods = true,
+  }) async {
     if (_isCompleting) return;
     setState(() => _isCompleting = true);
     try {
-      final profile = _buildProfile(clinicalCompleted: clinicalCompleted);
+      final profile = _buildProfile(
+        clinicalCompleted: clinicalCompleted,
+        includePeriods: includePeriods,
+      );
 
       if (widget.onCompleted != null) {
         ref.read(activeUserProfileProvider.notifier).state = profile;
@@ -118,6 +166,23 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
         final saved = await ref
             .read(identityRepositoryProvider)
             .completeOnboarding(profile);
+        if (_isMenstrualStage &&
+            includePeriods &&
+            profile.onboardingContext.initialPeriods.isNotEmpty) {
+          await ref.read(cycleRepositoryProvider).seedInitialPeriods(
+                userId: saved.id,
+                periods: profile.onboardingContext.initialPeriods,
+                cycleRegularity: saved.onboardingContext.cycleRegularity,
+                typicalCycleLengthDays:
+                    saved.onboardingContext.typicalCycleLengthDays,
+                typicalBleedingDurationDays:
+                    saved.onboardingContext.typicalBleedingDurationDays,
+                syncRemote: false,
+              );
+          ref.invalidate(cycleOverviewProvider);
+          ref.invalidate(cycleHistoryProvider);
+          ref.invalidate(cycleCalendarMonthProvider);
+        }
         ref.read(activeUserProfileProvider.notifier).state = saved;
       }
     } catch (e) {
@@ -156,6 +221,7 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
               if (_currentStep == 0) _buildLayer1(),
               if (_currentStep == 1) _buildLayer2(),
               if (_currentStep == 2) _buildLayer3(),
+              if (_currentStep == 3) _buildLayer4(),
             ],
           ),
         ),
@@ -164,13 +230,14 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
   }
 
   Widget _buildProgressIndicator() {
+    final total = _totalSteps;
     return Row(
-      children: List.generate(3, (index) {
+      children: List.generate(total, (index) {
         final isActive = index <= _currentStep;
         return Expanded(
           child: Container(
             height: 6,
-            margin: EdgeInsets.only(right: index < 2 ? 8 : 0),
+            margin: EdgeInsets.only(right: index < total - 1 ? 8 : 0),
             decoration: BoxDecoration(
               color: isActive
                   ? Theme.of(context).colorScheme.primary
@@ -392,8 +459,89 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
         ),
         const SizedBox(height: 20),
         ElevatedButton(
+          key: Key(
+            _isMenstrualStage
+                ? 'layer_three_continue_button'
+                : 'complete_onboarding_button',
+          ),
+          onPressed: _isMenstrualStage
+              ? () {
+                  setState(() {
+                    _clinicalContextCompleted = true;
+                    _currentStep = 3;
+                  });
+                }
+              : () => _complete(clinicalCompleted: true),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+          ),
+          child: Text(
+            _isMenstrualStage ? 'Continuar' : 'Finalizar Configuración',
+          ),
+        ),
+        const SizedBox(height: 10),
+        OutlinedButton(
+          key: const Key('skip_layer_three_button'),
+          onPressed: _isMenstrualStage
+              ? () {
+                  setState(() {
+                    _clinicalContextCompleted = false;
+                    _currentStep = 3;
+                  });
+                }
+              : () => _complete(clinicalCompleted: false),
+          style: OutlinedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+          ),
+          child: const Text('Responder después'),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLayer4() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'Tu Línea Base Menstrual',
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Selecciona tus últimos 2 periodos en el calendario y tu regularidad para proyectar tu próximo ciclo, ventana fértil y ovulación.',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 16),
+        InitialPeriodsCalendarPicker(
+          lifeStage: _selectedLifeStage,
+          diagnosedConditions: _selectedConditions.toList(),
+          regularity: _selectedRegularity,
+          cycleLengthDays: _typicalCycleLengthDays,
+          latestPeriod: _latestPeriod,
+          previousPeriod: _previousPeriod,
+          onRegularityChanged: (reg) {
+            setState(() => _selectedRegularity = reg);
+          },
+          onCycleLengthChanged: (len) {
+            setState(() => _typicalCycleLengthDays = len);
+          },
+          onLatestPeriodChanged: (range) {
+            setState(() => _latestPeriod = range);
+          },
+          onPreviousPeriodChanged: (range) {
+            setState(() => _previousPeriod = range);
+          },
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
           key: const Key('complete_onboarding_button'),
-          onPressed: () => _complete(clinicalCompleted: true),
+          onPressed: () => _complete(
+            clinicalCompleted: _clinicalContextCompleted,
+            includePeriods: true,
+          ),
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 14),
           ),
@@ -401,12 +549,15 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
         ),
         const SizedBox(height: 10),
         OutlinedButton(
-          key: const Key('skip_layer_three_button'),
-          onPressed: () => _complete(clinicalCompleted: false),
+          key: const Key('skip_layer_four_button'),
+          onPressed: () => _complete(
+            clinicalCompleted: _clinicalContextCompleted,
+            includePeriods: false,
+          ),
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 14),
           ),
-          child: const Text('Responder después'),
+          child: const Text('No recuerdo mis fechas por ahora'),
         ),
       ],
     );

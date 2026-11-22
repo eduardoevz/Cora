@@ -71,8 +71,16 @@ void main() {
       await tester.tap(find.byKey(const Key('next_step_button')));
       await tester.pumpAndSettle();
 
-      // 3. Onboarding Layer 3
+      // 3. Onboarding Layer 3 -> Layer 4
       expect(find.text('Contexto Clínico Base'), findsOneWidget);
+      final layer3Btn = find.byKey(const Key('layer_three_continue_button'));
+      await tester.ensureVisible(layer3Btn);
+      await tester.pumpAndSettle();
+      await tester.tap(layer3Btn);
+      await tester.pumpAndSettle();
+
+      // 4. Onboarding Layer 4 -> Complete
+      expect(find.text('Tu Línea Base Menstrual'), findsOneWidget);
       final completeBtn = find.byKey(const Key('complete_onboarding_button'));
       await tester.ensureVisible(completeBtn);
       await tester.pumpAndSettle();

@@ -94,8 +94,14 @@ void main() {
     expect(find.text('Contexto Clínico Base'), findsOneWidget);
     expect(find.byKey(const Key('skip_layer_three_button')), findsOneWidget);
 
-    // Tap "Responder después"
+    // Tap "Responder después" on Step 3 -> advances to Step 4 for regularAdult
     await tester.tap(find.byKey(const Key('skip_layer_three_button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Tu Línea Base Menstrual'), findsOneWidget);
+    final finishBtn = find.byKey(const Key('skip_layer_four_button'));
+    await tester.ensureVisible(finishBtn);
+    await tester.tap(finishBtn);
     await tester.pumpAndSettle();
 
     expect(onboardingCompleted, isTrue);

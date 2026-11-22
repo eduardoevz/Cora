@@ -128,7 +128,12 @@ void main() {
       await tester.tap(find.byKey(const Key('next_step_button')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('complete_onboarding_button')));
+      await tester.tap(find.byKey(const Key('layer_three_continue_button')));
+      await tester.pumpAndSettle();
+
+      final finishBtn = find.byKey(const Key('complete_onboarding_button'));
+      await tester.ensureVisible(finishBtn);
+      await tester.tap(finishBtn);
       await tester.pumpAndSettle();
 
       expect(find.text('Hola, Ana'), findsOneWidget);
