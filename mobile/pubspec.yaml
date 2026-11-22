@@ -1,7 +1,7 @@
 name: mobile
 description: Aplicación móvil Cora — Cuidado integral y preventivo de la salud femenina Offline-First.
 publish_to: "none"
-version: 1.0.0+1
+version: 3.0.0+3
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
