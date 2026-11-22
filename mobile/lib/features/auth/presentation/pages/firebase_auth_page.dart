@@ -100,7 +100,7 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 440),
               child: Form(
@@ -108,23 +108,13 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Center(
-                      child: Container(
-                        width: 68,
-                        height: 68,
-                        decoration: BoxDecoration(
-                          color: tokens.accentSurface,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: tokens.borderSubtle),
-                        ),
-                        child: Icon(
-                          Icons.spa_outlined,
-                          size: 32,
-                          color: tokens.primaryDeep,
-                        ),
+                    const Center(
+                      child: CoraBrandEmblem(
+                        size: 56,
+                        iconSize: 28,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     Text(
                       'PLATAFORMA GINECOLÓGICA & ENDOCRINA',
                       textAlign: TextAlign.center,
@@ -134,7 +124,7 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                         letterSpacing: 0.7,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2),
                     Text(
                       'Cora',
                       textAlign: TextAlign.center,
@@ -143,17 +133,17 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 4),
                     Text(
                       _isRegisterMode
                           ? 'Crea tu cuenta protegida para acompañar tu salud en cada etapa.'
                           : 'Salud hormonal y reproductiva con rigor clínico y respeto absoluto por tus ritmos biológicos.',
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyMedium?.copyWith(
+                      style: theme.textTheme.bodySmall?.copyWith(
                         color: tokens.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 14),
                     if (_errorMessage != null) ...[
                       KeyedSubtree(
                         key: const Key('auth_error_banner'),
@@ -267,7 +257,14 @@ class _FirebaseAuthPageState extends ConsumerState<FirebaseAuthPage> {
                         'Continuar en Modo Local (Offline-First)',
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12),
+                    const CoraEditorialImageBanner(
+                      assetPath: 'assets/images/welcome_botanical_hero.jpg',
+                      height: 112,
+                      bottomLeftBadge: '• Evidencia Biomédica',
+                      bottomRightBadge: 'Edición 2026',
+                    ),
+                    const SizedBox(height: 14),
                     CoraSurfaceCard(
                       backgroundColor: tokens.blushInset,
                       padding: const EdgeInsets.all(16),

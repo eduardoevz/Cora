@@ -119,6 +119,13 @@ class _ModulePreferencesPageState extends ConsumerState<ModulePreferencesPage> {
               variant: CoraStatusPillVariant.blush,
             ),
           ),
+          const SizedBox(height: 12),
+          const CoraEditorialImageBanner(
+            assetPath: 'assets/images/cycle_physiology_card.jpg',
+            height: 100,
+            topBadge: 'SINERGIA ENDÓCRINA',
+            bottomLeftBadge: 'Adaptación fisiológica continua',
+          ),
           const SizedBox(height: 16),
           ..._availableModules.entries.map((entry) {
             final isEnabled = _enabledModules.contains(entry.key);

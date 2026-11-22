@@ -31,8 +31,14 @@ class HomePhaseEducationCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const CoraEditorialImageBanner(
+            assetPath: 'assets/images/home_follicular_editorial.jpg',
+            height: 124,
+            topBadge: 'GUÍA CLÍNICA DEL DÍA',
+            bottomLeftBadge: 'Lectura clínica • 3 min',
+          ),
+          const SizedBox(height: 14),
           CoraSectionLabel(
-            eyebrow: 'GUÍA CLÍNICA DEL DÍA',
             title: 'Acerca de tu periodo y fase actual',
             actionLabel: 'Biblioteca',
             onActionTap: onOpenLibrary,

@@ -1666,120 +1666,134 @@ class CoraEditorialImageBanner extends StatelessWidget {
     final tokens = CoraTheme.tokensOf(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(18),
-      child: SizedBox(
-        height: height,
-        width: double.infinity,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.asset(
-              assetPath,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [tokens.blushInset, tokens.surfaceContainer],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: height),
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  assetPath,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [tokens.blushInset, tokens.surfaceContainer],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    tokens.textPrimary.withValues(alpha: 0.08),
-                    tokens.textPrimary.withValues(alpha: 0.42),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        tokens.textPrimary.withValues(alpha: 0.08),
+                        tokens.textPrimary.withValues(alpha: 0.42),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (topBadge != null)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: tokens.surface.withValues(alpha: 0.92),
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                      child: Text(
-                        topBadge!,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              color: tokens.primaryDeep,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.4,
-                            ),
-                      ),
-                    )
-                  else
-                    const SizedBox.shrink(),
-                  if (overlayContent != null)
-                    overlayContent!
-                  else if (bottomLeftBadge != null || bottomRightBadge != null)
-                    Wrap(
-                      alignment: WrapAlignment.spaceBetween,
-                      spacing: 8,
-                      runSpacing: 6,
-                      children: [
-                        if (bottomLeftBadge != null)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: tokens.surface.withValues(alpha: 0.92),
-                              borderRadius: BorderRadius.circular(999),
-                            ),
-                            child: Text(
-                              bottomLeftBadge!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    color: tokens.verified,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                            ),
+              ConstrainedBox(
+                constraints: BoxConstraints(minHeight: height),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (topBadge != null)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
                           ),
-                        if (bottomRightBadge != null)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: tokens.surface.withValues(alpha: 0.92),
-                              borderRadius: BorderRadius.circular(999),
-                            ),
-                            child: Text(
-                              bottomRightBadge!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelSmall
-                                  ?.copyWith(
-                                    color: tokens.textPrimary,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
+                          decoration: BoxDecoration(
+                            color: tokens.surface.withValues(alpha: 0.92),
+                            borderRadius: BorderRadius.circular(999),
                           ),
-                      ],
-                    ),
-                ],
+                          child: Text(
+                            topBadge!,
+                            style:
+                                Theme.of(context).textTheme.labelSmall?.copyWith(
+                                      color: tokens.primaryDeep,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 0.4,
+                                    ),
+                          ),
+                        )
+                      else
+                        const SizedBox.shrink(),
+                      if (overlayContent != null)
+                        overlayContent!
+                      else if (bottomLeftBadge != null ||
+                          bottomRightBadge != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceBetween,
+                            spacing: 8,
+                            runSpacing: 6,
+                            children: [
+                              if (bottomLeftBadge != null)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: tokens.surface.withValues(alpha: 0.92),
+                                    borderRadius: BorderRadius.circular(999),
+                                  ),
+                                  child: Text(
+                                    bottomLeftBadge!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: tokens.verified,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                  ),
+                                ),
+                              if (bottomRightBadge != null)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: tokens.surface.withValues(alpha: 0.92),
+                                    borderRadius: BorderRadius.circular(999),
+                                  ),
+                                  child: Text(
+                                    bottomRightBadge!,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: tokens.textPrimary,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
