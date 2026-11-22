@@ -3,7 +3,8 @@
 import math
 from datetime import UTC, datetime
 
-from sqlalchemy import delete, func, select
+from pgvector.sqlalchemy import Vector
+from sqlalchemy import delete, func, select, type_coerce
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.modules.education_content.application.ports.education_ports import (
@@ -175,9 +176,10 @@ class PostgresEducationRepository:
         dialect_name = bind.dialect.name if bind is not None else "sqlite"
 
         if dialect_name == "postgresql":
-            distance_expr = ClinicalEvidenceChunkORM.embedding.cosine_distance(
-                query_vec
-            )
+            distance_expr = type_coerce(
+                ClinicalEvidenceChunkORM.embedding,
+                Vector(768),
+            ).cosine_distance(query_vec)
             stmt = (
                 select(
                     ClinicalEvidenceChunkORM,

@@ -18,12 +18,14 @@ from app.modules.education_content.domain.services.semantic_chunker import (
 )
 from app.modules.education_content.infrastructure.adapters import (
     gemini_embedding_adapter,
+    postgres_education_repository,
 )
 from app.modules.education_content.infrastructure.seeds.corpus_loader import (
     load_curated_clinical_corpus,
 )
 
 GeminiEmbeddingAdapter = gemini_embedding_adapter.GeminiEmbeddingAdapter
+PostgresEducationRepository = postgres_education_repository.PostgresEducationRepository
 
 
 def test_semantic_chunker_preserves_headings_and_target_word_limits() -> None:
@@ -196,3 +198,49 @@ async def test_ingest_clinical_corpus_and_stage_filtering() -> None:
     list_uc = ListCuratedArticlesUseCase(repository=repo)
     adolescence_articles = await list_uc.execute(life_stage="adolescence")
     assert all("adolescence" in a.target_life_stages for a in adolescence_articles)
+
+
+@pytest.mark.asyncio
+async def test_retrieve_top_k_chunks_postgresql_uses_pgvector() -> None:
+    """Ensure EmbeddingVariant compiles pgvector cosine distance on PostgreSQL."""
+    from unittest.mock import AsyncMock, MagicMock
+
+    from sqlalchemy.dialects import postgresql
+
+    executed_statements: list[object] = []
+
+    count_result = MagicMock()
+    count_result.scalar_one.return_value = 6
+
+    vector_result = MagicMock()
+    vector_result.all.return_value = []
+
+    async def fake_execute(stmt: object, *_args: object, **_kwargs: object) -> object:
+        executed_statements.append(stmt)
+        return count_result if len(executed_statements) == 1 else vector_result
+
+    session = MagicMock()
+    session.get_bind.return_value = MagicMock(dialect=postgresql.dialect())
+    session.execute = AsyncMock(side_effect=fake_execute)
+
+    embedding_adapter = GeminiEmbeddingAdapter(
+        client=None,
+        model_name="gemini-embedding-2",
+        dimensions=768,
+    )
+    repo = PostgresEducationRepository(
+        session=session, embedding_generator=embedding_adapter
+    )
+
+    chunks = await repo.retrieve_top_k_chunks(
+        query_text="dolor menstrual leve",
+        life_stage="regular_adult",
+        top_k=3,
+    )
+
+    assert chunks == []
+    assert len(executed_statements) == 2
+    compiled_sql = str(
+        executed_statements[1].compile(dialect=postgresql.dialect())  # type: ignore[attr-defined]
+    )
+    assert "<=>" in compiled_sql
