@@ -78,12 +78,59 @@ class _ConceptionHubPageState extends ConsumerState<ConceptionHubPage> {
 
   Widget _buildHubContent(
       BuildContext context, String userId, FertilityCycleChartData data) {
+    final tokens = CoraTheme.tokensOf(context);
+    final bbtValues = data.dailyEntries
+        .where((e) => e.bbtCelsius != null)
+        .map((e) => e.bbtCelsius!)
+        .toList();
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 88),
       children: [
+        CoraStitchPageHeader(
+          eyebrow: 'SEGUIMIENTO DE FERTILIDAD',
+          title: 'Hub de Concepción',
+          subtitle:
+              'Temperatura basal bifásica, pico de LH y ventana fértil en tiempo real.',
+          eyebrowIcon: Icons.biotech_outlined,
+          trailing: CoraMintStatusPill(
+            label: data.status == 'ovulation_confirmed'
+                ? 'Ovulación Confirmada'
+                : data.status == 'peak_fertility'
+                    ? 'Pico Fértil'
+                    : 'Seguimiento Activo',
+            variant: CoraStatusPillVariant.mint,
+          ),
+        ),
+        const SizedBox(height: 14),
         // Status Card
         _buildStatusCard(context, data),
         const SizedBox(height: 12),
+        if (bbtValues.length >= 2) ...[
+          CoraSurfaceCard(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Curva Térmica Basal (Tendencia)',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 8),
+                CoraBiometricTrendChart(
+                  values: bbtValues,
+                  referenceLine: data.coverlineCelsius,
+                  lineColor: tokens.primaryDeep,
+                  height: 76,
+                  startLabel: 'Inicio',
+                  endLabel: 'Hoy',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+        ],
 
         // Age-based guidance banner if present
         if (data.activeSeekingGuidanceEs != null) ...[

@@ -104,129 +104,156 @@ class CycleMonitorPage extends ConsumerWidget {
           final currentDay = status.dayInCycle ?? 1;
           final tokens = CoraTheme.tokensOf(context);
 
-          return ListView(
+          return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            children: [
-              // 1. Rueda de 4 Fases
-              CoraSurfaceCard(
-                padding: const EdgeInsets.all(20),
-                borderRadius: 24,
-                child: Column(
-                  children: [
-                    Center(
-                      child: SizedBox(
-                        width: 232,
-                        height: 232,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            CustomPaint(
-                              size: const Size(232, 232),
-                              painter: CycleWheelPainter(
-                                currentDay: currentDay,
-                                totalDays: estimatedTotalDays,
-                                phase: status.currentPhase,
-                                isHormonallyManaged: status.isHormonallyManaged,
-                                tokens: tokens,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CoraStitchPageHeader(
+                  eyebrow: 'FISIOLOGÍA CÍCLICA PERSONALIZADA',
+                  title: 'Tu Ciclo y Fases',
+                  subtitle:
+                      'Rueda de 4 fases, ventana fértil y vigilancia preventiva FIGO.',
+                  eyebrowIcon: Icons.donut_large_rounded,
+                  trailing: CoraMintStatusPill(
+                    label: status.isHormonallyManaged
+                        ? 'Gestión Hormonal'
+                        : 'Ciclo Activo',
+                    variant: CoraStatusPillVariant.mint,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // 1. Rueda de 4 Fases
+                CoraSurfaceCard(
+                  padding: const EdgeInsets.all(20),
+                  borderRadius: 24,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          width: 232,
+                          height: 232,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              CustomPaint(
+                                size: const Size(232, 232),
+                                painter: CycleWheelPainter(
+                                  currentDay: currentDay,
+                                  totalDays: estimatedTotalDays,
+                                  phase: status.currentPhase,
+                                  isHormonallyManaged:
+                                      status.isHormonallyManaged,
+                                  tokens: tokens,
+                                ),
                               ),
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Día $currentDay',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium
-                                      ?.copyWith(
-                                    fontWeight: FontWeight.w800,
-                                    color: tokens.textPrimary,
-                                    fontFeatures: const [
-                                      FontFeature.tabularFigures(),
-                                    ],
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Día $currentDay',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.w800,
+                                      color: tokens.textPrimary,
+                                      fontFeatures: const [
+                                        FontFeature.tabularFigures(),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 6),
-                                CoraPhasePill(
-                                  phaseKey: status.currentPhase,
-                                  label: _formatPhaseName(status.currentPhase),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  const SizedBox(height: 6),
+                                  CoraPhasePill(
+                                    phaseKey: status.currentPhase,
+                                    label:
+                                        _formatPhaseName(status.currentPhase),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // 2. Tarjeta Informativa de Fase y Consejo Diario
-              CoraInfoCallout(
-                title: 'Consejo del Día',
-                subtitle: '${status.phaseDescriptionEs}\n${status.dailyTipEs}',
-                phaseKey: status.currentPhase,
-                icon: Icons.lightbulb_outline_rounded,
-              ),
-              const SizedBox(height: 16),
-
-              // 3. Pronóstico de Próximo Periodo y Ventana Fértil
-              if (!status.isHormonallyManaged &&
-                  status.predictedNextPeriod != null) ...[
-                CoraSurfaceCard(
-                  padding: const EdgeInsets.all(18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Pronósticos Fisiológicos',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  color: tokens.textPrimary,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      const SizedBox(height: 16),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        alignment: WrapAlignment.center,
                         children: [
-                          Text(
-                            'Próximo periodo:',
-                            style: TextStyle(color: tokens.textSecondary),
+                          _phaseChip(
+                            context,
+                            'Menstrual',
+                            status.currentPhase == 'menstrual',
+                            tokens,
                           ),
-                          Text(
-                            status.predictedNextPeriod!
-                                .toIso8601String()
-                                .split('T')
-                                .first,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: tokens.menstrual,
-                              fontFeatures: const [
-                                FontFeature.tabularFigures(),
-                              ],
-                            ),
+                          _phaseChip(
+                            context,
+                            'Folicular',
+                            status.currentPhase == 'follicular',
+                            tokens,
+                          ),
+                          _phaseChip(
+                            context,
+                            'Ovulatoria',
+                            status.currentPhase == 'ovulatory',
+                            tokens,
+                          ),
+                          _phaseChip(
+                            context,
+                            'Lútea',
+                            status.currentPhase == 'luteal',
+                            tokens,
                           ),
                         ],
                       ),
-                      if (status.ovulationDate != null) ...[
-                        const SizedBox(height: 8),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // 2. Tarjeta Informativa de Fase y Consejo Diario
+                CoraInfoCallout(
+                  title: 'Consejo del Día',
+                  subtitle:
+                      '${status.phaseDescriptionEs}\n${status.dailyTipEs}',
+                  phaseKey: status.currentPhase,
+                  icon: Icons.lightbulb_outline_rounded,
+                ),
+                const SizedBox(height: 16),
+
+                // 3. Pronóstico de Próximo Periodo y Ventana Fértil
+                if (!status.isHormonallyManaged &&
+                    status.predictedNextPeriod != null) ...[
+                  CoraSurfaceCard(
+                    padding: const EdgeInsets.all(18),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Pronósticos Fisiológicos',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: tokens.textPrimary,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Ovulación estimada:',
+                              'Próximo periodo:',
                               style: TextStyle(color: tokens.textSecondary),
                             ),
                             Text(
-                              status.ovulationDate!
+                              status.predictedNextPeriod!
                                   .toIso8601String()
                                   .split('T')
                                   .first,
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
-                                color: tokens.ovulatory,
+                                color: tokens.menstrual,
                                 fontFeatures: const [
                                   FontFeature.tabularFigures(),
                                 ],
@@ -234,36 +261,61 @@ class CycleMonitorPage extends ConsumerWidget {
                             ),
                           ],
                         ),
+                        if (status.ovulationDate != null) ...[
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Ovulación estimada:',
+                                style: TextStyle(color: tokens.textSecondary),
+                              ),
+                              Text(
+                                status.ovulationDate!
+                                    .toIso8601String()
+                                    .split('T')
+                                    .first,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: tokens.ovulatory,
+                                  fontFeatures: const [
+                                    FontFeature.tabularFigures(),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ],
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-              ],
-
-              // 4. Alertas Preventivas FIGO
-              if (overview.alerts.isNotEmpty) ...[
-                Text(
-                  'Alertas Preventivas de Patrones',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: tokens.alertPreventive,
-                      ),
-                ),
-                const SizedBox(height: 8),
-                ...overview.alerts.map((alert) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: CoraAlertBanner(
-                      title: alert.titleEs,
-                      description: alert.descriptionEs,
-                      recommendation: alert.recommendationEs,
-                      isUrgent: false,
                     ),
-                  );
-                }),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+
+                // 4. Alertas Preventivas FIGO
+                if (overview.alerts.isNotEmpty) ...[
+                  Text(
+                    'Alertas Preventivas de Patrones',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: tokens.alertPreventive,
+                        ),
+                  ),
+                  const SizedBox(height: 8),
+                  ...overview.alerts.map((alert) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: CoraAlertBanner(
+                        title: alert.titleEs,
+                        description: alert.descriptionEs,
+                        recommendation: alert.recommendationEs,
+                        isUrgent: false,
+                      ),
+                    );
+                  }),
+                ],
               ],
-            ],
+            ),
           );
         },
       ),
@@ -276,6 +328,31 @@ class CycleMonitorPage extends ConsumerWidget {
             label: 'Registrar Sangrado y Síntomas',
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _phaseChip(
+    BuildContext context,
+    String label,
+    bool active,
+    CoraColorTokens tokens,
+  ) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: active ? tokens.primaryDeep : tokens.blushInset,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(
+          color: active ? tokens.primaryDeep : tokens.borderSubtle,
+        ),
+      ),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: active ? Colors.white : tokens.textSecondary,
+              fontWeight: FontWeight.w700,
+            ),
       ),
     );
   }

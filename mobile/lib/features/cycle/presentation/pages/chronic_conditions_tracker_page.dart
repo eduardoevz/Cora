@@ -104,13 +104,123 @@ class _ChronicConditionsTrackerPageState
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         children: [
-          const CoraPageHeroBanner(
-            eyebrow: 'Seguimiento especializado',
-            title: 'Marcadores inflamatorios y hormonales',
+          const CoraStitchPageHeader(
+            eyebrow: 'MODO ALTA SENSIBILIDAD',
+            title: 'Panel Clínico: SOP & Endometriosis',
             subtitle:
-                'Monitorea síntomas clave para generar reportes médicos precisos y detectar patrones a tiempo.',
-            phaseKey: 'luteal',
-            icon: Icons.health_and_safety_outlined,
+                'Monitoreo biométrico diario, correlación inflamatoria y modulación endocrina.',
+            eyebrowIcon: Icons.health_and_safety_outlined,
+          ),
+          const SizedBox(height: 14),
+          CoraSurfaceCard(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Estado Sistémico Actual',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: [
+                    CoraBlushInsetBox(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Dolor pélvico',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(color: tokens.textSecondary),
+                          ),
+                          Text(
+                            '$_pelvicPain/10',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              color: tokens.primaryDeep,
+                              fontFeatures: const [
+                                FontFeature.tabularFigures()
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    CoraBlushInsetBox(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Dismenorrea',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(color: tokens.textSecondary),
+                          ),
+                          Text(
+                            '$_dysmenorrhea/10',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              color: tokens.primaryDeep,
+                              fontFeatures: const [
+                                FontFeature.tabularFigures()
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Correlación Temporal 30 Días',
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: tokens.textSecondary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 8),
+                CoraBiometricTrendChart(
+                  values: [
+                    2.5,
+                    3.0,
+                    4.2,
+                    3.8,
+                    _pelvicPain.toDouble().clamp(0.5, 10.0),
+                  ],
+                  secondaryValues: [
+                    1.8,
+                    2.4,
+                    3.1,
+                    2.9,
+                    _dysmenorrhea.toDouble().clamp(0.5, 10.0),
+                  ],
+                  lineColor: tokens.primaryDeep,
+                  secondaryLineColor: tokens.verified,
+                  height: 76,
+                  startLabel: 'Día 1',
+                  midLabel: 'Día 15',
+                  endLabel: 'Hoy',
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 18),
           Text(

@@ -17,14 +17,102 @@ class FirstPeriodAndBodyGuidePage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         children: [
-          const CoraPageHeroBanner(
-            eyebrow: 'Guía de adolescencia',
+          const Wrap(
+            spacing: 8,
+            runSpacing: 6,
+            children: [
+              CoraMintStatusPill(
+                label: 'Espacio protegido • Modo Juvenil Seguro',
+                icon: Icons.shield_outlined,
+                variant: CoraStatusPillVariant.softMint,
+              ),
+              CoraMintStatusPill(
+                label: 'Clínicamente revisado',
+                variant: CoraStatusPillVariant.blush,
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          const CoraStitchPageHeader(
+            eyebrow: 'ACOMPAÑAMIENTO BIOLÓGICO',
             title: 'Bienvenida a esta nueva etapa',
             subtitle:
                 'Tu cuerpo está madurando a su propio ritmo. Tener preguntas o dudas es completamente normal y aquí estamos para acompañarte.',
-            badgeLabel: 'Etapa Adolescencia',
-            phaseKey: 'follicular',
-            icon: Icons.favorite_outline_rounded,
+            eyebrowIcon: Icons.favorite_outline_rounded,
+          ),
+          const SizedBox(height: 14),
+          CoraSurfaceCard(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '¿Qué es normal en tus primeros ciclos?',
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: [
+                    CoraBlushInsetBox(
+                      backgroundColor: tokens.verifiedSurface,
+                      borderColor: tokens.verified.withValues(alpha: 0.25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Fisiológico / Sano',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: tokens.verified,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Ciclos de 21 a 45 días en los primeros 3 años.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: tokens.textPrimary),
+                          ),
+                        ],
+                      ),
+                    ),
+                    CoraBlushInsetBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Motivo de consulta',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: tokens.primaryDeep,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Sangrado > 8 días o dolor que impide ir a clases.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: tokens.textPrimary),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 16),
           _buildInfoCard(

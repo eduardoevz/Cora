@@ -51,48 +51,57 @@ class _PreconceptionChecklistPageState
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       children: [
         CoraSurfaceCard(
-          backgroundColor: tokens.ovulatorySurface,
-          borderColor: tokens.ovulatory.withValues(alpha: 0.35),
+          backgroundColor: tokens.blushInset,
+          borderColor: tokens.borderSubtle,
           padding: const EdgeInsets.all(18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Progreso de Preparación',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: tokens.textPrimary,
-                          fontWeight: FontWeight.w700,
-                        ),
+                  CoraCircularProgressRing(
+                    progress: percentage / 100.0,
+                    centerLabel: '$percentage%',
+                    centerSublabel: 'metas',
+                    size: 72,
+                    strokeWidth: 6,
+                    progressColor: tokens.verified,
                   ),
-                  Text(
-                    '$percentage%',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      color: tokens.ovulatory,
-                      fontFeatures: const [FontFeature.tabularFigures()],
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Progreso de Preparación',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: tokens.textPrimary,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Recomendaciones clínicas clave respaldadas por ACOG y la OMS antes de la concepción.',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: tokens.textSecondary,
+                                  ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: LinearProgressIndicator(
                   value: percentage / 100.0,
                   minHeight: 8,
                   backgroundColor: tokens.surface,
-                  color: tokens.ovulatory,
+                  color: tokens.verified,
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Recomendaciones clínicas clave respaldadas por ACOG y la OMS antes de la concepción.',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: tokens.textSecondary,
-                    ),
               ),
             ],
           ),
@@ -237,38 +246,19 @@ class _PreconceptionChecklistPageState
     required bool value,
     required ValueChanged<bool?> onChanged,
   }) {
-    final tokens = CoraTheme.tokensOf(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: CoraSurfaceCard(
+      child: CoraSelectableOptionCard(
         key: key,
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-        borderColor: value ? tokens.ovulatory : tokens.borderSubtle,
-        borderRadius: 16,
-        child: Material(
-          color: Colors.transparent,
-          child: CheckboxListTile(
-            title: Text(
-              title,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: tokens.textPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(
-                subtitle,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: tokens.textSecondary,
-                    ),
-              ),
-            ),
-            value: value,
-            activeColor: tokens.ovulatory,
-            onChanged: onChanged,
-          ),
-        ),
+        title: title,
+        subtitle: subtitle,
+        badgeLabel: value ? 'Completado' : 'Pendiente',
+        badgeVariant: value
+            ? CoraStatusPillVariant.softMint
+            : CoraStatusPillVariant.blush,
+        selected: value,
+        isRadio: false,
+        onTap: () => onChanged(!value),
       ),
     );
   }
