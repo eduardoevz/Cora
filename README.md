@@ -17,10 +17,10 @@
 
 Puedes descargar e instalar directamente la última versión oficial de Cora en tu dispositivo Android:
 
-[![Descargar APK v2.0.0](https://img.shields.io/badge/Descargar%20APK-v2.0.0%20(Release)-2E6F40?style=for-the-badge&logo=android&logoColor=white)](https://github.com/eduardoevz/Cora/releases/download/v2.0.0/cora-v2.0.0-release.apk)
+[![Descargar APK v3.0.0](https://img.shields.io/badge/Descargar%20APK-v3.0.0%20(Release)-2E6F40?style=for-the-badge&logo=android&logoColor=white)](https://github.com/eduardoevz/Cora/releases/download/v3.0.0/cora-v3.0.0-release.apk)
 
-* **Versión:** `v2.0.0` (*Warm Botanical Health Editorial — Google Stitch Hybrid*)
-* **Binario Universal:** `cora-v2.0.0-release.apk` (65.0 MB)
+* **Versión:** `v3.0.0` (*Google Stitch Faithful Edition — Warm Botanical Health Editorial*)
+* **Binario Universal:** `cora-v3.0.0-release.apk` (71.4 MB)
 * **Compatibilidad:** Android 8.0 (API 26) o superior (Optimizado para Android 14/15 y pantallas de alta densidad)
 * **Historial Completo de Versiones y Notas de Lanzamiento:** [GitHub Releases de Cora](https://github.com/eduardoevz/Cora/releases)
 
