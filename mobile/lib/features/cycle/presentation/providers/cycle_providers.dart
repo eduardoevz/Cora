@@ -27,3 +27,20 @@ final cycleHistoryProvider =
   final repo = ref.watch(cycleRepositoryProvider);
   return repo.getCycleHistory(userId: userId);
 });
+
+final cycleCalendarMonthProvider = FutureProvider.family<
+    CalendarMonthProjectionEntity,
+    ({
+      String userId,
+      int year,
+      int month,
+      DateTime? referenceDate,
+    })>((ref, args) async {
+  final repo = ref.watch(cycleRepositoryProvider);
+  return repo.getCalendarMonth(
+    userId: args.userId,
+    year: args.year,
+    month: args.month,
+    referenceDate: args.referenceDate,
+  );
+});

@@ -643,6 +643,26 @@ class $UserProfileEntriesTable extends UserProfileEntries
           defaultConstraints: GeneratedColumn.constraintIsAlways(
               'CHECK ("clinical_context_completed" IN (0, 1))'),
           defaultValue: const Constant(false));
+  static const VerificationMeta _cycleRegularityMeta =
+      const VerificationMeta('cycleRegularity');
+  @override
+  late final GeneratedColumn<String> cycleRegularity = GeneratedColumn<String>(
+      'cycle_regularity', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('unsure'));
+  static const VerificationMeta _typicalCycleLengthDaysMeta =
+      const VerificationMeta('typicalCycleLengthDays');
+  @override
+  late final GeneratedColumn<int> typicalCycleLengthDays = GeneratedColumn<int>(
+      'typical_cycle_length_days', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _typicalBleedingDurationDaysMeta =
+      const VerificationMeta('typicalBleedingDurationDays');
+  @override
+  late final GeneratedColumn<int> typicalBleedingDurationDays =
+      GeneratedColumn<int>('typical_bleeding_duration_days', aliasedName, true,
+          type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _enabledModulesJsonMeta =
       const VerificationMeta('enabledModulesJson');
   @override
@@ -678,6 +698,9 @@ class $UserProfileEntriesTable extends UserProfileEntries
         hormonalMethod,
         diagnosedConditionsJson,
         clinicalContextCompleted,
+        cycleRegularity,
+        typicalCycleLengthDays,
+        typicalBleedingDurationDays,
         enabledModulesJson,
         createdAt,
         updatedAt
@@ -767,6 +790,25 @@ class $UserProfileEntriesTable extends UserProfileEntries
               data['clinical_context_completed']!,
               _clinicalContextCompletedMeta));
     }
+    if (data.containsKey('cycle_regularity')) {
+      context.handle(
+          _cycleRegularityMeta,
+          cycleRegularity.isAcceptableOrUnknown(
+              data['cycle_regularity']!, _cycleRegularityMeta));
+    }
+    if (data.containsKey('typical_cycle_length_days')) {
+      context.handle(
+          _typicalCycleLengthDaysMeta,
+          typicalCycleLengthDays.isAcceptableOrUnknown(
+              data['typical_cycle_length_days']!, _typicalCycleLengthDaysMeta));
+    }
+    if (data.containsKey('typical_bleeding_duration_days')) {
+      context.handle(
+          _typicalBleedingDurationDaysMeta,
+          typicalBleedingDurationDays.isAcceptableOrUnknown(
+              data['typical_bleeding_duration_days']!,
+              _typicalBleedingDurationDaysMeta));
+    }
     if (data.containsKey('enabled_modules_json')) {
       context.handle(
           _enabledModulesJsonMeta,
@@ -816,6 +858,14 @@ class $UserProfileEntriesTable extends UserProfileEntries
       clinicalContextCompleted: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}clinical_context_completed'])!,
+      cycleRegularity: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}cycle_regularity'])!,
+      typicalCycleLengthDays: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}typical_cycle_length_days']),
+      typicalBleedingDurationDays: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}typical_bleeding_duration_days']),
       enabledModulesJson: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}enabled_modules_json'])!,
       createdAt: attachedDatabase.typeMapping
@@ -844,6 +894,9 @@ class UserProfileEntry extends DataClass
   final String? hormonalMethod;
   final String diagnosedConditionsJson;
   final bool clinicalContextCompleted;
+  final String cycleRegularity;
+  final int? typicalCycleLengthDays;
+  final int? typicalBleedingDurationDays;
   final String enabledModulesJson;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -859,6 +912,9 @@ class UserProfileEntry extends DataClass
       this.hormonalMethod,
       required this.diagnosedConditionsJson,
       required this.clinicalContextCompleted,
+      required this.cycleRegularity,
+      this.typicalCycleLengthDays,
+      this.typicalBleedingDurationDays,
       required this.enabledModulesJson,
       required this.createdAt,
       required this.updatedAt});
@@ -880,6 +936,14 @@ class UserProfileEntry extends DataClass
         Variable<String>(diagnosedConditionsJson);
     map['clinical_context_completed'] =
         Variable<bool>(clinicalContextCompleted);
+    map['cycle_regularity'] = Variable<String>(cycleRegularity);
+    if (!nullToAbsent || typicalCycleLengthDays != null) {
+      map['typical_cycle_length_days'] = Variable<int>(typicalCycleLengthDays);
+    }
+    if (!nullToAbsent || typicalBleedingDurationDays != null) {
+      map['typical_bleeding_duration_days'] =
+          Variable<int>(typicalBleedingDurationDays);
+    }
     map['enabled_modules_json'] = Variable<String>(enabledModulesJson);
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -901,6 +965,14 @@ class UserProfileEntry extends DataClass
           : Value(hormonalMethod),
       diagnosedConditionsJson: Value(diagnosedConditionsJson),
       clinicalContextCompleted: Value(clinicalContextCompleted),
+      cycleRegularity: Value(cycleRegularity),
+      typicalCycleLengthDays: typicalCycleLengthDays == null && nullToAbsent
+          ? const Value.absent()
+          : Value(typicalCycleLengthDays),
+      typicalBleedingDurationDays:
+          typicalBleedingDurationDays == null && nullToAbsent
+              ? const Value.absent()
+              : Value(typicalBleedingDurationDays),
       enabledModulesJson: Value(enabledModulesJson),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
@@ -926,6 +998,11 @@ class UserProfileEntry extends DataClass
           serializer.fromJson<String>(json['diagnosedConditionsJson']),
       clinicalContextCompleted:
           serializer.fromJson<bool>(json['clinicalContextCompleted']),
+      cycleRegularity: serializer.fromJson<String>(json['cycleRegularity']),
+      typicalCycleLengthDays:
+          serializer.fromJson<int?>(json['typicalCycleLengthDays']),
+      typicalBleedingDurationDays:
+          serializer.fromJson<int?>(json['typicalBleedingDurationDays']),
       enabledModulesJson:
           serializer.fromJson<String>(json['enabledModulesJson']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -949,6 +1026,10 @@ class UserProfileEntry extends DataClass
           serializer.toJson<String>(diagnosedConditionsJson),
       'clinicalContextCompleted':
           serializer.toJson<bool>(clinicalContextCompleted),
+      'cycleRegularity': serializer.toJson<String>(cycleRegularity),
+      'typicalCycleLengthDays': serializer.toJson<int?>(typicalCycleLengthDays),
+      'typicalBleedingDurationDays':
+          serializer.toJson<int?>(typicalBleedingDurationDays),
       'enabledModulesJson': serializer.toJson<String>(enabledModulesJson),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
@@ -967,6 +1048,9 @@ class UserProfileEntry extends DataClass
           Value<String?> hormonalMethod = const Value.absent(),
           String? diagnosedConditionsJson,
           bool? clinicalContextCompleted,
+          String? cycleRegularity,
+          Value<int?> typicalCycleLengthDays = const Value.absent(),
+          Value<int?> typicalBleedingDurationDays = const Value.absent(),
           String? enabledModulesJson,
           DateTime? createdAt,
           DateTime? updatedAt}) =>
@@ -985,6 +1069,13 @@ class UserProfileEntry extends DataClass
             diagnosedConditionsJson ?? this.diagnosedConditionsJson,
         clinicalContextCompleted:
             clinicalContextCompleted ?? this.clinicalContextCompleted,
+        cycleRegularity: cycleRegularity ?? this.cycleRegularity,
+        typicalCycleLengthDays: typicalCycleLengthDays.present
+            ? typicalCycleLengthDays.value
+            : this.typicalCycleLengthDays,
+        typicalBleedingDurationDays: typicalBleedingDurationDays.present
+            ? typicalBleedingDurationDays.value
+            : this.typicalBleedingDurationDays,
         enabledModulesJson: enabledModulesJson ?? this.enabledModulesJson,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -1015,6 +1106,15 @@ class UserProfileEntry extends DataClass
       clinicalContextCompleted: data.clinicalContextCompleted.present
           ? data.clinicalContextCompleted.value
           : this.clinicalContextCompleted,
+      cycleRegularity: data.cycleRegularity.present
+          ? data.cycleRegularity.value
+          : this.cycleRegularity,
+      typicalCycleLengthDays: data.typicalCycleLengthDays.present
+          ? data.typicalCycleLengthDays.value
+          : this.typicalCycleLengthDays,
+      typicalBleedingDurationDays: data.typicalBleedingDurationDays.present
+          ? data.typicalBleedingDurationDays.value
+          : this.typicalBleedingDurationDays,
       enabledModulesJson: data.enabledModulesJson.present
           ? data.enabledModulesJson.value
           : this.enabledModulesJson,
@@ -1037,6 +1137,9 @@ class UserProfileEntry extends DataClass
           ..write('hormonalMethod: $hormonalMethod, ')
           ..write('diagnosedConditionsJson: $diagnosedConditionsJson, ')
           ..write('clinicalContextCompleted: $clinicalContextCompleted, ')
+          ..write('cycleRegularity: $cycleRegularity, ')
+          ..write('typicalCycleLengthDays: $typicalCycleLengthDays, ')
+          ..write('typicalBleedingDurationDays: $typicalBleedingDurationDays, ')
           ..write('enabledModulesJson: $enabledModulesJson, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
@@ -1057,6 +1160,9 @@ class UserProfileEntry extends DataClass
       hormonalMethod,
       diagnosedConditionsJson,
       clinicalContextCompleted,
+      cycleRegularity,
+      typicalCycleLengthDays,
+      typicalBleedingDurationDays,
       enabledModulesJson,
       createdAt,
       updatedAt);
@@ -1075,6 +1181,10 @@ class UserProfileEntry extends DataClass
           other.hormonalMethod == this.hormonalMethod &&
           other.diagnosedConditionsJson == this.diagnosedConditionsJson &&
           other.clinicalContextCompleted == this.clinicalContextCompleted &&
+          other.cycleRegularity == this.cycleRegularity &&
+          other.typicalCycleLengthDays == this.typicalCycleLengthDays &&
+          other.typicalBleedingDurationDays ==
+              this.typicalBleedingDurationDays &&
           other.enabledModulesJson == this.enabledModulesJson &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
@@ -1092,6 +1202,9 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
   final Value<String?> hormonalMethod;
   final Value<String> diagnosedConditionsJson;
   final Value<bool> clinicalContextCompleted;
+  final Value<String> cycleRegularity;
+  final Value<int?> typicalCycleLengthDays;
+  final Value<int?> typicalBleedingDurationDays;
   final Value<String> enabledModulesJson;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
@@ -1108,6 +1221,9 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
     this.hormonalMethod = const Value.absent(),
     this.diagnosedConditionsJson = const Value.absent(),
     this.clinicalContextCompleted = const Value.absent(),
+    this.cycleRegularity = const Value.absent(),
+    this.typicalCycleLengthDays = const Value.absent(),
+    this.typicalBleedingDurationDays = const Value.absent(),
     this.enabledModulesJson = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -1125,6 +1241,9 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
     this.hormonalMethod = const Value.absent(),
     required String diagnosedConditionsJson,
     this.clinicalContextCompleted = const Value.absent(),
+    this.cycleRegularity = const Value.absent(),
+    this.typicalCycleLengthDays = const Value.absent(),
+    this.typicalBleedingDurationDays = const Value.absent(),
     required String enabledModulesJson,
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -1150,6 +1269,9 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
     Expression<String>? hormonalMethod,
     Expression<String>? diagnosedConditionsJson,
     Expression<bool>? clinicalContextCompleted,
+    Expression<String>? cycleRegularity,
+    Expression<int>? typicalCycleLengthDays,
+    Expression<int>? typicalBleedingDurationDays,
     Expression<String>? enabledModulesJson,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
@@ -1171,6 +1293,11 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
         'diagnosed_conditions_json': diagnosedConditionsJson,
       if (clinicalContextCompleted != null)
         'clinical_context_completed': clinicalContextCompleted,
+      if (cycleRegularity != null) 'cycle_regularity': cycleRegularity,
+      if (typicalCycleLengthDays != null)
+        'typical_cycle_length_days': typicalCycleLengthDays,
+      if (typicalBleedingDurationDays != null)
+        'typical_bleeding_duration_days': typicalBleedingDurationDays,
       if (enabledModulesJson != null)
         'enabled_modules_json': enabledModulesJson,
       if (createdAt != null) 'created_at': createdAt,
@@ -1191,6 +1318,9 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
       Value<String?>? hormonalMethod,
       Value<String>? diagnosedConditionsJson,
       Value<bool>? clinicalContextCompleted,
+      Value<String>? cycleRegularity,
+      Value<int?>? typicalCycleLengthDays,
+      Value<int?>? typicalBleedingDurationDays,
       Value<String>? enabledModulesJson,
       Value<DateTime>? createdAt,
       Value<DateTime>? updatedAt,
@@ -1209,6 +1339,11 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
           diagnosedConditionsJson ?? this.diagnosedConditionsJson,
       clinicalContextCompleted:
           clinicalContextCompleted ?? this.clinicalContextCompleted,
+      cycleRegularity: cycleRegularity ?? this.cycleRegularity,
+      typicalCycleLengthDays:
+          typicalCycleLengthDays ?? this.typicalCycleLengthDays,
+      typicalBleedingDurationDays:
+          typicalBleedingDurationDays ?? this.typicalBleedingDurationDays,
       enabledModulesJson: enabledModulesJson ?? this.enabledModulesJson,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -1254,6 +1389,17 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
       map['clinical_context_completed'] =
           Variable<bool>(clinicalContextCompleted.value);
     }
+    if (cycleRegularity.present) {
+      map['cycle_regularity'] = Variable<String>(cycleRegularity.value);
+    }
+    if (typicalCycleLengthDays.present) {
+      map['typical_cycle_length_days'] =
+          Variable<int>(typicalCycleLengthDays.value);
+    }
+    if (typicalBleedingDurationDays.present) {
+      map['typical_bleeding_duration_days'] =
+          Variable<int>(typicalBleedingDurationDays.value);
+    }
     if (enabledModulesJson.present) {
       map['enabled_modules_json'] = Variable<String>(enabledModulesJson.value);
     }
@@ -1283,6 +1429,9 @@ class UserProfileEntriesCompanion extends UpdateCompanion<UserProfileEntry> {
           ..write('hormonalMethod: $hormonalMethod, ')
           ..write('diagnosedConditionsJson: $diagnosedConditionsJson, ')
           ..write('clinicalContextCompleted: $clinicalContextCompleted, ')
+          ..write('cycleRegularity: $cycleRegularity, ')
+          ..write('typicalCycleLengthDays: $typicalCycleLengthDays, ')
+          ..write('typicalBleedingDurationDays: $typicalBleedingDurationDays, ')
           ..write('enabledModulesJson: $enabledModulesJson, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt, ')
@@ -19539,6 +19688,9 @@ typedef $$UserProfileEntriesTableCreateCompanionBuilder
   Value<String?> hormonalMethod,
   required String diagnosedConditionsJson,
   Value<bool> clinicalContextCompleted,
+  Value<String> cycleRegularity,
+  Value<int?> typicalCycleLengthDays,
+  Value<int?> typicalBleedingDurationDays,
   required String enabledModulesJson,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -19557,6 +19709,9 @@ typedef $$UserProfileEntriesTableUpdateCompanionBuilder
   Value<String?> hormonalMethod,
   Value<String> diagnosedConditionsJson,
   Value<bool> clinicalContextCompleted,
+  Value<String> cycleRegularity,
+  Value<int?> typicalCycleLengthDays,
+  Value<int?> typicalBleedingDurationDays,
   Value<String> enabledModulesJson,
   Value<DateTime> createdAt,
   Value<DateTime> updatedAt,
@@ -19609,6 +19764,18 @@ class $$UserProfileEntriesTableFilterComposer
 
   ColumnFilters<bool> get clinicalContextCompleted => $composableBuilder(
       column: $table.clinicalContextCompleted,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get cycleRegularity => $composableBuilder(
+      column: $table.cycleRegularity,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get typicalCycleLengthDays => $composableBuilder(
+      column: $table.typicalCycleLengthDays,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get typicalBleedingDurationDays => $composableBuilder(
+      column: $table.typicalBleedingDurationDays,
       builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get enabledModulesJson => $composableBuilder(
@@ -19670,6 +19837,18 @@ class $$UserProfileEntriesTableOrderingComposer
       column: $table.clinicalContextCompleted,
       builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get cycleRegularity => $composableBuilder(
+      column: $table.cycleRegularity,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get typicalCycleLengthDays => $composableBuilder(
+      column: $table.typicalCycleLengthDays,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get typicalBleedingDurationDays => $composableBuilder(
+      column: $table.typicalBleedingDurationDays,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get enabledModulesJson => $composableBuilder(
       column: $table.enabledModulesJson,
       builder: (column) => ColumnOrderings(column));
@@ -19723,6 +19902,15 @@ class $$UserProfileEntriesTableAnnotationComposer
   GeneratedColumn<bool> get clinicalContextCompleted => $composableBuilder(
       column: $table.clinicalContextCompleted, builder: (column) => column);
 
+  GeneratedColumn<String> get cycleRegularity => $composableBuilder(
+      column: $table.cycleRegularity, builder: (column) => column);
+
+  GeneratedColumn<int> get typicalCycleLengthDays => $composableBuilder(
+      column: $table.typicalCycleLengthDays, builder: (column) => column);
+
+  GeneratedColumn<int> get typicalBleedingDurationDays => $composableBuilder(
+      column: $table.typicalBleedingDurationDays, builder: (column) => column);
+
   GeneratedColumn<String> get enabledModulesJson => $composableBuilder(
       column: $table.enabledModulesJson, builder: (column) => column);
 
@@ -19772,6 +19960,9 @@ class $$UserProfileEntriesTableTableManager extends RootTableManager<
             Value<String?> hormonalMethod = const Value.absent(),
             Value<String> diagnosedConditionsJson = const Value.absent(),
             Value<bool> clinicalContextCompleted = const Value.absent(),
+            Value<String> cycleRegularity = const Value.absent(),
+            Value<int?> typicalCycleLengthDays = const Value.absent(),
+            Value<int?> typicalBleedingDurationDays = const Value.absent(),
             Value<String> enabledModulesJson = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
             Value<DateTime> updatedAt = const Value.absent(),
@@ -19789,6 +19980,9 @@ class $$UserProfileEntriesTableTableManager extends RootTableManager<
             hormonalMethod: hormonalMethod,
             diagnosedConditionsJson: diagnosedConditionsJson,
             clinicalContextCompleted: clinicalContextCompleted,
+            cycleRegularity: cycleRegularity,
+            typicalCycleLengthDays: typicalCycleLengthDays,
+            typicalBleedingDurationDays: typicalBleedingDurationDays,
             enabledModulesJson: enabledModulesJson,
             createdAt: createdAt,
             updatedAt: updatedAt,
@@ -19806,6 +20000,9 @@ class $$UserProfileEntriesTableTableManager extends RootTableManager<
             Value<String?> hormonalMethod = const Value.absent(),
             required String diagnosedConditionsJson,
             Value<bool> clinicalContextCompleted = const Value.absent(),
+            Value<String> cycleRegularity = const Value.absent(),
+            Value<int?> typicalCycleLengthDays = const Value.absent(),
+            Value<int?> typicalBleedingDurationDays = const Value.absent(),
             required String enabledModulesJson,
             Value<DateTime> createdAt = const Value.absent(),
             Value<DateTime> updatedAt = const Value.absent(),
@@ -19823,6 +20020,9 @@ class $$UserProfileEntriesTableTableManager extends RootTableManager<
             hormonalMethod: hormonalMethod,
             diagnosedConditionsJson: diagnosedConditionsJson,
             clinicalContextCompleted: clinicalContextCompleted,
+            cycleRegularity: cycleRegularity,
+            typicalCycleLengthDays: typicalCycleLengthDays,
+            typicalBleedingDurationDays: typicalBleedingDurationDays,
             enabledModulesJson: enabledModulesJson,
             createdAt: createdAt,
             updatedAt: updatedAt,

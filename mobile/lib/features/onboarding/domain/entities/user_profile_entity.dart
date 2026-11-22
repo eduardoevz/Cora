@@ -75,6 +75,52 @@ enum DiagnosedCondition {
       .firstWhere((e) => e.value == val, orElse: () => DiagnosedCondition.none);
 }
 
+enum CycleRegularity {
+  regular('regular', 'Regular'),
+  irregular('irregular', 'Irregular'),
+  unsure('unsure', 'No estoy segura'),
+  notApplicable('not_applicable', 'No aplica');
+
+  final String value;
+  final String label;
+  const CycleRegularity(this.value, this.label);
+
+  static CycleRegularity fromValue(String val) =>
+      CycleRegularity.values.firstWhere(
+        (e) => e.value == val,
+        orElse: () => CycleRegularity.unsure,
+      );
+}
+
+class InitialPeriodRangeEntity {
+  final DateTime startDate;
+  final DateTime endDate;
+
+  const InitialPeriodRangeEntity({
+    required this.startDate,
+    required this.endDate,
+  });
+
+  int get bleedingDurationDays =>
+      DateTime.utc(endDate.year, endDate.month, endDate.day)
+          .difference(
+              DateTime.utc(startDate.year, startDate.month, startDate.day))
+          .inDays +
+      1;
+
+  Map<String, dynamic> toJson() => {
+        'start_date': _formatIsoDate(startDate),
+        'end_date': _formatIsoDate(endDate),
+      };
+
+  static String _formatIsoDate(DateTime dt) {
+    final y = dt.year.toString().padLeft(4, '0');
+    final m = dt.month.toString().padLeft(2, '0');
+    final d = dt.day.toString().padLeft(2, '0');
+    return '$y-$m-$d';
+  }
+}
+
 enum TransitionReason {
   naturalProgression('natural_progression', 'Evolución biológica natural'),
   conceptionConfirmed('conception_confirmed', 'Embarazo confirmado'),
@@ -115,6 +161,10 @@ class OnboardingContextEntity {
   final HormonalMethod? hormonalMethod;
   final List<DiagnosedCondition> diagnosedConditions;
   final bool clinicalContextCompleted;
+  final CycleRegularity cycleRegularity;
+  final int? typicalCycleLengthDays;
+  final int? typicalBleedingDurationDays;
+  final List<InitialPeriodRangeEntity> initialPeriods;
 
   const OnboardingContextEntity({
     required this.birthYear,
@@ -122,6 +172,10 @@ class OnboardingContextEntity {
     this.hormonalMethod,
     this.diagnosedConditions = const [],
     this.clinicalContextCompleted = false,
+    this.cycleRegularity = CycleRegularity.unsure,
+    this.typicalCycleLengthDays,
+    this.typicalBleedingDurationDays,
+    this.initialPeriods = const [],
   });
 }
 

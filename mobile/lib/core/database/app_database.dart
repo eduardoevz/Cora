@@ -36,6 +36,10 @@ class UserProfileEntries extends Table {
   TextColumn get diagnosedConditionsJson => text()();
   BoolColumn get clinicalContextCompleted =>
       boolean().withDefault(const Constant(false))();
+  TextColumn get cycleRegularity =>
+      text().withDefault(const Constant('unsure'))();
+  IntColumn get typicalCycleLengthDays => integer().nullable()();
+  IntColumn get typicalBleedingDurationDays => integer().nullable()();
   TextColumn get enabledModulesJson => text()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
@@ -649,7 +653,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 10;
+  int get schemaVersion => 11;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -706,6 +710,14 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(clinicalArticleEntries);
             await m.createTable(assistantConversationEntries);
             await m.createTable(assistantMessageEntries);
+          }
+          if (from < 11) {
+            await m.addColumn(
+                userProfileEntries, userProfileEntries.cycleRegularity);
+            await m.addColumn(
+                userProfileEntries, userProfileEntries.typicalCycleLengthDays);
+            await m.addColumn(userProfileEntries,
+                userProfileEntries.typicalBleedingDurationDays);
           }
         },
       );

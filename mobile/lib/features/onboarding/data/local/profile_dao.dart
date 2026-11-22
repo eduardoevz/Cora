@@ -52,6 +52,9 @@ class ProfileDao {
             : null,
         diagnosedConditions: conditionsList,
         clinicalContextCompleted: row.clinicalContextCompleted,
+        cycleRegularity: CycleRegularity.fromValue(row.cycleRegularity),
+        typicalCycleLengthDays: row.typicalCycleLengthDays,
+        typicalBleedingDurationDays: row.typicalBleedingDurationDays,
       ),
       enabledModules: enabledModules,
       transitionHistory: mappedTransitions,
@@ -107,6 +110,11 @@ class ProfileDao {
       ),
       clinicalContextCompleted:
           Value(profile.onboardingContext.clinicalContextCompleted),
+      cycleRegularity: Value(profile.onboardingContext.cycleRegularity.value),
+      typicalCycleLengthDays:
+          Value(profile.onboardingContext.typicalCycleLengthDays),
+      typicalBleedingDurationDays:
+          Value(profile.onboardingContext.typicalBleedingDurationDays),
       enabledModulesJson: jsonEncode(profile.enabledModules),
       createdAt: Value(profile.createdAt),
       updatedAt: Value(profile.updatedAt),
@@ -170,6 +178,29 @@ class ProfileDao {
         .write(
       UserProfileEntriesCompanion(
         enabledModulesJson: Value(jsonEncode(modules)),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  Future<void> updateMenstrualBaseline(
+    String profileId, {
+    CycleRegularity? regularity,
+    int? typicalCycleLengthDays,
+    int? typicalBleedingDurationDays,
+  }) async {
+    await (_db.update(_db.userProfileEntries)
+          ..where((tbl) => tbl.id.equals(profileId)))
+        .write(
+      UserProfileEntriesCompanion(
+        cycleRegularity:
+            regularity != null ? Value(regularity.value) : const Value.absent(),
+        typicalCycleLengthDays: typicalCycleLengthDays != null
+            ? Value(typicalCycleLengthDays)
+            : const Value.absent(),
+        typicalBleedingDurationDays: typicalBleedingDurationDays != null
+            ? Value(typicalBleedingDurationDays)
+            : const Value.absent(),
         updatedAt: Value(DateTime.now()),
       ),
     );

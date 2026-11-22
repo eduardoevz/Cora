@@ -227,3 +227,172 @@ class CycleOverviewEntity {
     );
   }
 }
+
+enum CalendarDayMarker {
+  recordedPeriod('recorded_period'),
+  predictedPeriod('predicted_period'),
+  fertileWindow('fertile_window'),
+  predictedOvulation('predicted_ovulation'),
+  spotting('spotting'),
+  none('none');
+
+  final String value;
+  const CalendarDayMarker(this.value);
+
+  static CalendarDayMarker fromValue(String val) =>
+      CalendarDayMarker.values.firstWhere(
+        (e) => e.value == val,
+        orElse: () => CalendarDayMarker.none,
+      );
+}
+
+enum FertilityProbability {
+  none('none'),
+  low('low'),
+  medium('medium'),
+  high('high');
+
+  final String value;
+  const FertilityProbability(this.value);
+
+  static FertilityProbability fromValue(String val) =>
+      FertilityProbability.values.firstWhere(
+        (e) => e.value == val,
+        orElse: () => FertilityProbability.none,
+      );
+}
+
+enum CalendarDisplayMode {
+  standardCycle('standard_cycle'),
+  adolescenceFlexible('adolescence_flexible'),
+  conceptionFertility('conception_fertility'),
+  hormonallyManaged('hormonally_managed'),
+  pregnancyGestational('pregnancy_gestational'),
+  postpartumRecovery('postpartum_recovery'),
+  perimenopauseStraw10('perimenopause_straw10'),
+  seniorPreventive('senior_preventive');
+
+  final String value;
+  const CalendarDisplayMode(this.value);
+
+  static CalendarDisplayMode fromValue(String val) =>
+      CalendarDisplayMode.values.firstWhere(
+        (e) => e.value == val,
+        orElse: () => CalendarDisplayMode.standardCycle,
+      );
+}
+
+class CalendarDayProjectionEntity {
+  final DateTime date;
+  final int? dayInCycle;
+  final String? phase;
+  final CalendarDayMarker dayMarker;
+  final FertilityProbability fertilityProbability;
+  final bool hasLoggedSymptoms;
+  final String bleedingFlow;
+  final int? pelvicPain;
+  final String dailySummaryEs;
+  final String phaseEducationEs;
+
+  const CalendarDayProjectionEntity({
+    required this.date,
+    this.dayInCycle,
+    this.phase,
+    required this.dayMarker,
+    required this.fertilityProbability,
+    required this.hasLoggedSymptoms,
+    required this.bleedingFlow,
+    this.pelvicPain,
+    required this.dailySummaryEs,
+    required this.phaseEducationEs,
+  });
+
+  factory CalendarDayProjectionEntity.fromJson(Map<String, dynamic> json) {
+    return CalendarDayProjectionEntity(
+      date: DateTime.parse(json['date'] as String),
+      dayInCycle: json['day_in_cycle'] as int?,
+      phase: json['phase'] as String?,
+      dayMarker: CalendarDayMarker.fromValue(
+        json['day_marker'] as String? ?? 'none',
+      ),
+      fertilityProbability: FertilityProbability.fromValue(
+        json['fertility_probability'] as String? ?? 'none',
+      ),
+      hasLoggedSymptoms: json['has_logged_symptoms'] as bool? ?? false,
+      bleedingFlow: json['bleeding_flow'] as String? ?? 'none',
+      pelvicPain: json['pelvic_pain'] as int?,
+      dailySummaryEs: json['daily_summary_es'] as String? ?? '',
+      phaseEducationEs: json['phase_education_es'] as String? ?? '',
+    );
+  }
+}
+
+class CalendarMonthProjectionEntity {
+  final int year;
+  final int month;
+  final CalendarDisplayMode displayMode;
+  final int estimatedCycleLengthDays;
+  final int estimatedBleedingDurationDays;
+  final bool isHormonallyManaged;
+  final bool hasExtendedUncertainty;
+  final int? currentCycleDay;
+  final String? currentPhase;
+  final DateTime? predictedNextPeriod;
+  final DateTime? ovulationDate;
+  final DateTime? fertileWindowStart;
+  final DateTime? fertileWindowEnd;
+  final List<CalendarDayProjectionEntity> days;
+
+  const CalendarMonthProjectionEntity({
+    required this.year,
+    required this.month,
+    required this.displayMode,
+    required this.estimatedCycleLengthDays,
+    required this.estimatedBleedingDurationDays,
+    required this.isHormonallyManaged,
+    required this.hasExtendedUncertainty,
+    this.currentCycleDay,
+    this.currentPhase,
+    this.predictedNextPeriod,
+    this.ovulationDate,
+    this.fertileWindowStart,
+    this.fertileWindowEnd,
+    required this.days,
+  });
+
+  factory CalendarMonthProjectionEntity.fromJson(Map<String, dynamic> json) {
+    return CalendarMonthProjectionEntity(
+      year: json['year'] as int,
+      month: json['month'] as int,
+      displayMode: CalendarDisplayMode.fromValue(
+        json['display_mode'] as String? ?? 'standard_cycle',
+      ),
+      estimatedCycleLengthDays:
+          json['estimated_cycle_length_days'] as int? ?? 28,
+      estimatedBleedingDurationDays:
+          json['estimated_bleeding_duration_days'] as int? ?? 5,
+      isHormonallyManaged: json['is_hormonally_managed'] as bool? ?? false,
+      hasExtendedUncertainty:
+          json['has_extended_uncertainty'] as bool? ?? false,
+      currentCycleDay: json['current_cycle_day'] as int?,
+      currentPhase: json['current_phase'] as String?,
+      predictedNextPeriod: json['predicted_next_period'] != null
+          ? DateTime.parse(json['predicted_next_period'] as String)
+          : null,
+      ovulationDate: json['ovulation_date'] != null
+          ? DateTime.parse(json['ovulation_date'] as String)
+          : null,
+      fertileWindowStart: json['fertile_window_start'] != null
+          ? DateTime.parse(json['fertile_window_start'] as String)
+          : null,
+      fertileWindowEnd: json['fertile_window_end'] != null
+          ? DateTime.parse(json['fertile_window_end'] as String)
+          : null,
+      days: (json['days'] as List<dynamic>?)
+              ?.map((e) => CalendarDayProjectionEntity.fromJson(
+                  e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+  }
+}

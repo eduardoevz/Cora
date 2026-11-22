@@ -115,7 +115,7 @@ class IdentityRepositoryImpl implements IdentityRepository {
 
     // Enqueue idempotent offline-first sync mutation
     final coordinator = _syncCoordinator;
-    final payload = {
+    final payload = <String, dynamic>{
       'first_name': finalProfile.firstName,
       'last_name': finalProfile.lastName,
       'current_life_stage': finalProfile.currentLifeStage.value,
@@ -129,6 +129,17 @@ class IdentityRepositoryImpl implements IdentityRepository {
           .toList(),
       'clinical_context_completed':
           finalProfile.onboardingContext.clinicalContextCompleted,
+      'cycle_regularity': finalProfile.onboardingContext.cycleRegularity.value,
+      if (finalProfile.onboardingContext.typicalCycleLengthDays != null)
+        'typical_cycle_length_days':
+            finalProfile.onboardingContext.typicalCycleLengthDays,
+      if (finalProfile.onboardingContext.typicalBleedingDurationDays != null)
+        'typical_bleeding_duration_days':
+            finalProfile.onboardingContext.typicalBleedingDurationDays,
+      if (finalProfile.onboardingContext.initialPeriods.isNotEmpty)
+        'initial_periods': finalProfile.onboardingContext.initialPeriods
+            .map((p) => p.toJson())
+            .toList(),
     };
 
     String? mutationId;
