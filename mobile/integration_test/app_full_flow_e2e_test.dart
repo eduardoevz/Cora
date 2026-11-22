@@ -21,11 +21,21 @@ Future<void> _pumpUntilFound(
   await tester.pumpAndSettle();
 }
 
+Future<void> _openDrawerAndTap(WidgetTester tester, Key itemKey) async {
+  await tester.tap(find.byKey(const Key('open_navigation_drawer_button')));
+  await tester.pumpAndSettle();
+  final itemFinder = find.byKey(itemKey);
+  await tester.ensureVisible(itemFinder);
+  await tester.pumpAndSettle();
+  await tester.tap(itemFinder);
+  await tester.pumpAndSettle();
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets(
-    'Full Cora E2E flow on Android device: Onboarding -> All Modules -> Stage Switch -> GDPR Purge',
+    'Full Cora v2.0 E2E flow on Android device: Onboarding (2 periods) -> Clean Home -> Interactive Calendar -> Navigation Drawer -> Stage Switch -> GDPR Purge',
     (tester) async {
       await tester.pumpWidget(
         const ProviderScope(
@@ -79,7 +89,7 @@ void main() {
       await tester.tap(layer3Btn);
       await tester.pumpAndSettle();
 
-      // 4. Onboarding Layer 4 -> Complete
+      // 4. Onboarding Layer 4 (Menstrual Baseline) -> Complete
       expect(find.text('Tu Línea Base Menstrual'), findsOneWidget);
       final completeBtn = find.byKey(const Key('complete_onboarding_button'));
       await tester.ensureVisible(completeBtn);
@@ -87,12 +97,30 @@ void main() {
       await tester.tap(completeBtn);
       await _pumpUntilFound(tester, find.text('Hola, Sofía'));
 
-      // 4. Dynamic Home Dashboard
+      // 5. Clean Dynamic Home Dashboard v2
       expect(find.text('Hola, Sofía'), findsOneWidget);
-      expect(find.byKey(const Key('dashboard_cycle_card')), findsOneWidget);
+      expect(find.byKey(const Key('home_cycle_hero_card')), findsOneWidget);
+      expect(find.byKey(const Key('home_week_calendar_strip')), findsOneWidget);
+      expect(
+          find.byKey(const Key('home_phase_education_card')), findsOneWidget);
 
-      // 5. Cycle Monitor flow + Quick Log
-      await tester.tap(find.byKey(const Key('dashboard_cycle_card')));
+      // 6. Open Interactive Menstrual Calendar from Weekly Strip
+      final openCalendarBtn =
+          find.byKey(const Key('home_open_full_calendar_button'));
+      await tester.ensureVisible(openCalendarBtn);
+      await tester.pumpAndSettle();
+      await tester.tap(openCalendarBtn);
+      await tester.pumpAndSettle();
+      expect(find.text('Calendario Menstrual'), findsOneWidget);
+      expect(find.text('DETALLE DEL REGISTRO'), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      // 7. Cycle Monitor flow + Quick Log
+      final cycleCardBtn = find.byKey(const Key('dashboard_cycle_card'));
+      await tester.ensureVisible(cycleCardBtn);
+      await tester.pumpAndSettle();
+      await tester.tap(cycleCardBtn);
       await tester.pumpAndSettle();
       expect(find.text('Monitoreo del Ciclo'), findsOneWidget);
       await tester.tap(find.text('Registrar Sangrado y Síntomas'));
@@ -104,18 +132,16 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      // 6. Wellness Tracker flow
-      await tester.tap(find.byKey(const Key('quick_action_wellness')));
-      await tester.pumpAndSettle();
+      // 8. Wellness Tracker flow via CoraNavigationDrawer
+      await _openDrawerAndTap(tester, const Key('drawer_item_wellness'));
       expect(find.text('Bienestar y Hábitos'), findsOneWidget);
       await tester.tap(find.byKey(const Key('save_wellness_button')));
       await tester.pumpAndSettle();
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      // 7. Pillbox & Treatments flow
-      await tester.tap(find.byKey(const Key('quick_action_treatments')));
-      await tester.pumpAndSettle();
+      // 9. Pillbox & Treatments flow via CoraNavigationDrawer
+      await _openDrawerAndTap(tester, const Key('drawer_item_treatments'));
       expect(find.text('Pastillero y Tratamientos'), findsOneWidget);
       await tester.tap(find.byKey(const Key('add_regimen_button')));
       await tester.pumpAndSettle();
@@ -127,9 +153,8 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      // 8. Medical Folder & Doctor-Ready PDF
-      await tester.tap(find.byKey(const Key('quick_action_medical_folder')));
-      await tester.pumpAndSettle();
+      // 10. Medical Folder & Doctor-Ready PDF via CoraNavigationDrawer
+      await _openDrawerAndTap(tester, const Key('drawer_item_medical_folder'));
       expect(find.text('Carpeta Clínica Digital'), findsOneWidget);
       await tester.tap(find.byKey(const Key('open_doctor_report_button')));
       await tester.pumpAndSettle();
@@ -146,10 +171,8 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      // 9. Clinical Assistant (Normal + Emergency Triage)
-      final assistantCard = find.byKey(const Key('quick_action_assistant'));
-      await tester.scrollUntilVisible(assistantCard, 200);
-      await tester.tap(assistantCard);
+      // 11. Clinical Assistant (Emergency Triage) via CoraNavigationDrawer
+      await _openDrawerAndTap(tester, const Key('drawer_item_assistant'));
       await tester.pumpAndSettle(const Duration(seconds: 2));
       expect(find.text('Asistente Clínico Cora'), findsOneWidget);
       await tester.enterText(
@@ -162,20 +185,15 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      // 10. Clinical Library
-      final libraryCard = find.byKey(const Key('quick_action_library'));
-      await tester.scrollUntilVisible(libraryCard, 200);
-      await tester.tap(libraryCard);
+      // 12. Clinical Library via CoraNavigationDrawer
+      await _openDrawerAndTap(tester, const Key('drawer_item_library'));
       await tester.pumpAndSettle(const Duration(seconds: 3));
       expect(find.text('Biblioteca Clínica Cora'), findsOneWidget);
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      // 11. Partner Sharing
-      final partnerCard = find.byKey(const Key('quick_action_partner'));
-      await tester.scrollUntilVisible(partnerCard, 200);
-      await tester.tap(partnerCard);
-      await tester.pumpAndSettle();
+      // 13. Partner Sharing via CoraNavigationDrawer
+      await _openDrawerAndTap(tester, const Key('drawer_item_partner'));
       expect(find.text('Modo Acompañante / Pareja'), findsOneWidget);
       await tester
           .tap(find.byKey(const Key('generate_invitation_code_button')));
@@ -199,9 +217,10 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
 
-      // 12. Life Stage Switch -> Pregnancy & Senior Vitality (High Legibility)
+      // 14. Life Stage Switch -> Pregnancy
       final switchBtn = find.byKey(const Key('switch_stage_chip_button'));
-      await tester.scrollUntilVisible(switchBtn, -200);
+      await tester.ensureVisible(switchBtn);
+      await tester.pumpAndSettle();
       await tester.tap(switchBtn);
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('switch_target_stage_dropdown')));
@@ -213,7 +232,7 @@ void main() {
       expect(find.byKey(const Key('dashboard_pregnancy_hub_card')),
           findsOneWidget);
 
-      // 13. Privacy & GDPR Purge -> Returns to Onboarding
+      // 15. Privacy & GDPR Purge -> Returns to Onboarding
       await tester.tap(find.byKey(const Key('open_privacy_settings_button')));
       await tester.pumpAndSettle();
       expect(find.text('Privacidad y Soberanía'), findsOneWidget);

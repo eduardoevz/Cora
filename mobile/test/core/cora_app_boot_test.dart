@@ -56,12 +56,19 @@ void main() {
       await tester.tap(finishBtn);
       await tester.pumpAndSettle();
 
-      // Must transition automatically to DynamicHomeDashboardPage
+      // Must transition automatically to DynamicHomeDashboardPage (Cora v2 clean Home + Drawer)
       expect(find.text('Hola, Lucía'), findsOneWidget);
-      expect(find.byKey(const Key('quick_action_assistant')), findsOneWidget);
-      expect(find.byKey(const Key('quick_action_library')), findsOneWidget);
-      expect(find.byKey(const Key('quick_action_partner')), findsOneWidget);
-      expect(find.byKey(const Key('quick_action_privacy')), findsOneWidget);
+      expect(find.byKey(const Key('home_cycle_hero_card')), findsOneWidget);
+      expect(find.byKey(const Key('home_week_calendar_strip')), findsOneWidget);
+      expect(
+          find.byKey(const Key('home_phase_education_card')), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('open_navigation_drawer_button')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('drawer_item_assistant')), findsOneWidget);
+      expect(find.byKey(const Key('drawer_item_library')), findsOneWidget);
+      expect(find.byKey(const Key('drawer_item_partner')), findsOneWidget);
+      expect(find.byKey(const Key('drawer_item_privacy')), findsOneWidget);
     },
   );
 

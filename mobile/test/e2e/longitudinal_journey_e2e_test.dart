@@ -52,6 +52,8 @@ void main() {
   testWidgets(
     'Longitudinal E2E Part 2: Stage Transitions -> Biometric Gate -> Partner View -> Account Purge',
     (tester) async {
+      final db = AppDatabase.forTesting(NativeDatabase.memory());
+      addTearDown(db.close);
       final biometricService = BiometricLockService()
         ..setBiometricEnabled(true)
         ..setTimeout(BiometricLockTimeout.immediate);
@@ -78,6 +80,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
+            appDatabaseProvider.overrideWithValue(db),
             activeUserProfileProvider.overrideWith((ref) => pregnancyProfile),
           ],
           child: MaterialApp(

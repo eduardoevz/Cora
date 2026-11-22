@@ -1,6 +1,8 @@
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mobile/core/database/app_database.dart';
 import 'package:mobile/core/security/biometric_lock_service.dart';
 import 'package:mobile/core/security/discreet_app_icon_service.dart';
 import 'package:mobile/core/theme/cora_theme.dart';
@@ -48,10 +50,13 @@ void main() {
           );
 
           final useHighLegibility = entry.key == LifeStage.seniorVitality;
+          final db = AppDatabase.forTesting(NativeDatabase.memory());
+          addTearDown(db.close);
 
           await tester.pumpWidget(
             ProviderScope(
               overrides: [
+                appDatabaseProvider.overrideWithValue(db),
                 activeUserProfileProvider.overrideWith((ref) => profile),
               ],
               child: MediaQuery(
@@ -71,6 +76,13 @@ void main() {
           await tester.pumpAndSettle();
 
           expect(find.text('Hola, Lucía'), findsOneWidget);
+          expect(tester.takeException(), isNull);
+
+          // Open CoraNavigationDrawer at 2.0x text scaling and verify zero overflow
+          await tester
+              .tap(find.byKey(const Key('open_navigation_drawer_button')));
+          await tester.pumpAndSettle();
+          expect(find.text('MI SALUD DIARIA'), findsOneWidget);
           expect(tester.takeException(), isNull);
         },
       );
