@@ -96,3 +96,26 @@ Tras el cierre inicial de la Fase 16, se completó el rediseño visual y funcion
 - `flutter test integration_test/app_full_flow_e2e_test.dart -d emulator-5554` → **`01:04 +1: All tests passed!`**
 - `flutter build apk --release` → **`√ Built build\app\outputs\flutter-apk\app-release.apk (64.8MB)`**
 - Instalación y lanzamiento en `Pixel_10_Pro` (`emulator-5554`) → **`Fatal Logcat Count: 0`**.
+
+---
+
+## Integración Híbrida de Google Stitch (30 Pantallas + Drawer)
+
+Con base en los 31 diseños exportados de Google Stitch (`diseños/` + `warm_botanical_health_editorial/DESIGN.md`), se ejecutó la integración **híbrida** por olas atómicas preservando la arquitectura *Offline-First* en Drift SQLite, la navegación unificada (`CoraNavigationDrawer` + `CoraPillTabBar`), todos los evaluadores clínicos (FIGO, ACOG, STRAW+10, EPDS) y la conformidad WCAG AA/AAA a escala tipográfica `TextScaler.linear(2.0)`:
+
+1. **Wave 0 (`19d5e06`):** Tokens Stitch (`primaryDeep: #93204B`, `blushInset: #FFF0F4`, `verified: #006B57`, `verifiedSurface: #DDF7EE`, `verifiedMint: #9EF3D9`) en `cora_theme.dart` y 8 componentes reutilizables (`CoraMintStatusPill`, `CoraStitchPageHeader`, `CoraBlushInsetBox`, `CoraCircularProgressRing`, `CoraTrustShieldCard`, `CoraSelectableOptionCard`, `CoraPillTabBar`, `CoraBiometricTrendChart`) en `cora_design_components.dart`.
+2. **Wave 1 (`6d0c4bc`):** `firebase_auth_page.dart`, `onboarding_wizard_page.dart`, `home_cycle_hero_card.dart`, `home_phase_education_card.dart`, `cora_navigation_drawer.dart`, `module_preferences_page.dart` y `menstrual_calendar_page.dart`.
+3. **Wave 2 (`f89cc12`):** `cycle_monitor_page.dart`, `chronic_conditions_tracker_page.dart`, `first_period_and_body_guide_page.dart`, `conception_hub_page.dart` y `preconception_checklist_page.dart`.
+4. **Wave 3 (`fe675f8`):** `pregnancy_weekly_hub_page.dart`, `maternal_vitals_page.dart`, `contraction_and_kick_timers_page.dart`, `birth_plan_and_appointments_page.dart`, `postpartum_recovery_page.dart`, `lactation_and_milk_bank_page.dart` y `epds_mental_health_page.dart`.
+5. **Wave 4 (`af22f58`):** `perimenopause_hub_page.dart`, `hot_flash_tracker_page.dart` y `senior_vitality_hub_page.dart`.
+6. **Wave 5 (`6579b62`):** `wellness_tracker_page.dart`, `pillbox_and_treatments_page.dart`, `medical_folder_hub_page.dart`, `vaccinations_and_specialists_page.dart` y `doctor_report_export_page.dart`.
+7. **Wave 6 (`a5419b2`):** `cora_assistant_chat_page.dart`, `clinical_library_page.dart`, `partner_sharing_settings_page.dart`, `partner_companion_view_page.dart` y `privacy_and_data_sovereignty_page.dart`.
+8. **Wave 7 — Auditoría ampliada (`a69b07e`):** Se añadieron pruebas `TextScaler.linear(2.0)` para `PerimenopauseHubPage`, `PregnancyWeeklyHubPage` y `PillboxAndTreatmentsPage` en `mobile/test/accessibility/design_system_30_screens_audit_test.dart`.
+
+### Verificación Final Post-Integración Stitch
+- `dart format --output=none --set-exit-if-changed .` → `Formatted 141 files (0 changed)`
+- `flutter analyze --fatal-infos` → `No issues found!`
+- `flutter test` → **`121/121` pruebas aprobadas**
+- `flutter test integration_test/app_full_flow_e2e_test.dart -d emulator-5554` → **`01:04 +1: All tests passed!`**
+- `flutter build apk --release` → **`mobile/build/app/outputs/flutter-apk/app-release.apk` (`65.0MB`)**
+- Instalación y lanzamiento en `Pixel_10_Pro` (`emulator-5554`) → **`0` excepciones fatales en `logcat`** y captura limpia verificada.
