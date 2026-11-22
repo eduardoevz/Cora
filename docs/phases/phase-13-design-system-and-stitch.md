@@ -79,5 +79,5 @@
 - Modify: `documentacion/README.md`
 
 - [x] **Step 1: Marcar checkboxes completados en `phase-13-design-system-and-stitch.md` y actualizar `docs/phases/README.md`**
-- [ ] **Step 2: Hacer push a `origin/main` y verificar `gh run list` / `gh run watch` hasta que todos los workflows aplicables culminen en `success`**
-- [ ] **Step 3: Crear `documentacion/fase-13-sistema-de-diseno-y-stitch.md`, actualizar `documentacion/README.md`, hacer commit (`docs(documentacion): add phase-13 completion report in documentacion/`), push y re-verificar CI en verde**
+- [x] **Step 2: Hacer push a `origin/main` y verificar `gh run list` / `gh run watch` hasta que todos los workflows aplicables culminen en `success`**
+- [x] **Step 3: Crear `documentacion/fase-13-sistema-de-diseno-y-stitch.md`, actualizar `documentacion/README.md`, hacer commit (`docs(documentacion): add phase-13 completion report in documentacion/`), push y re-verificar CI en verde**
