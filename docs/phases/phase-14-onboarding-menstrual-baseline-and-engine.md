@@ -106,6 +106,6 @@
 - Create: `documentacion/fase-14-onboarding-menstrual-y-motor-calendario.md`
 - Modify: `documentacion/README.md`
 
-- [ ] **Step 1: Actualizar checkboxes y `docs/phases/README.md`**
-- [ ] **Step 2: Push a `origin/main` y verificar `Backend CI`, `Mobile CI` y `Security & OpenAPI Contract Verification` en verde (`success`)**
-- [ ] **Step 3: Crear reporte en `documentacion/fase-14-onboarding-menstrual-y-motor-calendario.md`, actualizar índice, commit, push y re-verificar CI**
+- [x] **Step 1: Actualizar checkboxes y `docs/phases/README.md`**
+- [x] **Step 2: Push a `origin/main` y verificar `Backend CI`, `Mobile CI` y `Security & OpenAPI Contract Verification` en verde (`success`)**
+- [x] **Step 3: Crear reporte en `documentacion/fase-14-onboarding-menstrual-y-motor-calendario.md`, actualizar índice, commit, push y re-verificar CI**
