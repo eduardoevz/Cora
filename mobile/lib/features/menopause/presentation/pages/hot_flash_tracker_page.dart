@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
 import 'package:mobile/features/menopause/domain/models/hot_flash_episode.dart';
 import 'package:mobile/features/menopause/presentation/providers/menopause_providers.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
@@ -80,123 +81,134 @@ class _HotFlashTrackerPageState extends ConsumerState<HotFlashTrackerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Momento y Tipo',
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            SegmentedButton<HotFlashType>(
-              segments: const [
-                ButtonSegment(
-                  value: HotFlashType.daytime,
-                  label: Text('Diurno'),
-                  icon: Icon(Icons.wb_sunny_outlined),
-                ),
-                ButtonSegment(
-                  value: HotFlashType.nightSweats,
-                  label: Text('Sudor Nocturno'),
-                  icon: Icon(Icons.nightlight_round),
-                ),
-              ],
-              selected: {_flashType},
-              onSelectionChanged: (newVal) {
-                setState(() => _flashType = newVal.first);
-              },
-            ),
-            if (_flashType == HotFlashType.nightSweats) ...[
-              const SizedBox(height: 12),
-              Text(
-                'Interrupción del sueño: $_sleepDisruption / 3',
-                style: theme.textTheme.titleMedium
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              Slider(
-                value: _sleepDisruption.toDouble(),
-                min: 0,
-                max: 3,
-                divisions: 3,
-                label: '$_sleepDisruption',
-                onChanged: (val) =>
-                    setState(() => _sleepDisruption = val.round()),
-              ),
-            ],
-            const SizedBox(height: 20),
-            Text(
-              'Intensidad',
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: HotFlashSeverity.values.map((sev) {
-                final isSelected = _severity == sev;
-                return ChoiceChip(
-                  label: Text(
-                    switch (sev) {
-                      HotFlashSeverity.mild => '1 Leve',
-                      HotFlashSeverity.moderate => '2 Mod',
-                      HotFlashSeverity.severe => '3 Severo',
-                      HotFlashSeverity.verySevere => '4 Muy Sev',
+            CoraSurfaceCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const CoraSectionLabel(title: 'Momento y Tipo'),
+                  const SizedBox(height: 8),
+                  SegmentedButton<HotFlashType>(
+                    segments: const [
+                      ButtonSegment(
+                        value: HotFlashType.daytime,
+                        label: Text('Diurno'),
+                        icon: Icon(Icons.wb_sunny_outlined),
+                      ),
+                      ButtonSegment(
+                        value: HotFlashType.nightSweats,
+                        label: Text('Sudor Nocturno'),
+                        icon: Icon(Icons.nightlight_round),
+                      ),
+                    ],
+                    selected: {_flashType},
+                    onSelectionChanged: (newVal) {
+                      setState(() => _flashType = newVal.first);
                     },
                   ),
-                  selected: isSelected,
-                  onSelected: (_) => setState(() => _severity = sev),
-                );
-              }).toList(),
+                  if (_flashType == HotFlashType.nightSweats) ...[
+                    const SizedBox(height: 14),
+                    Text(
+                      'Interrupción del sueño: $_sleepDisruption / 3',
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                      ),
+                    ),
+                    Slider(
+                      value: _sleepDisruption.toDouble(),
+                      min: 0,
+                      max: 3,
+                      divisions: 3,
+                      label: '$_sleepDisruption',
+                      onChanged: (val) =>
+                          setState(() => _sleepDisruption = val.round()),
+                    ),
+                  ],
+                  const SizedBox(height: 16),
+                  const CoraSectionLabel(title: 'Intensidad'),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: HotFlashSeverity.values.map((sev) {
+                      final isSelected = _severity == sev;
+                      return ChoiceChip(
+                        label: Text(
+                          switch (sev) {
+                            HotFlashSeverity.mild => '1 Leve',
+                            HotFlashSeverity.moderate => '2 Mod',
+                            HotFlashSeverity.severe => '3 Severo',
+                            HotFlashSeverity.verySevere => '4 Muy Sev',
+                          },
+                        ),
+                        selected: isSelected,
+                        onSelected: (_) => setState(() => _severity = sev),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Duración estimada: $_durationMinutes min',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                  Slider(
+                    value: _durationMinutes.toDouble(),
+                    min: 1,
+                    max: 30,
+                    divisions: 29,
+                    label: '$_durationMinutes min',
+                    onChanged: (val) =>
+                        setState(() => _durationMinutes = val.round()),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 14),
+            CoraSurfaceCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const CoraSectionLabel(title: 'Factores Desencadenantes'),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
+                    children: _availableTriggers.map((trigger) {
+                      final isSelected = _selectedTriggers.contains(trigger);
+                      return FilterChip(
+                        label: Text(trigger),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          setState(() {
+                            if (selected) {
+                              _selectedTriggers.add(trigger);
+                            } else {
+                              _selectedTriggers.remove(trigger);
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 12),
+                  Material(
+                    color: Colors.transparent,
+                    child: SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Asociado a Terapia Hormonal (TRH)'),
+                      subtitle: const Text('Bajo esquema de reemplazo activo'),
+                      value: _associatedWithHrt,
+                      onChanged: (val) =>
+                          setState(() => _associatedWithHrt = val),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
-            Text(
-              'Duración estimada: $_durationMinutes min',
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            Slider(
-              value: _durationMinutes.toDouble(),
-              min: 1,
-              max: 30,
-              divisions: 29,
-              label: '$_durationMinutes min',
-              onChanged: (val) =>
-                  setState(() => _durationMinutes = val.round()),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Factores Desencadenantes',
-              style: theme.textTheme.titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              children: _availableTriggers.map((trigger) {
-                final isSelected = _selectedTriggers.contains(trigger);
-                return FilterChip(
-                  label: Text(trigger),
-                  selected: isSelected,
-                  onSelected: (selected) {
-                    setState(() {
-                      if (selected) {
-                        _selectedTriggers.add(trigger);
-                      } else {
-                        _selectedTriggers.remove(trigger);
-                      }
-                    });
-                  },
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 16),
-            SwitchListTile(
-              title: const Text('Asociado a Terapia Hormonal (TRH)'),
-              subtitle: const Text('Bajo esquema de reemplazo activo'),
-              value: _associatedWithHrt,
-              onChanged: (val) => setState(() => _associatedWithHrt = val),
-            ),
-            const SizedBox(height: 24),
             ElevatedButton.icon(
               key: const Key('save_hot_flash_button'),
               style: ElevatedButton.styleFrom(
