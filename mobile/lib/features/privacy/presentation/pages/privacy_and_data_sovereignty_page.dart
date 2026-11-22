@@ -200,6 +200,20 @@ class _PrivacyAndDataSovereigntyPageState
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
+          const CoraStitchPageHeader(
+            eyebrow: 'SOBERANÍA DE DATOS CLÍNICOS',
+            title: 'Control Total & RGPD',
+            eyebrowIcon: Icons.shield_outlined,
+            mintEyebrow: true,
+          ),
+          const SizedBox(height: 12),
+          const CoraTrustShieldCard(
+            title: 'Cifrado AES-256 • Art. 20 RGPD',
+            body:
+                'Tu historial clínico permanece bajo tu control exclusivo con 0 rastreadores de terceros y derecho al olvido inmediato.',
+            footerTag: 'Zero-Tracking Verificado',
+          ),
+          const SizedBox(height: 14),
           _buildSectionHeader('Seguridad y Acceso', Icons.lock_outline),
           CoraSurfaceCard(
             padding: EdgeInsets.zero,

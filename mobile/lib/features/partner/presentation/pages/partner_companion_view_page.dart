@@ -40,31 +40,15 @@ class PartnerCompanionViewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Acompañando a ${projection.sharingUserName}'),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: tokens.follicularSurface,
-              borderRadius: BorderRadius.circular(12),
-              border:
-                  Border.all(color: tokens.follicular.withValues(alpha: 0.4)),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.visibility_outlined,
-                    size: 16, color: tokens.follicular),
-                const SizedBox(width: 4),
-                Text(
-                  'Solo Lectura',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: tokens.follicular,
-                  ),
-                ),
-              ],
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: Center(
+              child: CoraMintStatusPill(
+                label: 'Solo Lectura',
+                icon: Icons.visibility_outlined,
+                variant: CoraStatusPillVariant.softMint,
+              ),
             ),
           ),
         ],

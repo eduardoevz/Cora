@@ -89,14 +89,9 @@ class _PartnerSharingSettingsPageState
                 ),
                 const SizedBox(height: 12),
                 if (_activeCode != null) ...[
-                  Container(
+                  CoraBlushInsetBox(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: tokens.follicularSurface,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: tokens.follicular),
-                    ),
+                        horizontal: 16, vertical: 12),
                     child: Text(
                       _activeCode!,
                       key: const Key('active_invitation_code_display'),
@@ -104,7 +99,7 @@ class _PartnerSharingSettingsPageState
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 2,
-                        color: tokens.follicular,
+                        color: tokens.primaryDeep,
                         fontFeatures: const [FontFeature.tabularFigures()],
                       ),
                     ),

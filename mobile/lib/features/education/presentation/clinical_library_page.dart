@@ -97,17 +97,28 @@ class _ClinicalLibraryPageState extends State<ClinicalLibraryPage> {
                                 const SizedBox(height: 6),
                                 Text(article.summary),
                                 const SizedBox(height: 8),
-                                Text(
-                                  '${article.scientificSource} • ${article.readingTimeMinutes} min de lectura',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(
-                                    color: tokens.textSecondary,
-                                    fontFeatures: const [
-                                      FontFeature.tabularFigures(),
-                                    ],
-                                  ),
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 4,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: [
+                                    CoraMintStatusPill(
+                                      label: article.scientificSource,
+                                      variant: CoraStatusPillVariant.softMint,
+                                    ),
+                                    Text(
+                                      '${article.readingTimeMinutes} min de lectura',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                        color: tokens.textSecondary,
+                                        fontFeatures: const [
+                                          FontFeature.tabularFigures(),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

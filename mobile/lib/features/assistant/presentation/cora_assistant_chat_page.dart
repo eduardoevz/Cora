@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
 import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/assistant/domain/models/assistant_models.dart';
 import 'package:mobile/features/assistant/presentation/widgets/citation_chips_and_emergency_banner.dart';
@@ -85,13 +86,24 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
         children: [
           Container(
             width: double.infinity,
-            color: tokens.follicularSurface,
+            color: tokens.blushInset,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Text(
-              'Orientación educativa basada en evidencia científica (OMS, ACOG, FIGO, NAMS). No reemplaza una consulta médica.',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: tokens.textSecondary,
-                  ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CoraMintStatusPill(
+                  label: 'Evidencia RAG • Triaje Determinista',
+                  icon: Icons.verified_user_outlined,
+                  variant: CoraStatusPillVariant.softMint,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  'Orientación educativa basada en evidencia científica (OMS, ACOG, FIGO, NAMS). No reemplaza una consulta médica.',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: tokens.textSecondary,
+                      ),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -115,7 +127,7 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
                     padding: const EdgeInsets.all(14),
                     constraints: const BoxConstraints(maxWidth: 520),
                     decoration: BoxDecoration(
-                      color: isUser ? tokens.follicular : tokens.surface,
+                      color: isUser ? tokens.primaryDeep : tokens.surface,
                       borderRadius: BorderRadius.circular(16),
                       border: isUser
                           ? null
