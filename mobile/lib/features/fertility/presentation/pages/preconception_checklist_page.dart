@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/fertility/domain/entities/fertility_chart_entity.dart';
 import 'package:mobile/features/fertility/presentation/providers/fertility_providers.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
@@ -25,13 +27,12 @@ class _PreconceptionChecklistPageState
 
     final checklistAsync =
         ref.watch(preconceptionChecklistProvider(profile.id));
+    final tokens = CoraTheme.tokensOf(context);
 
     return Scaffold(
+      backgroundColor: tokens.canvas,
       appBar: AppBar(
         title: const Text('Checklist Preconcepcional'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
       ),
       body: checklistAsync.when(
         data: (checklist) => _buildChecklistBody(context, checklist),
@@ -43,68 +44,62 @@ class _PreconceptionChecklistPageState
 
   Widget _buildChecklistBody(
       BuildContext context, PreconceptionChecklistEntity checklist) {
-    final theme = Theme.of(context);
+    final tokens = CoraTheme.tokensOf(context);
     final percentage = checklist.completionPercentage;
 
     return ListView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       children: [
-        // Progress Card
-        Card(
-          elevation: 0,
-          color: const Color(0xFFEFF6FF),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: Color(0xFFBFDBFE)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Progreso de Preparación',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      '$percentage%',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Color(0xFF2563EB),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: LinearProgressIndicator(
-                    value: percentage / 100.0,
-                    minHeight: 8,
-                    backgroundColor: const Color(0xFFDBEAFE),
-                    color: const Color(0xFF2563EB),
+        CoraSurfaceCard(
+          backgroundColor: tokens.ovulatorySurface,
+          borderColor: tokens.ovulatory.withValues(alpha: 0.35),
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Progreso de Preparación',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: tokens.textPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Recomendaciones clínicas clave respaldadas por ACOG y la OMS antes de la concepción.',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF475569),
+                  Text(
+                    '$percentage%',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      color: tokens.ovulatory,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
+                  value: percentage / 100.0,
+                  minHeight: 8,
+                  backgroundColor: tokens.surface,
+                  color: tokens.ovulatory,
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Recomendaciones clínicas clave respaldadas por ACOG y la OMS antes de la concepción.',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: tokens.textSecondary,
+                    ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 16),
-
-        // Items
         _buildChecklistItem(
+          context,
           key: const Key('folic_acid_checkbox'),
           title: 'Ácido fólico diario (≥ 400 mcg)',
           subtitle:
@@ -115,6 +110,7 @@ class _PreconceptionChecklistPageState
           ),
         ),
         _buildChecklistItem(
+          context,
           title: 'Consulta médica preconcepcional y análisis de sangre',
           subtitle:
               'Revisión clínica integral, hemograma, glucemia y función tiroidea.',
@@ -124,6 +120,7 @@ class _PreconceptionChecklistPageState
           ),
         ),
         _buildChecklistItem(
+          context,
           title: 'Inmunidad a la rubéola y vacunas al día',
           subtitle:
               'Verificación de anticuerpos IgG contra rubéola, varicela y hepatitis B.',
@@ -133,6 +130,7 @@ class _PreconceptionChecklistPageState
           ),
         ),
         _buildChecklistItem(
+          context,
           title: 'Revisión odontológica y salud periodontal',
           subtitle:
               'La salud bucal previene complicaciones inflamatorias durante el embarazo.',
@@ -142,6 +140,7 @@ class _PreconceptionChecklistPageState
           ),
         ),
         _buildChecklistItem(
+          context,
           title: 'Cese de hábitos tóxicos (tabaco y alcohol)',
           subtitle:
               'Eliminar alcohol y nicotina optimiza la calidad ovárica y el desarrollo temprano.',
@@ -151,6 +150,7 @@ class _PreconceptionChecklistPageState
           ),
         ),
         _buildChecklistItem(
+          context,
           title: 'Evaluación y planificación de fertilidad en pareja',
           subtitle:
               'Revisión de salud reproductiva mutua, espermiograma o antecedentes familiares.',
@@ -159,110 +159,116 @@ class _PreconceptionChecklistPageState
             checklist.copyWith(partnerEvaluationPlanned: val ?? false),
           ),
         ),
-
         const SizedBox(height: 16),
-        // Active seeking months card
-        Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: Color(0xFFE2E8F0)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Tiempo de Búsqueda Activa',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Permite a Cora calibrar alertas preventivas según tu edad.',
-                  style: TextStyle(color: Color(0xFF64748B), fontSize: 13),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${checklist.activeSeekingMonths} meses',
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+        CoraSurfaceCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Tiempo de Búsqueda Activa',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: tokens.textPrimary,
+                      fontWeight: FontWeight.w700,
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove_circle_outline),
-                          onPressed: checklist.activeSeekingMonths > 0
-                              ? () => _updateChecklist(
-                                    checklist.copyWith(
-                                      activeSeekingMonths:
-                                          checklist.activeSeekingMonths - 1,
-                                    ),
-                                  )
-                              : null,
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.add_circle_outline),
-                          onPressed: () => _updateChecklist(
-                            checklist.copyWith(
-                              activeSeekingMonths:
-                                  checklist.activeSeekingMonths + 1,
-                            ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Permite a Cora calibrar alertas preventivas según tu edad.',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: tokens.textSecondary,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${checklist.activeSeekingMonths} meses',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: tokens.accentPrimary,
+                      fontWeight: FontWeight.w800,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      IconButton.outlined(
+                        icon: const Icon(Icons.remove),
+                        constraints:
+                            const BoxConstraints(minWidth: 48, minHeight: 48),
+                        onPressed: checklist.activeSeekingMonths > 0
+                            ? () => _updateChecklist(
+                                  checklist.copyWith(
+                                    activeSeekingMonths:
+                                        checklist.activeSeekingMonths - 1,
+                                  ),
+                                )
+                            : null,
+                      ),
+                      const SizedBox(width: 8),
+                      IconButton.outlined(
+                        icon: const Icon(Icons.add),
+                        constraints:
+                            const BoxConstraints(minWidth: 48, minHeight: 48),
+                        onPressed: () => _updateChecklist(
+                          checklist.copyWith(
+                            activeSeekingMonths:
+                                checklist.activeSeekingMonths + 1,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildChecklistItem({
+  Widget _buildChecklistItem(
+    BuildContext context, {
     Key? key,
     required String title,
     required String subtitle,
     required bool value,
     required ValueChanged<bool?> onChanged,
   }) {
-    return Card(
-      key: key,
-      elevation: 0,
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: value ? const Color(0xFF86EFAC) : const Color(0xFFE2E8F0),
-        ),
-      ),
-      child: CheckboxListTile(
-        title: Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-            decoration: value ? TextDecoration.none : null,
+    final tokens = CoraTheme.tokensOf(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: CoraSurfaceCard(
+        key: key,
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        borderColor: value ? tokens.ovulatory : tokens.borderSubtle,
+        borderRadius: 16,
+        child: Material(
+          color: Colors.transparent,
+          child: CheckboxListTile(
+            title: Text(
+              title,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: tokens.textPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                subtitle,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: tokens.textSecondary,
+                    ),
+              ),
+            ),
+            value: value,
+            activeColor: tokens.ovulatory,
+            onChanged: onChanged,
           ),
         ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 4),
-          child: Text(
-            subtitle,
-            style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
-          ),
-        ),
-        value: value,
-        activeColor: const Color(0xFF16A34A),
-        onChanged: onChanged,
       ),
     );
   }

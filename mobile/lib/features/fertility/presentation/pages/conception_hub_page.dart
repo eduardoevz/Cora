@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/fertility/domain/entities/fertility_chart_entity.dart';
 import 'package:mobile/features/fertility/presentation/pages/preconception_checklist_page.dart';
 import 'package:mobile/features/fertility/presentation/providers/fertility_providers.dart';
@@ -27,24 +29,23 @@ class _ConceptionHubPageState extends ConsumerState<ConceptionHubPage> {
     }
 
     final chartDataAsync = ref.watch(fertilityChartDataProvider(profile.id));
+    final tokens = CoraTheme.tokensOf(context);
 
     return Scaffold(
+      backgroundColor: tokens.canvas,
       appBar: AppBar(
         title: const Text('Hub de Fertilidad y Concepción'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
         actions: [
           IconButton(
             icon: Icon(
               _showFahrenheit ? Icons.thermostat : Icons.device_thermostat,
-              color: const Color(0xFFE11D48),
+              color: tokens.accentPrimary,
             ),
             tooltip: _showFahrenheit ? 'Cambiar a °C' : 'Cambiar a °F',
             onPressed: () => setState(() => _showFahrenheit = !_showFahrenheit),
           ),
           IconButton(
-            icon: const Icon(Icons.checklist, color: Color(0xFF2563EB)),
+            icon: Icon(Icons.checklist, color: tokens.ovulatory),
             tooltip: 'Checklist Preconcepcional',
             onPressed: () {
               Navigator.of(context).push(
@@ -64,11 +65,12 @@ class _ConceptionHubPageState extends ConsumerState<ConceptionHubPage> {
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('quick_log_fertility_fab'),
         onPressed: () => _openQuickLogSheet(context, profile.id),
-        backgroundColor: const Color(0xFFE11D48),
-        icon: const Icon(Icons.add, color: Colors.white),
+        backgroundColor: tokens.accentPrimary,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.add),
         label: const Text(
           'Registrar Hoy',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -77,75 +79,36 @@ class _ConceptionHubPageState extends ConsumerState<ConceptionHubPage> {
   Widget _buildHubContent(
       BuildContext context, String userId, FertilityCycleChartData data) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 88),
       children: [
         // Status Card
-        _buildStatusCard(data),
+        _buildStatusCard(context, data),
         const SizedBox(height: 12),
 
         // Age-based guidance banner if present
         if (data.activeSeekingGuidanceEs != null) ...[
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFFFFFBEB),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFFDE68A)),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(Icons.info_outline,
-                    color: Color(0xFFD97706), size: 20),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    data.activeSeekingGuidanceEs!,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Color(0xFF92400E),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          CoraAlertBanner(
+            title: 'Orientación preconcepcional',
+            description: data.activeSeekingGuidanceEs!,
+            isUrgent: false,
           ),
           const SizedBox(height: 12),
         ],
 
         // Preconception Checklist Banner
-        Card(
-          elevation: 0,
-          color: const Color(0xFFF0FDF4),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: Color(0xFFBBF7D0)),
-          ),
-          child: ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            leading: const CircleAvatar(
-              backgroundColor: Color(0xFF16A34A),
-              child: Icon(Icons.assignment_turned_in, color: Colors.white),
-            ),
-            title: const Text(
-              'Checklist de Salud Preconcepcional',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            ),
-            subtitle: const Text(
-              'Ácido fólico, exámenes serológicos y hábitos saludables.',
-              style: TextStyle(fontSize: 12),
-            ),
-            trailing: const Icon(Icons.arrow_forward_ios, size: 14),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => const PreconceptionChecklistPage(),
-                ),
-              );
-            },
-          ),
+        CoraInfoCallout(
+          title: 'Checklist de Salud Preconcepcional',
+          subtitle: 'Ácido fólico, exámenes serológicos y hábitos saludables.',
+          badgeText: 'Abrir guía',
+          phaseKey: 'ovulatory',
+          icon: Icons.assignment_turned_in_outlined,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const PreconceptionChecklistPage(),
+              ),
+            );
+          },
         ),
         const SizedBox(height: 16),
 
@@ -173,101 +136,86 @@ class _ConceptionHubPageState extends ConsumerState<ConceptionHubPage> {
     );
   }
 
-  Widget _buildStatusCard(FertilityCycleChartData data) {
-    Color cardColor;
-    Color borderColor;
-    Color iconColor;
-    IconData iconData;
-    String statusTitle;
+  Widget _buildStatusCard(BuildContext context, FertilityCycleChartData data) {
+    final tokens = CoraTheme.tokensOf(context);
+    late final String phaseKey;
+    late final IconData iconData;
+    late final String statusTitle;
 
     switch (data.status) {
       case 'ovulation_confirmed':
-        cardColor = const Color(0xFFFDF2F8);
-        borderColor = const Color(0xFFFBCFE8);
-        iconColor = const Color(0xFFE11D48);
+        phaseKey = 'menstrual';
         iconData = Icons.verified;
         statusTitle = 'Ovulación Confirmada';
         break;
       case 'peak_fertility':
-        cardColor = const Color(0xFFFEF3C7);
-        borderColor = const Color(0xFFFDE68A);
-        iconColor = const Color(0xFFD97706);
-        iconData = Icons.star;
+        phaseKey = 'follicular';
+        iconData = Icons.star_outline_rounded;
         statusTitle = 'Pico de Fertilidad';
         break;
       case 'high':
-        cardColor = const Color(0xFFECFDF5);
-        borderColor = const Color(0xFFA7F3D0);
-        iconColor = const Color(0xFF059669);
+        phaseKey = 'ovulatory';
         iconData = Icons.trending_up;
         statusTitle = 'Fertilidad Alta';
         break;
       case 'low':
       default:
-        cardColor = const Color(0xFFF8FAFC);
-        borderColor = const Color(0xFFE2E8F0);
-        iconColor = const Color(0xFF64748B);
+        phaseKey = 'hormonally_managed';
         iconData = Icons.schedule;
         statusTitle = 'Fertilidad Baja';
         break;
     }
 
-    return Card(
+    final pair = tokens.phaseColors(phaseKey);
+
+    return CoraSurfaceCard(
       key: const Key('conception_status_card'),
-      elevation: 0,
-      color: cardColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: borderColor),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: iconColor.withValues(alpha: 0.15),
-                  child: Icon(iconData, color: iconColor),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+      backgroundColor: pair.background,
+      borderColor: pair.border,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: pair.foreground.withValues(alpha: 0.14),
+                child: Icon(iconData, color: pair.foreground),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      statusTitle,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: pair.foreground,
+                          ),
+                    ),
+                    if (data.cycleDay != null)
                       Text(
-                        statusTitle,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: iconColor,
+                        'Día ${data.cycleDay} del ciclo',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: tokens.textSecondary,
+                          fontFeatures: const [FontFeature.tabularFigures()],
                         ),
                       ),
-                      if (data.cycleDay != null)
-                        Text(
-                          'Día ${data.cycleDay} del ciclo',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: Color(0xFF64748B),
-                          ),
-                        ),
-                    ],
-                  ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              data.evaluationNotesEs,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Color(0xFF334155),
-                height: 1.4,
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            data.evaluationNotesEs,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: tokens.textPrimary,
+                  height: 1.45,
+                ),
+          ),
+        ],
       ),
     );
   }
@@ -435,21 +383,10 @@ class _QuickFertilityLogSheetState
             const SizedBox(height: 16),
 
             // Save button
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE11D48),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: _saveDailyLog,
-                child: const Text('Guardar Registro',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
+            CoraPrimaryActionButton(
+              onPressed: _saveDailyLog,
+              label: 'Guardar Registro',
+              icon: Icons.check_rounded,
             ),
           ],
         ),

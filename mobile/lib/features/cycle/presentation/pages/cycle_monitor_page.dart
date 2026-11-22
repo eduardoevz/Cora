@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/cycle/domain/entities/cycle_entities.dart';
 import 'package:mobile/features/cycle/presentation/pages/chronic_conditions_tracker_page.dart';
 import 'package:mobile/features/cycle/presentation/pages/menstrual_calendar_page.dart';
@@ -100,162 +102,140 @@ class CycleMonitorPage extends ConsumerWidget {
         data: (overview) {
           final status = overview.status;
           final currentDay = status.dayInCycle ?? 1;
+          final tokens = CoraTheme.tokensOf(context);
 
           return ListView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             children: [
               // 1. Rueda de 4 Fases
-              Center(
-                child: SizedBox(
-                  width: 240,
-                  height: 240,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CustomPaint(
-                        size: const Size(240, 240),
-                        painter: CycleWheelPainter(
-                          currentDay: currentDay,
-                          totalDays: estimatedTotalDays,
-                          phase: status.currentPhase,
-                          isHormonallyManaged: status.isHormonallyManaged,
+              CoraSurfaceCard(
+                padding: const EdgeInsets.all(20),
+                borderRadius: 24,
+                child: Column(
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        width: 232,
+                        height: 232,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CustomPaint(
+                              size: const Size(232, 232),
+                              painter: CycleWheelPainter(
+                                currentDay: currentDay,
+                                totalDays: estimatedTotalDays,
+                                phase: status.currentPhase,
+                                isHormonallyManaged: status.isHormonallyManaged,
+                                tokens: tokens,
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Día $currentDay',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(
+                                    fontWeight: FontWeight.w800,
+                                    color: tokens.textPrimary,
+                                    fontFeatures: const [
+                                      FontFeature.tabularFigures(),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                CoraPhasePill(
+                                  phaseKey: status.currentPhase,
+                                  label: _formatPhaseName(status.currentPhase),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Día $currentDay',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
-                                ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xFF0F172A),
-                                ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            _formatPhaseName(status.currentPhase),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(
-                                  color: const Color(0xFF6366F1),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
 
               // 2. Tarjeta Informativa de Fase y Consejo Diario
-              Card(
-                elevation: 0,
-                color: const Color(0xFFF1F5F9),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.lightbulb_outline,
-                              color: Color(0xFFEAB308)),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Consejo del Día',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        status.phaseDescriptionEs,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        status.dailyTipEs,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: const Color(0xFF475569),
-                              fontStyle: FontStyle.italic,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
+              CoraInfoCallout(
+                title: 'Consejo del Día',
+                subtitle: '${status.phaseDescriptionEs}\n${status.dailyTipEs}',
+                phaseKey: status.currentPhase,
+                icon: Icons.lightbulb_outline_rounded,
               ),
               const SizedBox(height: 16),
 
               // 3. Pronóstico de Próximo Periodo y Ventana Fértil
               if (!status.isHormonallyManaged &&
                   status.predictedNextPeriod != null) ...[
-                Card(
-                  elevation: 0,
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Color(0xFFE2E8F0)),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Pronósticos Fisiológicos',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 12),
+                CoraSurfaceCard(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Pronósticos Fisiológicos',
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: tokens.textPrimary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Próximo periodo:',
+                            style: TextStyle(color: tokens.textSecondary),
+                          ),
+                          Text(
+                            status.predictedNextPeriod!
+                                .toIso8601String()
+                                .split('T')
+                                .first,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: tokens.menstrual,
+                              fontFeatures: const [
+                                FontFeature.tabularFigures(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (status.ovulationDate != null) ...[
+                        const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Próximo periodo:'),
                             Text(
-                              status.predictedNextPeriod!
+                              'Ovulación estimada:',
+                              style: TextStyle(color: tokens.textSecondary),
+                            ),
+                            Text(
+                              status.ovulationDate!
                                   .toIso8601String()
                                   .split('T')
                                   .first,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFFE11D48)),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: tokens.ovulatory,
+                                fontFeatures: const [
+                                  FontFeature.tabularFigures(),
+                                ],
+                              ),
                             ),
                           ],
                         ),
-                        if (status.ovulationDate != null) ...[
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Ovulación estimada:'),
-                              Text(
-                                status.ovulationDate!
-                                    .toIso8601String()
-                                    .split('T')
-                                    .first,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFFD97706)),
-                              ),
-                            ],
-                          ),
-                        ],
                       ],
-                    ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -266,59 +246,19 @@ class CycleMonitorPage extends ConsumerWidget {
                 Text(
                   'Alertas Preventivas de Patrones',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFFDC2626),
+                        fontWeight: FontWeight.w700,
+                        color: tokens.alertPreventive,
                       ),
                 ),
                 const SizedBox(height: 8),
                 ...overview.alerts.map((alert) {
-                  return Card(
-                    color: const Color(0xFFFEF2F2),
-                    margin: const EdgeInsets.only(bottom: 12),
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Color(0xFFFECACA)),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(Icons.info_outline,
-                                  color: Color(0xFFDC2626)),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  alert.titleEs,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF991B1B),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            alert.descriptionEs,
-                            style: const TextStyle(
-                              color: Color(0xFF7F1D1D),
-                              fontSize: 13,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            '💡 ${alert.recommendationEs}',
-                            style: const TextStyle(
-                              color: Color(0xFF450A0A),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: CoraAlertBanner(
+                      title: alert.titleEs,
+                      description: alert.descriptionEs,
+                      recommendation: alert.recommendationEs,
+                      isUrgent: false,
                     ),
                   );
                 }),
@@ -327,14 +267,13 @@ class CycleMonitorPage extends ConsumerWidget {
           );
         },
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ElevatedButton.icon(
-          onPressed: () => _showQuickLogSheet(context, ref, user.id),
-          icon: const Icon(Icons.water_drop_outlined),
-          label: const Text('Registrar Sangrado y Síntomas'),
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+          child: CoraPrimaryActionButton(
+            onPressed: () => _showQuickLogSheet(context, ref, user.id),
+            icon: Icons.water_drop_outlined,
+            label: 'Registrar Sangrado y Síntomas',
           ),
         ),
       ),
@@ -382,18 +321,23 @@ class _QuickLogBottomSheetState extends ConsumerState<_QuickLogBottomSheet> {
       ref.invalidate(cycleOverviewProvider);
 
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registro guardado correctamente.'),
-            backgroundColor: Color(0xFF10B981),
+          SnackBar(
+            content: const Text('Registro guardado correctamente.'),
+            backgroundColor: tokens.ovulatory,
           ),
         );
       }
     } catch (e) {
       if (mounted) {
+        final tokens = CoraTheme.tokensOf(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: tokens.alertUrgent,
+          ),
         );
       }
     } finally {
