@@ -47,6 +47,14 @@ class PerimenopauseHubPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const CoraStitchPageHeader(
+              eyebrow: 'TRANSICIÓN HORMONAL STRAW+10',
+              title: 'Tu Etapa Menopáusica',
+              subtitle:
+                  'Seguimiento de variabilidad menstrual, síntomas vasomotores y salud cardiometabólica.',
+              eyebrowIcon: Icons.waves_rounded,
+            ),
+            const SizedBox(height: 14),
             // 1. Inviolable Postmenopausal Bleeding Banner
             bleedingAsync.when(
               data: (records) {
@@ -118,6 +126,35 @@ class PerimenopauseHubPage extends ConsumerWidget {
                     },
                     phaseKey: 'luteal',
                   ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: ['-3', '-2', '-1', '+1', '+2'].map((node) {
+                      final isActive = node == '-2';
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: isActive ? tokens.primaryDeep : tokens.surface,
+                          borderRadius: BorderRadius.circular(999),
+                          border: Border.all(
+                            color: isActive
+                                ? tokens.primaryDeep
+                                : tokens.borderSubtle,
+                          ),
+                        ),
+                        child: Text(
+                          'STRAW $node',
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color:
+                                isActive ? Colors.white : tokens.textSecondary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ],
               ),
             ),
@@ -131,10 +168,12 @@ class PerimenopauseHubPage extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Síntomas Vasomotores',
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w700),
+                      Expanded(
+                        child: Text(
+                          'Síntomas Vasomotores',
+                          style: theme.textTheme.titleMedium
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
                       ),
                       TextButton.icon(
                         key: const Key('quick_log_hot_flash_button'),

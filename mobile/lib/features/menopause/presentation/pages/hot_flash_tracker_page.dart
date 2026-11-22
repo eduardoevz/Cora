@@ -78,7 +78,7 @@ class _HotFlashTrackerPageState extends ConsumerState<HotFlashTrackerPage> {
         title: const Text('Registrar Sofoco / Sudor'),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -125,29 +125,49 @@ class _HotFlashTrackerPageState extends ConsumerState<HotFlashTrackerPage> {
                           setState(() => _sleepDisruption = val.round()),
                     ),
                   ],
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 10),
                   const CoraSectionLabel(title: 'Intensidad'),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: HotFlashSeverity.values.map((sev) {
-                      final isSelected = _severity == sev;
-                      return ChoiceChip(
-                        label: Text(
-                          switch (sev) {
-                            HotFlashSeverity.mild => '1 Leve',
-                            HotFlashSeverity.moderate => '2 Mod',
-                            HotFlashSeverity.severe => '3 Severo',
-                            HotFlashSeverity.verySevere => '4 Muy Sev',
-                          },
+                  const SizedBox(height: 6),
+                  Column(
+                    children: [
+                      for (var i = 0;
+                          i < HotFlashSeverity.values.length;
+                          i += 2)
+                        Padding(
+                          padding: EdgeInsets.only(bottom: i == 0 ? 8 : 0),
+                          child: Row(
+                            children: [
+                              for (var j = 0; j < 2; j++) ...[
+                                if (j > 0) const SizedBox(width: 8),
+                                Expanded(
+                                  child: Builder(
+                                    builder: (context) {
+                                      final sev =
+                                          HotFlashSeverity.values[i + j];
+                                      final isSelected = _severity == sev;
+                                      final label = switch (sev) {
+                                        HotFlashSeverity.mild => '1 Leve',
+                                        HotFlashSeverity.moderate => '2 Mod',
+                                        HotFlashSeverity.severe => '3 Severo',
+                                        HotFlashSeverity.verySevere =>
+                                          '4 Muy Sev',
+                                      };
+                                      return CoraSelectableOptionCard(
+                                        title: label,
+                                        selected: isSelected,
+                                        onTap: () =>
+                                            setState(() => _severity = sev),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
                         ),
-                        selected: isSelected,
-                        onSelected: (_) => setState(() => _severity = sev),
-                      );
-                    }).toList(),
+                    ],
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
                   Text(
                     'Duración estimada: $_durationMinutes min',
                     style: theme.textTheme.titleSmall?.copyWith(

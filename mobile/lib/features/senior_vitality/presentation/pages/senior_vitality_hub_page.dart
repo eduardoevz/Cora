@@ -35,6 +35,59 @@ class SeniorVitalityHubPage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: CoraMintStatusPill(
+                      label: 'Lectura AAA • Contraste Máximo',
+                      icon: Icons.visibility_outlined,
+                      variant: CoraStatusPillVariant.softMint,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const CoraStitchPageHeader(
+                    eyebrow: 'SALUD PREVENTIVA SÉNIOR',
+                    title: 'Vitalidad & Densidad Ósea',
+                    subtitle:
+                        'Monitoreo de densitometría DXA, prevención de caídas y red de apoyo.',
+                    eyebrowIcon: Icons.health_and_safety_outlined,
+                  ),
+                  const SizedBox(height: 12),
+                  CoraSurfaceCard(
+                    padding: const EdgeInsets.all(14),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Referencia DXA T-Score',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: tokens.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Wrap(
+                          spacing: 6,
+                          runSpacing: 6,
+                          children: [
+                            CoraMintStatusPill(
+                              label: 'Normal >= -1.0',
+                              variant: CoraStatusPillVariant.softMint,
+                            ),
+                            CoraMintStatusPill(
+                              label: 'Osteopenia -1.0 a -2.5',
+                              variant: CoraStatusPillVariant.blush,
+                            ),
+                            CoraMintStatusPill(
+                              label: 'Osteoporosis <= -2.5',
+                              variant: CoraStatusPillVariant.urgent,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 14),
                   // 1. Primary Support Contact Action
                   const TrustedContactQuickActionCard(),
                   const SizedBox(height: 16),
