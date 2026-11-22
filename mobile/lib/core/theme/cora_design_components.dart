@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:mobile/core/theme/cora_theme.dart';
 
@@ -36,9 +38,9 @@ class CoraSurfaceCard extends StatelessWidget {
             ? null
             : const [
                 BoxShadow(
-                  color: Color(0x0C241A1E),
-                  blurRadius: 16,
-                  offset: Offset(0, 6),
+                  color: Color(0x0A241A1E),
+                  blurRadius: 18,
+                  offset: Offset(0, 4),
                 ),
               ],
       ),
@@ -802,5 +804,777 @@ class CoraSegmentedSliderCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// Variant styles for Stitch-inspired status pills.
+enum CoraStatusPillVariant {
+  mint,
+  softMint,
+  blush,
+  plum,
+  urgent,
+}
+
+/// Editorial status pill matching Stitch's mint, blush, plum, and urgent badges.
+class CoraMintStatusPill extends StatelessWidget {
+  final String label;
+  final IconData? icon;
+  final CoraStatusPillVariant variant;
+
+  const CoraMintStatusPill({
+    super.key,
+    required this.label,
+    this.icon,
+    this.variant = CoraStatusPillVariant.mint,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    final (Color bg, Color fg, Color border) = switch (variant) {
+      CoraStatusPillVariant.mint => (
+          tokens.verifiedMint,
+          tokens.verified,
+          tokens.verified
+              .withValues(alpha: tokens.isHighLegibility ? 1.0 : 0.2),
+        ),
+      CoraStatusPillVariant.softMint => (
+          tokens.verifiedSurface,
+          tokens.verified,
+          tokens.verified
+              .withValues(alpha: tokens.isHighLegibility ? 1.0 : 0.25),
+        ),
+      CoraStatusPillVariant.blush => (
+          tokens.accentSurface,
+          tokens.primaryDeep,
+          tokens.primaryDeep
+              .withValues(alpha: tokens.isHighLegibility ? 1.0 : 0.22),
+        ),
+      CoraStatusPillVariant.plum => (
+          tokens.lutealSurface,
+          tokens.luteal,
+          tokens.luteal.withValues(alpha: tokens.isHighLegibility ? 1.0 : 0.22),
+        ),
+      CoraStatusPillVariant.urgent => (
+          tokens.alertUrgentSurface,
+          tokens.alertUrgent,
+          tokens.alertUrgent
+              .withValues(alpha: tokens.isHighLegibility ? 1.0 : 0.3),
+        ),
+    };
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(
+          color: border,
+          width: tokens.isHighLegibility ? 1.5 : 1.0,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            Icon(icon, size: 13, color: fg),
+            const SizedBox(width: 5),
+          ],
+          Flexible(
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: fg,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.2,
+                  ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Stitch editorial page header with uppercase eyebrow pill, title, and calm subtitle.
+class CoraStitchPageHeader extends StatelessWidget {
+  final String eyebrow;
+  final String title;
+  final String? subtitle;
+  final IconData? eyebrowIcon;
+  final bool mintEyebrow;
+  final Widget? trailing;
+
+  const CoraStitchPageHeader({
+    super.key,
+    required this.eyebrow,
+    required this.title,
+    this.subtitle,
+    this.eyebrowIcon,
+    this.mintEyebrow = false,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8,
+          runSpacing: 6,
+          children: [
+            CoraMintStatusPill(
+              label: eyebrow,
+              icon: eyebrowIcon,
+              variant: mintEyebrow
+                  ? CoraStatusPillVariant.softMint
+                  : CoraStatusPillVariant.blush,
+            ),
+            if (trailing != null) trailing!,
+          ],
+        ),
+        const SizedBox(height: 10),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.w700,
+              ),
+        ),
+        if (subtitle != null) ...[
+          const SizedBox(height: 6),
+          Text(
+            subtitle!,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: tokens.textSecondary,
+                ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Soft blush inset box (#FFF0F4) used inside pure white Stitch cards.
+class CoraBlushInsetBox extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+  final Color? backgroundColor;
+  final Color? borderColor;
+  final double borderRadius;
+
+  const CoraBlushInsetBox({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(14),
+    this.backgroundColor,
+    this.borderColor,
+    this.borderRadius = 14,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: backgroundColor ?? tokens.blushInset,
+        borderRadius: BorderRadius.circular(borderRadius),
+        border: Border.all(
+          color: borderColor ??
+              tokens.borderSubtle.withValues(
+                alpha: tokens.isHighLegibility ? 1.0 : 0.7,
+              ),
+          width: tokens.isHighLegibility ? 1.5 : 1.0,
+        ),
+      ),
+      child: child,
+    );
+  }
+}
+
+/// Circular progress ring with tabular centered percentage/value.
+class CoraCircularProgressRing extends StatelessWidget {
+  final double progress;
+  final String centerLabel;
+  final String? centerSublabel;
+  final double size;
+  final double strokeWidth;
+  final Color? progressColor;
+
+  const CoraCircularProgressRing({
+    super.key,
+    required this.progress,
+    required this.centerLabel,
+    this.centerSublabel,
+    this.size = 84,
+    this.strokeWidth = 7,
+    this.progressColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    final activeColor = progressColor ?? tokens.primaryDeep;
+    final trackColor = tokens.accentSurface;
+
+    return SizedBox(
+      width: size,
+      height: size,
+      child: CustomPaint(
+        painter: _CircularRingPainter(
+          progress: progress.clamp(0.0, 1.0),
+          activeColor: activeColor,
+          trackColor: trackColor,
+          strokeWidth: strokeWidth,
+        ),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(strokeWidth + 4),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    centerLabel,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: tokens.textPrimary,
+                      fontWeight: FontWeight.w800,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                  if (centerSublabel != null)
+                    Text(
+                      centerSublabel!,
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: tokens.textSecondary,
+                            fontSize: 10,
+                          ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CircularRingPainter extends CustomPainter {
+  final double progress;
+  final Color activeColor;
+  final Color trackColor;
+  final double strokeWidth;
+
+  const _CircularRingPainter({
+    required this.progress,
+    required this.activeColor,
+    required this.trackColor,
+    required this.strokeWidth,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = (math.min(size.width, size.height) - strokeWidth) / 2;
+    final trackPaint = Paint()
+      ..color = trackColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth;
+    final activePaint = Paint()
+      ..color = activeColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawCircle(center, radius, trackPaint);
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -math.pi / 2,
+      2 * math.pi * progress,
+      false,
+      activePaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _CircularRingPainter oldDelegate) {
+    return oldDelegate.progress != progress ||
+        oldDelegate.activeColor != activeColor ||
+        oldDelegate.trackColor != trackColor;
+  }
+}
+
+/// Pure white trust shield card with green left accent bar (e.g. AES-256 / E2EE).
+class CoraTrustShieldCard extends StatelessWidget {
+  final String title;
+  final String body;
+  final String? footerTag;
+  final IconData icon;
+
+  const CoraTrustShieldCard({
+    super.key,
+    required this.title,
+    required this.body,
+    this.footerTag,
+    this.icon = Icons.shield_outlined,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return Container(
+      decoration: BoxDecoration(
+        color: tokens.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: tokens.borderSubtle,
+          width: tokens.isHighLegibility ? 2.0 : 1.0,
+        ),
+        boxShadow: tokens.isHighLegibility
+            ? null
+            : const [
+                BoxShadow(
+                  color: Color(0x0A241A1E),
+                  blurRadius: 16,
+                  offset: Offset(0, 4),
+                ),
+              ],
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: 5,
+              decoration: BoxDecoration(
+                color: tokens.verified,
+                borderRadius: const BorderRadius.horizontal(
+                  left: Radius.circular(18),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      decoration: BoxDecoration(
+                        color: tokens.verifiedSurface,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(icon, size: 20, color: tokens.verified),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                  color: tokens.textPrimary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            body,
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: tokens.textSecondary,
+                                      height: 1.45,
+                                    ),
+                          ),
+                          if (footerTag != null) ...[
+                            const SizedBox(height: 8),
+                            Text(
+                              footerTag!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(
+                                    color: tokens.verified,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.4,
+                                  ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Selectable editorial card replacing plain RadioListTile/CheckboxListTile.
+class CoraSelectableOptionCard extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final String? badgeLabel;
+  final CoraStatusPillVariant badgeVariant;
+  final bool selected;
+  final VoidCallback onTap;
+  final bool isRadio;
+  final IconData? leadingIcon;
+
+  const CoraSelectableOptionCard({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.badgeLabel,
+    this.badgeVariant = CoraStatusPillVariant.blush,
+    required this.selected,
+    required this.onTap,
+    this.isRadio = true,
+    this.leadingIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    final bg = selected ? tokens.accentSurface : tokens.blushInset;
+    final border = selected ? tokens.primaryDeep : tokens.borderSubtle;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: border,
+              width: selected ? 1.8 : 1.0,
+            ),
+          ),
+          child: Row(
+            children: [
+              if (leadingIcon != null) ...[
+                Icon(
+                  leadingIcon,
+                  size: 20,
+                  color: selected ? tokens.primaryDeep : tokens.textSecondary,
+                ),
+                const SizedBox(width: 10),
+              ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Text(
+                          title,
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: tokens.textPrimary,
+                                    fontWeight: selected
+                                        ? FontWeight.w700
+                                        : FontWeight.w600,
+                                  ),
+                        ),
+                        if (badgeLabel != null)
+                          CoraMintStatusPill(
+                            label: badgeLabel!,
+                            variant: badgeVariant,
+                          ),
+                      ],
+                    ),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 3),
+                      Text(
+                        subtitle!,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: tokens.textSecondary,
+                            ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: 22,
+                height: 22,
+                decoration: BoxDecoration(
+                  shape: isRadio ? BoxShape.circle : BoxShape.rectangle,
+                  borderRadius: isRadio ? null : BorderRadius.circular(6),
+                  color: selected ? tokens.primaryDeep : tokens.surface,
+                  border: Border.all(
+                    color: selected
+                        ? tokens.primaryDeep
+                        : tokens.textSecondary.withValues(alpha: 0.45),
+                    width: 1.5,
+                  ),
+                ),
+                child: selected
+                    ? Icon(
+                        isRadio ? Icons.circle : Icons.check,
+                        size: isRadio ? 10 : 14,
+                        color: Colors.white,
+                      )
+                    : null,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Stitch-styled segmented pill TabBar inside an accentSurface track.
+class CoraPillTabBar extends StatelessWidget {
+  final TabController controller;
+  final List<Tab> tabs;
+
+  const CoraPillTabBar({
+    super.key,
+    required this.controller,
+    required this.tabs,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: tokens.accentSurface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: tokens.borderSubtle),
+      ),
+      child: TabBar(
+        controller: controller,
+        dividerColor: Colors.transparent,
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicator: BoxDecoration(
+          color: tokens.surface,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: tokens.isHighLegibility
+              ? null
+              : const [
+                  BoxShadow(
+                    color: Color(0x0F241A1E),
+                    blurRadius: 8,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+        ),
+        labelColor: tokens.primaryDeep,
+        unselectedLabelColor: tokens.textSecondary,
+        labelStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+        tabs: tabs,
+      ),
+    );
+  }
+}
+
+/// 100% offline CustomPaint biomedical line trend chart (BBT, IOM weight, SOP, PDF preview).
+class CoraBiometricTrendChart extends StatelessWidget {
+  final List<double> values;
+  final List<double>? secondaryValues;
+  final double? referenceLine;
+  final Color lineColor;
+  final Color? secondaryLineColor;
+  final double height;
+  final String? startLabel;
+  final String? midLabel;
+  final String? endLabel;
+
+  const CoraBiometricTrendChart({
+    super.key,
+    required this.values,
+    this.secondaryValues,
+    this.referenceLine,
+    required this.lineColor,
+    this.secondaryLineColor,
+    this.height = 104,
+    this.startLabel,
+    this.midLabel,
+    this.endLabel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SizedBox(
+          height: height,
+          child: CustomPaint(
+            painter: _BiometricTrendPainter(
+              values: values,
+              secondaryValues: secondaryValues,
+              referenceLine: referenceLine,
+              lineColor: lineColor,
+              secondaryLineColor: secondaryLineColor ?? tokens.luteal,
+              guideColor: tokens.borderSubtle,
+            ),
+          ),
+        ),
+        if (startLabel != null || midLabel != null || endLabel != null) ...[
+          const SizedBox(height: 6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                startLabel ?? '',
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: tokens.textSecondary,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                ),
+              ),
+              if (midLabel != null)
+                Text(
+                  midLabel!,
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: tokens.verified,
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+              Text(
+                endLabel ?? '',
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: tokens.textSecondary,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _BiometricTrendPainter extends CustomPainter {
+  final List<double> values;
+  final List<double>? secondaryValues;
+  final double? referenceLine;
+  final Color lineColor;
+  final Color secondaryLineColor;
+  final Color guideColor;
+
+  const _BiometricTrendPainter({
+    required this.values,
+    this.secondaryValues,
+    this.referenceLine,
+    required this.lineColor,
+    required this.secondaryLineColor,
+    required this.guideColor,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (values.length < 2) return;
+    final all = <double>[
+      ...values,
+      if (secondaryValues != null) ...secondaryValues!,
+      if (referenceLine != null) referenceLine!,
+    ];
+    final minVal = all.reduce(math.min);
+    final maxVal = all.reduce(math.max);
+    final span = (maxVal - minVal).abs() < 0.001 ? 1.0 : (maxVal - minVal);
+
+    final guidePaint = Paint()
+      ..color = guideColor.withValues(alpha: 0.7)
+      ..strokeWidth = 1;
+    for (final frac in [0.15, 0.5, 0.85]) {
+      final y = size.height * frac;
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), guidePaint);
+    }
+
+    double mapY(double v) {
+      final norm = (v - minVal) / span;
+      return size.height * 0.85 - norm * (size.height * 0.70);
+    }
+
+    if (referenceLine != null) {
+      final refY = mapY(referenceLine!);
+      final refPaint = Paint()
+        ..color = guideColor
+        ..strokeWidth = 1.2;
+      for (double x = 0; x < size.width; x += 8) {
+        canvas.drawLine(
+          Offset(x, refY),
+          Offset(math.min(x + 4, size.width), refY),
+          refPaint,
+        );
+      }
+    }
+
+    void drawSeries(List<double> series, Color color, {bool showDots = false}) {
+      if (series.length < 2) return;
+      final path = Path();
+      final points = <Offset>[];
+      for (var i = 0; i < series.length; i++) {
+        final x = (i / (series.length - 1)) * size.width;
+        final y = mapY(series[i]);
+        points.add(Offset(x, y));
+        if (i == 0) {
+          path.moveTo(x, y);
+        } else {
+          final prev = points[i - 1];
+          final cx = (prev.dx + x) / 2;
+          path.cubicTo(cx, prev.dy, cx, y, x, y);
+        }
+      }
+      final strokePaint = Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.4
+        ..strokeCap = StrokeCap.round;
+      canvas.drawPath(path, strokePaint);
+      if (showDots) {
+        final dotPaint = Paint()..color = color;
+        for (final pt in points) {
+          canvas.drawCircle(pt, 3.0, dotPaint);
+        }
+      }
+    }
+
+    if (secondaryValues != null) {
+      drawSeries(secondaryValues!, secondaryLineColor);
+    }
+    drawSeries(values, lineColor, showDots: true);
+  }
+
+  @override
+  bool shouldRepaint(covariant _BiometricTrendPainter oldDelegate) {
+    return oldDelegate.values != values ||
+        oldDelegate.lineColor != lineColor ||
+        oldDelegate.referenceLine != referenceLine;
   }
 }

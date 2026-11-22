@@ -39,6 +39,11 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
   final Color alertPreventiveSurface;
   final Color alertUrgent;
   final Color alertUrgentSurface;
+  final Color primaryDeep;
+  final Color blushInset;
+  final Color verified;
+  final Color verifiedSurface;
+  final Color verifiedMint;
   final bool isHighLegibility;
 
   const CoraColorTokens({
@@ -64,6 +69,11 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
     required this.alertPreventiveSurface,
     required this.alertUrgent,
     required this.alertUrgentSurface,
+    this.primaryDeep = const Color(0xFF93204B),
+    this.blushInset = const Color(0xFFFFF0F4),
+    this.verified = const Color(0xFF006B57),
+    this.verifiedSurface = const Color(0xFFDDF7EE),
+    this.verifiedMint = const Color(0xFF9EF3D9),
     required this.isHighLegibility,
   });
 
@@ -90,6 +100,11 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
     alertPreventiveSurface: Color(0xFFFEF3C7),
     alertUrgent: Color(0xFFB91C1C),
     alertUrgentSurface: Color(0xFFFEE2E2),
+    primaryDeep: Color(0xFF93204B),
+    blushInset: Color(0xFFFFF0F4),
+    verified: Color(0xFF006B57),
+    verifiedSurface: Color(0xFFDDF7EE),
+    verifiedMint: Color(0xFF9EF3D9),
     isHighLegibility: false,
   );
 
@@ -116,6 +131,11 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
     alertPreventiveSurface: Color(0xFFFFF7DB),
     alertUrgent: Color(0xFF7F0000),
     alertUrgentSurface: Color(0xFFFFEBEB),
+    primaryDeep: Color(0xFF5C0A28),
+    blushInset: Color(0xFFF5F5F5),
+    verified: Color(0xFF004D40),
+    verifiedSurface: Color(0xFFEBF8F5),
+    verifiedMint: Color(0xFFEBF8F5),
     isHighLegibility: true,
   );
 
@@ -188,6 +208,11 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
     Color? alertPreventiveSurface,
     Color? alertUrgent,
     Color? alertUrgentSurface,
+    Color? primaryDeep,
+    Color? blushInset,
+    Color? verified,
+    Color? verifiedSurface,
+    Color? verifiedMint,
     bool? isHighLegibility,
   }) {
     return CoraColorTokens(
@@ -214,6 +239,11 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
           alertPreventiveSurface ?? this.alertPreventiveSurface,
       alertUrgent: alertUrgent ?? this.alertUrgent,
       alertUrgentSurface: alertUrgentSurface ?? this.alertUrgentSurface,
+      primaryDeep: primaryDeep ?? this.primaryDeep,
+      blushInset: blushInset ?? this.blushInset,
+      verified: verified ?? this.verified,
+      verifiedSurface: verifiedSurface ?? this.verifiedSurface,
+      verifiedMint: verifiedMint ?? this.verifiedMint,
       isHighLegibility: isHighLegibility ?? this.isHighLegibility,
     );
   }
@@ -263,6 +293,13 @@ class CoraColorTokens extends ThemeExtension<CoraColorTokens> {
       alertUrgentSurface:
           Color.lerp(alertUrgentSurface, other.alertUrgentSurface, t) ??
               alertUrgentSurface,
+      primaryDeep: Color.lerp(primaryDeep, other.primaryDeep, t) ?? primaryDeep,
+      blushInset: Color.lerp(blushInset, other.blushInset, t) ?? blushInset,
+      verified: Color.lerp(verified, other.verified, t) ?? verified,
+      verifiedSurface: Color.lerp(verifiedSurface, other.verifiedSurface, t) ??
+          verifiedSurface,
+      verifiedMint:
+          Color.lerp(verifiedMint, other.verifiedMint, t) ?? verifiedMint,
       isHighLegibility: t < 0.5 ? isHighLegibility : other.isHighLegibility,
     );
   }
@@ -432,7 +469,7 @@ class CoraTheme {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: tokens.accentPrimary,
+          backgroundColor: tokens.primaryDeep,
           foregroundColor: Colors.white,
           minimumSize: const Size(48, 48),
           elevation: 0,
@@ -440,6 +477,27 @@ class CoraTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),
+        ),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return Colors.white;
+          return tokens.textSecondary;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return tokens.primaryDeep;
+          return tokens.borderSubtle;
+        }),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return tokens.primaryDeep;
+          return Colors.transparent;
+        }),
+        side: BorderSide(
+          color: tokens.textSecondary.withValues(alpha: 0.45),
+          width: 1.5,
         ),
       ),
     );

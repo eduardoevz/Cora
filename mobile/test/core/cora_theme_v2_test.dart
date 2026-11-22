@@ -76,6 +76,14 @@ void main() {
           greaterThanOrEqualTo(4.5));
       expect(_contrastRatio(tokens.alertUrgent, tokens.alertUrgentSurface),
           greaterThanOrEqualTo(4.5));
+      expect(_contrastRatio(tokens.primaryDeep, tokens.surface),
+          greaterThanOrEqualTo(4.5));
+      expect(_contrastRatio(Colors.white, tokens.primaryDeep),
+          greaterThanOrEqualTo(4.5));
+      expect(_contrastRatio(tokens.verified, tokens.verifiedSurface),
+          greaterThanOrEqualTo(4.5));
+      expect(_contrastRatio(tokens.verified, tokens.verifiedMint),
+          greaterThanOrEqualTo(4.5));
     });
 
     test('highLegibility theme meets WCAG AAA (>= 7:1) and >= 56dp targets',
@@ -341,6 +349,87 @@ void main() {
         await tester.ensureVisible(find.text('Agregar estudio'));
         await tester.tap(find.text('Agregar estudio'));
         expect(emptyTapped, isTrue);
+      },
+    );
+
+    testWidgets(
+      'Stitch hybrid editorial components render cleanly at 2.0x TextScaler',
+      (tester) async {
+        var selected = false;
+
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: CoraTheme.standard(),
+            home: MediaQuery(
+              data: const MediaQueryData(
+                size: Size(360, 800),
+                textScaler: TextScaler.linear(2.0),
+              ),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const CoraStitchPageHeader(
+                        eyebrow: 'GOBERNANZA BIOÉTICA',
+                        title: 'Privacidad y Soberanía',
+                        subtitle: 'Tus datos médicos te pertenecen.',
+                        mintEyebrow: true,
+                      ),
+                      const SizedBox(height: 12),
+                      const CoraTrustShieldCard(
+                        title: 'Cifrado Local AES-256 Activo',
+                        body: 'Llave custodiada en tu dispositivo.',
+                        footerTag: 'ZERO-KNOWLEDGE ARCHITECTURE',
+                      ),
+                      const SizedBox(height: 12),
+                      const CoraBlushInsetBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CoraCircularProgressRing(
+                              progress: 0.65,
+                              centerLabel: '65%',
+                              centerSublabel: 'metas',
+                            ),
+                            SizedBox(width: 12),
+                            Expanded(
+                              child: CoraBiometricTrendChart(
+                                values: [36.2, 36.3, 36.15, 36.6, 36.75],
+                                referenceLine: 36.35,
+                                lineColor: Color(0xFF006B57),
+                                startLabel: 'D1',
+                                midLabel: 'Ovulación',
+                                endLabel: 'D28',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      CoraSelectableOptionCard(
+                        title: 'Casi nunca',
+                        badgeLabel: 'Leve',
+                        badgeVariant: CoraStatusPillVariant.softMint,
+                        selected: selected,
+                        onTap: () => selected = !selected,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        expect(find.text('Privacidad y Soberanía'), findsOneWidget);
+        expect(find.text('Cifrado Local AES-256 Activo'), findsOneWidget);
+        expect(find.text('65%'), findsOneWidget);
+        expect(find.text('Casi nunca'), findsOneWidget);
+        expect(tester.takeException(), isNull);
       },
     );
   });
