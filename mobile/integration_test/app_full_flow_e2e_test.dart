@@ -215,6 +215,10 @@ void main() {
         200,
         scrollable: find.byType(Scrollable).first,
       );
+      await tester.drag(find.byType(Scrollable).first, const Offset(0, -160));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(purgeBtn);
+      await tester.pumpAndSettle();
       await tester.tap(purgeBtn);
       await tester.pumpAndSettle();
       await tester.enterText(

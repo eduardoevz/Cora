@@ -62,9 +62,6 @@ class CoraAssistantService {
     // Stage 2: Try live backend RAG pipeline (/assistant)
     final api = _ref.read(coraApiClientProvider);
     try {
-      if (profile != null) {
-        api.setAuthToken('mock-token:${profile.firebaseUid}');
-      }
       if (_remoteConversationId == null) {
         try {
           final convRes = await api.dio.post(

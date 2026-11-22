@@ -145,7 +145,6 @@ class IdentityRepositoryImpl implements IdentityRepository {
 
     final api = _apiClient;
     if (api != null) {
-      api.setAuthToken('mock-token:${finalProfile.firebaseUid}');
       unawaited(() async {
         try {
           await api.dio.put('/identity/onboarding', data: payload);
@@ -212,7 +211,6 @@ class IdentityRepositoryImpl implements IdentityRepository {
     final updated = await _profileDao.getActiveProfile();
     final api = _apiClient;
     if (api != null && updated != null) {
-      api.setAuthToken('mock-token:${updated.firebaseUid}');
       unawaited(() async {
         try {
           await api.dio.post('/identity/life-stage/transitions', data: payload);
@@ -251,7 +249,6 @@ class IdentityRepositoryImpl implements IdentityRepository {
     final updated = await _profileDao.getActiveProfile();
     final api = _apiClient;
     if (api != null && updated != null) {
-      api.setAuthToken('mock-token:${updated.firebaseUid}');
       unawaited(() async {
         try {
           await api.dio.patch('/identity/module-preferences', data: payload);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/auth/auth_providers.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 import 'package:uuid/uuid.dart';
@@ -79,9 +80,13 @@ class _OnboardingWizardPageState extends ConsumerState<OnboardingWizardPage> {
     final repo = ref.read(identityRepositoryProvider);
     final defaultModules = repo.getDefaultModulesForStage(_selectedLifeStage);
 
+    final authUid = ref.read(coraAuthServiceProvider).currentUser?.uid;
+    final resolvedUid =
+        (authUid != null && authUid.isNotEmpty) ? authUid : const Uuid().v4();
+
     return UserProfileEntity(
       id: const Uuid().v4(),
-      firebaseUid: 'mock_uid_${DateTime.now().millisecondsSinceEpoch}',
+      firebaseUid: resolvedUid,
       firstName: _firstNameController.text.trim(),
       lastName: _lastNameController.text.trim(),
       currentLifeStage: _selectedLifeStage,

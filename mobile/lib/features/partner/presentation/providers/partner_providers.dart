@@ -14,17 +14,7 @@ class PartnerSharingService {
   final Ref _ref;
   String? _activeLinkId;
 
-  Future<void> _ensureAuth() async {
-    final profile = _ref.read(activeUserProfileProvider);
-    if (profile != null) {
-      _ref
-          .read(coraApiClientProvider)
-          .setAuthToken('mock-token:${profile.firebaseUid}');
-    }
-  }
-
   Future<String> generateInvitationCode() async {
-    await _ensureAuth();
     final api = _ref.read(coraApiClientProvider);
     try {
       final res = await api.dio.post(
@@ -45,7 +35,6 @@ class PartnerSharingService {
   }
 
   Future<void> redeemCode(String code) async {
-    await _ensureAuth();
     final api = _ref.read(coraApiClientProvider);
     try {
       final res = await api.dio.post(
@@ -65,7 +54,6 @@ class PartnerSharingService {
     required bool pregnancy,
     required bool mood,
   }) async {
-    await _ensureAuth();
     if (_activeLinkId == null) return;
     try {
       await _ref.read(coraApiClientProvider).dio.patch(
@@ -84,7 +72,6 @@ class PartnerSharingService {
   }
 
   Future<void> revokeActiveLink() async {
-    await _ensureAuth();
     if (_activeLinkId == null) return;
     try {
       await _ref
@@ -98,7 +85,6 @@ class PartnerSharingService {
   }
 
   Future<PartnerCompanionProjection> fetchSharedViewOrFallback() async {
-    await _ensureAuth();
     final profile = _ref.read(activeUserProfileProvider);
     try {
       final res = await _ref.read(coraApiClientProvider).dio.get(

@@ -1,16 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile/core/network/cora_api_client.dart';
+import 'package:mobile/core/auth/auth_providers.dart';
+import 'package:mobile/core/auth/firebase_auth_service.dart';
 import 'package:mobile/core/security/privacy_lifecycle_gate.dart';
 import 'package:mobile/core/security/security_providers.dart';
 import 'package:mobile/core/theme/cora_theme.dart';
+import 'package:mobile/features/auth/presentation/pages/firebase_auth_page.dart';
 import 'package:mobile/features/dashboard/presentation/pages/dynamic_home_dashboard_page.dart';
 import 'package:mobile/features/onboarding/domain/entities/user_profile_entity.dart';
 import 'package:mobile/features/onboarding/presentation/pages/onboarding_wizard_page.dart';
 import 'package:mobile/features/onboarding/presentation/providers/identity_providers.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FirebaseCoraAuthService.instance.initialize();
   runApp(
     const ProviderScope(
       child: CoraApp(),
@@ -46,22 +51,36 @@ class CoraRootGate extends ConsumerStatefulWidget {
 
 class _CoraRootGateState extends ConsumerState<CoraRootGate> {
   bool _isBootstrapping = true;
+  String? _bootstrappedUid;
 
   @override
   void initState() {
     super.initState();
-    _bootstrapProfile();
+    unawaited(ref.read(discreetAppIconServiceProvider).syncFromNative());
+    final auth = ref.read(coraAuthServiceProvider);
+    if (!auth.isFirebaseReady) {
+      _bootstrapProfile();
+    } else if (auth.currentUser != null) {
+      _bootstrapProfile(expectedUid: auth.currentUser!.uid);
+    } else {
+      _isBootstrapping = false;
+    }
   }
 
-  Future<void> _bootstrapProfile() async {
+  Future<void> _bootstrapProfile({String? expectedUid}) async {
+    if (!mounted) return;
+    setState(() {
+      _isBootstrapping = true;
+      _bootstrappedUid = expectedUid;
+    });
     try {
       final profile =
           await ref.read(identityRepositoryProvider).getActiveProfile();
-      if (profile != null) {
-        ref
-            .read(coraApiClientProvider)
-            .setAuthToken('mock-token:${profile.firebaseUid}');
+      if (profile != null &&
+          (expectedUid == null || profile.firebaseUid == expectedUid)) {
         ref.read(activeUserProfileProvider.notifier).state = profile;
+      } else {
+        ref.read(activeUserProfileProvider.notifier).state = null;
       }
     } catch (_) {
       // Allow clean start on onboarding if local database fails to read profile
@@ -76,40 +95,30 @@ class _CoraRootGateState extends ConsumerState<CoraRootGate> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = ref.watch(coraAuthServiceProvider);
+
+    if (authService.isFirebaseReady) {
+      final authState = ref.watch(coraAuthStateProvider);
+      final authUser = authState.asData?.value ?? authService.currentUser;
+
+      if (authUser == null) {
+        _bootstrappedUid = null;
+        return FirebaseAuthPage(
+          onAuthenticated: (user) => _bootstrapProfile(expectedUid: user.uid),
+        );
+      }
+
+      if (_bootstrappedUid != authUser.uid && !_isBootstrapping) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            _bootstrapProfile(expectedUid: authUser.uid);
+          }
+        });
+      }
+    }
+
     if (_isBootstrapping) {
-      return const Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.favorite_rounded,
-                  size: 56,
-                  color: CoraTheme.primaryColor,
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Cora',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: CoraTheme.primaryColor,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'Cuidado Integral de la Salud Femenina',
-                  style: TextStyle(fontSize: 15),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 24),
-                CircularProgressIndicator(),
-              ],
-            ),
-          ),
-        ),
-      );
+      return _buildLoadingScreen();
     }
 
     final activeProfile = ref.watch(activeUserProfileProvider);
@@ -121,6 +130,42 @@ class _CoraRootGateState extends ConsumerState<CoraRootGate> {
     return PrivacyLifecycleGate(
       lockService: lockService,
       child: const DynamicHomeDashboardPage(),
+    );
+  }
+
+  Widget _buildLoadingScreen() {
+    return const Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.favorite_rounded,
+                size: 56,
+                color: CoraTheme.primaryColor,
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Cora',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: CoraTheme.primaryColor,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Cuidado Integral de la Salud Femenina',
+                style: TextStyle(fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 24),
+              CircularProgressIndicator(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

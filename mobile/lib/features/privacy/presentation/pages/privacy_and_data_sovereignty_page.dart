@@ -7,6 +7,7 @@ class PrivacyAndDataSovereigntyPage extends StatefulWidget {
   final DiscreetAppIconService iconService;
   final Future<void> Function()? onExportData;
   final Future<void> Function(String phrase)? onPurgeAccount;
+  final Future<void> Function()? onSignOut;
 
   const PrivacyAndDataSovereigntyPage({
     super.key,
@@ -14,6 +15,7 @@ class PrivacyAndDataSovereigntyPage extends StatefulWidget {
     required this.iconService,
     this.onExportData,
     this.onPurgeAccount,
+    this.onSignOut,
   });
 
   @override
@@ -259,6 +261,22 @@ class _PrivacyAndDataSovereigntyPageState
                 ),
                 // ignore: deprecated_member_use
                 RadioListTile<DiscreetAppIcon>(
+                  key: const Key('radio_icon_calendar'),
+                  title: const Text('Mi Calendario'),
+                  subtitle: const Text('Ícono discreto de calendario personal'),
+                  value: DiscreetAppIcon.neutralCalendar,
+                  // ignore: deprecated_member_use
+                  groupValue: _currentIcon,
+                  // ignore: deprecated_member_use
+                  onChanged: (val) {
+                    if (val != null) {
+                      widget.iconService.switchIcon(val);
+                      setState(() => _currentIcon = val);
+                    }
+                  },
+                ),
+                // ignore: deprecated_member_use
+                RadioListTile<DiscreetAppIcon>(
                   key: const Key('radio_icon_notes'),
                   title: const Text('Notas'),
                   subtitle: const Text(
@@ -317,6 +335,21 @@ class _PrivacyAndDataSovereigntyPageState
             ),
           ),
           const SizedBox(height: 28),
+          if (widget.onSignOut != null) ...[
+            Card(
+              child: ListTile(
+                key: const Key('sign_out_tile'),
+                leading: const Icon(Icons.logout, color: Colors.blueGrey),
+                title: const Text('Cerrar Sesión'),
+                subtitle: const Text(
+                    'Desconecta tu sesión de Firebase en este dispositivo'),
+                onTap: () async {
+                  await widget.onSignOut!();
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+          ],
           _buildSectionHeader('Zona de Peligro', Icons.delete_forever,
               color: Colors.red),
           Card(
@@ -355,6 +388,7 @@ class _PrivacyAndDataSovereigntyPageState
               ),
             ),
           ),
+          SizedBox(height: 48 + MediaQuery.paddingOf(context).bottom),
         ],
       ),
     );

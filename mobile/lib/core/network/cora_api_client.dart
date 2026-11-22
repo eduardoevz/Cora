@@ -1,12 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/auth/auth_providers.dart';
 
 final coraApiClientProvider = Provider<CoraApiClient>((ref) {
   const defaultUrl = String.fromEnvironment(
     'CORA_API_URL',
     defaultValue: 'https://cora-backend-h52h.onrender.com/api/v1',
   );
-  return CoraApiClient(baseUrl: defaultUrl);
+  final authService = ref.watch(coraAuthServiceProvider);
+  return CoraApiClient(
+    baseUrl: defaultUrl,
+    tokenProvider: () => authService.getIdToken(),
+  );
 });
 
 class ProblemDetailsException implements Exception {
@@ -44,9 +49,13 @@ class ProblemDetailsException implements Exception {
 
 class CoraApiClient {
   final Dio dio;
+  final Future<String?> Function()? _tokenProvider;
 
-  CoraApiClient({String baseUrl = 'http://localhost:8000/api/v1'})
-      : dio = Dio(
+  CoraApiClient({
+    String baseUrl = 'http://localhost:8000/api/v1',
+    Future<String?> Function()? tokenProvider,
+  })  : _tokenProvider = tokenProvider,
+        dio = Dio(
           BaseOptions(
             baseUrl: baseUrl,
             connectTimeout: const Duration(seconds: 10),
@@ -56,6 +65,16 @@ class CoraApiClient {
         ) {
     dio.interceptors.add(
       InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final provider = _tokenProvider;
+          if (provider != null) {
+            final token = await provider();
+            if (token != null && token.isNotEmpty) {
+              options.headers['Authorization'] = 'Bearer $token';
+            }
+          }
+          return handler.next(options);
+        },
         onError: (DioException error, handler) {
           if (error.response?.data is Map<String, dynamic>) {
             final data = error.response!.data as Map<String, dynamic>;

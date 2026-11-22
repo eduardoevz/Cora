@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/auth/auth_providers.dart';
 import 'package:mobile/core/network/cora_api_client.dart';
 import 'package:mobile/core/security/security_providers.dart';
 import 'package:mobile/features/adolescence/presentation/pages/first_period_and_body_guide_page.dart';
@@ -1005,7 +1006,6 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
           biometricService: biometricService,
           iconService: iconService,
           onExportData: () async {
-            api.setAuthToken('mock-token:${profile.firebaseUid}');
             try {
               final res =
                   await api.dio.post<List<int>>('/identity/me/data-export');
@@ -1027,8 +1027,15 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
               flush: true,
             );
           },
+          onSignOut: () async {
+            await ref.read(coraAuthServiceProvider).signOut();
+            api.clearAuthToken();
+            ref.read(activeUserProfileProvider.notifier).state = null;
+            if (privacyCtx.mounted) {
+              Navigator.of(privacyCtx).popUntil((route) => route.isFirst);
+            }
+          },
           onPurgeAccount: (phrase) async {
-            api.setAuthToken('mock-token:${profile.firebaseUid}');
             try {
               await api.dio.delete(
                 '/identity/me',
@@ -1042,6 +1049,8 @@ class DynamicHomeDashboardPage extends ConsumerWidget {
               // Proceed with local irreversible purge even if offline
             }
             await db.purgeAllLocalData();
+            await ref.read(coraAuthServiceProvider).deleteCurrentUser();
+            await ref.read(coraAuthServiceProvider).signOut();
             api.clearAuthToken();
             ref.read(activeUserProfileProvider.notifier).state = null;
             if (privacyCtx.mounted) {
