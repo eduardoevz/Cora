@@ -169,6 +169,10 @@ class _DoctorReportExportPageState
                         ),
                       ),
                       CoraMintStatusPill(
+                        label: 'CONFIDENCIAL',
+                        variant: CoraStatusPillVariant.blush,
+                      ),
+                      CoraMintStatusPill(
                         label: 'Formato A4',
                         variant: CoraStatusPillVariant.softMint,
                       ),

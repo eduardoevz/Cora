@@ -82,20 +82,20 @@ class _HotFlashTrackerPageState extends ConsumerState<HotFlashTrackerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: CoraMintStatusPill(
-                label: 'SÍNTOMAS VASOMOTORES • STRAW+10',
-                icon: Icons.thermostat_outlined,
-                variant: CoraStatusPillVariant.blush,
-              ),
-            ),
-            const SizedBox(height: 8),
             CoraSurfaceCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const CoraSectionLabel(title: 'Momento y Tipo'),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(child: CoraSectionLabel(title: 'Momento y Tipo')),
+                      CoraMintStatusPill(
+                        label: 'STRAW+10',
+                        variant: CoraStatusPillVariant.blush,
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 8),
                   SegmentedButton<HotFlashType>(
                     segments: const [
