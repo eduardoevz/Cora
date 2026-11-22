@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 
 class PartnerCompanionProjection {
   final String sharingUserName;
@@ -29,6 +31,7 @@ class PartnerCompanionViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final tokens = CoraTheme.tokensOf(context);
     final hasAnySharedContent = projection.isLinkActive &&
         (projection.pregnancyMilestone != null ||
             projection.fertilityWindowSummary != null ||
@@ -42,22 +45,23 @@ class PartnerCompanionViewPage extends StatelessWidget {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.teal.shade50,
+              color: tokens.follicularSurface,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.teal.shade300),
+              border:
+                  Border.all(color: tokens.follicular.withValues(alpha: 0.4)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.visibility_outlined,
-                    size: 16, color: Colors.teal.shade800),
+                    size: 16, color: tokens.follicular),
                 const SizedBox(width: 4),
                 Text(
                   'Solo Lectura',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: Colors.teal.shade900,
+                    color: tokens.follicular,
                   ),
                 ),
               ],
@@ -72,40 +76,24 @@ class PartnerCompanionViewPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
-            Card(
-              color: Colors.blueGrey.shade50,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: Colors.blueGrey.shade200),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(14.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.shield_outlined, color: Colors.blueGrey),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        'Espacio de apoyo respetuoso. La información aquí visible es decidida en todo momento por ella.',
-                        style: TextStyle(fontSize: 13, color: Colors.black87),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            const CoraInfoCallout(
+              title: 'Espacio de apoyo respetuoso',
+              subtitle:
+                  'La información aquí visible es decidida en todo momento por ella.',
+              icon: Icons.shield_outlined,
+              phaseKey: 'follicular',
             ),
             const SizedBox(height: 16),
             if (!projection.isLinkActive)
-              _buildInactiveNotice()
+              _buildInactiveNotice(tokens)
             else if (!hasAnySharedContent)
-              _buildEmptySharedNotice()
+              _buildEmptySharedNotice(tokens)
             else ...[
               if (projection.pregnancyMilestone != null)
                 _buildCard(
                   keyPrefix: 'pregnancy_milestone',
                   icon: Icons.child_friendly_outlined,
-                  iconColor: Colors.purple,
+                  iconColor: tokens.luteal,
                   title: 'Hito de Embarazo',
                   content: projection.pregnancyMilestone!,
                   theme: theme,
@@ -114,7 +102,7 @@ class PartnerCompanionViewPage extends StatelessWidget {
                 _buildCard(
                   keyPrefix: 'fertility_window',
                   icon: Icons.favorite_border,
-                  iconColor: Colors.pink,
+                  iconColor: tokens.menstrual,
                   title: 'Ventana de Fertilidad y Ciclo',
                   content: projection.fertilityWindowSummary!,
                   theme: theme,
@@ -123,7 +111,7 @@ class PartnerCompanionViewPage extends StatelessWidget {
                 _buildCard(
                   keyPrefix: 'mood_tip',
                   icon: Icons.lightbulb_outline,
-                  iconColor: Colors.amber.shade800,
+                  iconColor: tokens.ovulatory,
                   title: 'Consejo de Apoyo y Bienestar',
                   content: projection.moodAndSupportTip!,
                   theme: theme,
@@ -135,61 +123,39 @@ class PartnerCompanionViewPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInactiveNotice() {
-    return Container(
+  Widget _buildInactiveNotice(CoraColorTokens tokens) {
+    return CoraSurfaceCard(
       key: const Key('partner_inactive_notice'),
+      backgroundColor: tokens.alertPreventiveSurface,
+      borderColor: tokens.alertPreventive.withValues(alpha: 0.4),
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.amber.shade50,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.amber.shade200),
-      ),
       child: Column(
         children: [
           Icon(Icons.pause_circle_outline,
-              size: 48, color: Colors.amber.shade800),
+              size: 48, color: tokens.alertPreventive),
           const SizedBox(height: 12),
           const Text(
             'Enlace en pausa o revocado',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'El acceso compartido no se encuentra activo actualmente. Conversa con tu compañera si necesitas reactivar el vínculo.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black87, fontSize: 14),
+            style: TextStyle(color: tokens.textSecondary, fontSize: 14),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildEmptySharedNotice() {
-    return Container(
-      key: const Key('partner_empty_shared_notice'),
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Column(
-        children: [
-          Icon(Icons.lock_clock_outlined,
-              size: 48, color: Colors.grey.shade600),
-          const SizedBox(height: 12),
-          const Text(
-            'Sin información compartida por ahora',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Tu compañera aún no ha activado ámbitos de información para compartir. Recuerda que la privacidad de su salud siempre es su prioridad.',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black54, fontSize: 14),
-          ),
-        ],
-      ),
+  Widget _buildEmptySharedNotice(CoraColorTokens tokens) {
+    return const CoraEmptyStateCard(
+      key: Key('partner_empty_shared_notice'),
+      icon: Icons.lock_clock_outlined,
+      title: 'Sin información compartida por ahora',
+      subtitle:
+          'Tu compañera aún no ha activado ámbitos de información para compartir. Recuerda que la privacidad de su salud siempre es su prioridad.',
     );
   }
 
@@ -201,12 +167,10 @@ class PartnerCompanionViewPage extends StatelessWidget {
     required String content,
     required ThemeData theme,
   }) {
-    return Card(
-      key: Key('card_$keyPrefix'),
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      elevation: 2,
-      child: Padding(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: CoraSurfaceCard(
+        key: Key('card_$keyPrefix'),
         padding: const EdgeInsets.all(18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,7 +178,7 @@ class PartnerCompanionViewPage extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: iconColor.withValues(alpha: 0.15),
+                  backgroundColor: iconColor.withValues(alpha: 0.14),
                   child: Icon(icon, color: iconColor),
                 ),
                 const SizedBox(width: 12),
@@ -222,7 +186,7 @@ class PartnerCompanionViewPage extends StatelessWidget {
                   child: Text(
                     title,
                     style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
@@ -232,7 +196,7 @@ class PartnerCompanionViewPage extends StatelessWidget {
             Text(
               content,
               key: Key('content_$keyPrefix'),
-              style: theme.textTheme.bodyMedium?.copyWith(height: 1.4),
+              style: theme.textTheme.bodyMedium?.copyWith(height: 1.45),
             ),
           ],
         ),

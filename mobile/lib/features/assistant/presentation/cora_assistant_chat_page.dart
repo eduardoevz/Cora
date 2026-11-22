@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/assistant/domain/models/assistant_models.dart';
 import 'package:mobile/features/assistant/presentation/widgets/citation_chips_and_emergency_banner.dart';
 
@@ -75,6 +76,7 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Asistente Clínico Cora'),
@@ -83,11 +85,13 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
         children: [
           Container(
             width: double.infinity,
-            color: Colors.teal.shade50,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: const Text(
+            color: tokens.follicularSurface,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Text(
               'Orientación educativa basada en evidencia científica (OMS, ACOG, FIGO, NAMS). No reemplaza una consulta médica.',
-              style: TextStyle(fontSize: 12),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: tokens.textSecondary,
+                  ),
             ),
           ),
           Expanded(
@@ -108,12 +112,14 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
                       isUser ? Alignment.centerRight : Alignment.centerLeft,
                   child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 6),
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(14),
                     constraints: const BoxConstraints(maxWidth: 520),
                     decoration: BoxDecoration(
-                      color:
-                          isUser ? Colors.teal.shade700 : Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(12),
+                      color: isUser ? tokens.follicular : tokens.surface,
+                      borderRadius: BorderRadius.circular(16),
+                      border: isUser
+                          ? null
+                          : Border.all(color: tokens.borderSubtle),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +127,7 @@ class _CoraAssistantChatPageState extends State<CoraAssistantChatPage> {
                         Text(
                           msg.contentMarkdown,
                           style: TextStyle(
-                            color: isUser ? Colors.white : Colors.black87,
+                            color: isUser ? Colors.white : tokens.textPrimary,
                           ),
                         ),
                         if (!isUser && msg.citations.isNotEmpty)

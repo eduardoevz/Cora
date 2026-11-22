@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/theme/cora_design_components.dart';
+import 'package:mobile/core/theme/cora_theme.dart';
 import 'package:mobile/features/education/domain/models/clinical_article.dart';
 
 class ClinicalLibraryPage extends StatefulWidget {
@@ -61,8 +63,15 @@ class _ClinicalLibraryPageState extends State<ClinicalLibraryPage> {
           Expanded(
             child: filtered.isEmpty
                 ? const Center(
-                    child:
-                        Text('No se encontraron artículos para este filtro.'),
+                    child: Padding(
+                      padding: EdgeInsets.all(24),
+                      child: CoraEmptyStateCard(
+                        icon: Icons.menu_book_outlined,
+                        title: 'Sin resultados',
+                        subtitle:
+                            'No se encontraron artículos para este filtro.',
+                      ),
+                    ),
                   )
                 : ListView.separated(
                     padding: const EdgeInsets.all(16),
@@ -70,33 +79,47 @@ class _ClinicalLibraryPageState extends State<ClinicalLibraryPage> {
                     separatorBuilder: (_, __) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
                       final article = filtered[index];
-                      return Card(
+                      final tokens = CoraTheme.tokensOf(context);
+                      return CoraSurfaceCard(
                         key: Key('article_card_${article.slug}'),
-                        child: ListTile(
-                          title: Text(
-                            article.title,
-                            style: const TextStyle(fontWeight: FontWeight.w600),
+                        padding: EdgeInsets.zero,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: ListTile(
+                            title: Text(
+                              article.title,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w700),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 6),
+                                Text(article.summary),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '${article.scientificSource} • ${article.readingTimeMinutes} min de lectura',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                    color: tokens.textSecondary,
+                                    fontFeatures: const [
+                                      FontFeature.tabularFigures(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) =>
+                                      ArticleReaderPage(article: article),
+                                ),
+                              );
+                            },
                           ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 6),
-                              Text(article.summary),
-                              const SizedBox(height: 8),
-                              Text(
-                                '${article.scientificSource} • ${article.readingTimeMinutes} min de lectura',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (_) =>
-                                    ArticleReaderPage(article: article),
-                              ),
-                            );
-                          },
                         ),
                       );
                     },
