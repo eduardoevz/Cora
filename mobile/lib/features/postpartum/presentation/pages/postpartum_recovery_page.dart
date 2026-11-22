@@ -127,6 +127,14 @@ class _PostpartumRecoveryPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const CoraStitchPageHeader(
+              eyebrow: 'CUARTO TRIMESTRE',
+              title: 'Cuidado y Recuperación',
+              subtitle:
+                  'Monitoreo diario de loquios, temperatura materna, cicatrización y piso pélvico.',
+              eyebrowIcon: Icons.child_care_rounded,
+            ),
+            const SizedBox(height: 14),
             // Days Postpartum Selector
             CoraSurfaceCard(
               backgroundColor: tokens.follicularSurface,
@@ -210,6 +218,33 @@ class _PostpartumRecoveryPageState
               ),
             ),
             const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: LochiaStage.values.map((stage) {
+                final selected = _lochiaStage == stage;
+                return InkWell(
+                  borderRadius: BorderRadius.circular(14),
+                  onTap: () => setState(() => _lochiaStage = stage),
+                  child: CoraBlushInsetBox(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 10),
+                    backgroundColor:
+                        selected ? tokens.primaryDeep : tokens.blushInset,
+                    borderColor:
+                        selected ? tokens.primaryDeep : tokens.borderSubtle,
+                    child: Text(
+                      stage.displayName,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: selected ? Colors.white : tokens.textPrimary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 10),
             Card(
               elevation: 0,
               shape: RoundedRectangleBorder(

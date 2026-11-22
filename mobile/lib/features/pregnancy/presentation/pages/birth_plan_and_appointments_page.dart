@@ -282,24 +282,23 @@ class _BirthPlanAndAppointmentsPageState
 
   @override
   Widget build(BuildContext context) {
-    final tokens = CoraTheme.tokensOf(context);
     final existingPlanAsync = ref.watch(birthPlanProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plan de Parto y Citas'),
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: tokens.follicular,
-          unselectedLabelColor: tokens.textSecondary,
-          indicatorColor: tokens.follicular,
-          tabs: const [
-            Tab(icon: Icon(Icons.assignment_outlined), text: 'Plan de Parto'),
-            Tab(
-              icon: Icon(Icons.calendar_month_outlined),
-              text: 'Citas Prenatales',
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(58),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+            child: CoraPillTabBar(
+              controller: _tabController,
+              tabs: const [
+                Tab(text: 'Plan de Parto'),
+                Tab(text: 'Citas Prenatales'),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       body: TabBarView(

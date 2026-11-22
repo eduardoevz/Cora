@@ -167,6 +167,35 @@ class _MaternalVitalsPageState extends ConsumerState<MaternalVitalsPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          const CoraStitchPageHeader(
+            eyebrow: 'VIGILANCIA ACOG',
+            title: 'Signos Vitales Maternos',
+            subtitle:
+                'Control de presión arterial, glucosa gestacional y banderas rojas de preeclampsia.',
+            eyebrowIcon: Icons.monitor_heart_outlined,
+          ),
+          const SizedBox(height: 12),
+          CoraBlushInsetBox(
+            child: Wrap(
+              spacing: 10,
+              runSpacing: 6,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                const CoraMintStatusPill(
+                  label: 'Meta < 140/90 mmHg',
+                  variant: CoraStatusPillVariant.softMint,
+                ),
+                Text(
+                  'Alerta severa >= 160/110 mmHg',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: tokens.textSecondary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
           // Live Alert Banner if preeclampsia or risk triggered
           if (_currentAlerts.isNotEmpty) ...[
             ..._currentAlerts.map(

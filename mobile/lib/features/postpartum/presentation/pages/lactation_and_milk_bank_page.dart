@@ -320,12 +320,18 @@ class _LactationAndMilkBankPageState
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lactancia y Banco de Leche'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(icon: Icon(Icons.timer_outlined), text: 'Tomas y Cronómetro'),
-            Tab(icon: Icon(Icons.kitchen_outlined), text: 'Banco de Leche'),
-          ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(58),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+            child: CoraPillTabBar(
+              controller: _tabController,
+              tabs: const [
+                Tab(text: 'Tomas y Cronómetro'),
+                Tab(text: 'Banco de Leche'),
+              ],
+            ),
+          ),
         ),
       ),
       body: TabBarView(

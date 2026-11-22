@@ -31,197 +31,209 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
           final trimester = summary.trimester;
           final daysToEdd = summary.daysToEdd;
 
-          return ListView(
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-            children: [
-              // Hero Gestational Header Card
-              CoraSurfaceCard(
-                backgroundColor: tokens.follicularSurface,
-                borderColor: tokens.follicular.withValues(alpha: 0.35),
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Semana $weeks + $days días',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: tokens.follicular,
-                                  fontFeatures: const [
-                                    FontFeature.tabularFigures(),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Trimestre $trimester • $daysToEdd días para FPP',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                  color: tokens.textSecondary,
-                                  fontFeatures: const [
-                                    FontFeature.tabularFigures(),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: tokens.surface,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: tokens.borderSubtle),
-                          ),
-                          child: Icon(
-                            Icons.child_friendly_outlined,
-                            size: 30,
-                            color: tokens.follicular,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: LinearProgressIndicator(
-                        value: (weeks / 40.0).clamp(0.0, 1.0),
-                        backgroundColor: tokens.surface,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          tokens.follicular,
-                        ),
-                        minHeight: 8,
-                      ),
-                    ),
-                  ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CoraStitchPageHeader(
+                  eyebrow: 'SEGUIMIENTO OBSTÉTRICO ACOG',
+                  title: 'Desarrollo Gestacional',
+                  subtitle:
+                      'Control semanal, signos vitales maternos y preparación al nacimiento.',
+                  eyebrowIcon: Icons.pregnant_woman_rounded,
+                  trailing: CoraMintStatusPill(
+                    label: 'Trimestre $trimester',
+                    variant: CoraStatusPillVariant.mint,
+                  ),
                 ),
-              ),
-
-              const SizedBox(height: 16),
-
-              // Developmental highlights
-              CoraSurfaceCard(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.eco_outlined, color: tokens.follicular),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            'Tamaño de tu bebé en la semana $weeks',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(fontWeight: FontWeight.w700),
+                const SizedBox(height: 14),
+                // Hero Gestational Header Card
+                CoraSurfaceCard(
+                  backgroundColor: tokens.blushInset,
+                  borderColor: tokens.borderSubtle,
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CoraCircularProgressRing(
+                            progress: (weeks / 40.0).clamp(0.0, 1.0),
+                            centerLabel: 'S$weeks',
+                            centerSublabel: 'de 40',
+                            size: 76,
+                            strokeWidth: 7,
+                            progressColor: tokens.primaryDeep,
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: tokens.follicularSurface,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: tokens.borderSubtle),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Semana $weeks + $days días',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: tokens.primaryDeep,
+                                    fontFeatures: const [
+                                      FontFeature.tabularFigures(),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Trimestre $trimester • $daysToEdd días para FPP',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                    color: tokens.textSecondary,
+                                    fontFeatures: const [
+                                      FontFeature.tabularFigures(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      child: Text(
-                        _getFruitDescription(weeks),
+                      const SizedBox(height: 16),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: LinearProgressIndicator(
+                          value: (weeks / 40.0).clamp(0.0, 1.0),
+                          backgroundColor: tokens.surface,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            tokens.primaryDeep,
+                          ),
+                          minHeight: 8,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Developmental highlights
+                CoraSurfaceCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.eco_outlined, color: tokens.follicular),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Tamaño de tu bebé en la semana $weeks',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: tokens.follicularSurface,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: tokens.borderSubtle),
+                        ),
+                        child: Text(
+                          _getFruitDescription(weeks),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: tokens.textPrimary,
+                                  ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        _getMilestoneHighlight(weeks),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: tokens.textPrimary,
+                              color: tokens.textSecondary,
+                              height: 1.45,
                             ),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      _getMilestoneHighlight(weeks),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: tokens.textSecondary,
-                            height: 1.45,
-                          ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 20),
-              const CoraSectionLabel(
-                  title: 'Herramientas Clínicas Obstétricas'),
-              const SizedBox(height: 10),
+                const SizedBox(height: 20),
+                const CoraSectionLabel(
+                    title: 'Herramientas Clínicas Obstétricas'),
+                const SizedBox(height: 10),
 
-              // Action Tiles
-              _buildFeatureTile(
-                context: context,
-                icon: Icons.monitor_heart_outlined,
-                color: tokens.alertUrgent,
-                title: 'Signos Vitales y Alertas ACOG',
-                subtitle:
-                    'Monitor de presión arterial, glucemia, peso y síntomas de alarma',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          MaternalVitalsPage(episode: summary.episode),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              _buildFeatureTile(
-                context: context,
-                icon: Icons.timer_outlined,
-                color: tokens.luteal,
-                title: 'Cronómetro de Contracciones y Patadas',
-                subtitle:
-                    'Regla 5-1-1 / Pretérmino y Contador Cardiff de 10 patadas',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ContractionAndKickTimersPage(
-                        episode: summary.episode,
-                        gestationalWeeks: weeks,
+                // Action Tiles
+                _buildFeatureTile(
+                  context: context,
+                  icon: Icons.monitor_heart_outlined,
+                  color: tokens.alertUrgent,
+                  title: 'Signos Vitales y Alertas ACOG',
+                  subtitle:
+                      'Monitor de presión arterial, glucemia, peso y síntomas de alarma',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            MaternalVitalsPage(episode: summary.episode),
                       ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              _buildFeatureTile(
-                context: context,
-                icon: Icons.assignment_outlined,
-                color: tokens.follicular,
-                title: 'Plan de Parto y Citas Prenatales',
-                subtitle:
-                    'Preferencias de parto, acompañamiento y agenda médica',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => BirthPlanAndAppointmentsPage(
-                        episode: summary.episode,
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+                _buildFeatureTile(
+                  context: context,
+                  icon: Icons.timer_outlined,
+                  color: tokens.luteal,
+                  title: 'Cronómetro de Contracciones y Patadas',
+                  subtitle:
+                      'Regla 5-1-1 / Pretérmino y Contador Cardiff de 10 patadas',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ContractionAndKickTimersPage(
+                          episode: summary.episode,
+                          gestationalWeeks: weeks,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+                _buildFeatureTile(
+                  context: context,
+                  icon: Icons.assignment_outlined,
+                  color: tokens.follicular,
+                  title: 'Plan de Parto y Citas Prenatales',
+                  subtitle:
+                      'Preferencias de parto, acompañamiento y agenda médica',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BirthPlanAndAppointmentsPage(
+                          episode: summary.episode,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),

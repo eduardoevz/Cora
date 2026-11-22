@@ -204,6 +204,35 @@ class _EpdsMentalHealthPageState extends ConsumerState<EpdsMentalHealthPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const CoraStitchPageHeader(
+              eyebrow: 'BIENESTAR EMOCIONAL POSPARTO',
+              title: 'Cuestionario Clínico',
+              subtitle:
+                  'Tu salud mental es tan importante como tu recuperación física.',
+              eyebrowIcon: Icons.spa_outlined,
+              mintEyebrow: true,
+            ),
+            const SizedBox(height: 12),
+            CoraBlushInsetBox(
+              backgroundColor: tokens.verifiedSurface,
+              borderColor: tokens.verified.withValues(alpha: 0.25),
+              child: Row(
+                children: [
+                  Icon(Icons.support_agent_outlined, color: tokens.verified),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Apoyo confidencial 24/7 disponible si lo necesitas.',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: tokens.verified,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
             // Intro Card
             const CoraInfoCallout(
               title: 'Escala de Edimburgo (EPDS)',

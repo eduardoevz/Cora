@@ -217,23 +217,21 @@ class _ContractionAndKickTimersPageState
 
   @override
   Widget build(BuildContext context) {
-    final tokens = CoraTheme.tokensOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contracciones y Patadas'),
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: tokens.luteal,
-          unselectedLabelColor: tokens.textSecondary,
-          indicatorColor: tokens.luteal,
-          tabs: const [
-            Tab(
-                icon: Icon(Icons.timer_outlined),
-                text: 'Contracciones (5-1-1)'),
-            Tab(
-                icon: Icon(Icons.child_care_outlined),
-                text: 'Contador Cardiff (10)'),
-          ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(58),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+            child: CoraPillTabBar(
+              controller: _tabController,
+              tabs: const [
+                Tab(text: 'Contracciones (5-1-1)'),
+                Tab(text: 'Contador Cardiff (10)'),
+              ],
+            ),
+          ),
         ),
       ),
       body: TabBarView(
