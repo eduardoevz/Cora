@@ -10,6 +10,9 @@ from app.modules.clinical_tracking.domain.value_objects.bleeding_and_symptoms im
     PatientCycleContext,
 )
 from app.modules.identity.domain.value_objects.life_stage import LifeStage
+from app.modules.identity.domain.value_objects.onboarding_context import (
+    CycleRegularity,
+)
 
 
 class CyclePhaseAndPredictionService:
@@ -19,13 +22,107 @@ class CyclePhaseAndPredictionService:
     conditions.
     """
 
+    @staticmethod
+    def estimate_cycle_length(
+        cycles: list[MenstrualCycle],
+        context: PatientCycleContext,
+    ) -> int:
+        """Estimate cycle length prioritizing recorded history then baseline."""
+        completed_lengths = [
+            c.cycle_length_days
+            for c in cycles
+            if c.cycle_length_days is not None and 15 <= c.cycle_length_days <= 90
+        ]
+        if len(completed_lengths) >= 2:
+            return int(round(statistics.median(completed_lengths)))
+        if len(completed_lengths) == 1:
+            return completed_lengths[0]
+        if context.typical_cycle_length_days is not None:
+            return context.typical_cycle_length_days
+        return (
+            32
+            if (context.life_stage == LifeStage.ADOLESCENCE or context.has_pcos)
+            else 28
+        )
+
+    @staticmethod
+    def has_uncertainty(context: PatientCycleContext) -> bool:
+        """Determine whether biological predictions carry widened uncertainty."""
+        return (
+            context.life_stage in (LifeStage.ADOLESCENCE, LifeStage.PERIMENOPAUSE)
+            or context.has_pcos
+            or context.cycle_regularity == CycleRegularity.IRREGULAR
+        )
+
     def compute_status(
         self,
         cycles: list[MenstrualCycle],
         context: PatientCycleContext,
         reference_date: date,
     ) -> CycleStatusSnapshot:
+        if context.life_stage == LifeStage.PREGNANCY:
+            return CycleStatusSnapshot(
+                current_cycle_id=None,
+                day_in_cycle=None,
+                current_phase=CyclePhase.HORMONALLY_MANAGED,
+                predicted_next_period=None,
+                fertile_window_start=None,
+                fertile_window_end=None,
+                ovulation_date=None,
+                is_hormonally_managed=True,
+                has_extended_uncertainty=False,
+                phase_description_es=(
+                    "Etapa de gestación activa. El ciclo menstrual y la ovulación "
+                    "permanecen fisiológicamente pausados durante el embarazo."
+                ),
+                daily_tip_es=(
+                    "Registra tu presión arterial y síntomas maternos en tu Hub "
+                    "Maternal para tu seguimiento ACOG."
+                ),
+            )
+
+        if context.life_stage == LifeStage.SENIOR_VITALITY:
+            return CycleStatusSnapshot(
+                current_cycle_id=None,
+                day_in_cycle=None,
+                current_phase=CyclePhase.HORMONALLY_MANAGED,
+                predicted_next_period=None,
+                fertile_window_start=None,
+                fertile_window_end=None,
+                ovulation_date=None,
+                is_hormonally_managed=False,
+                has_extended_uncertainty=False,
+                phase_description_es=(
+                    "Etapa de plenitud posmenopáusica. Tus recordatorios están "
+                    "enfocados en prevención cardiovascular, ósea y chequeos anuales."
+                ),
+                daily_tip_es=(
+                    "Mantén hidratación, fuerza muscular suave y tus controles "
+                    "preventivos al día."
+                ),
+            )
+
         if not cycles:
+            if context.life_stage == LifeStage.POSTPARTUM:
+                return CycleStatusSnapshot(
+                    current_cycle_id=None,
+                    day_in_cycle=None,
+                    current_phase=CyclePhase.HORMONALLY_MANAGED,
+                    predicted_next_period=None,
+                    fertile_window_start=None,
+                    fertile_window_end=None,
+                    ovulation_date=None,
+                    is_hormonally_managed=True,
+                    has_extended_uncertainty=True,
+                    phase_description_es=(
+                        "Etapa de posparto y lactancia. El retorno menstrual es "
+                        "gradual y variable tras el nacimiento."
+                    ),
+                    daily_tip_es=(
+                        "Prioriza descanso, hidratación y registro de recuperación y "
+                        "bienestar emocional EPDS."
+                    ),
+                )
             return CycleStatusSnapshot(
                 current_cycle_id=None,
                 day_in_cycle=None,
@@ -35,12 +132,10 @@ class CyclePhaseAndPredictionService:
                 fertile_window_end=None,
                 ovulation_date=None,
                 is_hormonally_managed=context.is_hormonally_suppressed,
-                has_extended_uncertainty=(
-                    context.life_stage == LifeStage.ADOLESCENCE or context.has_pcos
-                ),
+                has_extended_uncertainty=self.has_uncertainty(context),
                 phase_description_es=(
                     "Sin ciclos registrados aún. "
-                    "Registra tu sangrado para iniciar el seguimiento."
+                    "Registra tu sangrado o últimos periodos para iniciar."
                 ),
                 daily_tip_es=(
                     "Bienvenida a Cora. "
@@ -58,24 +153,12 @@ class CyclePhaseAndPredictionService:
         )
 
         day_in_cycle = max(1, (reference_date - current_cycle.start_date).days + 1)
-
-        # Estimate cycle length from historical completed cycles
-        completed_lengths = [
-            c.cycle_length_days
-            for c in sorted_cycles
-            if c.cycle_length_days is not None and c.cycle_length_days > 0
-        ]
-
-        if completed_lengths:
-            median_length = int(round(statistics.median(completed_lengths)))
-        else:
-            median_length = (
-                32
-                if (context.life_stage == LifeStage.ADOLESCENCE or context.has_pcos)
-                else 28
-            )
-
-        bleeding_duration = current_cycle.bleeding_duration_days or 5
+        median_length = self.estimate_cycle_length(sorted_cycles, context)
+        bleeding_duration = (
+            current_cycle.bleeding_duration_days
+            or context.typical_bleeding_duration_days
+            or 5
+        )
 
         # 1. Hormonally Managed Cycle
         if context.is_hormonally_suppressed:
@@ -102,9 +185,7 @@ class CyclePhaseAndPredictionService:
             )
 
         # 2. Natural Cycle Predictions
-        has_extended_uncertainty = (
-            context.life_stage == LifeStage.ADOLESCENCE or context.has_pcos
-        )
+        has_extended_uncertainty = self.has_uncertainty(context)
 
         # Luteal phase standard is ~14 days; ovulation is cycle_length - 14
         ovulation_day = max(bleeding_duration + 2, median_length - 14)

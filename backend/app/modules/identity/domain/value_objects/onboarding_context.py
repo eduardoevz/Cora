@@ -3,10 +3,20 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from enum import StrEnum
 
+from app.core.errors import DomainError
 from app.modules.identity.domain.exceptions.identity_exceptions import (
     InvalidBirthYearError,
     InvalidOnboardingGoalsError,
 )
+
+
+class CycleRegularity(StrEnum):
+    """Self-reported menstrual cycle regularity established during onboarding."""
+
+    REGULAR = "regular"
+    IRREGULAR = "irregular"
+    UNSURE = "unsure"
+    NOT_APPLICABLE = "not_applicable"
 
 
 class PrimaryIntent(StrEnum):
@@ -54,6 +64,9 @@ class OnboardingContext:
     hormonal_method: HormonalMethod | None = None
     diagnosed_conditions: Sequence[DiagnosedCondition] = field(default_factory=tuple)
     clinical_context_completed: bool = False
+    cycle_regularity: CycleRegularity = CycleRegularity.UNSURE
+    typical_cycle_length_days: int | None = None
+    typical_bleeding_duration_days: int | None = None
 
     def __post_init__(self) -> None:
         current_year = datetime.now(UTC).year
@@ -63,6 +76,28 @@ class OnboardingContext:
         if not (min_year <= self.birth_year <= max_year):
             raise InvalidBirthYearError(
                 f"El año de nacimiento debe estar entre {min_year} y {max_year}."
+            )
+
+        if self.typical_cycle_length_days is not None and not (
+            15 <= self.typical_cycle_length_days <= 90
+        ):
+            raise DomainError(
+                code="invalid_cycle_length",
+                title="Duración del Ciclo Inválida",
+                detail="La duración habitual del ciclo debe estar entre 15 y 90 días.",
+                status_code=400,
+            )
+
+        if self.typical_bleeding_duration_days is not None and not (
+            1 <= self.typical_bleeding_duration_days <= 15
+        ):
+            raise DomainError(
+                code="invalid_bleeding_duration",
+                title="Duración de Sangrado Inválida",
+                detail=(
+                    "La duración habitual del sangrado debe estar entre 1 y 15 días."
+                ),
+                status_code=400,
             )
 
         # Deduplicate while preserving order
