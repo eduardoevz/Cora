@@ -145,17 +145,61 @@ class PregnancyWeeklyHubPage extends ConsumerWidget {
                         width: double.infinity,
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: tokens.follicularSurface,
-                          borderRadius: BorderRadius.circular(12),
+                          color: tokens.blushInset,
+                          borderRadius: BorderRadius.circular(14),
                           border: Border.all(color: tokens.borderSubtle),
                         ),
-                        child: Text(
-                          _getFruitDescription(weeks),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: tokens.textPrimary,
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                'assets/images/pregnancy_fetal_botanical.jpg',
+                                width: 64,
+                                height: 64,
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, __, ___) => Container(
+                                  width: 64,
+                                  height: 64,
+                                  color: tokens.surfaceContainer,
+                                  child: Icon(
+                                    Icons.eco_outlined,
+                                    color: tokens.primaryDeep,
                                   ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'TAMAÑO COMPARATIVO',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color: tokens.verified,
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: 0.6,
+                                        ),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    _getFruitDescription(weeks),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: tokens.textPrimary,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 12),
