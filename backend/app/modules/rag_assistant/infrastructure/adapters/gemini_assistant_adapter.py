@@ -99,7 +99,7 @@ class GeminiClinicalAssistantAdapter:
                     response_format=StructuredLLMOutputSchema.model_json_schema(),
                     response_mime_type="application/json",
                     api_version="v1beta",
-                    timeout=15.0,
+                    timeout=25.0,
                     store=False,
                 )
                 raw_text = self._extract_text(interaction)
